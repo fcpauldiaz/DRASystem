@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
    
         <meta charset="utf-8">
@@ -8,7 +12,8 @@
         <meta name="viewport" content="width=device-width">
 
         
-        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
         
         <style>
             body {
@@ -16,15 +21,18 @@
                 padding-bottom: 20px;
             }
         #f6 {
-    font-weight: 200;
-    height: 50px;
-    width: 50px;
+	font-weight: 200;
+	height: 50px;
+	width: 50px;
 }
         </style>
-        <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css')}}">
-        <link rel="stylesheet" href="{{asset('css/main.css')}}">
-        <script src="{{asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
-  
+        <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="../static/css/main.css">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/main.css">
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="{{STATIC_URL}}js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -74,7 +82,7 @@
               <input  name="password" type="password"class="form-control" id ="password" placeholder="contraseña" >
             </div>
             <button type="submit" name="btnform1" class="btn btn-success">Entrar</button>
-           
+            {% csrf_token %}
             <a href="/usuarios/trabajadores" role="button" class="btn btn-success">Crear Usuario</a>
             <a href="/resetpassword/" role="button" class="btn btn-success">Olvidé contraseña</a>
           </form>
@@ -88,7 +96,17 @@
       <div class="container">
         <h1>Díaz Reyes &amp; Asociados, S.C.</h1>
         <p>Página web interna para el control de los trabajadores y clientes.</p>
-          
+        {% if messages %}
+        <div class = 'col-xs-12'>
+		<ul class="messages">
+    	{% for message in messages %}
+    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+    
+        {% endif %}
+        
       </div>
     </div>
 
@@ -125,11 +143,11 @@
         <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2014 creado por Pablo Díaz. Todos los derechos reservados.</p>
       </footer>
     </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery-1.10.1.min.js')}}"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="{{STATIC_URL}}js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
-        <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
+        <script src="{{STATIC_URL}}js/vendor/bootstrap.min.js"></script>
 
-        <script src="{{asset('js/main.js')}}"></script>
+        <script src="{{STATIC_URL}}js/main.js"></script>
 
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
