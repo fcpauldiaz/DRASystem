@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width">
 
         
-        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+       
         
         <style>
             body {
@@ -21,110 +21,24 @@
     width: 50px;
 }
         </style>
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
         <script src="{{asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
   
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" >Control Interno</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Inicio</a></li>
-           <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Clientes</a></li>
-                <li><a href="#">Empresas</a></li>
-
-             </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Sección usuarios</li>
-                <li><a href="/usuarios/perfil">Perfil</a>
-                <li><a href="/admin">Administración</a>
-                <li><a href="/cerrar">Cerrar sesión</a>
-              </ul>
-            </li>
-            <li><a href="/contacto">Contactar</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" id='formulario_ingreso'method='post' action=''>
-           <div class="form-group">
-               <input name="username" type="text" class="form-control" id="username" placeholder="usuario">
-            </div>
-            <div class="form-group">
-              <input  name="password" type="password"class="form-control" id ="password" placeholder="contraseña" >
-            </div>
-            <button type="submit" name="btnform1" class="btn btn-success">Entrar</button>
-           
-            <a href="/usuarios/trabajadores" role="button" class="btn btn-success">Crear Usuario</a>
-            <a href="/resetpassword/" role="button" class="btn btn-success">Olvidé contraseña</a>
-          </form>
-          
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Díaz Reyes &amp; Asociados, S.C.</h1>
-        <p>Página web interna para el control de los trabajadores y clientes.</p>
-          
-      </div>
-    </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Gerentes</h2>
-          <p>El primer paso es crear los usuarios tipo gerente.</p>
-          <p><a class="btn btn-primary btn-lg" href="/usuarios/gerentes">Crear usuario</a></p>
-        </div>
-        <div class="col-lg-4">
-          <h2>Trabajadores</h2>
-          <p>El segundo paso es crear los usuarios tipo trabajador.</p>
-          <p><a class="btn btn-primary btn-lg" href="/usuarios/trabajadores">Crear usuario</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>Consultas</h2>
-          <p>Una vez ingresada toda la información necesaria, se pueden hacer las consultas de diferentes formas.</p>
-           
-          <p><a class="btn btn-primary btn-lg" href="#">Consultar</a></p>
-        </div>
-        
-        <br>
-         
-        
-        
-        
-      </div>
-
+      {% block body %}
+      
       <hr>
 
+      {% endblock %}
       <footer>
         <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2014 creado por Pablo Díaz. Todos los derechos reservados.</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    </div> <!-- /container -->        
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery-1.10.1.min.js')}}"><\/script>')</script>
 
         <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>

@@ -1,4 +1,6 @@
 services:
+    fos_user.doctrine_registry:
+        alias: doctrine
     user_bundle.registration.form.type:
         class: UserBundle\Form\Type\RegistrationFormType
         tags:

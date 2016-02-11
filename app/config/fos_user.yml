@@ -2,3 +2,33 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: UserBundle\Entity\Usuario
+    service:
+        user_manager: pugx_user_manager
+
+pugx_multi_user:
+  users:
+    user_one:
+        entity: 
+          class: UserBundle\Entity\UsuarioTrabajador
+#          factory: 
+        registration:
+          form: 
+            type: UserBundle\Form\Type\RegistrationFormType
+            name: fos_user_registration_form
+            validation_groups:  [Registration, Default]
+          template: UserBundle:Registration:register_content.html.twig
+        profile:
+          form:
+            type: UserBundle\Form\Type\ProfileFormType
+            name: fos_user_profile_form
+            validation_groups:  [Profile, Default] 
+    user_two:
+        entity: 
+          class: UserBundle\Entity\UsuarioSocio
+        registration:
+          form: 
+            type: UserBundle\Form\Type\RegistrationFormType
+          template: UserBundle:Registration:register.html.twig
+        profile:
+          form: 
+            type: UserBundle\Form\Type\ProfileFormType

@@ -9,10 +9,15 @@ use FOS\UserBundle\Model\User as BaseUser;
 //sirve para validar los campos del formulario
 
 /**
- * @ORM\Table(name="usuario")
  * @ORM\Entity
+ * @ORM\Table(name="usuario")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"usuario_trabajador" = "UsuarioTrabajador", "usuario_socio" = "UsuarioSocio"})
+ *
+ * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
-class Usuario extends BaseUser
+abstract class Usuario extends BaseUser
 {
     /**
      * @var int
@@ -33,25 +38,6 @@ class Usuario extends BaseUser
      * @ORM\Column(name="apellidos", type="string", length=100)
      */
     protected $apellidos;
-
-    /**
-     * @var  string [<description>]
-     * @ORM\Column(name="dpi",type="string",length=20, unique=true)
-     */
-    protected $dpi;
-
-    /**
-     * Número de identificación tributaria
-     * @var  string 
-     * @ORM\Column(name="nit", type="string",length=20,unique=true)
-     */
-    protected $nit;
-
-    /**
-     * @var int
-     * @ORM\Column(name="telefono", type="integer",nullable=true)
-     */
-    protected $telefono;
 
 
     /**
@@ -148,80 +134,11 @@ class Usuario extends BaseUser
         return $this->apellidos;
     }
 
-    /**
-     * Set telefono.
-     *
-     * @param int $telefono
-     *
-     * @return Usuario
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-
-        return $this;
-    }
-
-    /**
-     * Get telefono.
-     *
-     * @return int
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
 
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
     }
 
-    /**
-     * Set dpi
-     *
-     * @param string $dpi
-     *
-     * @return Usuario
-     */
-    public function setDpi($dpi)
-    {
-        $this->dpi = $dpi;
 
-        return $this;
-    }
-
-    /**
-     * Get dpi
-     *
-     * @return string
-     */
-    public function getDpi()
-    {
-        return $this->dpi;
-    }
-
-    /**
-     * Set nit
-     *
-     * @param string $nit
-     *
-     * @return Usuario
-     */
-    public function setNit($nit)
-    {
-        $this->nit = $nit;
-
-        return $this;
-    }
-
-    /**
-     * Get nit
-     *
-     * @return string
-     */
-    public function getNit()
-    {
-        return $this->nit;
-    }
 }

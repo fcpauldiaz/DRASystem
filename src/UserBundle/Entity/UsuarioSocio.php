@@ -11,6 +11,10 @@ use UserBundle\Entity\Usuario;
  * @ORM\Table(name="usuario_socio")
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email", targetClass = "UserBundle\Entity\Usuario", message="fos_user.email.already_used")
+ *
+ *  El usuario Socio no necesita guardar todas los campos de un usuario trabajador
+ * Solo necesita los básicos de FOSUserBundle
+ * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 class UsuarioSocio extends Usuario
 {
@@ -21,51 +25,8 @@ class UsuarioSocio extends Usuario
      */
     protected $id;
 
-    /**
-     * Set dpi
-     *
-     * @param string $dpi
-     *
-     * @return UsuarioSocio
-     */
-    public function setDpi($dpi)
+    public function __toString()
     {
-        $this->dpi = $dpi;
-
-        return $this;
-    }
-
-    /**
-     * Get dpi
-     *
-     * @return string
-     */
-    public function getDpi()
-    {
-        return $this->dpi;
-    }
-
-    /**
-     * Set nit
-     *
-     * @param string $nit
-     *
-     * @return UsuarioSocio
-     */
-    public function setNit($nit)
-    {
-        $this->nit = $nit;
-
-        return $this;
-    }
-
-    /**
-     * Get nit
-     *
-     * @return string
-     */
-    public function getNit()
-    {
-        return $this->nit;
+        return $this->nombre.' '.$this->apellidos;
     }
 }

@@ -11,6 +11,9 @@ use UserBundle\Entity\Usuario;
  * @ORM\Table(name="usuario_trabajador")
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email", targetClass = "UserBundle\Entity\Usuario", message="fos_user.email.already_used")
+ * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
+ *
+ * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 class UsuarioTrabajador extends Usuario
 {
@@ -33,6 +36,24 @@ class UsuarioTrabajador extends Usuario
      */
     protected $fechaEgreso;
 
+    /**
+     * @var  string DPI del trabajador
+     * @ORM\Column(name="dpi",type="string",length=20, unique=true)
+     */
+    protected $dpi;
+
+    /**
+     * Número de identificación tributaria
+     * @var  string 
+     * @ORM\Column(name="nit", type="string",length=20,unique=true)
+     */
+    protected $nit;
+
+    /**
+     * @var int
+     * @ORM\Column(name="telefono", type="integer",nullable=true)
+     */
+    protected $telefono;
 
 
     /**
@@ -88,7 +109,7 @@ class UsuarioTrabajador extends Usuario
      *
      * @param string $dpi
      *
-     * @return UsuarioTrabajador
+     * @return Usuario
      */
     public function setDpi($dpi)
     {
@@ -112,7 +133,7 @@ class UsuarioTrabajador extends Usuario
      *
      * @param string $nit
      *
-     * @return UsuarioTrabajador
+     * @return Usuario
      */
     public function setNit($nit)
     {
@@ -129,5 +150,34 @@ class UsuarioTrabajador extends Usuario
     public function getNit()
     {
         return $this->nit;
+    }
+
+        /**
+     * Set telefono.
+     *
+     * @param int $telefono
+     *
+     * @return Usuario
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono.
+     *
+     * @return int
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre.' '.$this->apellidos;
     }
 }

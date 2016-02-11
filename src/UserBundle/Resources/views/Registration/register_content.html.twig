@@ -8,10 +8,20 @@
 
             <div class="panel-body" >
 
-                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-group">
+                    <form action= "{% if app.request.attributes.get('_route') == 'user_one_registration' %}
+                    {{ path('user_one_registration_register') }}
+                    {% endif %}
+
+                    {% if app.request.attributes.get('_route') == 'user_two_registration' %}
+                    {{ path('fos_user_registration_register') }} 
+
+
+                  {% endif %} "
+
+                  {{ form_enctype(form) }} method="POST" class="form-group">
                 	
 
-
+    
     	
                    
                     {{form_start(form)}}

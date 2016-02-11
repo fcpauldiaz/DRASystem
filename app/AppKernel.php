@@ -22,9 +22,9 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             
             //Third party libraries
+           
             new FOS\UserBundle\FOSUserBundle(),
             new PUGX\MultiUserBundle\PUGXMultiUserBundle(),
-         
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
