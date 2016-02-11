@@ -1,0 +1,15 @@
+{% extends 'base_page.html.twig' %}
+
+{% block body_title %} <h1>Asginar Curso Nuevo</h1> {% endblock %}
+{% block body_content -%}
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('curso') }}">
+            Regresar
+        </a>
+    </li>
+</ul>
+{% endblock body_content %}

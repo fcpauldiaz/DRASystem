@@ -1,0 +1,10 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'resetting.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}
+{% endautoescape %}
+{% endblock %}
+
+
+{% block body_html %}
+{% include 'UserBundle:Resetting:master-reset.html.twig' %}
+{% endblock %}

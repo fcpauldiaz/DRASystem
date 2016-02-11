@@ -1,0 +1,41 @@
+<div id="loginbox" class="mainbox col-md-12"> 
+        
+       
+        <div class="panel panel-default" >
+            <div class="panel-heading">
+                <div class="panel-title text-center">Cambiar Contraseña </div>
+            </div>     
+
+            <div class="panel-body" >
+
+
+			<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+
+				{{form_start(form)}}
+
+
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok-sign"></i></span>
+
+                      	{{form_row(form.new.first,{'attr': {'class': 'form-control','placeholder':'Nueva Contraseña'}})}}
+
+                </div>
+            	</br>
+            	<div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-ok-circle"></i></span>
+
+                      	{{form_row(form.new.second,{'attr': {'class': 'form-control','placeholder':'Confirmar Nueva Contraseña'}})}}
+
+                </div>
+                <div class="form-group">
+			        <button type="submit" class="btn btn-primary btn-block" value="">
+			        	{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}
+			        </button>
+			    </div>
+
+			    {{form_end(form)}}
+			    
+			</form>
+        </div>                     
+    </div>  
+</div>

@@ -33,14 +33,18 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "friendsofsymfony/user-bundle": "^1.3",
+       "friendsofsymfony/user-bundle": "2.0.*@dev",
+        "pugx/multi-user-bundle": "3.0.*@dev",
         "javiereguiluz/easyadmin-bundle": "^1.9",
-        "braincrafted/bootstrap-bundle": "^2.1",
+        "braincrafted/bootstrap-bundle": "^2.2",
         "jquery/jquery": "1.11.*",
         "twbs/bootstrap": "3.*",
         "oyejorge/less.php": "~1.5",
         "stephanecollot/datetimepicker-bundle": "^1.0",
-        "stof/doctrine-extensions-bundle": "^1.2"
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "ibrows/loggable-bundle": "^2.2",
+        "leafo/scssphp": "^0.6.3",
+        "patchwork/jsqueeze": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
