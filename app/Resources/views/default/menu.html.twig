@@ -1,8 +1,4 @@
-{% extends 'default/base.html.twig' %}
 
-{% block body %}
-      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -39,46 +35,46 @@
             </li>
             <li><a href="/contacto">Contactar</a></li>
           </ul>
-         
-          
+          {% if app.user %}
+           <div class="pull-right">
+                <ul class="navigation nav nav-tabs">
+                    <li class="active dropdown">
+                      
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                       
+                        <ul class="dropdown-menu">
+                            <li class="navigation"><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
+                            <li class="navigation"><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
+                            <li class="navigation"></li>
+                            <li class="navigation"><a href="{{path('fos_user_security_logout')}}"><i class="icon-off"></i> Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#settings">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </li>
+                </ul>
+        </div>
+        {% else %}
+   
+          {# utilizar el controlador default de FOSUserBundle para mostrar el formulario de login 
+              Si se desea modificar esto, dirigirse a UserBundle:Resources:Views:login.html.twig
+          #}
+          {% render controller("FOSUserBundle:Security:login") %}
+        {% endif %}
+      
         </div><!--/.navbar-collapse -->
       </div>
     </div>
+    <script>
+    $(document).ready(function() {
+    $('body').tooltip({
+        selector: "[data-tab=tab]",
+        container: "body"
+    });
+});
+    </script>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Díaz Reyes &amp; Asociados, S.C.</h1>
-        <p>Página web interna para el control de los trabajadores y clientes.</p>
-          
-      </div>
-    </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Gerentes</h2>
-          <p>El primer paso es crear los usuarios tipo gerente.</p>
-          <p><a class="btn btn-primary btn-lg" href="/usuarios/gerentes">Crear usuario</a></p>
-        </div>
-        <div class="col-lg-4">
-          <h2>Trabajadores</h2>
-          <p>El segundo paso es crear los usuarios tipo trabajador.</p>
-          <p><a class="btn btn-primary btn-lg" href="/usuarios/trabajadores">Crear usuario</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>Consultas</h2>
-          <p>Una vez ingresada toda la información necesaria, se pueden hacer las consultas de diferentes formas.</p>
-           
-          <p><a class="btn btn-primary btn-lg" href="#">Consultar</a></p>
-        </div>
-        
-        <br>
-         
-        
-        
-        
-      </div>
-
-{% endblock %}

@@ -16,6 +16,8 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: security.csrf.token_manager
+                login_path: /
+                check_path: /check
             logout:       true
             anonymous:    true
             access_denied_url: /

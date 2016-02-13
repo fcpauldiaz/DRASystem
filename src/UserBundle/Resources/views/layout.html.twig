@@ -1,46 +1,7 @@
-{% extends 'base.html.twig' %}
-    
-    {% block body %}
-        
-        <br>
-        <br>
-        <br>
-        
-        <!-- Start Main Body Section -->
-        <div class="mainbody-section text-center">
-            <div class="container">
-                <div class="row">
-                    
-                    <div class="col-md-3">
-                        
-                        <div class="menu-item blue">
-                            <a href="#" data-toggle="modal">
-                                <i class="fa fa-magic"></i>
-                                
-                            </a>
-                        </div>
-                        
-                        <div class="menu-item green">
-                            <a href="#" data-toggle="modal">
-                                <i class="fa fa-file-photo-o"></i>
-                              
-                            </a>
-                        </div>
-                        
-                        <div class="menu-item light-red">
-                            <a href="#" data-toggle="modal">
-                                <i class="fa fa-user"></i>
-                               
-                            </a>
-                        </div>
-                        
-                    </div>
-                    
-                    <div class="col-md-6">
-                        
+
     <!-- Custom Section -->
 
-    <div style = "color: #000000">
+    <div style = "color: #ffffff">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                 <a href="{{ path('fos_user_security_logout') }}">
@@ -49,7 +10,7 @@
             {% else %}
                 
             {% endif %}
-        </div>
+    </div>
 
         {% for type, messages in app.session.flashBag.all %}
             {% for message in messages %}
@@ -65,66 +26,8 @@
     {% block fos_user_content %}
     {% endblock fos_user_content %}
        
-    <!-- End Custom Section -->
-                        
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="menu-item color responsive">
-                                    <a href="#" data-toggle="modal">
-                                        <i class="fa fa-area-chart"></i>
-                                        
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="menu-item light-orange responsive-2">
-                                    <a href="#" data-toggle="modal">
-                                        <i class="fa fa-users"></i>
-                                        
-                                    </a>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
-                    
-                    <div class="col-md-3">
-                        
-                       
-                        
-                        <div class="menu-item color">
-                            <a href="#" data-toggle="modal">
-                                <i class="fa fa-comment-o"></i>
-                                
-                            </a>
-                        </div>
-                        
-                        <div class="menu-item blue">
-                            <a href="#" data-toggle="modal">
-                                <i class="fa fa-mortar-board"></i>
-                               
-                            </a>
-                        </div>
-                       
-                        
-                        <div class="menu-item light-red">
-                            <a href="#" data-toggle="modal">
-                                <i class="fa fa-envelope-o"></i>
-                                
-                            </a>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Main Body Section -->
-        
-      
-       
+    
+            
         
         
-        
-    {% endblock body %}       
+    

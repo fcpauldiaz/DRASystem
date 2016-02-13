@@ -6,8 +6,20 @@ user:
     prefix:   /
 
 
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+fos_user_security_login:
+    path:      /login
+    defaults:  { _controller: FOSUserBundle:Security:login, _method: POST }
+
+fos_user_security_logout:
+    path:      /logout
+    defaults:  { _controller: FOSUserBundle:Security:logout, _method: GET }
+
+fos_user_security_check:
+    path:      /check
+    defaults:  { _controller: FOSUserBundle:Security:check, _method: POST }
+
+#fos_user_security:
+#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"

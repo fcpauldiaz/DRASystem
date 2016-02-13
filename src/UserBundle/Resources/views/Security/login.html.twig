@@ -1,49 +1,30 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
+{% trans_default_domain 'FOSUserBundle' %}
+
 {% block fos_user_content %}  
 {% if error %}
-    <div><p style="color: #000000 "> {{ error|trans({}, 'FOSUserBundle') }}</p></div>
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-    
-            <h4 style="border-bottom: 1px solid #c5c5c5; color: #000000 "><i class="glyphicon glyphicon-user"></i>Autenticación</h4>
-            <div style="padding: 45px;" id="form-olvidado">
-                <form accept-charset="UTF-8" role="form" id="login" name="form" method="POST" action="{{ path("fos_user_security_check") }}" >
-                  <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+ <form class="navbar-form navbar-right form-inline" id="login" name="form" method="POST" action="{{ path("fos_user_security_check") }}" >
+             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-                <fieldset>
-               <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="">
-                        </i>@</span>
-                        <input id="username" type="text" class="form-control" name="_username" value="" placeholder="{{ last_username|default('Usuario') }}" > 
-                </div>
-                 <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="password" type="password" class="form-control" name="_password" required="required" placeholder="Contraseña">
-                        </div>
-              
-                <div class="form-group">
-                  <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block">
+           <div class="form-group">
+               <input id="username" size="10" type="text" class="form-control" name="_username" value="" placeholder="{{ last_username|default('Usuario') }}" > 
+            </div>
+            <div class="form-group">
+              <input id="password" size="10" type="password" class="form-control" name="_password" required="required" placeholder="Contraseña">
+            </div>
+              <button type="submit" id="_submit" name="_submit" class="btn btn-custom">
                     Ingresar
-                  </button>
-                </div>
-                <div>
-                  <p class="help-block">
-                    <a  href="{{ path('fos_user_resetting_request') }}" name="_forgot_password"><small>Olvidaste tu contraseña?</small></a>
-                  </p>
-                </div>
-                 <div class="col-sm-12">
-                            <a class="btn btn-success btn-block" href="/register" ><i class="glyphicon glyphicon"></i>CREAR USUARIO</a> 
-                </fieldset>
-                </form>
-            </div>
-          <div style="display: none;" id="form-olvidado">
-            <h4 class="">
-              Olvidaste tu contraseña?
-            </h4>
+              </button>
+           
+            <a href="{{ path('fos_user_resetting_request') }}" role="button" class="btn btn-success btn-xs">Olvidé contraseña</a>
+          </form>
+
                 
-            </div>
-    
+  
     <!-- End Login Section -->
 {% endblock fos_user_content %}
                   

@@ -1,0 +1,58 @@
+
+.navbar-inverse {
+  background-color: #004C4C;
+  border-color: transparent;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: #A6974C;
+  background-color: transparent;
+}
+
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #A6974C;
+  ba
+
+}
+/*
+ * Sirve para quitar el redondeo de las esquinas de todos los botones
+.btn {
+    border-radius: 1px;
+}
+*/
+.btn-custom{
+	color: #ffffff;
+	background-color: #E26E67;
+}
+
+.navigation li {
+	float: left; 
+	margin: 0; 
+	padding: 0;
+
+}
+.navigation li a {
+	padding: 20px 30px; 
+	float: left;
+}
+.navigation li.active a {
+	background: #ffffff; 
+	color: #428BCA;
+}
+.user-info-block .user-body {
+	float: left; 
+	padding: 5%; 
+	width: 90%;
+}
+.user-body .tab-content > div {
+	float: left; 
+	width: 100%;
+}
+.user-body .tab-content h4 {
+	width: 100%; 
+	margin: 10px 0; 
+	color: #333;
+}
