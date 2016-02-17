@@ -4,7 +4,7 @@ easy_admin:
         UsuarioTrabajador:
             class: UserBundle\Entity\UsuarioTrabajador
             list:
-                fields: ['nombre','apellidos','username','email','cursos', 'enabled','lastLogin','roles']
+                fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
             new:
                 fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
             edit:
@@ -12,7 +12,7 @@ easy_admin:
         UsuarioSocio:
             class: UserBundle\Entity\UsuarioSocio
             list:
-                fields: ['nombre','apellidos','username','email','cursos', 'enabled','lastLogin','roles']
+                fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
             new:
                 fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
             edit:
