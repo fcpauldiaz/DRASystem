@@ -31,11 +31,9 @@
   
     </head>
     <body>
-      {% block body %}
-      
-      <hr>
-
-      {% endblock %}
+      {% include 'default/menu.html.twig' %}
+        {% block body %}
+        {% endblock body %}
       <footer>
         <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2016 creado por Newton Labs. Algunos derechos reservados.</p>
       </footer>

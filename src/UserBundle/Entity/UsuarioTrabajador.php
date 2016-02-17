@@ -51,7 +51,7 @@ class UsuarioTrabajador extends Usuario
 
     /**
      * @var int
-     * @ORM\Column(name="telefono", type="integer",nullable=true)
+     * @ORM\Column(name="telefono", type="string",length=15,nullable=true)
      */
     protected $telefono;
 
