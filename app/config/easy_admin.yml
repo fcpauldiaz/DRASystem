@@ -9,7 +9,7 @@ easy_admin:
                 fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
             edit:
                 fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
-       UsuarioSocio:
+        UsuarioSocio:
             class: UserBundle\Entity\UsuarioSocio
             list:
                 fields: ['nombre','apellidos','username','email','cursos', 'enabled','lastLogin','roles']
