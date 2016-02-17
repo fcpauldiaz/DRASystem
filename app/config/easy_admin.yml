@@ -1,0 +1,19 @@
+easy_admin:
+    site_name: 'DRA System'
+    entities:
+        UsuarioTrabajador:
+            class: UserBundle\Entity\UsuarioTrabajador
+            list:
+                fields: ['nombre','apellidos','username','email','cursos', 'enabled','lastLogin','roles']
+            new:
+                fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
+            edit:
+                fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
+       UsuarioSocio:
+            class: UserBundle\Entity\UsuarioSocio
+            list:
+                fields: ['nombre','apellidos','username','email','cursos', 'enabled','lastLogin','roles']
+            new:
+                fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
+            edit:
+                fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']

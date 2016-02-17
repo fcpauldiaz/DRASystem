@@ -1,0 +1,8 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block header_logo %}
+<a class="logo {{ easyadmin_config('site_name')|length > 14 ? 'logo-long' }}" title="{{ easyadmin_config('site_name')|striptags }}" href="{{ path('homepage') }}">
+        <span class="logo-mini">{{ easyadmin_config('site_name')|striptags|first|upper }}</span>
+        <span class="logo-lg">{{ easyadmin_config('site_name')|raw }}</span>
+  </a>
+{% endblock header_logo %}
