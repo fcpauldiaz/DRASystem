@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+	{{ form_stylesheet(form) }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+	<script src="{{asset('js/register.js')}}"></script>
+	<script src="{{asset('js/tab_register.js')}}"></script>
+	   {{ form_javascript(form) }}
+{% endblock %}
+
+{% block body %}
+
+	
+	{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+
+{% endblock body %}

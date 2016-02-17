@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+
+
+{% block javascripts %}
+	<script src="{{asset('js/register.js')}}"></script>
+{% endblock %}
+
+{% block body %}
+
+	
+	{% include "FOSUserBundle:Registration:register_content_socio.html.twig" %}
+
+{% endblock body %}

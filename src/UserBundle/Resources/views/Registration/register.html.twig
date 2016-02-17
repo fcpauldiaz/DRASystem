@@ -1,18 +1,9 @@
-{% extends "::base.html.twig" %}
 
-{% block stylesheets %}
-	{{ form_stylesheet(form) }}
-{% endblock stylesheets %}
 
-{% block javascripts %}
-	<script src="{{asset('js/register.js')}}"></script>
-	<script src="{{asset('js/tab_register.js')}}"></script>
-	   {{ form_javascript(form) }}
-{% endblock %}
+{% if app.request.attributes.get('_route') == 'trabajador_registration' %}
+	{% include 'UserBundle:Registration:register_trabajador.html.twig' %}
 
-{% block body %}
+{% else %}
 
-	
-	{% include "FOSUserBundle:Registration:register_content.html.twig" %}
-
-{% endblock body %}
+	{% include 'UserBundle:Registration:register_socio.html.twig' %}
+{% endif %}

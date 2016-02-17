@@ -11,33 +11,68 @@ class RegistrationSocioFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // agregar campos personalizados
-        $builder->add('nombre', 'text', ['label' => false,
-            'attr' => [
-                'placeholder' => 'Nombre/s',
-                'class' => 'form-control input-lg'
-            ],
+        $builder->add('nombre', null, [
+                'label' => 'Nombre/s',
+                'attr' => [
+                    'placeholder' => 'Nombre/s',
+                    'class' => 'form-control input-lg'
+                ],
 
             ])
-            ->add('apellidos', null, ['label' => false,
+            ->add('apellidos', null, [
+                'label' => 'Apellidos/s',
                 'attr' => [
-                 'placeholder' => 'Apellidos',
-                ],
+                        'placeholder' => 'Apellidos',
+                        'class' => 'form-control input-lg'
+                    ],
                 ])
-            ->add('username', null, ['label' => false, 'translation_domain' => 'FOSUserBundle'])
-            ->add('email', 'email', ['label' => false, 'translation_domain' => 'FOSUserBundle',
-                'required' => false,
+            ->add('username', null, [
+                    'label' => 'Usuario', 
+                    'translation_domain' => 'FOSUserBundle',
+                    'attr' => [
+                        'class' => 'form-control input-lg',
+                        'placeholder' => 'Nombre de Usuario'
+                    ]
                 ])
-             ->add('telefono', 'integer', ['label' => false, 'translation_domain' => 'FOSUserBundle',
-                'required' => false,
+            ->add('email', 'email', [
+                    'label' => 'Correo', 
+                    'translation_domain' => 'FOSUserBundle',
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'form-control input-lg',
+                        'placeholder' => 'Correo electrónico'
+                    ]
                 ])
+            
             ->add('plainPassword', 'repeated', [
-                'label' => false,
+                'label' => 'Contraseña',
                 'type' => 'password',
                 'options' => ['translation_domain' => 'FOSUserBundle'],
-                'first_options' => ['label' => false],
-                'second_options' => ['label' => false],
+                'first_options' => [
+                    'label' => 'Contraseña',
+                    'attr' => [
+                        'class' => 'form-control input-lg',
+                        'placeholder' => 'Contraseña'
+                    ]
+                ],
+                'second_options' => [
+                    'label' => 'Repetir Contraseña',
+                    'attr' => [
+                        'class' => 'form-control input-lg',
+                        'placeholder' => 'Repetir Contraseña'
+                    ]
+                ],
                 'invalid_message' => 'fos_user.password.mismatch',
+                
             ])
+
+              ->add('submit','submit',[
+                        'label' => 'Guardar',
+                        'attr' =>[
+                                'class' => 'btn btn-primary'
+                            ]
+                    ])
+            
 
             ;
     }
@@ -58,6 +93,6 @@ class RegistrationSocioFormType extends AbstractType
 
     public function getName()
     {
-        return 'user_registration';
+        return 'user_registration_socio';
     }
 }

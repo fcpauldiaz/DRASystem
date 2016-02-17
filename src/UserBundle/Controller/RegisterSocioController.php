@@ -4,7 +4,7 @@ namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class RegisterSocioControleler extends Controller
+class RegisterSocioController extends Controller
 {
     public function registerAction()
     {
