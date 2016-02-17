@@ -13,13 +13,13 @@ pugx_multi_user:
 #          factory: 
         registration:
           form: 
-            type: UserBundle\Form\Type\RegistrationFormType
+            type: UserBundle\Form\Type\RegistrationTrabajadorFormType
             name: fos_user_registration_form
             validation_groups:  [Registration, Default]
-          template: UserBundle:Registration:register_content.html.twig
+          template: UserBundle:Registration:register.html.twig
         profile:
           form:
-            type: UserBundle\Form\Type\ProfileFormType
+            type: UserBundle\Form\Type\ProfileTrabajadorFormType
             name: fos_user_profile_form
             validation_groups:  [Profile, Default] 
     user_two:
@@ -27,8 +27,8 @@ pugx_multi_user:
           class: UserBundle\Entity\UsuarioSocio
         registration:
           form: 
-            type: UserBundle\Form\Type\RegistrationFormType
+            type: UserBundle\Form\Type\RegistrationSocioFormType
           template: UserBundle:Registration:register.html.twig
         profile:
           form: 
-            type: UserBundle\Form\Type\ProfileFormType
+            type: UserBundle\Form\Type\ProfileSocioFormType

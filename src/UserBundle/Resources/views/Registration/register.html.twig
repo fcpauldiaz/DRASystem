@@ -1,5 +1,18 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block stylesheets %}
+	{{ form_stylesheet(form) }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+	<script src="{{asset('js/register.js')}}"></script>
+	<script src="{{asset('js/tab_register.js')}}"></script>
+	   {{ form_javascript(form) }}
+{% endblock %}
+
+{% block body %}
+
+	{% include 'default/menu.html.twig' %}
+	{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+
+{% endblock body %}

@@ -1,7 +1,10 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
+{% block body %}
+	{% include 'default/menu.html.twig' %}
 {% block fos_user_content %}
-<h3 style="border-bottom: 1px solid #c5c5c5; color: #ffffff ">
+<h3 style="border-bottom: 1px solid #c5c5c5; color: #000000 ">
 {{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
 </h3>
+{% endblock %}
 {% endblock %}

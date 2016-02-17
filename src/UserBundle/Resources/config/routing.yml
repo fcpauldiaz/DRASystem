@@ -2,10 +2,10 @@ user_homepage:
     path:     /hello/{name}
     defaults: { _controller: UserBundle:Default:index }
 
-user_one_registration:
-    pattern:  /register/user-one
-    defaults: { _controller: UserBundle:Register:register }
+trabajador_registration:
+    pattern:  /register/trabajador
+    defaults: { _controller: UserBundle:RegisterTrabajador:register }
 
-user_two_registration:
-    pattern:  /register/user-two
-    defaults: { _controller: UserBundle:Register:register }
+socio_registration:
+    pattern:  /register/socio
+    defaults: { _controller: UserBundle:RegisterSocio:register }

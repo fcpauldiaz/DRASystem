@@ -1,105 +1,139 @@
-    <div id="loginbox" class="mainbox col-md-12"> 
-        
-       
-        <div class="panel panel-default" >
-            <div class="panel-heading">
-                <div class="panel-title text-center">Registro Usuario </div>
-            </div>     
+<div class="col-md-1"></div>
+<div class="container">
+  <div class="col-md-11">
+    <section>
+        <div class="wizard">
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
 
-            <div class="panel-body" >
+                    <li role="presentation" class="active">
+                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-folder-open"></i>
+                            </span>
+                        </a>
+                    </li>
 
-                    <form action= "{% if app.request.attributes.get('_route') == 'user_one_registration' %}
-                    {{ path('user_one_registration_register') }}
-                    {% endif %}
+                    <li role="presentation" class="disabled">
+                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-                    {% if app.request.attributes.get('_route') == 'user_two_registration' %}
-                    {{ path('fos_user_registration_register') }} 
+           
+              {{ form_start(form, {'action' : path('trabajador_registration') } )}}
+            
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="step1">
+                         
+                          <h2>Registro general de datos personales</h2>
+                          <hr class="colorgraph">
+                          {# mostrar errores del primer tab #}
 
+                          <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab1" data-fade="3000"></div>
 
-                  {% endif %} "
-
-                  {{ form_enctype(form) }} method="POST" class="form-group">
-                	
-
-    
-    	
-                   
-                    {{form_start(form)}}
-                    
-                    <br>
-                       <h8><strong>Nombre</strong></h8>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-
-                      	{{form_row(form.nombre,{'attr': {'class': 'form-control'}})}}
-
+                          {# termina div para mostrar errores primer tab #}
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                      {{form_row(form.nombre)}}
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                  {{form_row(form.apellidos)}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                                {{form_row(form.username)}}
+                          </div>
+                         <div class="row">
+                              <div class="form-group">
+                                      {{form_row(form.email)}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                    {{form_row(form.plainPassword.first)}}
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                  {{form_row(form.plainPassword.second)}}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <hr class="colorgraph">
+                          
+                        
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-primary next-step-tab1">Guardar y continuar</button></li>
+                        </ul>
                     </div>
-                    <br>
-                       <h8><strong>Apellidos</strong></h8>
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <div class="tab-pane" role="tabpanel" id="step2">
+                        <h2>Registro específico de datos personales</h2>
+                          <hr class="colorgraph">
+                           <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab2" data-fade="3000"></div>
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                      {{form_row(form.fechaIngreso)}}
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                  {{form_row(form.fechaEgreso)}}
+                              </div>
+                            </div>
+                          </div>
 
-                        {{form_row(form.apellidos,{'attr': {'class': 'form-control'}})}}
-
+                          <div class="form-group">
+                               {{form_row(form.dpi)}}
+                          </div>
+                         <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                      {{form_row(form.nit)}}
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                              <div class="form-group">
+                                  {{form_row(form.telefono)}}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <hr class="colorgraph">
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                            <li><button type="button" class="btn btn-primary next-step-tab2">Guardar y continuar</button></li>
+                        </ul>
                     </div>
-                    <br>
-                      <h8><strong>Nombre de Usuario</strong></h8>
-                     <div class="input-group">
-                      
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i>
-                        </span>
-                        {{form_row(form.username,{'attr': {'class': 'form-control','placeholder':'Servicio'}})}}
-
+                  
+                    <div class="tab-pane" role="tabpanel" id="complete">
+                        <h3>Guardar toda la información</h3>
+                        {{ form_row(form.submit)}}
                     </div>
-
-      				<br>
-                       <h8><strong>Correo Electrónico </strong></h8>
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-
-                      	{{form_row(form.email,{'attr': {'class': 'form-control','placeholder':'Correo Electrónico'}})}}
-
-                    </div>
-                      <br>
-                       <h8><strong>Teléfono</strong></h8>
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-
-                        {{form_row(form.telefono,{'attr': {'class': 'form-control','placeholder':'Teléfono'}})}}
-
-                    </div>
-					<br>
-                      <h8><strong>Contraseña</strong></h8>
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-                      	{{form_row(form.plainPassword.first,{'attr': {'class': 'form-control','placeholder':'Contraseña'}})}}
-
-                    </div>
-
-         			<br>
-                     <h8><strong>Repetir Contraseña</strong></h8>
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-                      	{{form_row(form.plainPassword.second,{'attr': {'class': 'form-control','placeholder':'Confirmar Contraseña'}})}}
-
-                   
-                    <div class="form-group">
-                        <!-- Button -->
-                        <div class="col-sm-12 controls">
-                            <button type="submit" value="{{ 'Guardar'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-log-in"></i>Guardar </button>                          
-                        </div>
-                       
-                    </div>
-                
-               
-				{{form_end(form)}}
-
-    			
-                </form>     
-
-            </div>                     
-        </div>  
-    
-      </div>
+                    <div class="clearfix"></div>
+                </div>
+            {{ form_end(form)}}
+        </div>
+    </section>
+   </div>
+</div>
+<div class="col-md-2"></div>

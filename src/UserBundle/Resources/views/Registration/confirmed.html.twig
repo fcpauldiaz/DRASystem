@@ -1,6 +1,35 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% block fos_user_content %}
+
+{% block body %}
+	{% include 'default/menu.html.twig' %}
+	<br>
+	<br>
+	<br>
+	
+    <div style = "color: #000000>">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% else %}
+                
+            {% endif %}
+    </div>
+
+
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        <p style="border-bottom: 1px solid #ffffff; color: #ffffff ">{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+
 	
 	   <h1 style="border-bottom: 1px solid #c5c5c5; color: #000000 ">{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle') }}</h1>
 	    {% if app.session is not empty %}
@@ -8,4 +37,4 @@
 	        {% if targetUrl is not empty %}<h1 style="border-bottom: 1px solid #c5c5c5; color: #000000 "><a href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a></h1>{% endif %}
 	    {% endif %}
   
-{% endblock fos_user_content %}
+{% endblock body %}

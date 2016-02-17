@@ -6,14 +6,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationFormType extends AbstractType
+class RegistrationSocioFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // agregar campos personalizados
-        $builder->add('nombre', null, ['label' => false,
+        $builder->add('nombre', 'text', ['label' => false,
             'attr' => [
-            'placeholder' => 'Nombre/s',
+                'placeholder' => 'Nombre/s',
+                'class' => 'form-control input-lg'
             ],
 
             ])

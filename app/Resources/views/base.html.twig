@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Díaz Reyes &amp; Asociados,S.A.</title>
         <meta name="description" content="">
+        <meta name="author" content="Newton Labs">
         <meta name="viewport" content="width=device-width">
 
         
@@ -22,8 +23,11 @@
 }
         </style>
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-        <link rel="stylesheet" href="{{asset('css/main.css')}}">
+        <link rel="stylesheet" href="{{asset('css/main.css')}}">   
+        {% block stylesheets %}
+        {% endblock stylesheets %}
         <script src="{{asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
+
   
     </head>
     <body>
@@ -35,11 +39,12 @@
       <footer>
         <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2016 creado por Newton Labs. Algunos derechos reservados.</p>
       </footer>
-    </div> <!-- /container -->        
+        
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
         <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/jquery.bsAlerts.min.js')}}"></script>
 
         <script src="{{asset('js/main.js')}}"></script>
 
@@ -49,5 +54,7 @@
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+        {% block javascripts %}
+        {% endblock javascripts %}
     </body>
 </html>
