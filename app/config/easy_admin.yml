@@ -4,11 +4,11 @@ easy_admin:
         UsuarioTrabajador:
             class: UserBundle\Entity\UsuarioTrabajador
             list:
-                fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
+                fields: ['nombre','apellidos','username','email', 'datosPrestaciones','enabled','lastLogin','roles']
             new:
-                fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
+                fields: ['nombre','apellidos',,'username','email','datosPrestaciones','enabled','password','roles']
             edit:
-                fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
+                fields: ['nombre','apellidos',,'username','email','datosPrestaciones','enabled','lastLogin','password','expiresAt','locked','expired','roles']
         UsuarioSocio:
             class: UserBundle\Entity\UsuarioSocio
             list:
@@ -17,3 +17,5 @@ easy_admin:
                 fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
             edit:
                 fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
+        DatosPrestaciones:
+            class: UserBundle\Entity\DatosPrestaciones

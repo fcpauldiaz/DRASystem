@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>DatosPrestaciones list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sueldo</th>
+                <th>Bonificacionincentivo</th>
+                <th>Bonificacionley</th>
+                <th>Gasolina</th>
+                <th>Prestacionessobresueldo</th>
+                <th>Otrasprestaciones</th>
+                <th>Otros</th>
+                <th>Depreciacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('datosprestaciones_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.sueldo }}</td>
+                <td>{{ entity.bonificacionIncentivo }}</td>
+                <td>{{ entity.bonificacionLey }}</td>
+                <td>{{ entity.gasolina }}</td>
+                <td>{{ entity.prestacionesSobreSueldo }}</td>
+                <td>{{ entity.otrasPrestaciones }}</td>
+                <td>{{ entity.otros }}</td>
+                <td>{{ entity.depreciacion }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('datosprestaciones_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('datosprestaciones_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('datosprestaciones_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

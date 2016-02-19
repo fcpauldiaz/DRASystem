@@ -9,3 +9,7 @@ trabajador_registration:
 socio_registration:
     pattern:  /register/socio
     defaults: { _controller: UserBundle:RegisterSocio:register }
+
+datos_prestaciones:
+    resource: "@UserBundle/Controller/DatosPrestacionesController.php"
+    type:     annotation

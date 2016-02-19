@@ -1,0 +1,7 @@
+UserBundle\Entity\Usuario:
+    properties:
+        email:
+            - Regex:
+                pattern: "/[a-z\'0-9]+([._-][a-z\'0-9]+)*@([diazreyes]+[.]+[com]+)/"
+                message: "El dominio del correo tiene que ser de la Diaz Reyes"
+                groups: [EmailDomainValidation]

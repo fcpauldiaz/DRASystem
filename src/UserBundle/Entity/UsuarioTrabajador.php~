@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
+use UserBundle\Entity\Usuario;
 
 /**
  * @ORM\Entity
@@ -26,27 +27,26 @@ class UsuarioTrabajador extends Usuario
     protected $id;
 
     /**
-     * @var date fecha de ingreso a la empresa.
+     * @var  date fecha de ingreso a la empresa.
      * @ORM\Column(name="fechaIngreso", type="date")
      */
     protected $fechaIngreso;
 
     /**
-     * @var date fecha de egreso de la empresa.
+     * @var  date fecha de egreso de la empresa.
      * @ORM\Column(name="fechaEgreso", type="date",nullable=true)
      */
     protected $fechaEgreso;
 
     /**
-     * @var string DPI del trabajador
+     * @var  string DPI del trabajador
      * @ORM\Column(name="dpi",type="string",length=20, unique=true)
      */
     protected $dpi;
 
     /**
-     * Número de identificación tributaria.
-     *
-     * @var string
+     * Número de identificación tributaria
+     * @var  string 
      * @ORM\Column(name="nit", type="string",length=20,unique=true)
      */
     protected $nit;
@@ -58,13 +58,22 @@ class UsuarioTrabajador extends Usuario
     protected $telefono;
 
     /**
-     * @var ArrayCollection
+     * @var  ArrayCollection 
      * @ORM\OneToMany(targetEntity="DatosPrestaciones", mappedBy="usuario")
      */
     protected $datosPrestaciones;
 
     /**
-     * Set fechaIngreso.
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();// construye los metodos y atributos de Base
+        $this->datosPrestaciones = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set fechaIngreso
      *
      * @param \DateTime $fechaIngreso
      *
@@ -78,7 +87,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get fechaIngreso.
+     * Get fechaIngreso
      *
      * @return \DateTime
      */
@@ -88,7 +97,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set fechaEgreso.
+     * Set fechaEgreso
      *
      * @param \DateTime $fechaEgreso
      *
@@ -102,7 +111,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get fechaEgreso.
+     * Get fechaEgreso
      *
      * @return \DateTime
      */
@@ -112,7 +121,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set dpi.
+     * Set dpi
      *
      * @param string $dpi
      *
@@ -126,7 +135,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get dpi.
+     * Get dpi
      *
      * @return string
      */
@@ -136,7 +145,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set nit.
+     * Set nit
      *
      * @param string $nit
      *
@@ -150,7 +159,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get nit.
+     * Get nit
      *
      * @return string
      */
@@ -159,7 +168,7 @@ class UsuarioTrabajador extends Usuario
         return $this->nit;
     }
 
-    /**
+        /**
      * Set telefono.
      *
      * @param int $telefono
@@ -186,39 +195,5 @@ class UsuarioTrabajador extends Usuario
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
-    }
-
-    /**
-     * Add datosPrestacione.
-     *
-     * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
-     *
-     * @return UsuarioTrabajador
-     */
-    public function addDatosPrestaciones(\UserBundle\Entity\DatosPrestaciones $datosPrestaciones)
-    {
-        $this->datosPrestaciones[] = $datosPrestaciones;
-
-        return $this;
-    }
-
-    /**
-     * Remove datosPrestacione.
-     *
-     * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
-     */
-    public function removeDatosPrestaciones(\UserBundle\Entity\DatosPrestaciones $datosPrestaciones)
-    {
-        $this->datosPrestaciones->removeElement($datosPrestaciones);
-    }
-
-    /**
-     * Get datosPrestaciones.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDatosPrestaciones()
-    {
-        return $this->datosPrestaciones;
     }
 }

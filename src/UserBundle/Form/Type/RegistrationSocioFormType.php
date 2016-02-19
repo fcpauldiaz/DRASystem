@@ -15,7 +15,7 @@ class RegistrationSocioFormType extends AbstractType
                 'label' => 'Nombre/s',
                 'attr' => [
                     'placeholder' => 'Nombre/s',
-                    'class' => 'form-control input-lg'
+                    'class' => 'form-control input-lg',
                 ],
 
             ])
@@ -23,27 +23,27 @@ class RegistrationSocioFormType extends AbstractType
                 'label' => 'Apellidos/s',
                 'attr' => [
                         'placeholder' => 'Apellidos',
-                        'class' => 'form-control input-lg'
+                        'class' => 'form-control input-lg',
                     ],
                 ])
             ->add('username', null, [
-                    'label' => 'Usuario', 
+                    'label' => 'Usuario',
                     'translation_domain' => 'FOSUserBundle',
                     'attr' => [
                         'class' => 'form-control input-lg',
-                        'placeholder' => 'Nombre de Usuario'
-                    ]
+                        'placeholder' => 'Nombre de Usuario',
+                    ],
                 ])
             ->add('email', 'email', [
-                    'label' => 'Correo', 
+                    'label' => 'Correo',
                     'translation_domain' => 'FOSUserBundle',
                     'required' => true,
                     'attr' => [
                         'class' => 'form-control input-lg',
-                        'placeholder' => 'Correo electrónico'
-                    ]
+                        'placeholder' => 'Correo electrónico',
+                    ],
                 ])
-            
+
             ->add('plainPassword', 'repeated', [
                 'label' => 'Contraseña',
                 'type' => 'password',
@@ -52,27 +52,26 @@ class RegistrationSocioFormType extends AbstractType
                     'label' => 'Contraseña',
                     'attr' => [
                         'class' => 'form-control input-lg',
-                        'placeholder' => 'Contraseña'
-                    ]
+                        'placeholder' => 'Contraseña',
+                    ],
                 ],
                 'second_options' => [
                     'label' => 'Repetir Contraseña',
                     'attr' => [
                         'class' => 'form-control input-lg',
-                        'placeholder' => 'Repetir Contraseña'
-                    ]
+                        'placeholder' => 'Repetir Contraseña',
+                    ],
                 ],
                 'invalid_message' => 'fos_user.password.mismatch',
-                
+
             ])
 
-              ->add('submit','submit',[
+              ->add('submit', 'submit', [
                         'label' => 'Guardar',
-                        'attr' =>[
-                                'class' => 'btn btn-primary'
-                            ]
+                        'attr' => [
+                                'class' => 'btn btn-primary',
+                            ],
                     ])
-            
 
             ;
     }

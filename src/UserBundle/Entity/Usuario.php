@@ -39,7 +39,6 @@ abstract class Usuario extends BaseUser
      */
     protected $apellidos;
 
-
     /**
      * Constructor.
      */
@@ -134,11 +133,8 @@ abstract class Usuario extends BaseUser
         return $this->apellidos;
     }
 
-
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
     }
-
-
 }
