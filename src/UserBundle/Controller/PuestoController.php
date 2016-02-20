@@ -7,22 +7,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use UserBundle\Entity\DatosPrestaciones;
-use UserBundle\Form\Type\DatosPrestacionesType;
+use UserBundle\Entity\Puesto;
+use UserBundle\Form\Type\PuestoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 
 /**
- * DatosPrestaciones controller.
+ * Puesto controller.
  *
- * @Route("/datosprestaciones")
+ * @Route("/puesto")
  */
-class DatosPrestacionesController extends Controller
+class PuestoController extends Controller
 {
+
     /**
-     * Lists all DatosPrestaciones entities.
+     * Lists all Puesto entities.
      *
-     * @Route("/", name="datosprestaciones")
+     * @Route("/", name="puesto")
      * @Method("GET")
      * @Template()
      */
@@ -30,61 +31,60 @@ class DatosPrestacionesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UserBundle:DatosPrestaciones')->findAll();
+        $entities = $em->getRepository('UserBundle:Puesto')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new DatosPrestaciones entity.
+     * Creates a new Puesto entity.
      *
-     * @Route("/", name="datosprestaciones_create")
+     * @Route("/", name="puesto_create")
      * @Method("POST")
-     * @Template("UserBundle:DatosPrestaciones:new.html.twig")
+     * @Template("UserBundle:Puesto:new.html.twig")
      */
     public function createAction(Request $request)
     {
+
         $usuario = $this->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-
-        $entity = new DatosPrestaciones();
-        $entity->setUsuario($usuario);
+        
+        $entity = new Puesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-         $entity->setUsuario($usuario);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $usuario->addDatosPrestacione($entity);
-            $usuario->addPuesto($entity);
-            $em->persist($usuario);
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('datosprestaciones_show', array('id' => $entity->getId())));
+            
+
+            //return new JsonResponse([$key,$value]);
+
+            return $this->forward('UserBundle:DatosPrestaciones:new');
         }
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
     /**
-     * Creates a form to create a DatosPrestaciones entity.
+     * Creates a form to create a Puesto entity.
      *
-     * @param DatosPrestaciones $entity The entity
+     * @param Puesto $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(DatosPrestaciones $entity)
+    private function createCreateForm(Puesto $entity)
     {
-        $form = $this->createForm(new DatosPrestacionesType(), $entity, array(
-            'action' => $this->generateUrl('datosprestaciones_create'),
+        $form = $this->createForm(new PuestoType(), $entity, array(
+            'action' => $this->generateUrl('puesto_create'),
             'method' => 'POST',
         ));
 
@@ -93,28 +93,29 @@ class DatosPrestacionesController extends Controller
         return $form;
     }
 
+
     /**
-     * Displays a form to create a new DatosPrestaciones entity.
+     * Displays a form to create a new Puesto entity.
      *
-     * @Route("/new", name="datosprestaciones_new")
+     * @Route("/new", name="puesto_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new DatosPrestaciones();
-        $form = $this->createCreateForm($entity);
+        $entity = new Puesto();
+        $form   = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         );
     }
 
     /**
-     * Finds and displays a DatosPrestaciones entity.
+     * Finds and displays a Puesto entity.
      *
-     * @Route("/{id}", name="datosprestaciones_show")
+     * @Route("/{id}", name="puesto_show")
      * @Method("GET")
      * @Template()
      */
@@ -122,24 +123,24 @@ class DatosPrestacionesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UserBundle:DatosPrestaciones')->find($id);
+        $entity = $em->getRepository('UserBundle:Puesto')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find DatosPrestaciones entity.');
+            throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity' => $entity,
+            'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing DatosPrestaciones entity.
+     * Displays a form to edit an existing Puesto entity.
      *
-     * @Route("/{id}/edit", name="datosprestaciones_edit")
+     * @Route("/{id}/edit", name="puesto_edit")
      * @Method("GET")
      * @Template()
      */
@@ -147,33 +148,33 @@ class DatosPrestacionesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UserBundle:DatosPrestaciones')->find($id);
+        $entity = $em->getRepository('UserBundle:Puesto')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find DatosPrestaciones entity.');
+            throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Creates a form to edit a DatosPrestaciones entity.
-     *
-     * @param DatosPrestaciones $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(DatosPrestaciones $entity)
+    * Creates a form to edit a Puesto entity.
+    *
+    * @param Puesto $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Puesto $entity)
     {
-        $form = $this->createForm(new DatosPrestacionesType(), $entity, array(
-            'action' => $this->generateUrl('datosprestaciones_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new PuestoType(), $entity, array(
+            'action' => $this->generateUrl('puesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -182,20 +183,20 @@ class DatosPrestacionesController extends Controller
         return $form;
     }
     /**
-     * Edits an existing DatosPrestaciones entity.
+     * Edits an existing Puesto entity.
      *
-     * @Route("/{id}", name="datosprestaciones_update")
+     * @Route("/{id}", name="puesto_update")
      * @Method("PUT")
-     * @Template("UserBundle:DatosPrestaciones:edit.html.twig")
+     * @Template("UserBundle:Puesto:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UserBundle:DatosPrestaciones')->find($id);
+        $entity = $em->getRepository('UserBundle:Puesto')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find DatosPrestaciones entity.');
+            throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -205,19 +206,19 @@ class DatosPrestacionesController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('datosprestaciones_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('puesto_edit', array('id' => $id)));
         }
 
         return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
     /**
-     * Deletes a DatosPrestaciones entity.
+     * Deletes a Puesto entity.
      *
-     * @Route("/{id}", name="datosprestaciones_delete")
+     * @Route("/{id}", name="puesto_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -227,21 +228,21 @@ class DatosPrestacionesController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('UserBundle:DatosPrestaciones')->find($id);
+            $entity = $em->getRepository('UserBundle:Puesto')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find DatosPrestaciones entity.');
+                throw $this->createNotFoundException('Unable to find Puesto entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('datosprestaciones'));
+        return $this->redirect($this->generateUrl('puesto'));
     }
 
     /**
-     * Creates a form to delete a DatosPrestaciones entity by id.
+     * Creates a form to delete a Puesto entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -250,7 +251,7 @@ class DatosPrestacionesController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('datosprestaciones_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('puesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

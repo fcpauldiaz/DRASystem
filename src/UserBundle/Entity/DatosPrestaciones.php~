@@ -5,7 +5,7 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DatosPrestaciones
+ * DatosPrestaciones.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class DatosPrestaciones
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -78,16 +78,15 @@ class DatosPrestaciones
     private $depreciacion;
 
     /**
-     * @var  Usuario 
+     * @var Usuario
      * @ORM\ManyToOne(targetEntity="UsuarioTrabajador",inversedBy = "datosPrestaciones")
      */
     private $usuario;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -95,7 +94,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set sueldo
+     * Set sueldo.
      *
      * @param float $sueldo
      *
@@ -109,7 +108,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get sueldo
+     * Get sueldo.
      *
      * @return float
      */
@@ -119,7 +118,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set bonificacionIncentivo
+     * Set bonificacionIncentivo.
      *
      * @param float $bonificacionIncentivo
      *
@@ -133,7 +132,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get bonificacionIncentivo
+     * Get bonificacionIncentivo.
      *
      * @return float
      */
@@ -143,7 +142,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set bonificacionLey
+     * Set bonificacionLey.
      *
      * @param float $bonificacionLey
      *
@@ -157,7 +156,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get bonificacionLey
+     * Get bonificacionLey.
      *
      * @return float
      */
@@ -167,7 +166,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set gasolina
+     * Set gasolina.
      *
      * @param float $gasolina
      *
@@ -181,7 +180,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get gasolina
+     * Get gasolina.
      *
      * @return float
      */
@@ -191,7 +190,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set prestacionesSobreSueldo
+     * Set prestacionesSobreSueldo.
      *
      * @param float $prestacionesSobreSueldo
      *
@@ -205,7 +204,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get prestacionesSobreSueldo
+     * Get prestacionesSobreSueldo.
      *
      * @return float
      */
@@ -215,7 +214,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set otrasPrestaciones
+     * Set otrasPrestaciones.
      *
      * @param float $otrasPrestaciones
      *
@@ -229,7 +228,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get otrasPrestaciones
+     * Get otrasPrestaciones.
      *
      * @return float
      */
@@ -239,7 +238,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set otros
+     * Set otros.
      *
      * @param float $otros
      *
@@ -253,7 +252,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get otros
+     * Get otros.
      *
      * @return float
      */
@@ -263,7 +262,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set depreciacion
+     * Set depreciacion.
      *
      * @param float $depreciacion
      *
@@ -277,7 +276,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get depreciacion
+     * Get depreciacion.
      *
      * @return float
      */
@@ -286,9 +285,32 @@ class DatosPrestaciones
         return $this->depreciacion;
     }
 
+    /**
+     * Set usuario.
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $usuario
+     *
+     * @return DatosPrestaciones
+     */
+    public function setUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario.
+     *
+     * @return \UserBundle\Entity\UsuarioTrabajador
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
     public function __toString()
     {
-        return $this->sueldo;
+        return $this->sueldo.' '.$this->getUsuario();
     }
 }
-

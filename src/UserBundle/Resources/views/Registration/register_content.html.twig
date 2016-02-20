@@ -89,19 +89,9 @@
                         <h2>Registro específico de datos personales</h2>
                           <hr class="colorgraph">
                            <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab2" data-fade="3000"></div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                      {{form_row(form.fechaIngreso)}}
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                  {{form_row(form.fechaEgreso)}}
-                              </div>
-                            </div>
+                          <div class="form-group">
+                               {{form_row(form.direccion)}}
                           </div>
-
                           <div class="form-group">
                                {{form_row(form.dpi)}}
                           </div>
@@ -126,8 +116,13 @@
                     </div>
                   
                     <div class="tab-pane" role="tabpanel" id="complete">
-                        <h3>Guardar toda la información</h3>
+                      <hr class="colorgraph">
+
+                         
+                        <h3>Guardar información</h3>
                         {{ form_row(form.submit)}}
+
+                        <hr class="colorgraph">
                     </div>
                     <div class="clearfix"></div>
                 </div>

@@ -13,3 +13,7 @@ socio_registration:
 datos_prestaciones:
     resource: "@UserBundle/Controller/DatosPrestacionesController.php"
     type:     annotation
+
+puesto:
+   resource: "@UserBundle/Controller/PuestoController.php"
+   type: annotation

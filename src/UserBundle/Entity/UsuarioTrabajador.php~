@@ -4,7 +4,6 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
-use UserBundle\Entity\Usuario;
 
 /**
  * @ORM\Entity
@@ -27,73 +26,86 @@ class UsuarioTrabajador extends Usuario
     protected $id;
 
     /**
-     * @var  date fecha de ingreso a la empresa.
-     * @ORM\Column(name="fechaIngreso", type="date")
+     * @var string
+     * @ORM\Column(name="direccion",type="string",length=255)
      */
-    protected $fechaIngreso;
+    private $direccion;
 
     /**
-     * @var  date fecha de egreso de la empresa.
+     * @var date fecha de egreso de la empresa.
      * @ORM\Column(name="fechaEgreso", type="date",nullable=true)
      */
-    protected $fechaEgreso;
+    private $fechaEgreso;
 
     /**
-     * @var  string DPI del trabajador
+     * @var string DPI del trabajador
      * @ORM\Column(name="dpi",type="string",length=20, unique=true)
      */
-    protected $dpi;
+    private $dpi;
 
     /**
-     * Número de identificación tributaria
-     * @var  string 
+     * Número de identificación tributaria.
+     *
+     * @var string
      * @ORM\Column(name="nit", type="string",length=20,unique=true)
      */
-    protected $nit;
+    private $nit;
 
     /**
      * @var int
      * @ORM\Column(name="telefono", type="string",length=15,nullable=true)
      */
-    protected $telefono;
+    private $telefono;
 
     /**
-     * @var  ArrayCollection 
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="DatosPrestaciones", mappedBy="usuario")
      */
-    protected $datosPrestaciones;
+    private $datosPrestaciones;
+
+    /**
+     * 
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Puesto", mappedBy="usuario")
+     * 
+     */
+    private $puestos;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        parent::__construct();// construye los metodos y atributos de Base
+        parent::__construct();
         $this->datosPrestaciones = new \Doctrine\Common\Collections\ArrayCollection();
+       
     }
 
+
+
     /**
-     * Set fechaIngreso
+     * Set direccion
      *
-     * @param \DateTime $fechaIngreso
+     * @param string $direccion
      *
      * @return UsuarioTrabajador
      */
-    public function setFechaIngreso($fechaIngreso)
+    public function setDireccion($direccion)
     {
-        $this->fechaIngreso = $fechaIngreso;
+        $this->direccion = $direccion;
 
         return $this;
     }
 
     /**
-     * Get fechaIngreso
+     * Get direccion
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getFechaIngreso()
+    public function getDireccion()
     {
-        return $this->fechaIngreso;
+        return $this->direccion;
     }
 
     /**
@@ -125,7 +137,7 @@ class UsuarioTrabajador extends Usuario
      *
      * @param string $dpi
      *
-     * @return Usuario
+     * @return UsuarioTrabajador
      */
     public function setDpi($dpi)
     {
@@ -149,7 +161,7 @@ class UsuarioTrabajador extends Usuario
      *
      * @param string $nit
      *
-     * @return Usuario
+     * @return UsuarioTrabajador
      */
     public function setNit($nit)
     {
@@ -168,12 +180,12 @@ class UsuarioTrabajador extends Usuario
         return $this->nit;
     }
 
-        /**
-     * Set telefono.
+    /**
+     * Set telefono
      *
-     * @param int $telefono
+     * @param string $telefono
      *
-     * @return Usuario
+     * @return UsuarioTrabajador
      */
     public function setTelefono($telefono)
     {
@@ -183,13 +195,83 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get telefono.
+     * Get telefono
      *
-     * @return int
+     * @return string
      */
     public function getTelefono()
     {
         return $this->telefono;
+    }
+
+    /**
+     * Add datosPrestacione
+     *
+     * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
+     *
+     * @return UsuarioTrabajador
+     */
+    public function addDatosPrestacione(\UserBundle\Entity\DatosPrestaciones $datosPrestacione)
+    {
+        $this->datosPrestaciones[] = $datosPrestacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove datosPrestacione
+     *
+     * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
+     */
+    public function removeDatosPrestacione(\UserBundle\Entity\DatosPrestaciones $datosPrestacione)
+    {
+        $this->datosPrestaciones->removeElement($datosPrestacione);
+    }
+
+    /**
+     * Get datosPrestaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDatosPrestaciones()
+    {
+        return $this->datosPrestaciones;
+    }
+
+    /**
+     * Add puesto
+     *
+     * @param \UserBundle\Entity\Puesto $puesto
+     *
+     * @return UsuarioTrabajador
+     */
+    public function addPuesto(\UserBundle\Entity\Puesto $puesto)
+    {
+        $this->puestos[] = $puesto;
+        $puesto->addUsuario($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove puesto
+     *
+     * @param \UserBundle\Entity\Puesto $puesto
+     */
+    public function removePuesto(\UserBundle\Entity\Puesto $puesto)
+    {
+        $this->puestos->removeElement($puesto);
+        $puesto->removeUsuario($this);
+    }
+
+    /**
+     * Get puestos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPuestos()
+    {
+        return $this->puestos;
     }
 
     public function __toString()

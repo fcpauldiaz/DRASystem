@@ -209,3 +209,12 @@ span.round-tab:hover {
         left: 35%;
     }
 }
+
+/* empieza CSS para radio buttons */
+.btn span.glyphicon {               
+    opacity: 0;             
+}
+.btn.active span.glyphicon {                
+    opacity: 1;             
+}
+/* Termina CSS para radio buttons */

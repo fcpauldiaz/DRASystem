@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+
+
 class RegistrationTrabajadorFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -65,56 +67,14 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
 
             ])
-             ->add('fechaIngreso', 'collot_datetime', ['pickerOptions' => [
-                'format' => 'dd/mm/yyyy',
-                'weekStart' => 0,
-                'autoclose' => true,
-                'startView' => 'month',
-                'minView' => 'month',
-                'maxView' => 'decade',
-                'todayBtn' => true,
-                'todayHighlight' => true,
-                'keyboardNavigation' => true,
-                'language' => 'es',
-                'forceParse' => true,
-                'minuteStep' => 5,
-                'pickerReferer ' => 'default', //deprecated
-                'pickerPosition' => 'bottom-right',
-                'viewSelect' => 'month',
-                'showMeridian' => false,
-
-                ],
-                'attr' => [
-                    'placeholder' => 'Fecha de Ingreso a la empresa',
-                    'class' => 'form-control input-lg',
-                ],
-                'required' => true,
-            ])
-               ->add('fechaEgreso', 'collot_datetime', ['pickerOptions' => [
-                'format' => 'dd/mm/yyyy',
-                'weekStart' => 0,
-                'autoclose' => true,
-                'startView' => 'month',
-                'minView' => 'month',
-                'maxView' => 'decade',
-                'todayBtn' => true,
-                'todayHighlight' => true,
-                'keyboardNavigation' => true,
-                'language' => 'es',
-                'forceParse' => true,
-                'minuteStep' => 5,
-                'pickerReferer ' => 'default', //deprecated
-                'pickerPosition' => 'bottom-right',
-                'viewSelect' => 'month',
-                'showMeridian' => false,
-
-                ],
-                'attr' => [
-                    'placeholder' => 'Fecha de Egreso de la empresa(dejar en blanco)',
-                    'class' => 'form-control input-lg',
-                ],
-                'required' => false,
-            ])
+                ->add('direccion',null,[
+                    'label' => 'Dirección',
+                    'attr' => [
+                        'class' => 'form-control input-lg',
+                        'placeholder' => 'Dirección',
+                    ],
+                    'required' => true,
+                ])
                ->add('dpi', null, [
                     'label' => 'DPI',
                     'attr' => [
@@ -142,14 +102,18 @@ class RegistrationTrabajadorFormType extends AbstractType
                     ],
                     'required' => false,
                 ])
+
                 ->add('submit', 'submit', [
-                        'label' => 'Guardar',
-                        'attr' => [
-                                'class' => 'btn btn-primary',
-                            ],
-                    ])
+                    'label' => 'Guardar y agregar puesto',
+                    'attr' => [
+                        'class' => 'btn btn-primary',
+                    ],
+                ])
+             
 
             ;
+
+        
     }
 
     /**
@@ -157,9 +121,9 @@ class RegistrationTrabajadorFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'validation' => ['registration'],
-        ]);
+        $resolver->setDefaults(array(
+            'data_class' => 'UserBundle\Entity\UsuarioTrabajador',
+        ));
     }
     public function getParent()
     {
@@ -170,4 +134,5 @@ class RegistrationTrabajadorFormType extends AbstractType
     {
         return 'user_registration';
     }
+
 }

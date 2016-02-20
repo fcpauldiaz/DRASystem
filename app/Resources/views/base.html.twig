@@ -23,7 +23,9 @@
 }
         </style>
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-        <link rel="stylesheet" href="{{asset('css/main.css')}}">   
+        <link rel="stylesheet" href="{{asset('css/main.css')}}"> 
+        <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
         {% block stylesheets %}
         {% endblock stylesheets %}
         <script src="{{asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
@@ -43,8 +45,20 @@
 
         <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
         <script src="{{asset('js/jquery.bsAlerts.min.js')}}"></script>
-
+        <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('js/select2.min.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
+         <script type="text/javascript">
+                    $('select').select2();
+        </script>
+        <script>
+            $('table').dataTable( {
+                    "language": {
+                        "url": "{{ asset('Json/Spanish.json')}}"
+                    }
+                } );
+        </script>
+
 
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

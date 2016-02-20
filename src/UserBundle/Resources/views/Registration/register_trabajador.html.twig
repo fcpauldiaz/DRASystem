@@ -7,6 +7,10 @@
 {% block javascripts %}
 	<script src="{{asset('js/register.js')}}"></script>
 	<script src="{{asset('js/tab_register.js')}}"></script>
+	<script src="{{asset('js/mainAjax.js')}}"></script>
+	<script>
+		ajaxPuesto();
+	</script>
 	   {{ form_javascript(form) }}
 {% endblock %}
 

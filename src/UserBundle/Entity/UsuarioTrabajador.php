@@ -26,22 +26,22 @@ class UsuarioTrabajador extends Usuario
     protected $id;
 
     /**
-     * @var date fecha de ingreso a la empresa.
-     * @ORM\Column(name="fechaIngreso", type="date")
+     * @var string
+     * @ORM\Column(name="direccion",type="string",length=255)
      */
-    protected $fechaIngreso;
+    private $direccion;
 
     /**
      * @var date fecha de egreso de la empresa.
      * @ORM\Column(name="fechaEgreso", type="date",nullable=true)
      */
-    protected $fechaEgreso;
+    private $fechaEgreso;
 
     /**
      * @var string DPI del trabajador
      * @ORM\Column(name="dpi",type="string",length=20, unique=true)
      */
-    protected $dpi;
+    private $dpi;
 
     /**
      * Número de identificación tributaria.
@@ -49,46 +49,67 @@ class UsuarioTrabajador extends Usuario
      * @var string
      * @ORM\Column(name="nit", type="string",length=20,unique=true)
      */
-    protected $nit;
+    private $nit;
 
     /**
      * @var int
      * @ORM\Column(name="telefono", type="string",length=15,nullable=true)
      */
-    protected $telefono;
+    private $telefono;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="DatosPrestaciones", mappedBy="usuario")
      */
-    protected $datosPrestaciones;
+    private $datosPrestaciones;
 
     /**
-     * Set fechaIngreso.
+     * 
+     * @var ArrayCollection
      *
-     * @param \DateTime $fechaIngreso
+     * @ORM\OneToMany(targetEntity="Puesto", mappedBy="usuario")
+     * 
+     */
+    private $puestos;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->datosPrestaciones = new \Doctrine\Common\Collections\ArrayCollection();
+       
+    }
+
+
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
      *
      * @return UsuarioTrabajador
      */
-    public function setFechaIngreso($fechaIngreso)
+    public function setDireccion($direccion)
     {
-        $this->fechaIngreso = $fechaIngreso;
+        $this->direccion = $direccion;
 
         return $this;
     }
 
     /**
-     * Get fechaIngreso.
+     * Get direccion
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getFechaIngreso()
+    public function getDireccion()
     {
-        return $this->fechaIngreso;
+        return $this->direccion;
     }
 
     /**
-     * Set fechaEgreso.
+     * Set fechaEgreso
      *
      * @param \DateTime $fechaEgreso
      *
@@ -102,7 +123,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get fechaEgreso.
+     * Get fechaEgreso
      *
      * @return \DateTime
      */
@@ -112,11 +133,11 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set dpi.
+     * Set dpi
      *
      * @param string $dpi
      *
-     * @return Usuario
+     * @return UsuarioTrabajador
      */
     public function setDpi($dpi)
     {
@@ -126,7 +147,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get dpi.
+     * Get dpi
      *
      * @return string
      */
@@ -136,11 +157,11 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set nit.
+     * Set nit
      *
      * @param string $nit
      *
-     * @return Usuario
+     * @return UsuarioTrabajador
      */
     public function setNit($nit)
     {
@@ -150,7 +171,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get nit.
+     * Get nit
      *
      * @return string
      */
@@ -160,11 +181,11 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set telefono.
+     * Set telefono
      *
-     * @param int $telefono
+     * @param string $telefono
      *
-     * @return Usuario
+     * @return UsuarioTrabajador
      */
     public function setTelefono($telefono)
     {
@@ -174,51 +195,87 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get telefono.
+     * Get telefono
      *
-     * @return int
+     * @return string
      */
     public function getTelefono()
     {
         return $this->telefono;
     }
 
-    public function __toString()
-    {
-        return $this->nombre.' '.$this->apellidos;
-    }
-
     /**
-     * Add datosPrestacione.
+     * Add datosPrestacione
      *
      * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
      *
      * @return UsuarioTrabajador
      */
-    public function addDatosPrestaciones(\UserBundle\Entity\DatosPrestaciones $datosPrestaciones)
+    public function addDatosPrestacione(\UserBundle\Entity\DatosPrestaciones $datosPrestacione)
     {
-        $this->datosPrestaciones[] = $datosPrestaciones;
+        $this->datosPrestaciones[] = $datosPrestacione;
 
         return $this;
     }
 
     /**
-     * Remove datosPrestacione.
+     * Remove datosPrestacione
      *
      * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
      */
-    public function removeDatosPrestaciones(\UserBundle\Entity\DatosPrestaciones $datosPrestaciones)
+    public function removeDatosPrestacione(\UserBundle\Entity\DatosPrestaciones $datosPrestacione)
     {
-        $this->datosPrestaciones->removeElement($datosPrestaciones);
+        $this->datosPrestaciones->removeElement($datosPrestacione);
     }
 
     /**
-     * Get datosPrestaciones.
+     * Get datosPrestaciones
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getDatosPrestaciones()
     {
         return $this->datosPrestaciones;
+    }
+
+    /**
+     * Add puesto
+     *
+     * @param \UserBundle\Entity\Puesto $puesto
+     *
+     * @return UsuarioTrabajador
+     */
+    public function addPuesto(\UserBundle\Entity\Puesto $puesto)
+    {
+        $this->puestos[] = $puesto;
+        $puesto->addUsuario($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove puesto
+     *
+     * @param \UserBundle\Entity\Puesto $puesto
+     */
+    public function removePuesto(\UserBundle\Entity\Puesto $puesto)
+    {
+        $this->puestos->removeElement($puesto);
+        $puesto->removeUsuario($this);
+    }
+
+    /**
+     * Get puestos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPuestos()
+    {
+        return $this->puestos;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre.' '.$this->apellidos;
     }
 }

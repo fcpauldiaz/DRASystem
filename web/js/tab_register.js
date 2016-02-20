@@ -114,18 +114,18 @@ $(document).ready(function () {
         
     $(".next-step-tab2").click(function (e) {
 
-        var fecha = $('#fos_user_registration_form_fechaIngreso').val();
+        var direccion = $('#fos_user_registration_form_direccion').val();
         var dpi = $('#fos_user_registration_form_dpi').val();
         var nit = $('#fos_user_registration_form_nit').val();
 
         var valido = true;
         
         
-        if (fecha == "" || fecha == null){
+        if (direccion == "" || direccion == null){
             valido = false;
           $(document).trigger("add-alerts", [
             {
-              'message': "Ha dejado la fecha de ingreso vacía.",
+              'message': "Ha dejado la dirección vacía.",
               'priority': 'warning'
             }
           ]);
