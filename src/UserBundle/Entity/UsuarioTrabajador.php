@@ -248,7 +248,7 @@ class UsuarioTrabajador extends Usuario
     public function addPuesto(\UserBundle\Entity\Puesto $puesto)
     {
         $this->puestos[] = $puesto;
-        $puesto->addUsuario($this);
+        
 
         return $this;
     }
@@ -261,7 +261,7 @@ class UsuarioTrabajador extends Usuario
     public function removePuesto(\UserBundle\Entity\Puesto $puesto)
     {
         $this->puestos->removeElement($puesto);
-        $puesto->removeUsuario($this);
+        
     }
 
     /**

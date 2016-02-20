@@ -51,15 +51,19 @@ class PuestoController extends Controller
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        
+
         $entity = new Puesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $entity->setUsuario($usuario);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            
+           
+
 
             
 

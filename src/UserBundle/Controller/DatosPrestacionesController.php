@@ -61,7 +61,6 @@ class DatosPrestacionesController extends Controller
             $em->persist($entity);
             $em->flush();
             $usuario->addDatosPrestacione($entity);
-            $usuario->addPuesto($entity);
             $em->persist($usuario);
             $em->flush();
 
