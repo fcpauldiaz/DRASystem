@@ -6,76 +6,10 @@
 
          <div class="panel-body" >
 
-			<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-
-			{{form_start(form)}}
-
-			<br>
-           <h8><strong>Nombre de Servicio</strong></h8>
-           <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-
-          	{{form_row(form.username,{'attr': {'class': 'form-control','placeholder':'Nombre Usuario'}})}}
-
-           </div>
-
-           <br>
-            <h8><strong>Correo Electrónico</strong></h8>
-           <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-
-          	{{form_row(form.email,{'attr': {'class': 'form-control','placeholder':'Correo'}})}}
-
-           </div>
-
-
-           <br>
-             <h8><strong></strong></h8>
-           <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-
-          	{{form_row(form.nombre,{'attr': {'class': 'form-control','placeholder':'Nombre'}})}}
-
-           </div>
-
-
-           <br>
-             <h8><strong>Contraseña Actual</strong></h8>
-           <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-          	{{form_row(form.current_password,{'attr': {'class': 'form-control','placeholder':'Contraseña Actual'}})}}
-
-           </div>
-           <h8><strong>Contraseña Nueva</strong></h8>
-           <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-              {{form_row(form.plainPassword.first,{'attr': {'class': 'form-control','placeholder':'No tiene que ser necesariamente la misma utilizada en la UVG'}})}}
-
-            </div>
-
-              <br>
-           <h8><strong>Repetir Contraseña</strong></h8>
-           <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
-              {{form_row(form.plainPassword.second,{'attr': {'class': 'form-control','placeholder':'Confirmar Contraseña'}})}}
-
-          </div>
-          
-
-
-   
-		    <div>
-		        <button type="submit" class="btn btn-primary btn-block" value="">
-		        	{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}
-		        </button>
-		    </div>
- 			{{form_end(form)}}
-
+			
+          {{form(form)}}
     			
-            </form>     
+           
     	</div>                     
 	</div>  
 </div>

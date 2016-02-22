@@ -17,3 +17,7 @@ datos_prestaciones:
 puesto:
    resource: "@UserBundle/Controller/PuestoController.php"
    type: annotation
+
+trabajador_profile:
+    pattern:  /edit/trabajador
+    defaults: { _controller: UserBundle:ProfileTrabajador:edit }
