@@ -5,6 +5,8 @@ namespace UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class DatosPrestacionesType extends AbstractType
 {
@@ -15,15 +17,82 @@ class DatosPrestacionesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sueldo')
-            ->add('bonificacionIncentivo')
-            ->add('bonificacionLey')
-            ->add('gasolina')
-            ->add('prestacionesSobreSueldo')
-            ->add('otrasPrestaciones')
-            ->add('otros')
-            ->add('depreciacion')
+            ->add('sueldo', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Sueldo',
+                'attr' => [
+                    'placeholder' => 'Sueldo Base',
+                    'class' => 'form-control input-lg',
+                ],
+                'grouping' => true,
+
+            ])
+            ->add('bonificacionIncentivo', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Bonificación Incentivo',
+                'attr' => [
+                    'placeholder' => 'Bonificación incentivo',
+                    'class' => 'form-control input-lg',
+                ],
+                'grouping' => true,
+
+            ])
+            ->add('bonificacionLey', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Bonificación Ley',
+                'attr' => [
+                    'placeholder' => 'Bonificación Ley',
+                    'class' => 'form-control input-lg',
+                ],
+                'required' => false,
+                'grouping' => true,
+            ])
+            ->add('gasolina', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Gasolina',
+                'attr' => [
+                    'placeholder' => 'Gasolina',
+                    'class' => 'form-control input-lg',
+                ],
+                'required' => false,
+                'grouping' => true,
+            ])
+
+            ->add('otrasPrestaciones', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Otras prestaciones',
+                'attr' => [
+                    'placeholder' => 'Otras prestaciones',
+                    'class' => 'form-control input-lg',
+                ],
+                'required' => false,
+            ])
+            ->add('otros', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Otros',
+                'attr' => [
+                    'placeholder' => 'Otros',
+                    'class' => 'form-control input-lg',
+                ],
+                'required' => false,
+                'grouping' => true,
+            ])
+            ->add('depreciacion', 'money',  [
+                'currency' => 'GTQ',
+                'label' => 'Depreciación',
+                'attr' => [
+                    'placeholder' => 'Depreciación',
+                    'class' => 'form-control input-lg',
+                ],
+                'required' => false,
+                'grouping' => true,
+            ])
         ;
+
+        $builder->addEventListener(
+            FormEvents::POST_SUBMIT,
+            [$this, 'onPostData']
+        );
     }
 
     /**
@@ -42,5 +111,18 @@ class DatosPrestacionesType extends AbstractType
     public function getName()
     {
         return 'userbundle_datosprestaciones';
+    }
+
+    /**
+     * Forma de validar el correo de un catedrático.
+     *
+     * @param FormEvent $event Evento después de mandar la información del formulario
+     */
+    public function onPostData(FormEvent $event)
+    {
+        $datosPrestaciones = $event->getData();
+        $sueldo = $datosPrestaciones->getSueldo();
+        $prestacionesSobreSueldo = $sueldo * 0.42;
+        $datosPrestaciones->setPrestacionesSobreSueldo($prestacionesSobreSueldo);
     }
 }

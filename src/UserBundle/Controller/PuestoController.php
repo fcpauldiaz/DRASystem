@@ -19,13 +19,12 @@ use FOS\UserBundle\Model\UserInterface;
  */
 class PuestoController extends Controller
 {
-
     /**
      * Lists all Puesto entities.
      *
      * @Route("/", name="puesto")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:Puesto:indexPuesto.html.twig")
      */
     public function indexAction()
     {
@@ -42,11 +41,10 @@ class PuestoController extends Controller
      *
      * @Route("/", name="puesto_create")
      * @Method("POST")
-     * @Template("UserBundle:Puesto:new.html.twig")
+     * @Template("UserBundle:Puesto:newPuesto.html.twig")
      */
     public function createAction(Request $request)
     {
-
         $usuario = $this->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -61,11 +59,6 @@ class PuestoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            
-           
-
-
-            
 
             //return new JsonResponse([$key,$value]);
 
@@ -74,7 +67,7 @@ class PuestoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -92,27 +85,26 @@ class PuestoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-block')));
 
         return $form;
     }
-
 
     /**
      * Displays a form to create a new Puesto entity.
      *
      * @Route("/new", name="puesto_new")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:Puesto:newPuesto.html.twig")
      */
     public function newAction()
     {
         $entity = new Puesto();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -121,7 +113,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_show")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:Puesto:showPuesto.html.twig")
      */
     public function showAction($id)
     {
@@ -136,7 +128,7 @@ class PuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -146,7 +138,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}/edit", name="puesto_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:Puesto:showPuesto.html.twig")
      */
     public function editAction($id)
     {
@@ -162,19 +154,19 @@ class PuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Puesto entity.
-    *
-    * @param Puesto $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Puesto entity.
+     *
+     * @param Puesto $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Puesto $entity)
     {
         $form = $this->createForm(new PuestoType(), $entity, array(
@@ -191,7 +183,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_update")
      * @Method("PUT")
-     * @Template("UserBundle:Puesto:edit.html.twig")
+     * @Template("UserBundle:Puesto:editPuesto.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -214,8 +206,8 @@ class PuestoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

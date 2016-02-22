@@ -10,17 +10,20 @@
 
         
        
+        <script src="{{asset('js/vendor/jquery-1.10.1.min.js')}}"></script>
+
         
+
         <style>
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
         #f6 {
-    font-weight: 200;
-    height: 50px;
-    width: 50px;
-}
+            font-weight: 200;
+            height: 50px;
+            width: 50px;
+        }
         </style>
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('css/main.css')}}"> 
@@ -34,14 +37,20 @@
     </head>
     <body>
       {% include 'default/menu.html.twig' %}
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         {% block body %}
         {% endblock body %}
+   </div>
+   <div class="col-md-12 col-md-offset-1">
       <footer>
-        <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2016 creado por Newton Labs. Algunos derechos reservados.</p>
+        <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2016 creado por Newton Labs. Derechos reservados.</p>
       </footer>
         
+     </div>
+        
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       
 
         <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
         <script src="{{asset('js/jquery.bsAlerts.min.js')}}"></script>
@@ -49,7 +58,12 @@
         <script src="{{ asset('js/select2.min.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
          <script type="text/javascript">
-                    $('select').select2();
+                $('select').select2({
+
+
+                  
+
+                });
         </script>
         <script>
             $('table').dataTable( {

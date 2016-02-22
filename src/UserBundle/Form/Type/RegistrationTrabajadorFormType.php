@@ -6,8 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-
 class RegistrationTrabajadorFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,27 +22,27 @@ class RegistrationTrabajadorFormType extends AbstractType
             ->add('apellidos', null, [
                 'label' => 'Apellidos/s',
                 'attr' => [
-                        'placeholder' => 'Apellidos',
-                        'class' => 'form-control input-lg',
-                    ],
-                ])
+                    'placeholder' => 'Apellidos',
+                    'class' => 'form-control input-lg',
+                ],
+            ])
             ->add('username', null, [
-                    'label' => 'Usuario',
-                    'translation_domain' => 'FOSUserBundle',
-                    'attr' => [
-                        'class' => 'form-control input-lg',
-                        'placeholder' => 'Nombre de Usuario',
-                    ],
-                ])
+                'label' => 'Usuario',
+                'translation_domain' => 'FOSUserBundle',
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'Nombre de Usuario',
+                ],
+            ])
             ->add('email', 'email', [
-                    'label' => 'Correo',
-                    'translation_domain' => 'FOSUserBundle',
-                    'required' => true,
-                    'attr' => [
-                        'class' => 'form-control input-lg',
-                        'placeholder' => 'Correo electrónico',
-                    ],
-                ])
+                'label' => 'Correo',
+                'translation_domain' => 'FOSUserBundle',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'Correo electrónico',
+                ],
+            ])
 
             ->add('plainPassword', 'repeated', [
                 'label' => 'Contraseña',
@@ -65,55 +63,50 @@ class RegistrationTrabajadorFormType extends AbstractType
                     ],
                 ],
                 'invalid_message' => 'fos_user.password.mismatch',
+            ])
+            ->add('direccion', null, [
+                'label' => 'Dirección',
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'Dirección',
+                ],
+                'required' => true,
+            ])
+           ->add('dpi', null, [
+                'label' => 'DPI',
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                     'placeholder' => 'Documento Personal de Identificación',
+                ],
+                'required' => true,
 
             ])
-                ->add('direccion',null,[
-                    'label' => 'Dirección',
-                    'attr' => [
-                        'class' => 'form-control input-lg',
-                        'placeholder' => 'Dirección',
-                    ],
-                    'required' => true,
-                ])
-               ->add('dpi', null, [
-                    'label' => 'DPI',
-                    'attr' => [
-                        'class' => 'form-control input-lg',
-                         'placeholder' => 'Documento Personal de Identificación',
-                    ],
-                    'required' => true,
+           ->add('nit', null, [
+                'label' => 'NIT',
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'Número de Identificación Tributaria',
+                ],
+                'required' => true,
 
-                ])
-               ->add('nit', null, [
-                    'label' => 'NIT',
-                    'attr' => [
-                        'class' => 'form-control input-lg',
-                        'placeholder' => 'Número de Identificación Tributaria',
-                    ],
-                    'required' => true,
-
-                ])
-                ->add('telefono', null, [
-                    'label' => 'Teléfono',
-                    'translation_domain' => 'FOSUserBundle',
-                    'attr' => [
-                        'class' => 'form-control input-lg',
-                        'placeholder' => 'Teléfono',
-                    ],
-                    'required' => false,
-                ])
-
-                ->add('submit', 'submit', [
-                    'label' => 'Guardar y agregar puesto',
-                    'attr' => [
-                        'class' => 'btn btn-primary',
-                    ],
-                ])
-             
+            ])
+            ->add('telefono', null, [
+                'label' => 'Teléfono',
+                'translation_domain' => 'FOSUserBundle',
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'Teléfono',
+                ],
+                'required' => false,
+            ])
+            ->add('submit', 'submit', [
+                'label' => 'Guardar y agregar puesto',
+                'attr' => [
+                    'class' => 'btn btn-primary',
+                ],
+            ])
 
             ;
-
-        
     }
 
     /**
@@ -134,5 +127,4 @@ class RegistrationTrabajadorFormType extends AbstractType
     {
         return 'user_registration';
     }
-
 }

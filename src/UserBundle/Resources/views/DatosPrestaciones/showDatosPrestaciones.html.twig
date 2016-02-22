@@ -1,0 +1,66 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+     <div class="col-md-6">
+    <h1>DatosPrestaciones</h1>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Sueldo</th>
+                <td>{{ entity.sueldo | number_format(2, '.', ',')}}</td>
+            </tr>
+            <tr>
+                <th>Bonificación Incentivo</th>
+                <td>{{ entity.bonificacionIncentivo | number_format(2, '.', ',') }}</td>
+            </tr>
+            <tr>
+                <th>Bonificación Ley</th>
+                <td>{{ entity.bonificacionLey | number_format(2, '.', ',')}}</td>
+            </tr>
+            <tr>
+                <th>Gasolina</th>
+                <td>{{ entity.gasolina | number_format(2, '.', ',')}}</td>
+            </tr>
+            <tr>
+                <th>Prestaciones sobre sueldo</th>
+                <td>{{ entity.prestacionesSobreSueldo | number_format(2, '.', ',')}}</td>
+            </tr>
+            <tr>
+                <th>Otras Prestaciones</th>
+                <td>{{ entity.otrasPrestaciones | number_format(2, '.', ',')}}</td>
+            </tr>
+            <tr>
+                <th>Otros</th>
+                <td>{{ entity.otros | number_format(2, '.', ',')}}</td>
+            </tr>
+            <tr>
+                <th>Depreciación</th>
+                <td>{{ entity.depreciacion | number_format(2, '.', ',')}}</td>
+            </tr>
+             <tr>
+                <th>Usuario</th>
+                <td>{{ entity.usuario }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    
+    <li>
+        <a class="btn btn-default" href="{{ path('datosprestaciones_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+    <br>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+</div>
+<div class="col-md-6">
+    
+     {{ render(controller(
+        'UserBundle:Puesto:show',
+        {'id': app.user.puestos[0].id}
+    )) }}
+   
+</div>
+{% endblock %}

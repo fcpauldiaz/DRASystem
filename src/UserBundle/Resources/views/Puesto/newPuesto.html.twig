@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+   
+    {{ form_start(form) }}
+    
+                 
+      <h1>Registro del Puesto</h1>
+      <hr class="colorgraph">
+      
+
+      {{ form_row(form.tipoPuesto)}}
+      {{ form_row(form.nombrePuesto)}}
+	  {{ form_row(form.date) }}
+    
+
+     <hr class="colorgraph">
+   
+    {{ form_end(form)}}
+		
+   
+{% endblock %}

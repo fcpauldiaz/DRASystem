@@ -18,22 +18,20 @@ class RegistrationController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-      $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
-      $claseActual = $discriminator->getClass();
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
 
       //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
-      if ($claseActual == "UserBundle\Entity\UsuarioTrabajador"){
+      if ($claseActual == "UserBundle\Entity\UsuarioTrabajador") {
 
        //$response = $this->forward('UserBundle:DatosPrestaciones:new');
         $response = $this->forward('UserBundle:Puesto:new');
 
-        return $response;
+          return $response;
       }
       //entonces es una clase tipo Socio UserBundle\Entity\UsuarioSocio
-      else{
-
-
-        return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
+      else {
+          return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
         ));

@@ -6,32 +6,36 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UsuarioTrabajadorType extends AbstractType
+class PuestoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('direccion')
-            ->add('fechaEgreso')
-            ->add('dpi')
-            ->add('nit')
-            ->add('telefono')
-            ->add('nombre')
-            ->add('apellidos')
+            ->add('tipoPuesto', 'choice', array(
+                'choices' => array(
+                    'Asistente' => 'Asistente',
+                    'Supervisor' => 'Supervisor',
+                    'Gerente' => 'Gerente',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+            ))
+            ->add('nombrePuesto')
+            ->add('date')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\UsuarioTrabajador'
+            'data_class' => 'UserBundle\Entity\Puesto',
         ));
     }
 
@@ -40,6 +44,6 @@ class UsuarioTrabajadorType extends AbstractType
      */
     public function getName()
     {
-        return 'userbundle_usuariotrabajador';
+        return 'userbundle_puesto';
     }
 }

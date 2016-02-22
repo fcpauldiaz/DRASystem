@@ -24,7 +24,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/", name="datosprestaciones")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:DatosPrestaciones:indexDatosPrestaciones.html.twig")
      */
     public function indexAction()
     {
@@ -41,7 +41,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/", name="datosprestaciones_create")
      * @Method("POST")
-     * @Template("UserBundle:DatosPrestaciones:new.html.twig")
+     * @Template("UserBundle:DatosPrestaciones:newDatosPrestaciones.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -54,7 +54,6 @@ class DatosPrestacionesController extends Controller
         $entity->setUsuario($usuario);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-         $entity->setUsuario($usuario);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -87,7 +86,7 @@ class DatosPrestacionesController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-block')));
 
         return $form;
     }
@@ -97,7 +96,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/new", name="datosprestaciones_new")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:DatosPrestaciones:newDatosPrestaciones.html.twig")
      */
     public function newAction()
     {
@@ -115,10 +114,15 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/{id}", name="datosprestaciones_show")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:DatosPrestaciones:showDatosPrestaciones.html.twig")
      */
     public function showAction($id)
     {
+        $usuario = $this->getUser();
+        if (!is_object($usuario) || !$usuario instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UserBundle:DatosPrestaciones')->find($id);
@@ -132,6 +136,7 @@ class DatosPrestacionesController extends Controller
         return array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
+
         );
     }
 
@@ -140,7 +145,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/{id}/edit", name="datosprestaciones_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("UserBundle:DatosPrestaciones:editDatosPrestaciones.html.twig")
      */
     public function editAction($id)
     {
@@ -185,7 +190,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/{id}", name="datosprestaciones_update")
      * @Method("PUT")
-     * @Template("UserBundle:DatosPrestaciones:edit.html.twig")
+     * @Template("UserBundle:DatosPrestaciones:editDatosPrestaciones.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

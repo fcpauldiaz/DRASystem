@@ -64,13 +64,18 @@ class UsuarioTrabajador extends Usuario
     private $datosPrestaciones;
 
     /**
-     * 
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Puesto", mappedBy="usuario")
-     * 
      */
     private $puestos;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="costoPorHora", type="float",nullable=true)
+     */
+    private $costoPorHora;
 
     /**
      * Constructor.
@@ -79,13 +84,10 @@ class UsuarioTrabajador extends Usuario
     {
         parent::__construct();
         $this->datosPrestaciones = new \Doctrine\Common\Collections\ArrayCollection();
-       
     }
 
-
-
     /**
-     * Set direccion
+     * Set direccion.
      *
      * @param string $direccion
      *
@@ -99,7 +101,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get direccion
+     * Get direccion.
      *
      * @return string
      */
@@ -109,7 +111,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set fechaEgreso
+     * Set fechaEgreso.
      *
      * @param \DateTime $fechaEgreso
      *
@@ -123,7 +125,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get fechaEgreso
+     * Get fechaEgreso.
      *
      * @return \DateTime
      */
@@ -133,7 +135,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set dpi
+     * Set dpi.
      *
      * @param string $dpi
      *
@@ -147,7 +149,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get dpi
+     * Get dpi.
      *
      * @return string
      */
@@ -157,7 +159,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set nit
+     * Set nit.
      *
      * @param string $nit
      *
@@ -171,7 +173,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get nit
+     * Get nit.
      *
      * @return string
      */
@@ -181,7 +183,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set telefono
+     * Set telefono.
      *
      * @param string $telefono
      *
@@ -195,7 +197,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get telefono
+     * Get telefono.
      *
      * @return string
      */
@@ -205,7 +207,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Add datosPrestacione
+     * Add datosPrestacione.
      *
      * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
      *
@@ -219,7 +221,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Remove datosPrestacione
+     * Remove datosPrestacione.
      *
      * @param \UserBundle\Entity\DatosPrestaciones $datosPrestacione
      */
@@ -229,7 +231,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get datosPrestaciones
+     * Get datosPrestaciones.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -239,7 +241,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Add puesto
+     * Add puesto.
      *
      * @param \UserBundle\Entity\Puesto $puesto
      *
@@ -248,30 +250,52 @@ class UsuarioTrabajador extends Usuario
     public function addPuesto(\UserBundle\Entity\Puesto $puesto)
     {
         $this->puestos[] = $puesto;
-        
 
         return $this;
     }
 
     /**
-     * Remove puesto
+     * Remove puesto.
      *
      * @param \UserBundle\Entity\Puesto $puesto
      */
     public function removePuesto(\UserBundle\Entity\Puesto $puesto)
     {
         $this->puestos->removeElement($puesto);
-        
     }
 
     /**
-     * Get puestos
+     * Get puestos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getPuestos()
     {
         return $this->puestos;
+    }
+
+    /**
+     * Set costoPorHora.
+     *
+     * @param float $costoPorHora
+     *
+     * @return UsuarioTrabajador
+     */
+    public function setCostoPorHora($costoPorHora)
+    {
+        $this->costoPorHora = $costoPorHora;
+
+        return $this;
+    }
+
+    /**
+     * Get costoPorHora.
+     *
+     * @return float
+     */
+    public function getCostoPorHora()
+    {
+        return $this->costoPorHora;
     }
 
     public function __toString()

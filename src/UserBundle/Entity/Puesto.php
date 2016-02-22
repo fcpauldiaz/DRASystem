@@ -5,7 +5,7 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Puesto
+ * Puesto.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Puesto
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,7 +22,7 @@ class Puesto
     private $id;
 
     /**
-     * @var  string
+     * @var string
      *
      * @ORM\Column(name="tipoPuesto",type="string",length=100)
      */
@@ -50,9 +50,9 @@ class Puesto
     private $usuario;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -60,7 +60,7 @@ class Puesto
     }
 
     /**
-     * Set nombrePuesto
+     * Set nombrePuesto.
      *
      * @param string $nombrePuesto
      *
@@ -74,7 +74,7 @@ class Puesto
     }
 
     /**
-     * Get nombrePuesto
+     * Get nombrePuesto.
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class Puesto
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      *
@@ -98,7 +98,7 @@ class Puesto
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -107,10 +107,8 @@ class Puesto
         return $this->date;
     }
 
-    
-
     /**
-     * Set tipoPuesto
+     * Set tipoPuesto.
      *
      * @param string $tipoPuesto
      *
@@ -124,7 +122,7 @@ class Puesto
     }
 
     /**
-     * Get tipoPuesto
+     * Get tipoPuesto.
      *
      * @return string
      */
@@ -133,23 +131,18 @@ class Puesto
         return $this->tipoPuesto;
     }
 
-     
-
-
     /**
-     * Mostrar el noombre del puesto
-     * @return string 
+     * Mostrar el noombre del puesto.
+     *
+     * @return string
      */
     public function __toString()
     {
         return $this->tipoPuesto.': '.$this->nombrePuesto;
     }
 
-
-   
-
     /**
-     * Set usuario
+     * Set usuario.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuario
      *
@@ -163,7 +156,7 @@ class Puesto
     }
 
     /**
-     * Get usuario
+     * Get usuario.
      *
      * @return \UserBundle\Entity\UsuarioTrabajador
      */
