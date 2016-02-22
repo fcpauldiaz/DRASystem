@@ -1,78 +1,61 @@
 {% extends '::base.html.twig' %}
-
-{% block body -%}
-   
-
+  {% block body -%}
     {{ form_start(form) }}
-            <div class="tab-content">
-            <div class="tab-pane active" role="tabpanel" id="step1">
-                 
-                  <h1>Registro de Prestaciones</h1>
-                  <hr class="colorgraph">
-                  {# mostrar errores del primer tab #}
-
-                  <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab1" data-fade="3000"></div>
-
-                  {# termina div para mostrar errores primer tab #}
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                              {{form_row(form.sueldo)}}
-                      </div>
+    <div class="tab-content">
+        <div class="tab-pane active" role="tabpanel" id="step1">
+            <h1>Registro de Prestaciones</h1>
+            <hr class="colorgraph">
+            {# mostrar errores del primer tab #}
+            <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab1" data-fade="3000"></div>
+            {# termina div para mostrar errores primer tab #}
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{form_row(form.sueldo)}}
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                          {{form_row(form.bonificacionIncentivo)}}
-                      </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{form_row(form.bonificacionIncentivo)}}
                     </div>
-                  </div>
-                  <div class="row">
-                   <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                              {{form_row(form.bonificacionLey)}}
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                          {{form_row(form.gasolina)}}
-                      </div>
-                    </div>
-                  </div>
-                   <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                          {{form_row(form.otrasPrestaciones)}}
-                      </div>
-                     
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                              {{form_row(form.depreciacion)}}
-                      </div>
-                    </div>
-                  </div>
-                   </div>
-                   <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                       <div class="form-group">
-                          {{form_row(form.otros)}}
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                     
-                    </div>
-                  </div>
-
-                  
-                  <hr class="colorgraph">
-                  
-                
-                {{form_row(form.submit)}}
+                </div>
             </div>
-            
-          
-            
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{form_row(form.bonificacionLey)}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{form_row(form.gasolina)}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{form_row(form.otrasPrestaciones)}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{form_row(form.depreciacion)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                    {{form_row(form.otros)}}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+            </div>
+        </div>
+        <hr class="colorgraph">
+        {{form_row(form.submit)}}
+    </div>
     {{form_end(form)}}
-
-      
-{% endblock %}
+  {% endblock %}

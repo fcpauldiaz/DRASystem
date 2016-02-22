@@ -28,9 +28,13 @@ class DatosPrestacionesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        
+         $usuario = $this->getUser();
+        if (!is_object($usuario) || !$usuario instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
 
-        $entities = $em->getRepository('UserBundle:DatosPrestaciones')->findAll();
+        $entities = $usuario->getDatosPrestaciones();
 
         return array(
             'entities' => $entities,

@@ -28,9 +28,11 @@ class PuestoController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('UserBundle:Puesto')->findAll();
+        $usuario = $this->getUser();
+        if (!is_object($usuario) || !$usuario instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        $entities = $usuario->getPuestos();
 
         return array(
             'entities' => $entities,

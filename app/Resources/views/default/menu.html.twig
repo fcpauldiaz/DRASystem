@@ -56,11 +56,9 @@
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
                          <ul class="dropdown-menu">
-                            <li class="navigation"><a href=""><i class="icon-cog"></i>  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
-                            <li class="divider"></li>
-                             <li class="navigation"><a href="{{path('fos_user_security_logout')}}"><i class="icon-off"></i>Editar Perfil</a></li>
-                              <li class="navigation"><a href="{{path('fos_user_security_logout')}}"><i class="icon-off"></i>Ver Perfil</a></li>
-                            <li class="navigation"><a href="{{path('fos_user_security_logout')}}"><i class="icon-off"></i> Cerrar Sesión</a></li>
+                             <li style="text-align: left;"class="navigation"><a href="{{path('puesto')}}"><i class="icon-off"></i>Ver Puesto</a></li>
+                              <li class="navigation"><a href="{{path('datosprestaciones')}}"><i class="icon-off"></i>Ver Datos <br> Prestaciones</a></li>
+                           
                         </ul>
 
                     </li>
