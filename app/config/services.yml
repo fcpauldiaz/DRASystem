@@ -12,4 +12,4 @@ services:
         arguments: [ @router ] #I am going to use this for URL generation since I will be redirecting in my service
     app.token_authenticator:
         class: UserBundle\Security\TokenAuthenticator
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager','@service_container']

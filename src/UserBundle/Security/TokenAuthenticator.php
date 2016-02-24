@@ -9,15 +9,20 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityManager;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
     private $em;
+    private $container;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em,Container $container)
     {
         $this->em = $em;
+        $this->container = $container;
     }
 
     /**
@@ -30,30 +35,42 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             // no token? Return null and no other methods will be called
             return;
         }
+        if (!$password = $request->headers->get('X-AUTH-TOKEN-PASS')) {
+            // no token? Return null and no other methods will be called
+            return;
+        }
 
         // What you return here will be passed to getUser() as $credentials
         return array(
             'token' => $token,
+            'password' => $password,
         );
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $apiKey = $credentials['token'];
+        $username = $credentials['token'];
+       
 
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
         return $this->em->getRepository('UserBundle:Usuario')
-            ->findOneBy(array('apiKey' => $apiKey));
+            ->findOneBy(array('username' => $username));
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        $factory = $this->container->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+        $encodedPassword = $encoder->encodePassword($credentials['password'], $user->getSalt());
         // check credentials - e.g. make sure the password is valid
         // no credential check is needed in this case
+        if ($user->getPassword() === $encodedPassword) {
+          return true;
+        }
 
         // return true to cause authentication success
-        return true;
+        throw new CustomUserMessageAuthenticationException("Contraseña incorrecta");
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -65,10 +82,10 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = array(
-            //'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
 
             // or to translate this message
-             $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
+            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
         );
 
         return new JsonResponse($data, 403);
