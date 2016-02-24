@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\RegistroHoras;
-use AppBundle\Form\RegistroHorasType;
+use AppBundle\Form\Type\RegistroHorasType;
 
 /**
  * RegistroHoras controller.
@@ -17,13 +17,12 @@ use AppBundle\Form\RegistroHorasType;
  */
 class RegistroHorasController extends Controller
 {
-
     /**
      * Lists all RegistroHoras entities.
      *
      * @Route("/", name="registrohoras")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:RegistroHoras:indexRegistroHoras.html.twig")
      */
     public function indexAction()
     {
@@ -40,7 +39,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/", name="registrohoras_create")
      * @Method("POST")
-     * @Template("AppBundle:RegistroHoras:new.html.twig")
+     * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -58,7 +57,7 @@ class RegistroHorasController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -86,16 +85,16 @@ class RegistroHorasController extends Controller
      *
      * @Route("/new", name="registrohoras_new")
      * @Method("GET")
-     * @Template()
+     * @Template(AppBundle:RegistroHoras:newRegistroHoras.html.twig)
      */
     public function newAction()
     {
         $entity = new RegistroHoras();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -104,7 +103,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}", name="registrohoras_show")
      * @Method("GET")
-     * @Template()
+     * @Template(AppBundle:RegistroHoras:showRegistroHoras.html.twig)
      */
     public function showAction($id)
     {
@@ -119,7 +118,7 @@ class RegistroHorasController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -129,7 +128,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}/edit", name="registrohoras_edit")
      * @Method("GET")
-     * @Template()
+     * @Template(AppBundle:RegistroHoras:editRegistroHoras.html.twig)
      */
     public function editAction($id)
     {
@@ -145,19 +144,19 @@ class RegistroHorasController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a RegistroHoras entity.
-    *
-    * @param RegistroHoras $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a RegistroHoras entity.
+     *
+     * @param RegistroHoras $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(RegistroHoras $entity)
     {
         $form = $this->createForm(new RegistroHorasType(), $entity, array(
@@ -174,7 +173,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}", name="registrohoras_update")
      * @Method("PUT")
-     * @Template("AppBundle:RegistroHoras:edit.html.twig")
+     * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -197,8 +196,8 @@ class RegistroHorasController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

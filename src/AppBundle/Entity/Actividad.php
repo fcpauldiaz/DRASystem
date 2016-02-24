@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Actividad
+ * Actividad.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Actividad
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,11 +35,10 @@ class Actividad
      */
     private $abreviatura;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -47,7 +46,7 @@ class Actividad
     }
 
     /**
-     * Set nombreActividad
+     * Set nombreActividad.
      *
      * @param string $nombreActividad
      *
@@ -61,7 +60,7 @@ class Actividad
     }
 
     /**
-     * Get nombreActividad
+     * Get nombreActividad.
      *
      * @return string
      */
@@ -71,7 +70,7 @@ class Actividad
     }
 
     /**
-     * Set abreviatura
+     * Set abreviatura.
      *
      * @param string $abreviatura
      *
@@ -85,7 +84,7 @@ class Actividad
     }
 
     /**
-     * Get abreviatura
+     * Get abreviatura.
      *
      * @return string
      */
@@ -93,5 +92,9 @@ class Actividad
     {
         return $this->abreviatura;
     }
-}
 
+    public function __toString()
+    {
+        return $this->abreviatura.': '.$this->nombreActividad;
+    }
+}

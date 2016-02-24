@@ -1,32 +1,32 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ActividadType extends AbstractType
+class RegistroHorasType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreActividad')
-            ->add('abreviatura')
+            ->add('fecha')
+            ->add('horasInvertidas')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Actividad'
+            'data_class' => 'AppBundle\Entity\RegistroHoras',
         ));
     }
 
@@ -35,6 +35,6 @@ class ActividadType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_actividad';
+        return 'appbundle_registrohoras';
     }
 }

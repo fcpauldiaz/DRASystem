@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RegistroHoras.
+ * RegistroHoras
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RegistroHoras
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -29,7 +29,7 @@ class RegistroHoras
     private $fecha;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="horasInvertidas", type="integer")
      */
@@ -45,19 +45,19 @@ class RegistroHoras
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
-     *
      * @var [type]
      */
     private $actividad;
+
 
     public function __construct()
     {
         $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -65,7 +65,7 @@ class RegistroHoras
     }
 
     /**
-     * Set fecha.
+     * Set fecha
      *
      * @param \DateTime $fecha
      *
@@ -79,7 +79,7 @@ class RegistroHoras
     }
 
     /**
-     * Get fecha.
+     * Get fecha
      *
      * @return \DateTime
      */
@@ -89,9 +89,9 @@ class RegistroHoras
     }
 
     /**
-     * Set horasInvertidas.
+     * Set horasInvertidas
      *
-     * @param int $horasInvertidas
+     * @param integer $horasInvertidas
      *
      * @return RegistroHoras
      */
@@ -103,9 +103,9 @@ class RegistroHoras
     }
 
     /**
-     * Get horasInvertidas.
+     * Get horasInvertidas
      *
-     * @return int
+     * @return integer
      */
     public function getHorasInvertidas()
     {
@@ -113,7 +113,7 @@ class RegistroHoras
     }
 
     /**
-     * Add usuario.
+     * Add usuario
      *
      * @param \UserBundle\Entity\Usuario $usuario
      *
@@ -127,7 +127,7 @@ class RegistroHoras
     }
 
     /**
-     * Remove usuario.
+     * Remove usuario
      *
      * @param \UserBundle\Entity\Usuario $usuario
      */
@@ -137,37 +137,13 @@ class RegistroHoras
     }
 
     /**
-     * Get usuarios.
+     * Get usuarios
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsuarios()
     {
         return $this->usuarios;
-    }
-
-    /**
-     * Set actividad.
-     *
-     * @param \AppBundle\Entity\Actividad $actividad
-     *
-     * @return RegistroHoras
-     */
-    public function setActividad(\AppBundle\Entity\Actividad $actividad = null)
-    {
-        $this->actividad = $actividad;
-
-        return $this;
-    }
-
-    /**
-     * Get actividad.
-     *
-     * @return \AppBundle\Entity\Actividad
-     */
-    public function getActividad()
-    {
-        return $this->actividad;
     }
 
     public function __toString()

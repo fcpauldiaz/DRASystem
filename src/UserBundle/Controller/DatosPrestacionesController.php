@@ -28,8 +28,7 @@ class DatosPrestacionesController extends Controller
      */
     public function indexAction()
     {
-        
-         $usuario = $this->getUser();
+        $usuario = $this->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }

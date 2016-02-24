@@ -65,7 +65,6 @@ class ProfileSocioFormType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
 
             ])
-           
 
               ->add('submit', 'submit', [
                         'label' => 'Guardar',

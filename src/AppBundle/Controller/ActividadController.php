@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Actividad;
-use AppBundle\Form\ActividadType;
+use AppBundle\Form\Type\ActividadType;
 
 /**
  * Actividad controller.
@@ -17,13 +17,12 @@ use AppBundle\Form\ActividadType;
  */
 class ActividadController extends Controller
 {
-
     /**
      * Lists all Actividad entities.
      *
      * @Route("/", name="actividad")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Actividad:indexActividad.html.twig")
      */
     public function indexAction()
     {
@@ -40,7 +39,7 @@ class ActividadController extends Controller
      *
      * @Route("/", name="actividad_create")
      * @Method("POST")
-     * @Template("AppBundle:Actividad:new.html.twig")
+     * @Template("AppBundle:Actividad:newActividad.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -58,7 +57,7 @@ class ActividadController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -86,16 +85,16 @@ class ActividadController extends Controller
      *
      * @Route("/new", name="actividad_new")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Actividad:newActividad.html.twig")
      */
     public function newAction()
     {
         $entity = new Actividad();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -104,7 +103,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}", name="actividad_show")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Actividad:showActividad.html.twig")
      */
     public function showAction($id)
     {
@@ -119,7 +118,7 @@ class ActividadController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -129,7 +128,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}/edit", name="actividad_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Actividad:editActividad.html.twig")
      */
     public function editAction($id)
     {
@@ -145,19 +144,19 @@ class ActividadController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Actividad entity.
-    *
-    * @param Actividad $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Actividad entity.
+     *
+     * @param Actividad $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Actividad $entity)
     {
         $form = $this->createForm(new ActividadType(), $entity, array(
@@ -174,7 +173,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}", name="actividad_update")
      * @Method("PUT")
-     * @Template("AppBundle:Actividad:edit.html.twig")
+     * @Template("AppBundle:Actividad:editActividad.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -197,8 +196,8 @@ class ActividadController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

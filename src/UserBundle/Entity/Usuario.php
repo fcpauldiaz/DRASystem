@@ -45,11 +45,19 @@ abstract class Usuario extends BaseUser
     protected $apiKey;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\RegistroHoras", mappedBy="usuarios")
+     *
+     * @var [type]
+     */
+    protected $registroHoras;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();// construye los metodos y atributos de Base
+        $this->registroHoras = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -138,13 +146,8 @@ abstract class Usuario extends BaseUser
         return $this->apellidos;
     }
 
-    public function __toString()
-    {
-        return $this->nombre.' '.$this->apellidos;
-    }
-
     /**
-     * Set apiKey
+     * Set apiKey.
      *
      * @param string $apiKey
      *
@@ -158,12 +161,51 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Get apiKey
+     * Get apiKey.
      *
      * @return string
      */
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    /**
+     * Add registroHora.
+     *
+     * @param \AppBundle\Entity\RegistroHoras $registroHora
+     *
+     * @return Usuario
+     */
+    public function addRegistroHora(\AppBundle\Entity\RegistroHoras $registroHora)
+    {
+        $this->registroHoras[] = $registroHora;
+
+        return $this;
+    }
+
+    /**
+     * Remove registroHora.
+     *
+     * @param \AppBundle\Entity\RegistroHoras $registroHora
+     */
+    public function removeRegistroHora(\AppBundle\Entity\RegistroHoras $registroHora)
+    {
+        $this->registroHoras->removeElement($registroHora);
+    }
+
+    /**
+     * Get registroHoras.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegistroHoras()
+    {
+        return $this->registroHoras;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre.' '.$this->apellidos;
     }
 }

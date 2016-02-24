@@ -10,7 +10,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityManager;
 
@@ -19,7 +18,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     private $em;
     private $container;
 
-    public function __construct(EntityManager $em,Container $container)
+    public function __construct(EntityManager $em, Container $container)
     {
         $this->em = $em;
         $this->container = $container;
@@ -50,7 +49,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $username = $credentials['token'];
-       
 
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
@@ -66,23 +64,23 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         // check credentials - e.g. make sure the password is valid
         // no credential check is needed in this case
         if ($user->getPassword() === $encodedPassword) {
-          return true;
+            return true;
         }
 
         // return true to cause authentication success
-        throw new CustomUserMessageAuthenticationException("Contraseña incorrecta");
+        throw new CustomUserMessageAuthenticationException('Contraseña incorrecta');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // on success, let the request continue
-        return null;
+        return;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = array(
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
 
             // or to translate this message
             // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
@@ -92,13 +90,13 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called when authentication is needed, but it's not sent
+     * Called when authentication is needed, but it's not sent.
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
         $data = array(
             // you might translate this message
-            'message' => 'Authentication Required'
+            'message' => 'Authentication Required',
         );
 
         return new JsonResponse($data, 401);

@@ -40,9 +40,15 @@ abstract class Usuario extends BaseUser
     protected $apellidos;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", unique=true,nullable=true)
      */
     protected $apiKey;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\RegistroHoras", mappedBy="usuarios")
+     * @var [type]
+     */
+    protected $registroHoras;
 
     /**
      * Constructor.
@@ -50,6 +56,7 @@ abstract class Usuario extends BaseUser
     public function __construct()
     {
         parent::__construct();// construye los metodos y atributos de Base
+        $this->registroHoras = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -141,5 +148,29 @@ abstract class Usuario extends BaseUser
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    /**
+     * Set apiKey
+     *
+     * @param string $apiKey
+     *
+     * @return Usuario
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * Get apiKey
+     *
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
     }
 }
