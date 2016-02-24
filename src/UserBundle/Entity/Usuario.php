@@ -40,6 +40,11 @@ abstract class Usuario extends BaseUser
     protected $apellidos;
 
     /**
+     * @ORM\Column(type="string", unique=true,nullable=true)
+     */
+    protected $apiKey;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -136,5 +141,29 @@ abstract class Usuario extends BaseUser
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    /**
+     * Set apiKey
+     *
+     * @param string $apiKey
+     *
+     * @return Usuario
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * Get apiKey
+     *
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
     }
 }

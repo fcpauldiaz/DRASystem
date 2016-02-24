@@ -40,6 +40,11 @@ abstract class Usuario extends BaseUser
     protected $apellidos;
 
     /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    protected $apiKey;
+
+    /**
      * Constructor.
      */
     public function __construct()

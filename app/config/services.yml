@@ -7,3 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    entry_point.user_login:
+        class: UserBundle\Service\LoginEntryPoint
+        arguments: [ @router ] #I am going to use this for URL generation since I will be redirecting in my service
+    app.token_authenticator:
+        class: UserBundle\Security\TokenAuthenticator
+        arguments: ['@doctrine.orm.entity_manager']

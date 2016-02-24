@@ -35,6 +35,14 @@
             <li><a href="/contacto">Contactar</a></li>
           </ul>
           {% if app.user %}
+            {% if app.session.flashbag.has('warning') %}
+              {% for flashMessage in app.session.flashbag.get('warning') %}
+                  <div class="alert alert-warning">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      {{ flashMessage }}
+                  </div>
+              {% endfor %}
+            {% endif %}
            <div class="pull-right">
                 <ul class="navigation navbar-nav  nav-tabs">
                     <li class="active dropdown">
