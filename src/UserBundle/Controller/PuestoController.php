@@ -61,6 +61,21 @@ class PuestoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $data = $form->getData();
+            foreach($usuario->getRoles() as $role){
+                $usuario->removeRole($role);
+            }
+            if ($data->getTipoPuesto() == 'Asistente'){
+                $usuario->addRole('ROLE_ASISTENTE');
+            }
+            else if($data->getTipoPuesto() == 'Supervisor'){
+                 $usuario->addRole('ROLE_SUPERVISOR');
+            }
+            else if($data->getTipoPuesto() == 'Gerente'){
+                 $usuario->addRole('ROLE_GERENTE');
+            }
+            $em->persist($usuario);
+            $em->flush();
 
             //return new JsonResponse([$key,$value]);
 

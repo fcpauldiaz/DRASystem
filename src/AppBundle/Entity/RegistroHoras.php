@@ -24,9 +24,9 @@ class RegistroHoras
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fechaHoras", type="date")
      */
-    private $fecha;
+    private $fechaHoras;
 
     /**
      * @var int
@@ -50,9 +50,18 @@ class RegistroHoras
      */
     private $actividad;
 
+    /**
+     * 
+     * @var date
+     *
+     * @ORM\Column(name="fechaCreacion", type="datetime")
+     */
+    private $fechaCreacion;
+
     public function __construct()
     {
         $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fechaCreacion = new \DateTime();
     }
     /**
      * Get id.
@@ -71,9 +80,9 @@ class RegistroHoras
      *
      * @return RegistroHoras
      */
-    public function setFecha($fecha)
+    public function setFechaHoras($fecha)
     {
-        $this->fecha = $fecha;
+        $this->fechaHoras = $fecha;
 
         return $this;
     }
@@ -83,9 +92,9 @@ class RegistroHoras
      *
      * @return \DateTime
      */
-    public function getFecha()
+    public function getFechaHoras()
     {
-        return $this->fecha;
+        return $this->fechaHoras;
     }
 
     /**
@@ -124,6 +133,18 @@ class RegistroHoras
         $this->usuarios[] = $usuario;
 
         return $this;
+    }
+
+    /**
+     * Add usuario.
+     *
+     * @param \UserBundle\Entity\Usuario $usuario
+     *
+     * @return RegistroHoras
+     */
+    public function getUsuariosSupervisor()
+    {
+        return $this->usuarios;
     }
 
     /**

@@ -1,9 +1,27 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+	<script src="{{asset('js/bc-bootstrap-collection.js')}}"></script>
+	<script src="{{asset('js/jquery.initialize.js')}}"></script>
+{% endblock %}
+
 {% block body -%}
     <h1>RegistroHoras creation</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+
+	
+	{% form_theme form _self %}
+
+    {% block _appbundle_registrohoras %}
+        <div class="form-inline">
+            
+           {{ form_row(form.fechaHoras)}}
+         </div>
+       
+    {% endblock %}
+	
+    {{form_end(form)}}
 
         <ul class="record_actions">
     <li>

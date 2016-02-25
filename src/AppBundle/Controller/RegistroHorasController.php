@@ -85,7 +85,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/new", name="registrohoras_new")
      * @Method("GET")
-     * @Template(AppBundle:RegistroHoras:newRegistroHoras.html.twig)
+     * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function newAction()
     {
@@ -103,7 +103,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}", name="registrohoras_show")
      * @Method("GET")
-     * @Template(AppBundle:RegistroHoras:showRegistroHoras.html.twig)
+     * @Template("AppBundle:RegistroHoras:showRegistroHoras.html.twig")
      */
     public function showAction($id)
     {
@@ -128,7 +128,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}/edit", name="registrohoras_edit")
      * @Method("GET")
-     * @Template(AppBundle:RegistroHoras:editRegistroHoras.html.twig)
+     * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
      */
     public function editAction($id)
     {

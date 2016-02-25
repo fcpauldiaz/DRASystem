@@ -57,13 +57,19 @@
         <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('js/select2.min.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
+        <script src="{{asset('js/bc-bootstrap-collection.js')}}"></script>
+        <script src="{{asset('js/jquery.initialize.js')}}"></script>
          <script type="text/javascript">
-                $('select').select2({
-
-
-                  
+                (function(){
+                        $("select").initialize( function(){
+                     $(this).select2();
+                    
+                 
 
                 });
+                       
+                          
+                })();
         </script>
         <script>
             $('table').dataTable( {

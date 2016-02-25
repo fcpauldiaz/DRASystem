@@ -5,6 +5,8 @@ namespace UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class RegistrationSocioFormType extends AbstractType
 {
@@ -74,6 +76,12 @@ class RegistrationSocioFormType extends AbstractType
                     ])
 
             ;
+
+
+        $builder->addEventListener(
+            FormEvents::POST_SUBMIT,
+            [$this, 'onPostData']
+        );
     }
 
     /**
@@ -93,5 +101,18 @@ class RegistrationSocioFormType extends AbstractType
     public function getName()
     {
         return 'user_registration_socio';
+    }
+
+     /**
+     * Forma de validar el correo de un catedrático
+     * @param  FormEvent $event Evento después de mandar la información del formulario
+     * @return void
+     */
+    public function onPostData(FormEvent $event)
+    {
+        $usuario = $event->getData();
+      
+        $usuario->addRole('ROLE_SOCIO');
+        
     }
 }
