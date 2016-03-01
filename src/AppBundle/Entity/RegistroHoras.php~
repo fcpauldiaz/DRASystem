@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RegistroHoras
+ * RegistroHoras.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RegistroHoras
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -24,12 +24,12 @@ class RegistroHoras
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fechaHoras", type="date")
      */
-    private $fecha;
+    private $fechaHoras;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="horasInvertidas", type="integer")
      */
@@ -45,19 +45,40 @@ class RegistroHoras
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
+     *
      * @var [type]
      */
     private $actividad;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente")
+     * @var [type]
+     */
+    private $cliente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @var [type]
+     */
+    private $ingresadoPor;
+
+    /**
+     * 
+     * @var date
+     *
+     * @ORM\Column(name="fechaCreacion", type="datetime")
+     */
+    private $fechaCreacion;
 
     public function __construct()
     {
         $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fechaCreacion = new \DateTime();
     }
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -65,33 +86,33 @@ class RegistroHoras
     }
 
     /**
-     * Set fecha
+     * Set fecha.
      *
      * @param \DateTime $fecha
      *
      * @return RegistroHoras
      */
-    public function setFecha($fecha)
+    public function setFechaHoras($fecha)
     {
-        $this->fecha = $fecha;
+        $this->fechaHoras = $fecha;
 
         return $this;
     }
 
     /**
-     * Get fecha
+     * Get fecha.
      *
      * @return \DateTime
      */
-    public function getFecha()
+    public function getFechaHoras()
     {
-        return $this->fecha;
+        return $this->fechaHoras;
     }
 
     /**
-     * Set horasInvertidas
+     * Set horasInvertidas.
      *
-     * @param integer $horasInvertidas
+     * @param int $horasInvertidas
      *
      * @return RegistroHoras
      */
@@ -103,9 +124,9 @@ class RegistroHoras
     }
 
     /**
-     * Get horasInvertidas
+     * Get horasInvertidas.
      *
-     * @return integer
+     * @return int
      */
     public function getHorasInvertidas()
     {
@@ -113,7 +134,7 @@ class RegistroHoras
     }
 
     /**
-     * Add usuario
+     * Add usuario.
      *
      * @param \UserBundle\Entity\Usuario $usuario
      *
@@ -127,7 +148,19 @@ class RegistroHoras
     }
 
     /**
-     * Remove usuario
+     * Add usuario.
+     *
+     * @param \UserBundle\Entity\Usuario $usuario
+     *
+     * @return RegistroHoras
+     */
+    public function getUsuariosSupervisor()
+    {
+        return $this->usuarios;
+    }
+
+    /**
+     * Remove usuario.
      *
      * @param \UserBundle\Entity\Usuario $usuario
      */
@@ -137,13 +170,37 @@ class RegistroHoras
     }
 
     /**
-     * Get usuarios
+     * Get usuarios.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsuarios()
     {
         return $this->usuarios;
+    }
+
+    /**
+     * Set actividad.
+     *
+     * @param \AppBundle\Entity\Actividad $actividad
+     *
+     * @return RegistroHoras
+     */
+    public function setActividad(\AppBundle\Entity\Actividad $actividad = null)
+    {
+        $this->actividad = $actividad;
+
+        return $this;
+    }
+
+    /**
+     * Get actividad.
+     *
+     * @return \AppBundle\Entity\Actividad
+     */
+    public function getActividad()
+    {
+        return $this->actividad;
     }
 
     public function __toString()

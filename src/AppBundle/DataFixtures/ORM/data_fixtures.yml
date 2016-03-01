@@ -1,0 +1,31 @@
+#documento
+UserBundle\Entity\Puesto:
+    puesto{1..10000}:
+        tipoPuesto: <word()>
+        nombrePuesto: <word()>
+        date: <datetime()>
+        usuario: @usuario*
+
+UserBundle\Entity\DatosPrestaciones:
+    prestaciones{1..10000}:
+        sueldo: <randomFloat()>
+        bonificacionIncentivo: <randomFloat()>
+        bonificacionLey: <randomFloat()>
+        gasolina: <randomFloat()>
+        prestacionesSobreSueldo: <randomFloat()>
+        otrasPrestaciones: <randomFloat()>
+        usuario: @usuario*
+
+#usuarios
+UserBundle\Entity\UsuarioTrabajador:
+     usuario{2..500}:
+        nombre: <word()>
+        apellidos: <word()>
+        direccion: <word()>
+        dpi (unique) : <current()>
+        nit (unique) : <current()>
+        telefono: <word()>
+        username (unique): <username()>
+        email (unique): <email()>
+        password: <word()>
+        enabled: true

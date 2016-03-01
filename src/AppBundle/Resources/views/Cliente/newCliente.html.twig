@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+
+
+
+{% block body -%}
+
+{% block javascripts %}
+
+<script src="{{asset('js/ajaxContacto.js')}}"></script>
+<script src="{{ asset('js/jquery.bsAlerts.min.js')}}"></script>
+ <script>
+ajaxContacto();
+</script>
+
+{% endblock javascripts %}
+
+    <h1>Nuevo Cliente</h1>
+
+    {{ form_start(form) }}
+
+    <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+              {{ form_row(form.nit)}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+          {{ form_row(form.numeroContrato)}}
+      </div>
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+              {{ form_row(form.razonSocial)}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+        {{ form_row(form.nombreComercial)}}
+      </div>
+    </div>
+  </div>
+	 <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+             {{ form_row(form.nombreCorto)}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+       {{ form_row(form.serviciosPrestados)}}
+      </div>
+    </div>
+  </div>
+   <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+            {{ form_row(form.codigoSAT)}}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="form-group">
+      	  <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="myid" data-fade="3000"></div>
+                            
+      {{form_row(form.contactos)}}
+	  <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#modalContacto">
+           Crear nuevo contacto
+          </button>
+      </div>
+    </div>
+  </div>
+	
+
+	
+	
+    {{ form_end(form)}}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('cliente') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+
+{% include 'AppBundle:ContactoCliente:modal_contacto_cliente.html.twig' %}
+{% endblock %}
+

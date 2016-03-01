@@ -51,7 +51,20 @@ class RegistroHoras
     private $actividad;
 
     /**
-     * 
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente")
+     *
+     * @var [type]
+     */
+    private $cliente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     *
+     * @var [type]
+     */
+    private $ingresadoPor;
+
+    /**
      * @var date
      *
      * @ORM\Column(name="fechaCreacion", type="datetime")
@@ -194,5 +207,77 @@ class RegistroHoras
     public function __toString()
     {
         return $this->getActividad();
+    }
+
+    /**
+     * Set fechaCreacion.
+     *
+     * @param \DateTime $fechaCreacion
+     *
+     * @return RegistroHoras
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set cliente.
+     *
+     * @param \AppBundle\Entity\Cliente $cliente
+     *
+     * @return RegistroHoras
+     */
+    public function setCliente(\AppBundle\Entity\Cliente $cliente = null)
+    {
+        $this->cliente = $cliente;
+
+        return $this;
+    }
+
+    /**
+     * Get cliente.
+     *
+     * @return \AppBundle\Entity\Cliente
+     */
+    public function getCliente()
+    {
+        return $this->cliente;
+    }
+
+    /**
+     * Set ingresadoPor.
+     *
+     * @param \UserBundle\Entity\Usuario $ingresadoPor
+     *
+     * @return RegistroHoras
+     */
+    public function setIngresadoPor(\UserBundle\Entity\Usuario $ingresadoPor = null)
+    {
+        $this->ingresadoPor = $ingresadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get ingresadoPor.
+     *
+     * @return \UserBundle\Entity\Usuario
+     */
+    public function getIngresadoPor()
+    {
+        return $this->ingresadoPor;
     }
 }

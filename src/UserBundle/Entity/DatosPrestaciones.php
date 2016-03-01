@@ -59,21 +59,21 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="otrasPrestaciones", type="float")
+     * @ORM\Column(name="otrasPrestaciones", type="float", nullable=true)
      */
     private $otrasPrestaciones;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="otros", type="float")
+     * @ORM\Column(name="otros", type="float", nullable=true)
      */
     private $otros;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="depreciacion", type="float")
+     * @ORM\Column(name="depreciacion", type="float",nullable=true)
      */
     private $depreciacion;
 

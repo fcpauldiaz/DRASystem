@@ -48,7 +48,7 @@
         }
         newWidget = newWidget.replace(re, count);
         newWidget = newWidget.replace(/__id__/g, newName[1].replace(re, count));
-        var newLi = $('<li class="select2"></li>').html(newWidget);
+        var newLi = $('<li></li>').html(newWidget);
         newLi.appendTo(list);
         $this.trigger('bc-collection-field-added');
     };
@@ -126,3 +126,4 @@
     $(document).on('click.removefield.data-api', removeField, CollectionRemove.prototype.removeField);
 
  }(window.jQuery);
+ 

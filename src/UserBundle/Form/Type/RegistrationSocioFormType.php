@@ -77,7 +77,6 @@ class RegistrationSocioFormType extends AbstractType
 
             ;
 
-
         $builder->addEventListener(
             FormEvents::POST_SUBMIT,
             [$this, 'onPostData']
@@ -103,16 +102,15 @@ class RegistrationSocioFormType extends AbstractType
         return 'user_registration_socio';
     }
 
-     /**
-     * Forma de validar el correo de un catedrático
-     * @param  FormEvent $event Evento después de mandar la información del formulario
-     * @return void
+    /**
+     * Forma de validar el correo de un catedrático.
+     *
+     * @param FormEvent $event Evento después de mandar la información del formulario
      */
     public function onPostData(FormEvent $event)
     {
         $usuario = $event->getData();
-      
+
         $usuario->addRole('ROLE_SOCIO');
-        
     }
 }

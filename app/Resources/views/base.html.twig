@@ -27,8 +27,8 @@
         </style>
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('css/main.css')}}"> 
-        <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css')}}">
         <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/bs/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,af-2.1.1,b-1.1.2,b-colvis-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,fh-3.1.1,kt-2.1.1,r-2.0.2,rr-1.1.1,sc-1.4.1,se-1.1.2/datatables.min.css"/>
         {% block stylesheets %}
         {% endblock stylesheets %}
         <script src="{{asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
@@ -54,11 +54,11 @@
 
         <script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
         <script src="{{asset('js/jquery.bsAlerts.min.js')}}"></script>
-        <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('js/select2.min.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
         <script src="{{asset('js/bc-bootstrap-collection.js')}}"></script>
         <script src="{{asset('js/jquery.initialize.js')}}"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/t/zf/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,af-2.1.1,b-1.1.2,b-colvis-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,fh-3.1.1,kt-2.1.1,r-2.0.2,rr-1.1.1,sc-1.4.1,se-1.1.2/datatables.min.js"></script>
          <script type="text/javascript">
                 (function(){
                         $("select").initialize( function(){
@@ -71,8 +71,39 @@
                           
                 })();
         </script>
-        <script>
+       <script>
             $('table').dataTable( {
+                    autoFill: true,
+                     colReorder: true,
+                     dom: 'Bfrtip',
+                    buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'copiar',
+                        className: 'btn btn-default btn-xs'
+                    },
+                   {
+                        extend: 'csv',
+                        text: 'csv',
+                        className: 'btn btn-default btn-xs'
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'excel',
+                        className: 'btn btn-default btn-xs'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'pdf',
+                        className: 'btn btn-default btn-xs'
+                    },
+                    {
+                        extend: 'print',
+                        text: 'imprimir',
+                        className: 'btn btn-default btn-xs'
+                    },
+                    
+                    ],
                     "language": {
                         "url": "{{ asset('Json/Spanish.json')}}"
                     }

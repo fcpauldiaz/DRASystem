@@ -15,8 +15,9 @@
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Clientes</a></li>
-                <li><a href="#">Empresas</a></li>
+                <li><a href="{{ path('cliente_new')}}">Clientes</a></li>
+                <li><a href="{{ path('actividad_new')}}">Actividades</a></li>
+                <li><a href="{{ path('registrohoras_new')}}">Horas</a></li>
              </ul>
             </li>
             <li class="dropdown">
@@ -32,7 +33,7 @@
                 <li><a href="/cerrar">Cerrar sesión</a>
               </ul>
             </li>
-            <li><a href="/contacto">Contactar</a></li>
+            <li><a href="#">Contactar</a></li>
           </ul>
           {% if app.user %}
             {% if app.session.flashbag.has('warning') %}

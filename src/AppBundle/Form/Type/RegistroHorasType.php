@@ -24,10 +24,9 @@ class RegistroHorasType extends AbstractType
                 'format' => 'dd-MMM-yyyy',
                 'data' => new \DateTime(),
                 'attr' => [
-                    
 
                 ],
-                
+
             ])
            ->add('usuarios', 'bootstrap_collection', [
                     'type' => 'entity',
@@ -52,7 +51,10 @@ class RegistroHorasType extends AbstractType
                         ],
                     ],
                 ])
-           
+            ->add('cliente', 'entity', [
+                'class' => 'AppBundle:Cliente',
+
+            ])
             ->add('horasInvertidas')
         ;
     }

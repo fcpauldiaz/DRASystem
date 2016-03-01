@@ -11,7 +11,17 @@
 
       {{ form_row(form.tipoPuesto)}}
       {{ form_row(form.nombrePuesto)}}
-	  {{ form_row(form.date) }}
+
+       {% form_theme form _self %}
+
+    {% block _userbundle_puesto_date %}
+        <div class="form-inline">
+            
+             {{ form_row(form.date) }}
+         </div>
+       
+    {% endblock %}
+	  
     
 
      <hr class="colorgraph">

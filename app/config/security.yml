@@ -34,7 +34,6 @@ security:
 
 
 
-
     role_hierarchy:
         ROLE_ASISTENTE:   ROLE_USER
         ROLE_ASISTENTE:   ROLE_SUPERVISOR
