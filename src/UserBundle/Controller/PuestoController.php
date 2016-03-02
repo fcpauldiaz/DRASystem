@@ -32,7 +32,19 @@ class PuestoController extends Controller
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        $entities = $usuario->getPuestos();
+       
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+
+        //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
+        if ($claseActual == "UserBundle\Entity\UsuarioTrabajador") {
+             $entities = $usuario->getPuestos();
+        }
+        else{
+            $em = $this->getDoctrine()->getManager();
+
+            $entities = $em->getRepository('UserBundle:Puesto')->findAll();
+        }
 
         return array(
             'entities' => $entities,
