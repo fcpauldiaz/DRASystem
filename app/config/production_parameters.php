@@ -4,7 +4,7 @@
     $container->setParameter('database_host', getenv('MYSQL_HOST'));
     $container->setParameter('database_port', 3306);
     $container->setParameter('database_name', getenv('MYSQL_NAME'));
-    $container->setParameter('database_user', 'fcpauldiaz');
+    $container->setParameter('database_user', getenv('MYSQL_USERNAME'));
     $container->setParameter('database_password', getenv('MYSQL_PASSWORD'));
     $container->setParameter('secret', getenv('SECRET'));
     $container->setParameter('locale', 'es');

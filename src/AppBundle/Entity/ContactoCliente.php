@@ -46,6 +46,9 @@ class ContactoCliente
 
     /**
      * @var string
+     * @Assert\All({
+     *     @Assert\Email()
+     * })
      * 
      * @ORM\Column(name="correoContacto", type="array")
      */
