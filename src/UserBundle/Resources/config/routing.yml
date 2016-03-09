@@ -18,6 +18,7 @@ puesto:
    resource: "@UserBundle/Controller/PuestoController.php"
    type: annotation
 
-trabajador_profile:
-    pattern:  /edit/trabajador
-    defaults: { _controller: UserBundle:ProfileTrabajador:edit }
+user_profile:
+    pattern:  /edit/usuario
+    defaults: { _controller: UserBundle:Profile:edit }
+

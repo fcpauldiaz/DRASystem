@@ -5,6 +5,9 @@ namespace UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints;
 
 class ProfileTrabajadorFormType extends AbstractType
 {
@@ -85,9 +88,12 @@ class ProfileTrabajadorFormType extends AbstractType
                 'label' => 'NIT',
                 'attr' => [
                     'class' => 'form-control input-lg',
-                    'placeholder' => 'Número de Identificación Tributaria',
+                    'placeholder' => 'Número de Identificación Tributaria (sin guión)',
                 ],
                 'required' => true,
+                'constraints' => [
+                    new Callback([$this, 'validarNIT']),
+                ]
 
             ])
             ->add('telefono', null, [
@@ -127,5 +133,20 @@ class ProfileTrabajadorFormType extends AbstractType
     public function getName()
     {
         return 'user_registration';
+    }
+
+     /* Validar que el NIT no tenga guiones
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarNIT($nit, ExecutionContextInterface $context)
+    {
+        
+        if (strpos($nit, '-') !== FALSE) {
+            $context->buildViolation('El NIT no puede tener guión')
+                ->atPath('trabajador_registration')
+                ->addViolation();
+        }
     }
 }

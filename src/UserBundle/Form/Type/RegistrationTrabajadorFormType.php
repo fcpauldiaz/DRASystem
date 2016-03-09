@@ -5,6 +5,9 @@ namespace UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints;
 
 class RegistrationTrabajadorFormType extends AbstractType
 {
@@ -65,7 +68,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
             ])
             ->add('direccion', null, [
-                'label' => 'Dirección',
+                'label' => 'Dirección*',
                 'attr' => [
                     'class' => 'form-control input-lg',
                     'placeholder' => 'Dirección',
@@ -73,7 +76,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'required' => true,
             ])
            ->add('dpi', null, [
-                'label' => 'DPI',
+                'label' => 'DPI *',
                 'attr' => [
                     'class' => 'form-control input-lg',
                      'placeholder' => 'Documento Personal de Identificación',
@@ -82,12 +85,15 @@ class RegistrationTrabajadorFormType extends AbstractType
 
             ])
            ->add('nit', null, [
-                'label' => 'NIT',
+                'label' => 'NIT *',
                 'attr' => [
                     'class' => 'form-control input-lg',
                     'placeholder' => 'Número de Identificación Tributaria',
                 ],
                 'required' => true,
+                'constraints' => [
+                    new Callback([$this, 'validarNIT']),
+                ]
 
             ])
             ->add('telefono', null, [
@@ -126,5 +132,20 @@ class RegistrationTrabajadorFormType extends AbstractType
     public function getName()
     {
         return 'user_registration';
+    }
+
+     /* Validar que el NIT no tenga guiones
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarNIT($nit, ExecutionContextInterface $context)
+    {
+        
+        if (strpos($nit, '-') !== FALSE) {
+            $context->buildViolation('El NIT no puede tener guión')
+                ->atPath('cliente_new')
+                ->addViolation();
+        }
     }
 }

@@ -5,6 +5,9 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints;
 
 class ClienteType extends AbstractType
 {
@@ -18,6 +21,13 @@ class ClienteType extends AbstractType
             ->add('nit', null, [
                 'label' => 'NIT *',
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Ingresar el NIT sin guión',
+                ],
+                'constraints' => [
+                    new Callback([$this, 'validarNIT']),
+                ]
+
             ])
             ->add('numeroContrato', null, [
                 'label' => 'Número de Contrato (opcional)',
@@ -67,5 +77,20 @@ class ClienteType extends AbstractType
     public function getName()
     {
         return 'appbundle_cliente';
+    }
+
+     /* Validar que el NIT no tenga guiones
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarNIT($nit, ExecutionContextInterface $context)
+    {
+        
+        if (strpos($nit, '-') !== FALSE) {
+            $context->buildViolation('El NIT no puede tener guión')
+                ->atPath('cliente_new')
+                ->addViolation();
+        }
     }
 }
