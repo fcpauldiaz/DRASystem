@@ -21,3 +21,9 @@ easy_admin:
             class: UserBundle\Entity\DatosPrestaciones
         Puesto:
             class: UserBundle\Entity\Puesto
+        Actividad:
+            class: AppBundle\Entity\Actividad
+        Cliente:
+            class: AppBundle\Entity\Cliente
+        RegistroHoras:
+            class: AppBundle\Entity\RegistroHoras
