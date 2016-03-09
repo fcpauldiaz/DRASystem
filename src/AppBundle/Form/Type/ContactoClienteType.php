@@ -30,9 +30,12 @@ class ContactoClienteType extends AbstractType
             // these options are passed to each "email" type
             'options' => array(
                 'required' => false,
+                   'attr' => [
+                    'placeholder' => 'Ingresar el teléfono sin guión',
+                ],
 
             ),
-            'label' => 'Correos',
+            'label' => 'Teléfono',
         ])
            ->add('correoContacto', 'bootstrap_collection', [
             'allow_add' => true,
@@ -46,8 +49,9 @@ class ContactoClienteType extends AbstractType
             'options' => array(
                 'required' => false,
 
+
             ),
-            'label' => 'Teléfonos',
+            'label' => 'Correos',
         ])
 
         ;

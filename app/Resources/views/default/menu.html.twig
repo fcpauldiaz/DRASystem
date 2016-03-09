@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ path('homepage')}}">Control Interno</a>
+          <a class="navbar-brand" href="{{ path('homepage')}}"><i class="fa fa-clock-o"></i> Smart Time</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -28,9 +28,10 @@
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección usuarios</li>
-                <li><a href="/usuarios/perfil">Perfil</a>
+                {% if is_granted('ROLE_SUPERVISOR') and app.user %}
                 <li><a href="/admin">Administración</a>
-                <li><a href="/cerrar">Cerrar sesión</a>
+                {% endif %}
+               
               </ul>
             </li>
             <li><a href="#">Contactar</a></li>
@@ -55,7 +56,7 @@
                         <ul class="dropdown-menu">
                             <li class="navigation"><a href=""><i class="icon-cog"></i>  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
                             <li class="divider"></li>
-                             <li class="navigation"><a href="{{path('trabajador_profile')}}"><i class="icon-off"></i>Editar Perfil</a></li>
+                             <li class="navigation"><a href="{{path('fos_user_profile_edit')}}"><i class="icon-off"></i>Editar Perfil</a></li>
                               <li class="navigation"><a href="{{path('fos_user_profile_show')}}"><i class="icon-off"></i>Ver Perfil</a></li>
                             <li class="navigation"><a href="{{path('fos_user_security_logout')}}"><i class="icon-off"></i> Cerrar Sesión</a></li>
                         </ul>

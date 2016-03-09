@@ -75,7 +75,7 @@ class ClienteController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn-block']));
 
         return $form;
     }
@@ -128,7 +128,7 @@ class ClienteController extends Controller
      *
      * @Route("/{id}/edit", name="cliente_edit")
      * @Method("GET")
-     * @Template("AppBundle:editCliente.html.twig")
+     * @Template("AppBundle:Cliente:editCliente.html.twig")
      */
     public function editAction($id)
     {

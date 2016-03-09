@@ -1,43 +1,46 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>RegistroHoras list</h1>
+    <h1>Listado completo de las horas invertidas</h1>
+    <br>
+    <br>
 
-    <table class="records_list">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Fecha</th>
-                <th>Horasinvertidas</th>
-                <th>Actions</th>
+                <th>Horas Invertidas</th>
+                <th>Cliente </th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('registrohoras_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+               
+                <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ entity.horasInvertidas }}</td>
+                <td>{{ entity.cliente }} </td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('registrohoras_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a class="btn btn-xs btn-default" href="{{ path('registrohoras_show', { 'id': entity.id }) }}">Mostrar</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-xs btn-warning" href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">Editar</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('registrohoras_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+        
+    <a class="btn btn-default btn-block" href="{{ path('registrohoras_new') }}">
+       Crear nuevo registro
+    </a>
+    <br>
+    <br>
+  
     {% endblock %}

@@ -6,35 +6,31 @@
     <table class="table table-striped table-hover">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
                 <th>Nit</th>
                 <td>{{ entity.nit }}</td>
             </tr>
             <tr>
-                <th>Numerocontrato</th>
+                <th>Número Contrato</th>
                 <td>{{ entity.numeroContrato }}</td>
             </tr>
             <tr>
-                <th>Razonsocial</th>
+                <th>Razón Social</th>
                 <td>{{ entity.razonSocial }}</td>
             </tr>
             <tr>
-                <th>Nombrecomercial</th>
+                <th>Nombre Comercial</th>
                 <td>{{ entity.nombreComercial }}</td>
             </tr>
             <tr>
-                <th>Nombrecorto</th>
+                <th>Nombre Corto</th>
                 <td>{{ entity.nombreCorto }}</td>
             </tr>
             <tr>
-                <th>Serviciosprestados</th>
+                <th>Servicios Prestados</th>
                 <td>{{ entity.serviciosPrestados }}</td>
             </tr>
             <tr>
-                <th>Codigosat</th>
+                <th>Código SAT</th>
                 <td>{{ entity.codigoSAT }}</td>
             </tr>
         </tbody>
@@ -42,13 +38,19 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('cliente') }}">
-            Back to the list
+        <a class="btn btn-primary btn-block" href="{{ path('cliente_new')}}">
+            Ingresar Nuevo cliente
+        </a>
+    </li>
+    <br>
+    <li>
+        <a class="btn btn-default" href="{{ path('cliente') }}">
+           Ver todos los clientes
         </a>
     </li>
     <li>
-        <a href="{{ path('cliente_edit', { 'id': entity.id }) }}">
-            Edit
+        <a class="btn btn-warning" href="{{ path('cliente_edit', { 'id': entity.id }) }}">
+            Editar
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

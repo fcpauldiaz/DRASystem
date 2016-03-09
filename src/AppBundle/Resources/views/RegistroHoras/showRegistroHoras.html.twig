@@ -1,36 +1,58 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>RegistroHoras</h1>
-
-    <table class="record_properties">
+    <br>
+    <h1>Registro Horas</h1>
+    
+    <table class="table table-striped table-hover">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
                 <th>Fecha</th>
-                <td>{{ entity.fecha|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.fechaHoras|date('d-m-Y') }}</td>
             </tr>
             <tr>
-                <th>Horasinvertidas</th>
+                <th>Horas Invertidas</th>
                 <td>{{ entity.horasInvertidas }}</td>
             </tr>
+            {% for usuario in entity.usuarios %}
+             <tr>
+                <th>Usuarios</th>
+                <td>{{ usuario }}</td>
+            </tr>
+            {% endfor %}
+             <tr>
+                <th>Actividad</th>
+                <td>{{ entity.cliente }}</td>
+            </tr>
+             <tr>
+                <th>Ingresado Por</th>
+                <td>{{ entity.ingresadoPor }}</td>
+            </tr>
+
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('registrohoras') }}">
-            Back to the list
+        <a class="btn btn-default" href="{{ path('registrohoras_new') }}">
+           Ingresar nuevo registro
         </a>
     </li>
+    <br>
     <li>
-        <a href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">
-            Edit
+        <a class="btn btn-default" href="{{ path('registrohoras') }}">
+            Ver todos los ingresos
         </a>
     </li>
+    <br>
+    <li>
+        <a class="btn btn-warning" href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+    <br>
     <li>{{ form(delete_form) }}</li>
 </ul>
+<br>
+<br>
 {% endblock %}

@@ -55,6 +55,10 @@ class RegistroHorasType extends AbstractType
                 'class' => 'AppBundle:Cliente',
 
             ])
+             ->add('actividad', 'entity', [
+                'class' => 'AppBundle:Actividad',
+
+            ])
             ->add('horasInvertidas')
         ;
     }
