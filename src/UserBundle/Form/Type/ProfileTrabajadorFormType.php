@@ -93,7 +93,7 @@ class ProfileTrabajadorFormType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new Callback([$this, 'validarNIT']),
-                ]
+                ],
 
             ])
             ->add('telefono', null, [
@@ -142,8 +142,7 @@ class ProfileTrabajadorFormType extends AbstractType
      */
     public function validarNIT($nit, ExecutionContextInterface $context)
     {
-        
-        if (strpos($nit, '-') !== FALSE) {
+        if (strpos($nit, '-') !== false) {
             $context->buildViolation('El NIT no puede tener guión')
                 ->atPath('trabajador_registration')
                 ->addViolation();

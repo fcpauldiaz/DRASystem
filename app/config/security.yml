@@ -46,4 +46,3 @@ security:
         ROLE_SOCIO:       ROLE_GERENTE
         ROLE_ADMIN:       ROLE_SOCIO
         ROLE_SUPER_ADMIN: ROLE_ADMIN
-       

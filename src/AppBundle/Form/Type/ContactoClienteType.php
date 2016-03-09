@@ -49,7 +49,6 @@ class ContactoClienteType extends AbstractType
             'options' => array(
                 'required' => false,
 
-
             ),
             'label' => 'Correos',
         ])

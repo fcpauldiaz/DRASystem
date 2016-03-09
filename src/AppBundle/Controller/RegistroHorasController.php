@@ -45,7 +45,7 @@ class RegistroHorasController extends Controller
      */
     public function createAction(Request $request)
     {
-         $usuario = $this->getUser();
+        $usuario = $this->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -54,8 +54,6 @@ class RegistroHorasController extends Controller
         $entity->setIngresadoPor($usuario);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
-
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

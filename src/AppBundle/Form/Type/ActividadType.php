@@ -15,14 +15,14 @@ class ActividadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre',null,[
+            ->add('nombre', null, [
                 'required' => true,
-                'label' => 'Nombre de la actividad *'
+                'label' => 'Nombre de la actividad *',
             ])
-            ->add('descripcion','textarea',[
+            ->add('descripcion', 'textarea', [
                 'label' => 'Descripción *',
             ])
-            ->add('abreviatura',null,[
+            ->add('abreviatura', null, [
                 'label' => 'Abreviatura (opcional)',
                 'required' => false,
             ])

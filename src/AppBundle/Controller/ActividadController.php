@@ -75,7 +75,7 @@ class ActividadController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr'=>['class' =>'btn-block']));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn-block']));
 
         return $form;
     }

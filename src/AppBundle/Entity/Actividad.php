@@ -61,7 +61,7 @@ class Actividad
      */
     public function setNombre($nombreActividad)
     {
-        $this->nombre= $nombreActividad;
+        $this->nombre = $nombreActividad;
 
         return $this;
     }
@@ -76,8 +76,8 @@ class Actividad
         return $this->nombre;
     }
 
-     /**
-     * Set descripcion
+    /**
+     * Set descripcion.
      *
      * @param string $descripcion
      *
@@ -91,7 +91,7 @@ class Actividad
     }
 
     /**
-     * Get descripcion
+     * Get descripcion.
      *
      * @return string
      */
@@ -127,11 +127,10 @@ class Actividad
     public function __toString()
     {
         $abreviatura = $this->abreviatura;
-        if ($abreviatura != null){
-             return $this->abreviatura.': '.$this->nombre;
-    
+        if ($abreviatura != null) {
+            return $this->abreviatura.': '.$this->nombre;
         }
+
         return $this->nombre;
     }
-   
 }

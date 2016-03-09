@@ -13,7 +13,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * 
  * @UniqueEntity(fields = "nit", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El nit debe ser único")
  * @UniqueEntity(fields = "dpi", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El dpi debe ser único")
-
+ 
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
  * @author  Pablo Díaz soporte@newtonlabs.com.gt

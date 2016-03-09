@@ -46,13 +46,13 @@ class RegistroHoras
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
      * @ORM\JoinColumn(onDelete="SET NULL")
-     * 
      */
     private $actividad;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente")
      * @ORM\JoinColumn(onDelete="SET NULL")
+     *
      * @var [type]
      */
     private $cliente;

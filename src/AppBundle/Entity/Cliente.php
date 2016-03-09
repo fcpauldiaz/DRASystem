@@ -75,7 +75,6 @@ class Cliente
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ContactoCliente", inversedBy="clientes")
      * @ORM\JoinTable(name="cliente_contactos")
-     * 
      */
     private $contactos;
 
@@ -298,8 +297,10 @@ class Cliente
 
     public function __toString()
     {
-        if ($this->nombreComercial != null)
+        if ($this->nombreComercial != null) {
             return $this->nombreComercial;
+        }
+
         return $this->razonSocial;
     }
 }
