@@ -38,7 +38,7 @@ class Actividad
     /**
      * @var string
      *
-     * @ORM\Column(name="abreviatura", type="string", length=255, nullable=true)
+     * @ORM\Column(name="abreviatura", type="string", length=255)
      */
     private $abreviatura;
 
@@ -76,30 +76,6 @@ class Actividad
         return $this->nombre;
     }
 
-     /**
-     * Set descripcion
-     *
-     * @param string $descripcion
-     *
-     * @return Actividad
-     */
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcion
-     *
-     * @return string
-     */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
-
     /**
      * Set abreviatura.
      *
@@ -126,12 +102,6 @@ class Actividad
 
     public function __toString()
     {
-        $abreviatura = $this->abreviatura;
-        if ($abreviatura != null){
-             return $this->abreviatura.': '.$this->nombre;
-    
-        }
-        return $this->nombre;
+        return $this->abreviatura.': '.$this->nombreActividad;
     }
-   
 }
