@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc72e5438108c37493e8ae2027237ed3",
-    "content-hash": "b4ec7e887a98644f1dcfb11d868d682c",
+    "hash": "89ae9e114cdb048894cb90c4bc90c1d4",
+    "content-hash": "dd1ead9d3836c1251873e813d389ccd0",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -881,12 +881,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Newton-Labs/PUGXMultiUserBundle.git",
-                "reference": "588c84a7f8e4243f5bc9c764f576206429904e0e"
+                "reference": "f72cf15d5affe9bfed41ecaed30336aee4503702"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Newton-Labs/PUGXMultiUserBundle/zipball/588c84a7f8e4243f5bc9c764f576206429904e0e",
-                "reference": "588c84a7f8e4243f5bc9c764f576206429904e0e",
+                "url": "https://api.github.com/repos/Newton-Labs/PUGXMultiUserBundle/zipball/f72cf15d5affe9bfed41ecaed30336aee4503702",
+                "reference": "f72cf15d5affe9bfed41ecaed30336aee4503702",
                 "shasum": ""
             },
             "require": {
@@ -932,7 +932,7 @@
             "keywords": [
                 "user management multi user management"
             ],
-            "time": "2016-02-17 20:55:41"
+            "time": "2016-03-09 21:04:45"
         },
         {
             "name": "friendsofsymfony/user-bundle",
