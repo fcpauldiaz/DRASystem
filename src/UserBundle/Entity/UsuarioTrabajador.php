@@ -11,8 +11,8 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email", targetClass = "UserBundle\Entity\Usuario", message="fos_user.email.already_used")
  * 
- * @UniqueEntity(fields = {"nit"}, targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El nit debe ser único")
- * @UniqueEntity(fields = {"dpi"}, targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El dpi debe ser único")
+ * @UniqueEntity(fields = "nit", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El nit debe ser único")
+ * @UniqueEntity(fields = "dpi", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El dpi debe ser único")
 
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
