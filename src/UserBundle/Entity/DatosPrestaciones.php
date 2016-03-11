@@ -38,21 +38,21 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="bonificacionLey", type="float")
+     * @ORM\Column(name="bonificacionLey", type="float", nullable=true)
      */
     private $bonificacionLey;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="gasolina", type="float")
+     * @ORM\Column(name="gasolina", type="float",nullable=true)
      */
     private $gasolina;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="prestacionesSobreSueldo", type="float")
+     * @ORM\Column(name="prestacionesSobreSueldo", type="float",nullable=true)
      */
     private $prestacionesSobreSueldo;
 
