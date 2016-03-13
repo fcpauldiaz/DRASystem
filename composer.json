@@ -8,20 +8,6 @@
             "": "src/"
         }
     },
-    "repositories": [
-    {
-        "type": "package",
-        "package": {
-            "name": "jquery/jquery",
-            "version": "1.11.1",
-            "dist": {
-                "url": "http://code.jquery.com/jquery-1.11.1.js",
-                "type": "file"
-            }
-        }
-    }
-        
-    ],
     "require": {
         "php": ">=5.3.9",
         "symfony/symfony": "2.8.*",
@@ -37,7 +23,6 @@
         "fcpauldiaz/multi-user-bundle": "3.0.*@dev",
         "javiereguiluz/easyadmin-bundle": "^1.9",
         "braincrafted/bootstrap-bundle": "^2.2",
-        "jquery/jquery": "1.11.*",
         "twbs/bootstrap": "3.*",
         "oyejorge/less.php": "~1.5",
         "stephanecollot/datetimepicker-bundle": "^1.0",
