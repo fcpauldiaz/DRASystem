@@ -78,6 +78,27 @@ class DatosPrestaciones
     private $depreciacion;
 
     /**
+     * @var  float 
+     *
+     * @ORM\Column(name="indemnizacion",type="float", nullable=true)
+     */
+    private $indemnizacion;
+
+    /**
+     * @var  float 
+     *
+     * @ORM\Column(name="aguinaldo",type="float", nullable=true)
+     */
+    private $aguinaldo;
+
+     /**
+     * @var  float 
+     *
+     * @ORM\Column(name="bono14",type="float", nullable=true)
+     */
+    private $bono14;
+
+    /**
      * @var Usuario
      * @ORM\ManyToOne(targetEntity="UsuarioTrabajador",inversedBy = "datosPrestaciones")
      */
@@ -307,6 +328,79 @@ class DatosPrestaciones
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+
+    /**
+     * Set indemnizacion
+     *
+     * @param float $indemnizacion
+     *
+     * @return DatosPrestaciones
+     */
+    public function setIndemnizacion($indemnizacion)
+    {
+        $this->indemnizacion = $indemnizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get indemnizacion
+     *
+     * @return float
+     */
+    public function getIndemnizacion()
+    {
+        return $this->indemnizacion;
+    }
+
+    /**
+     * Set aguinaldo
+     *
+     * @param float $aguinaldo
+     *
+     * @return DatosPrestaciones
+     */
+    public function setAguinaldo($aguinaldo)
+    {
+        $this->aguinaldo = $aguinaldo;
+
+        return $this;
+    }
+
+    /**
+     * Get aguinaldo
+     *
+     * @return float
+     */
+    public function getAguinaldo()
+    {
+        return $this->aguinaldo;
+    }
+
+    /**
+     * Set bono14
+     *
+     * @param float $bono14
+     *
+     * @return DatosPrestaciones
+     */
+    public function setBono14($bono14)
+    {
+        $this->bono14 = $bono14;
+
+        return $this;
+    }
+
+    /**
+     * Get bono14
+     *
+     * @return float
+     */
+    public function getBono14()
+    {
+        return $this->bono14;
     }
 
     public function __toString()
