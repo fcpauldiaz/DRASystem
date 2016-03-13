@@ -14,8 +14,20 @@ datos_prestaciones:
     resource: "@UserBundle/Controller/DatosPrestacionesController.php"
     type:     annotation
 
+tipo_puesto:
+    resource: "@UserBundle/Controller/TipoPuestoController.php"
+    type:     annotation
+
+departamento:
+    resource: "@UserBundle/Controller/DepartamentoController.php"
+    type:     annotation
+
 puesto:
    resource: "@UserBundle/Controller/PuestoController.php"
+   type: annotation
+
+combinar_puesto:
+   resource: "@UserBundle/Controller/CombinarPuestoController.php"
    type: annotation
 
 user_profile:

@@ -1,41 +1,38 @@
 <?php
 
-namespace UserBundle\Form;
+namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PuestoType extends AbstractType
+class DepartamentoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipoPuesto', 'choice', array(
-                'choices' => array(
-                    'Asistente' => 'Asistente',
-                    'Supervisor' => 'Supervisor',
-                    'Gerente' => 'Gerente',
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-            ))
-            ->add('nombrePuesto')
-            ->add('date')
+            ->add('nombreDepartamento','text',[
+                'label' => 'Nombre del departamento*',
+                'required' => true,
+            ])
+            ->add('descripcion','textarea',[
+                'label' => 'Descripción del departamento (opcional)',
+                'required' => false,
+            ])
         ;
     }
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\Puesto',
+            'data_class' => 'UserBundle\Entity\Departamento'
         ));
     }
 
@@ -44,6 +41,6 @@ class PuestoType extends AbstractType
      */
     public function getName()
     {
-        return 'userbundle_puesto';
+        return 'userbundle_departamento';
     }
 }

@@ -24,16 +24,16 @@ class Puesto
     /**
      * @var string
      *
-     * @ORM\Column(name="tipoPuesto",type="string",length=100)
+     * @ORM\ManyToOne(targetEntity="TipoPuesto")
      */
     private $tipoPuesto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombrePuesto", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Departamento")
      */
-    private $nombrePuesto;
+    private $departamento;
 
     /**
      * @var \DateTime
@@ -59,29 +59,7 @@ class Puesto
         return $this->id;
     }
 
-    /**
-     * Set nombrePuesto.
-     *
-     * @param string $nombrePuesto
-     *
-     * @return Puesto
-     */
-    public function setNombrePuesto($nombrePuesto)
-    {
-        $this->nombrePuesto = $nombrePuesto;
 
-        return $this;
-    }
-
-    /**
-     * Get nombrePuesto.
-     *
-     * @return string
-     */
-    public function getNombrePuesto()
-    {
-        return $this->nombrePuesto;
-    }
 
     /**
      * Set date.
@@ -108,40 +86,6 @@ class Puesto
     }
 
     /**
-     * Set tipoPuesto.
-     *
-     * @param string $tipoPuesto
-     *
-     * @return Puesto
-     */
-    public function setTipoPuesto($tipoPuesto)
-    {
-        $this->tipoPuesto = $tipoPuesto;
-
-        return $this;
-    }
-
-    /**
-     * Get tipoPuesto.
-     *
-     * @return string
-     */
-    public function getTipoPuesto()
-    {
-        return $this->tipoPuesto;
-    }
-
-    /**
-     * Mostrar el noombre del puesto.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->tipoPuesto.': '.$this->nombrePuesto;
-    }
-
-    /**
      * Set usuario.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuario
@@ -163,5 +107,63 @@ class Puesto
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set tipoPuesto
+     *
+     * @param \UserBundle\Entity\TipoPuesto $tipoPuesto
+     *
+     * @return Puesto
+     */
+    public function setTipoPuesto(\UserBundle\Entity\TipoPuesto $tipoPuesto = null)
+    {
+        $this->tipoPuesto = $tipoPuesto;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoPuesto
+     *
+     * @return \UserBundle\Entity\TipoPuesto
+     */
+    public function getTipoPuesto()
+    {
+        return $this->tipoPuesto;
+    }
+
+    /**
+     * Set departamento
+     *
+     * @param \UserBundle\Entity\Departamento $departamento
+     *
+     * @return Puesto
+     */
+    public function setDepartamento(\UserBundle\Entity\Departamento $departamento = null)
+    {
+        $this->departamento = $departamento;
+
+        return $this;
+    }
+
+    /**
+     * Get departamento
+     *
+     * @return \UserBundle\Entity\Departamento
+     */
+    public function getDepartamento()
+    {
+        return $this->departamento;
+    }
+
+     /**
+     * Mostrar el noombre del puesto.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->tipoPuesto.': '.$this->nombrePuesto;
     }
 }

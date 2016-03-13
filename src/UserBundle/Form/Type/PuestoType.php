@@ -15,20 +15,15 @@ class PuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipoPuesto', 'choice', [
-                'choices' => [
-                    'Asistente' => 'Asistente',
-                    'Supervisor' => 'Supervisor',
-                    'Gerente' => 'Gerente',
-                ],
-                // *this line is important*
-                'choices_as_values' => true,
+            ->add('tipoPuesto', 'entity', [
+                'class' => 'UserBundle:TipoPuesto',
                 'attr' => [
                     'class' => 'select2 form-control input-lg',
                 ],
 
             ])
-            ->add('nombrePuesto', null, [
+            ->add('departamento', 'entity', [
+                'class' => 'UserBundle:Departamento',
                 'label' => 'Departamento',
                 'attr' => [
                     'class' => 'form-control input-lg',

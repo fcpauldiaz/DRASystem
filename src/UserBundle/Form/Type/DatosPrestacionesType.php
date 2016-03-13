@@ -19,7 +19,7 @@ class DatosPrestacionesType extends AbstractType
         $builder
             ->add('sueldo', 'money', [
                 'currency' => 'GTQ',
-                'label' => 'Sueldo',
+                'label' => 'Sueldo*',
                 'attr' => [
                     'placeholder' => 'Sueldo Base',
                     'class' => 'form-control input-lg',
@@ -29,11 +29,12 @@ class DatosPrestacionesType extends AbstractType
             ])
             ->add('bonificacionIncentivo', 'money', [
                 'currency' => 'GTQ',
-                'label' => 'Bonificación Incentivo',
+                'label' => 'Bonificación Incentivo*',
                 'attr' => [
                     'placeholder' => 'Bonificación incentivo',
                     'class' => 'form-control input-lg',
                 ],
+                'required' => true,
                 'grouping' => true,
 
             ])

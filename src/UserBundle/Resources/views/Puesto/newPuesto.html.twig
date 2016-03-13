@@ -1,6 +1,20 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
+
+{% block javascripts %}
+
+<script src="{{asset('js/ajaxPuesto.js')}}"></script>
+<script src="{{ asset('js/jquery.bsAlerts.min.js')}}"></script>
+<script>
+ajaxTipoPuesto();
+ajaxDepartamento();
+</script>
+
+
+{% endblock %}
+
+
+{% block body %}
    
     {{ form_start(form) }}
     
@@ -8,9 +22,15 @@
       <h1>Registro del Puesto</h1>
       <hr class="colorgraph">
       
-
+      <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="myid" data-fade="3000"></div>
       {{ form_row(form.tipoPuesto)}}
-      {{ form_row(form.nombrePuesto)}}
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#modalTipoPuesto">
+           Crear nuevo tipo puesto
+          </button>
+      {{ form_row(form.departamento)}}
+      <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#modalDepartamento">
+           Crear nuevo departamento
+          </button>
 
        {% form_theme form _self %}
 
@@ -27,6 +47,7 @@
      <hr class="colorgraph">
    
     {{ form_end(form)}}
-		
-   
+
+{% include 'UserBundle:TipoPuesto:modal_tipoPuesto.html.twig' %}
+{% include 'UserBundle:Departamento:modal_departamento.html.twig' %}
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Nuevo Tipo Puesto </h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a class="btn btn-default" href="{{ path('tipopuesto') }}">
+           Mostrar todos los tipos de puesto
+        </a>
+    </li>
+</ul>
+{% endblock %}
