@@ -17,6 +17,8 @@ function ajaxContacto()
             
             // Get the raw DOM object for the select box
             select = document.getElementById('appbundle_cliente_contactos');
+            //guardar los valores seleccionados en un array;
+            var valoresSeleccionados = $(select).val();
             // Clear the old options
             select.options.length = 0;   
 
@@ -30,9 +32,19 @@ function ajaxContacto()
                
                 
                 select.options.add(opt1);
+                //ahora como siempre el nuevo valor es el último en el array
+                if (index == dataOptions.length-1){
+                    //se agrega al array de valores seleccionados
+                    valoresSeleccionados.push(dataIds[index]['value']);
+                    //se seleccionan de nuevo todos los nuevos valores
+                    $(select).val(valoresSeleccionados).trigger("change");
+                    
+                }
             }
             
            
+            $('#appbundle_contactocliente_nombreContacto').val('');
+            $('#appbundle_contactocliente_apellidosContacto').val('');
 
             $('#modalContacto').modal('hide');
             
