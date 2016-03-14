@@ -34,6 +34,13 @@ class ContactoCliente
     /**
      * @var string
      *
+     * @ORM\Column(name="puesto", type="string")
+     */
+    private $puesto;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="apellidosContacto", type="string", length=255)
      */
     private $apellidosContacto;
@@ -181,14 +188,7 @@ class ContactoCliente
         return $this->clientes;
     }
 
-    public function __toString()
-    {
-        if (!empty($this->correoContacto)) {
-            return $this->nombreContacto.' - '.$this->correoContacto[0];
-        }
-
-        return $this->nombreContacto;
-    }
+   
 
     /**
      * Set apellidosContacto.
@@ -212,5 +212,26 @@ class ContactoCliente
     public function getApellidosContacto()
     {
         return $this->apellidosContacto;
+    }
+
+    public function getPuesto()
+    {
+        return $this->puesto;
+    }
+
+    public function setPuesto($puesto)
+    {
+        $this->puesto = $puesto;
+        
+        return $this;
+    }
+
+    public function __toString()
+    {
+        if (!empty($this->correoContacto)) {
+            return $this->nombreContacto.' - '.$this->correoContacto[0];
+        }
+
+        return $this->nombreContacto;
     }
 }

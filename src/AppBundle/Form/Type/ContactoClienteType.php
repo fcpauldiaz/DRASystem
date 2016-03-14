@@ -17,8 +17,21 @@ class ContactoClienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreContacto')
-            ->add('apellidosContacto')
+            ->add('nombreContacto', null, [
+                'attr' => [
+                    'placeholder' => 'Nombre/s Contacto'
+                ]
+            ])
+            ->add('apellidosContacto', null, [
+                'attr' => [
+                    'placeholder' => 'Apellidos Contacto'
+                ]
+            ])
+              ->add('puesto', null, [
+                'attr' => [
+                    'placeholder' => 'Puesto'
+                ]
+            ])
            ->add('telefonoContacto', 'bootstrap_collection', [
             'allow_add' => true,
             'allow_delete' => true,

@@ -11,6 +11,10 @@
                 <td>{{ entity.nombreContacto }}</td>
             </tr>
             <tr>
+                <th>Puesto</th>
+                <td>{{ entity.puesto}} </td>
+            </tr>
+            <tr>
                 <th>Teléfonos contacto</th>
                  {% for telefono in entity.telefonoContacto %}
                     <td>{{ telefono }}</td>

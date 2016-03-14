@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Nombre Contacto</th>
+                <th>Puesto</th>
                 <th>Teléfonos contacto</th>
                 <th>Correos contacto</th>
                 <th>Acciones</th>
@@ -16,6 +17,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.nombreContacto }}</td>
+                <td>{{ entity.puesto }} </td>
                 {% for telefono in entity.telefonoContacto %}
                     <td>{{ telefono }}</td>
                 {% endfor %}
