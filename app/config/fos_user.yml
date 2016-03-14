@@ -6,7 +6,7 @@ fos_user:
           confirmation:
             from_email:
                 address:        no-responder@newtonlabs.com.gt
-                sender_name:    Smart Time (no-responder)
+                sender_name:    Smart Time
             enabled:    true # change to true for required email confirmation
             template:   UserBundle:Registration:registration.email.twig  
     resetting: #password resetting
@@ -14,7 +14,7 @@ fos_user:
         email:
             from_email:
                 address:        no-responder@newtonlabs.com.gt
-                sender_name:    Smart Time (no-responder)
+                sender_name:    Smart Time
             template:   UserBundle:Resetting:resetting.email.twig
     service:
         user_manager: pugx_user_manager

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Cliente;
 use AppBundle\Form\Type\ClienteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Cliente controller.
@@ -206,6 +207,7 @@ class ClienteController extends Controller
      *
      * @Route("/{id}", name="cliente_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')")
      */
     public function deleteAction(Request $request, $id)
     {

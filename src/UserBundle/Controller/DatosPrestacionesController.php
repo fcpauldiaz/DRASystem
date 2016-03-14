@@ -11,10 +11,12 @@ use UserBundle\Entity\DatosPrestaciones;
 use UserBundle\Form\Type\DatosPrestacionesType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 /**
  * DatosPrestaciones controller.
- *
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/datosprestaciones")
  */
 class DatosPrestacionesController extends Controller
@@ -236,6 +238,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/{id}", name="datosprestaciones_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')")
      */
     public function deleteAction(Request $request, $id)
     {

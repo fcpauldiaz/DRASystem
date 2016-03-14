@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UserBundle\Entity\Departamento;
 use UserBundle\Form\DepartamentoType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Departamento controller.
- *
+ * @Security("is_granted('ROLE_USER')") 
  * @Route("/departamento")
  */
 class DepartamentoController extends Controller
@@ -207,6 +208,7 @@ class DepartamentoController extends Controller
      *
      * @Route("/{id}", name="departamento_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')") 
      */
     public function deleteAction(Request $request, $id)
     {

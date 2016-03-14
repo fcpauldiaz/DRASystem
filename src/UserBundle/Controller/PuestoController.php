@@ -11,10 +11,11 @@ use UserBundle\Entity\Puesto;
 use UserBundle\Form\Type\PuestoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Puesto controller.
- *
+ * @Security("is_granted('ROLE_USER')") 
  * @Route("/puesto")
  */
 class PuestoController extends Controller
@@ -242,6 +243,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')") 
      */
     public function deleteAction(Request $request, $id)
     {

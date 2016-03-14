@@ -12,12 +12,12 @@ use UserBundle\Entity\TipoPuesto;
 use UserBundle\Form\Type\DepartamentoType;
 use UserBundle\Form\Type\TipoPuestoType;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * Departamento controller.
+ * CombinarPuesto controller.
  *
- * 
+ * @Security("is_granted('ROLE_USER')") 
  */
 class CombinarPuestoController extends Controller
 {

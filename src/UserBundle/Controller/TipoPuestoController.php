@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UserBundle\Entity\TipoPuesto;
 use UserBundle\Form\TipoPuestoType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * TipoPuesto controller.
- *
+ * @Security("is_granted('ROLE_USER')") 
  * @Route("/tipopuesto")
  */
 class TipoPuestoController extends Controller
@@ -207,6 +208,7 @@ class TipoPuestoController extends Controller
      *
      * @Route("/{id}", name="tipopuesto_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')") 
      */
     public function deleteAction(Request $request, $id)
     {

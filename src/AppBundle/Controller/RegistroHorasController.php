@@ -11,10 +11,11 @@ use AppBundle\Entity\RegistroHoras;
 use AppBundle\Form\Type\RegistroHorasType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * RegistroHoras controller.
- *
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/registrohoras")
  */
 class RegistroHorasController extends Controller

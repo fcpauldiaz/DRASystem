@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Actividad;
 use AppBundle\Form\Type\ActividadType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Actividad controller.
- *
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/actividad")
  */
 class ActividadController extends Controller
@@ -206,6 +207,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}", name="actividad_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')")
      */
     public function deleteAction(Request $request, $id)
     {
