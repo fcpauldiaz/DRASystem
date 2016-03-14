@@ -3,6 +3,7 @@
     "description":"proyecto para administrar DRA",
     "license": "proprietary",
     "type": "project",
+    "secure-http": "false",
     "autoload": {
         "psr-4": {
             "": "src/"
@@ -29,7 +30,8 @@
         "stof/doctrine-extensions-bundle": "^1.2",
         "ibrows/loggable-bundle": "^2.2",
         "leafo/scssphp": "^0.6.3",
-        "patchwork/jsqueeze": "~1.0"
+        "patchwork/jsqueeze": "~1.0",
+        "cspoo/swiftmailer-mailgun-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

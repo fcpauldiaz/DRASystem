@@ -11,7 +11,7 @@ services:
             - { name: form.type, alias: user_profile }
     fos_mail.custom_mailer:
         class: UserBundle\Mailer\CustomTwigSwiftMailer
-        public: false
+        public: true
         arguments:
             - '@mailer'
             - '@router'

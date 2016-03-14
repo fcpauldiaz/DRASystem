@@ -2,8 +2,16 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: UserBundle\Entity\Usuario
+    registration:
+          confirmation:
+            from_email:
+                address:        soporte@newtonlabs.com.gt
+                sender_name:    Smart Time
+            enabled:    true # change to true for required email confirmation
+            template:   UserBundle:Registration:registration.email.twig  
     service:
         user_manager: pugx_user_manager
+        mailer: fos_mail.custom_mailer
 
 pugx_multi_user:
   users:
@@ -28,7 +36,7 @@ pugx_multi_user:
         registration:
           form: 
             type: UserBundle\Form\Type\RegistrationSocioFormType
-            validation_groups:  [Registration, Default, EmailDomainValidation]
+            validation_groups:  [Registration, Default]
           template: UserBundle:Registration:register_socio.html.twig
         profile:
           form: 
