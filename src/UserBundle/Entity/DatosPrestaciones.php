@@ -78,6 +78,7 @@ class DatosPrestaciones
     private $depreciacion;
 
     /**
+     * 8.33%
      * @var  float 
      *
      * @ORM\Column(name="indemnizacion",type="float", nullable=true)
@@ -85,6 +86,7 @@ class DatosPrestaciones
     private $indemnizacion;
 
     /**
+     * 8.33%
      * @var  float 
      *
      * @ORM\Column(name="aguinaldo",type="float", nullable=true)
@@ -92,15 +94,27 @@ class DatosPrestaciones
     private $aguinaldo;
 
      /**
+     *  8.33%
      * @var  float 
      *
      * @ORM\Column(name="bono14",type="float", nullable=true)
      */
     private $bono14;
 
+     /**
+     *  Cuota Patronal 10.67% +1 % +1% = 12.67%
+     * @var  float 
+     *
+     * @ORM\Column(name="igss",type="float", nullable=true)
+     */
+    private $igss;
+
+
+
     /**
      * @var Usuario
      * @ORM\ManyToOne(targetEntity="UsuarioTrabajador",inversedBy = "datosPrestaciones")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $usuario;
 
@@ -389,6 +403,30 @@ class DatosPrestaciones
     public function setBono14($bono14)
     {
         $this->bono14 = $bono14;
+
+        return $this;
+    }
+
+    /**
+     * Get igss
+     *
+     * @return float
+     */
+    public function getIgss()
+    {
+        return $this->igss;
+    }
+
+      /**
+     * Set igss
+     *
+     * @param float $igss
+     *
+     * @return DatosPrestaciones
+     */
+    public function setIgss($igss)
+    {
+        $this->igss = $igss;
 
         return $this;
     }
