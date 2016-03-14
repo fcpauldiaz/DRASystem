@@ -124,6 +124,12 @@ class DatosPrestacionesType extends AbstractType
         $datosPrestaciones = $event->getData();
         $sueldo = $datosPrestaciones->getSueldo();
         $prestacionesSobreSueldo = $sueldo * 0.42;
+        $calculoGeneral = $sueldo * 0.0833 ;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
+        $cuotaPatronal = $sueldo * 0.1267;
         $datosPrestaciones->setPrestacionesSobreSueldo($prestacionesSobreSueldo);
+        $datosPrestaciones->setIndemnizacion($calculoGeneral);
+        $datosPrestaciones->setAguinaldo($calculoGeneral);
+        $datosPrestaciones->setBono14($calculoGeneral);
+        $datosPrestaciones->setIgss($cuotaPatronal);
     }
 }
