@@ -38,6 +38,23 @@ class TipoPuesto
      */
     private $descripcion;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="TipoPuesto", mappedBy="puestos")
+     */
+    private $jerarquiaPuestos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TipoPuesto", inversedBy="jerarquiaPuestos")
+     * 
+     */
+    private $puestos;
+
+    public function __construct()
+    {
+        $this->jerarquiaPuestos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->puestos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -103,4 +120,75 @@ class TipoPuesto
     }
 
     
+
+    /**
+     * Add jerarquiaPuesto
+     *
+     * @param \UserBundle\Entity\TipoPuesto $jerarquiaPuesto
+     *
+     * @return TipoPuesto
+     */
+    public function addJerarquiaPuesto(\UserBundle\Entity\TipoPuesto $jerarquiaPuesto)
+    {
+        $this->jerarquiaPuestos[] = $jerarquiaPuesto;
+
+        return $this;
+    }
+
+    /**
+     * Remove jerarquiaPuesto
+     *
+     * @param \UserBundle\Entity\TipoPuesto $jerarquiaPuesto
+     */
+    public function removeJerarquiaPuesto(\UserBundle\Entity\TipoPuesto $jerarquiaPuesto)
+    {
+        $this->jerarquiaPuestos->removeElement($jerarquiaPuesto);
+    }
+
+    /**
+     * Get jerarquiaPuestos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJerarquiaPuestos()
+    {
+        return $this->jerarquiaPuestos;
+    }
+
+
+
+    /**
+     * Add puesto
+     *
+     * @param \UserBundle\Entity\TipoPuesto $puesto
+     *
+     * @return TipoPuesto
+     */
+    public function addPuesto(\UserBundle\Entity\TipoPuesto $puesto)
+    {
+        $this->puesto[] = $puesto;
+
+        return $this;
+    }
+
+    /**
+     * Remove puesto
+     *
+     * @param \UserBundle\Entity\TipoPuesto $puesto
+     */
+    public function removePuesto(\UserBundle\Entity\TipoPuesto $puesto)
+    {
+        $this->puesto->removeElement($puesto);
+    }
+
+
+    /**
+     * Get puestos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPuestos()
+    {
+        return $this->puestos;
+    }
 }

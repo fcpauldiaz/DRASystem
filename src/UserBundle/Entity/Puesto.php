@@ -165,6 +165,6 @@ class Puesto
      */
     public function __toString()
     {
-        return $this->tipoPuesto.': '.$this->nombrePuesto;
+        return $this->tipoPuesto.': '.$this->departamento;
     }
 }

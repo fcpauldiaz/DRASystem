@@ -28,8 +28,14 @@
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección usuarios</li>
-                {% if is_granted('ROLE_SUPERVISOR') and app.user %}
+                {% if is_granted('ROLE_SOCIO') and app.user %}
                 <li><a href="/admin">Administración</a>
+                {% endif %}
+                 {% if is_granted('ROLE_SUPERVISOR') and app.user %}
+                <li><a href="{{path('mostrar_usuarios')}}">Ver datos asistentes</a>
+                {% else %}
+                  
+                <li><a href="{{path('mostrar_usuarios')}}">Ver datos supervisores</a>
                 {% endif %}
                
               </ul>

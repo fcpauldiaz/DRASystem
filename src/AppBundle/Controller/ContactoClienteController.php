@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * ContactoCliente controller.
- * @Security("is_granted('ROLE_USER')")
+ * 
  * @Route("/contactocliente")
  */
 class ContactoClienteController extends Controller

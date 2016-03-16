@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UserBundle\Entity\TipoPuesto;
-use UserBundle\Form\TipoPuestoType;
+use UserBundle\Form\Type\TipoPuestoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**

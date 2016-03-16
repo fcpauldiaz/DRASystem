@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+    {% block body -%}
+        <h1>Usuarios de {{app.user.nombre}} {{app.user.apellidos}}</h1>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Puesto</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                    
+                <tr>
+                    <td>{{usuario.nombre}} </td>
+                    <td>{{usuario.apellidos}} </td>
+                    <td>{{usuario.puestos.last}}</td>
+                    {#<td>
+                        <ul>
+                            <li>
+                                <a class="btn btn-default btn-xs" href="{{ path('puesto_show', { 'id': usuario.id }) }}">Mostrar</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-default btn-xs"href="{{ path('puesto_edit', { 'id': usuario.id }) }}">Editar</a>
+                            </li>
+                        </ul>
+                    </td>#}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a class="btn btn-block btn-default" href="{{ path('puesto_new') }}">
+        Crear Nuevo Puesto
+        </a>
+        <br>
+        <br>
+        <br>
+    {% endblock %}

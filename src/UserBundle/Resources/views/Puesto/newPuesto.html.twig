@@ -9,7 +9,11 @@
 ajaxTipoPuesto();
 ajaxDepartamento();
 </script>
-
+<script>
+$(document).ready(function() { 
+    $("#userbundle_tipopuesto_puesto").select2({ width: '100%' });           
+});
+</script>
 
 {% endblock %}
 

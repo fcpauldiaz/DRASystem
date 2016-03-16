@@ -34,6 +34,8 @@
         "cspoo/swiftmailer-mailgun-bundle": "dev-master"
     },
     "require-dev": {
+         "phpunit/phpunit": "4.8",
+        "phpunit/dbunit": ">=1.2",
         "sensio/generator-bundle": "~2.3",
         "symfony/phpunit-bridge": "~2.7",
         "hautelook/alice-bundle": "^1.2",

@@ -24,6 +24,21 @@ class TipoPuestoType extends AbstractType
                 'required' => false,
 
             ])
+            ->add('puestos', 'entity', [
+                'class' => 'UserBundle:TipoPuesto',
+                'multiple' =>true, 
+                'label' => 'Jerarquía de puestos',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Jerarquía de puestos',
+                    'class' => 'form-control input-lg',
+                    'width'=>'100%',
+                    'help_text' => 'En este campo se seleccionan todos los tipos de puestos sobre los cuales se tiene jerarquía.  '.
+                        'Por ejemplo: si se crea un tipo puesto gerente, se coloca aquí asistente, encargado y supervisor'
+                    ,
+                ],
+
+            ])
         ;
     }
     

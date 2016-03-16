@@ -209,6 +209,9 @@ abstract class Usuario extends BaseUser
         if ($this->hasRole('ROLE_ASISTENTE')) {
             return 'AS'.' '.$this->getId().' : '.$this->__toString();
         }
+        if ($this->hasRole('ROLE_ENCARGADO')) {
+            return 'EN'.' '.$this->getId().' : '.$this->__toString();
+        }
         if ($this->hasRole('ROLE_SUPERVISOR')) {
             return 'SU'.' '.$this->getId().' : '.$this->__toString();
         }

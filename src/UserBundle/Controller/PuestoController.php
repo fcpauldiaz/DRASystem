@@ -77,13 +77,9 @@ class PuestoController extends Controller
             foreach ($usuario->getRoles() as $role) {
                 $usuario->removeRole($role);
             }
-            if ($data->getTipoPuesto() == 'Asistente') {
-                $usuario->addRole('ROLE_ASISTENTE');
-            } elseif ($data->getTipoPuesto() == 'Supervisor') {
-                $usuario->addRole('ROLE_SUPERVISOR');
-            } elseif ($data->getTipoPuesto() == 'Gerente') {
-                $usuario->addRole('ROLE_GERENTE');
-            }
+            $tipoPuesto = $data->getTipoPuesto()->getNombrePuesto();
+            $tipoPuesto = 'ROLE_'.strtoupper($tipoPuesto);
+            $usuario->addRole($tipoPuesto);
             $em->persist($usuario);
             $em->flush();
 

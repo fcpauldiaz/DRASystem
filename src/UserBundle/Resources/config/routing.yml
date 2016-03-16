@@ -30,6 +30,9 @@ combinar_puesto:
    resource: "@UserBundle/Controller/CombinarPuestoController.php"
    type: annotation
 
+supervision:
+   resource: "@UserBundle/Controller/SupervisorUsuariosController.php"
+   type: annotation
 user_profile:
     pattern:  /edit/usuario
     defaults: { _controller: UserBundle:Profile:edit }
