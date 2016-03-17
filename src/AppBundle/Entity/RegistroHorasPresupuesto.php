@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RegistroHoras.
+ * RegistroHorasPresupuesto.
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class RegistroHoras
+class RegistroHorasPresupuesto
 {
     /**
      * @var int
@@ -21,25 +21,19 @@ class RegistroHoras
      */
     private $id;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fechaHoras", type="date")
-     */
-    private $fechaHoras;
-
+   
     /**
      * @var int
      *
-     * @ORM\Column(name="horasInvertidas", type="integer")
+     * @ORM\Column(name="horasPresupuestadas", type="integer")
      */
-    private $horasInvertidas;
+    private $horasPresupuestadas;
 
     /**
      * @var [type]
      *
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroHoras")
-     * @ORM\JoinTable(name="horas_usuario")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroHorasPresupuesto")
+     * @ORM\JoinTable(name="presupuesto_usuario")
      */
     private $usuarios;
 
@@ -65,18 +59,18 @@ class RegistroHoras
     private $ingresadoPor;
 
     /**
+     * [$proyecto description]
+     * @var [type]
+     *  @ORM\ManyToOne(targetEntity="ProyectoPresupuesto", inversedBy="presupuestoIndividual", cascade={"persist"})
+     */
+    private $proyecto;
+
+    /**
      * @var date
      *
      * @ORM\Column(name="fechaCreacion", type="datetime")
      */
     private $fechaCreacion;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ProyectoPresupuesto")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     * 
-     */
-    private $proyectoPresupuesto;
 
     public function __construct()
     {
@@ -93,52 +87,29 @@ class RegistroHoras
         return $this->id;
     }
 
+   
     /**
-     * Set fecha.
+     * Set horasPresupuestadas.
      *
-     * @param \DateTime $fecha
+     * @param int $horasPresupuestadas
      *
      * @return RegistroHoras
      */
-    public function setFechaHoras($fecha)
+    public function setHorasPresupuestadas($horasPresupuestadas)
     {
-        $this->fechaHoras = $fecha;
+        $this->horasPresupuestadas = $horasPresupuestadas;
 
         return $this;
     }
 
     /**
-     * Get fecha.
-     *
-     * @return \DateTime
-     */
-    public function getFechaHoras()
-    {
-        return $this->fechaHoras;
-    }
-
-    /**
-     * Set horasInvertidas.
-     *
-     * @param int $horasInvertidas
-     *
-     * @return RegistroHoras
-     */
-    public function setHorasInvertidas($horasInvertidas)
-    {
-        $this->horasInvertidas = $horasInvertidas;
-
-        return $this;
-    }
-
-    /**
-     * Get horasInvertidas.
+     * Get horasPresupuestadas.
      *
      * @return int
      */
-    public function getHorasInvertidas()
+    public function getHorasPresupuestadas()
     {
-        return $this->horasInvertidas;
+        return $this->horasPresupuestadas;
     }
 
     /**
@@ -211,6 +182,7 @@ class RegistroHoras
         return $this->actividad;
     }
 
+  
 
     /**
      * Set fechaCreacion.
@@ -284,32 +256,36 @@ class RegistroHoras
         return $this->ingresadoPor;
     }
 
+      
+
     /**
-     * Set proyectoPresupuesto
+     * Set proyecto
      *
-     * @param \AppBundle\Entity\ProyectoPresupuesto $proyectoPresupuesto
+     * @param \AppBundle\Entity\ProyectoPresupuesto $proyecto
      *
-     * @return RegistroHoras
+     * @return RegistroHorasPresupuesto
      */
-    public function setProyectoPresupuesto(\AppBundle\Entity\ProyectoPresupuesto $proyectoPresupuesto = null)
+    public function setProyecto(\AppBundle\Entity\ProyectoPresupuesto $proyecto = null)
     {
-        $this->proyectoPresupuesto = $proyectoPresupuesto;
+        $this->proyecto = $proyecto;
+
 
         return $this;
     }
 
     /**
-     * Get proyectoPresupuesto
+     * Get proyecto
      *
      * @return \AppBundle\Entity\ProyectoPresupuesto
      */
-    public function getProyectoPresupuesto()
+    public function getProyecto()
     {
-        return $this->proyectoPresupuesto;
+        return $this->proyecto;
     }
 
-    public function __toString()
+      public function __toString()
     {
-        return $this->getActividad();
+        return 'P'.$this->getId();
     }
+
 }

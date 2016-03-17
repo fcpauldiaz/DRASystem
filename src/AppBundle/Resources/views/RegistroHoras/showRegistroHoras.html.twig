@@ -10,18 +10,28 @@
                 <th>Fecha</th>
                 <td>{{ entity.fechaHoras|date('d-m-Y') }}</td>
             </tr>
+             <tr>
+                <th>Proyecto  Presupuesto asignado</th>
+                <td>{{ entity.proyectoPresupuesto }}   <a class="btn btn-info btn-xs" href="{{ path('proyectopresupuesto_show', { 'id': entity.proyectoPresupuesto.id }) }}">
+                     Mostrar
+                </a></td>
+            </tr>
             <tr>
                 <th>Horas Invertidas</th>
                 <td>{{ entity.horasInvertidas }}</td>
             </tr>
             {% for usuario in entity.usuarios %}
              <tr>
-                <th>Usuarios</th>
+                <th>Usuario</th>
                 <td>{{ usuario }}</td>
             </tr>
             {% endfor %}
              <tr>
                 <th>Actividad</th>
+                <td>{{ entity.actividad }}</td>
+            </tr>
+              <tr>
+                <th>Cliente</th>
                 <td>{{ entity.cliente }}</td>
             </tr>
              <tr>

@@ -1,10 +1,10 @@
 <?php
 
-namespace UserBundle\Tests\Controller;
+namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DatosPrestacionesControllerTest extends WebTestCase
+class ProyectoPresupuestoControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()
@@ -13,13 +13,13 @@ class DatosPrestacionesControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/datosprestaciones/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /datosprestaciones/");
+        $crawler = $client->request('GET', '/proyectopresupuesto/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /proyectopresupuesto/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'userbundle_datosprestaciones[field_name]'  => 'Test',
+            'appbundle_proyectopresupuesto[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class DatosPrestacionesControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
-            'userbundle_datosprestaciones[field_name]'  => 'Foo',
+            'appbundle_proyectopresupuesto[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 
@@ -49,7 +49,7 @@ class DatosPrestacionesControllerTest extends WebTestCase
 
         // Check the entity has been delete on the list
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
-    }*/
+    }
 
-    
+    */
 }

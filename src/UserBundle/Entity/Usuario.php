@@ -51,6 +51,13 @@ abstract class Usuario extends BaseUser
      */
     protected $registroHoras;
 
+     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\RegistroHorasPresupuesto", mappedBy="usuarios")
+     *
+     * @var [type]
+     */
+    protected $registroHorasPresupuesto;
+
     /**
      * Constructor.
      */
@@ -58,6 +65,7 @@ abstract class Usuario extends BaseUser
     {
         parent::__construct();// construye los metodos y atributos de Base
         $this->registroHoras = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->registroHorasPresupuesto = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.

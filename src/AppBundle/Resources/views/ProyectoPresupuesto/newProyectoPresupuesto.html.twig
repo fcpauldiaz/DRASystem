@@ -1,14 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Crear nuevo Departamento</h1>
+    <h1>ProyectoPresupuesto creation</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
-        <a class="btn btn-primary" href="{{ path('departamento') }}">
-            Mostrar todos los departamentos
+        <a href="{{ path('proyectopresupuesto') }}">
+            Back to the list
         </a>
     </li>
 </ul>

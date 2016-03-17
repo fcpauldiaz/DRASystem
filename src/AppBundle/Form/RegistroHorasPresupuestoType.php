@@ -1,39 +1,18 @@
 <?php
 
-namespace AppBundle\Form\Type;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RegistroHorasType extends AbstractType
+class RegistroHorasPresupuestoType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-             ->add('proyectoPresupuesto', 'entity', [
-                'class' => 'AppBundle:proyectoPresupuesto',
-                 'required' => true,
+              $builder
 
-            ])
-             ->add('fechaHoras', 'date', [
-                'label' => 'Fecha de las horas invertidas',
-                'input' => 'datetime',
-                'widget' => 'choice',
-                'model_timezone' => 'America/Guatemala',
-                'view_timezone' => 'America/Guatemala',
-                'format' => 'dd-MMM-yyyy',
-                'data' => new \DateTime(),
-                'attr' => [
-
-                ],
-                 'required' => true,
-
-            ])
            ->add('usuarios', 'bootstrap_collection', [
                     'type' => 'entity',
                     'label' => 'Agregar usuarios',
@@ -56,21 +35,22 @@ class RegistroHorasType extends AbstractType
                             'class' => 'select2',
                         ],
                     ],
-                    'required' => true,
                 ])
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
-                 'required' => true,
+                'required' => true,
 
             ])
              ->add('actividad', 'entity', [
                 'class' => 'AppBundle:Actividad',
-                 'required' => true,
-            ])
-            ->add('horasInvertidas', null, [
-                'label' => 'Horas invertidas',
                 'required' => true,
-                ])
+
+
+            ])
+             ->add('horaspresupuestadas',null,[
+                'label' => 'Horas Prespuestadas',
+                'required' => true,
+            ])
         ;
     }
 
@@ -80,7 +60,7 @@ class RegistroHorasType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\RegistroHoras',
+            'data_class' => 'AppBundle\Entity\RegistroHorasPresupuesto'
         ));
     }
 
@@ -89,6 +69,6 @@ class RegistroHorasType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_registrohoras';
+        return 'appbundle_registrohoraspresupuesto';
     }
 }

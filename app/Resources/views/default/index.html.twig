@@ -32,7 +32,13 @@
         <div class="col-lg-4">
           <h2>Ingreso de horas</h2>
           <p>El segundo paso es ingresar las horas horas invertidas.</p>
-          <p><a class="btn btn-primary btn-lg" href="{{ path('registrohoras_new')}}">Ingresar horas</a></p>
+          <div class="dropup">
+              <a  class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Ingreso horas<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ path('proyectopresupuesto_new')}}">Proyecto presupuesto</a></li>
+                <li><a href="{{ path('registrohoras_new')}}">Ingresar horas invertidas</a></li>
+              </ul>
+        </div>
        </div>
         <div class="col-lg-4">
           <h2>Consultas</h2>

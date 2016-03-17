@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>RegistroHorasPresupuesto</h1>
+
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Código</th>
+                <td>{{ entity.__toString }}</td>
+            </tr>
+            <tr>
+                <th>Horas Presupuestadas</th>
+                <td>{{ entity.horasPresupuestadas }}</td>
+            </tr>
+            <tr>
+                <th>Fecha creación</th>
+                <td>{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
+            </tr>
+             {% for usuario in entity.usuarios %}
+             <tr>
+                <th>Usuarios</th>
+                <td>{{ usuario }}</td>
+            </tr>
+            {% endfor %}
+             <tr>
+                <th>Actividad</th>
+                <td>{{ entity.actividad }}</td>
+            </tr>
+              <tr>
+                <th>Cliente</th>
+                <td>{{ entity.cliente }}</td>
+            </tr>
+            <tr>
+                <th>Proyecto</th>
+                <td>{{ entity.proyecto}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('horaspresupuesto') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-default" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
