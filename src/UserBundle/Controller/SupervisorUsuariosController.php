@@ -37,6 +37,20 @@ class SupervisorUsuariosController extends Controller {
 	{
 		$em = $this->getDoctrine()->getManager();
 
+		$discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+
+      	//Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
+      	if ($claseActual == "UserBundle\Entity\UsuarioSocio") {
+      		$usuarios =  $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
+      		 return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
+	        	[
+	        		'usuarios' => $usuarios,
+	        	]
+        	);
+
+      	}
+
 		$usuarioActual = $this->getUser();
 
 		$arrayPuestos = $usuarioActual->getPuestos();
@@ -68,6 +82,5 @@ class SupervisorUsuariosController extends Controller {
         	]
         );
 	}
-
 
 }
