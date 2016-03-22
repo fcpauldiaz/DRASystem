@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Actividad</th>
+                <th>Cliente</th>
                 <th>Costo</th>
                 <th>Presupuesto</th>
                 <th>Diferencia</th>
@@ -25,12 +26,13 @@
 
             <tr>
                 <td>{{presupuesto.actividad}}</td>
+                <td>{{presupuesto.cliente}}</td>
                 <td>{{horaPorActividad}}</td>
                 <td>{{horaPresupuestada}}</td>
-               {% if diferencia < 0 %}
+                {% if diferencia < 0 %}
                 	<td><font color="red"><b>{{diferencia}}<b></font></td>
                 {% else %}
-                	 <td><b>{{diferencia}}<b></td>
+                	 <td><b>{{ diferencia }}<b></td>
                 {% endif %}
                 <td>
                 	<a  href="{{ path('presupuesto_individual', { 'id': presupuesto.id }) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
@@ -41,8 +43,9 @@
         {% if horasPresupuestadasTotal is defined %}
          <tr>
                 <td> <b>Totales<b> </td>
-                <td><b>{{horasPresupuestadasTotal}}<b></td>
+                <td></td>
                 <td><b>{{horasTotal}}<b></td>
+                <td><b>{{horasPresupuestadasTotal}}<b></td>
                 {% if diferenciaTotal < 0 %}
                 	<td><font color="red"><b>{{diferenciaTotal}}<b></font></td>
                 {% else %}
