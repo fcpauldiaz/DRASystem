@@ -79,7 +79,7 @@ class RegistroHorasController extends Controller
      */
     private function createCreateForm(RegistroHoras $entity)
     {
-        $form = $this->createForm(new RegistroHorasType(), $entity, array(
+        $form = $this->createForm(new RegistroHorasType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('registrohoras_create'),
             'method' => 'POST',
         ));
@@ -169,7 +169,7 @@ class RegistroHorasController extends Controller
      */
     private function createEditForm(RegistroHoras $entity)
     {
-        $form = $this->createForm(new RegistroHorasType(), $entity, array(
+        $form = $this->createForm(new RegistroHorasType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('registrohoras_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

@@ -34,7 +34,7 @@ class ConsultaCostoController extends Controller
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
-                'ConsultaBundle:Consulta:consultaPorPresupuesto.html.twig',
+                'ConsultaBundle:Consulta:consultarPorActividad.html.twig',
                 [
                 	'nombrePresupuesto' => ' ',
                     'proyecto' => [],
@@ -54,6 +54,7 @@ class ConsultaCostoController extends Controller
             	$diferencia = [];
             	$totalHoras = [];
             	$contador= 0;
+                
             	while($contador != count($presupuestosIndividuales)){
             		$horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
             	 	$diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
@@ -64,7 +65,7 @@ class ConsultaCostoController extends Controller
             }
            
           return $this->render(
-                'ConsultaBundle:Consulta:consultaPorPresupuesto.html.twig',
+                'ConsultaBundle:Consulta:consultarPorActividad.html.twig',
                 [
                 	'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                 	'diferenciaSubTotal' => $diferencia,
@@ -109,7 +110,6 @@ class ConsultaCostoController extends Controller
 
         $presupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findOneById($id);
         $registros = $this->getQueryRegistroHorasPorProyecto($presupuesto->getProyecto());
-        $horasRealizadas = $this->calcularHorasPorActividad($presupuesto,$registros);
         $registrosFiltrados = $this->filtarRegistrosPorActividad($registros,$presupuesto->getActividad());
        
        
