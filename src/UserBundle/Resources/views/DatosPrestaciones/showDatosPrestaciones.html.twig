@@ -75,7 +75,7 @@
     
      {{ render(controller(
         'UserBundle:Puesto:show',
-        {'id': app.user.puestos[0].id}
+        {'id': app.user.puestos.last().id}
     )) }}
    
 </div>

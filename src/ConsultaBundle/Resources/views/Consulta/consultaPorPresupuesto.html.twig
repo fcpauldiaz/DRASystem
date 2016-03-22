@@ -41,6 +41,7 @@
             </tr>
             {% set contador = contador + 1 %}
         {% endfor %}
+        {% if horasPresupuestadasTotal is defined %}
          <tr>
                 <td> <b>Totales<b> </td>
                 <td></td>
@@ -55,6 +56,7 @@
                
                 <td></td>
             </tr>
+        {% endif %}
         </tbody>
     </table>
     
