@@ -11,9 +11,10 @@ use AppBundle\Entity\RegistroHorasPresupuesto;
 use AppBundle\Form\RegistroHorasPresupuestoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * RegistroHorasPresupuesto controller.
- *
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/horaspresupuesto")
  */
 class RegistroHorasPresupuestoController extends Controller
@@ -45,12 +46,13 @@ class RegistroHorasPresupuestoController extends Controller
      */
     public function createAction(Request $request)
     {
+        $usuario = $this->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
+
         $entity = new RegistroHorasPresupuesto();
-        $usuario = $this->getUser();
-        
+       
         $entity->setIngresadoPor($usuario);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -131,9 +133,36 @@ class RegistroHorasPresupuestoController extends Controller
         );
     }
 
+     /**
+     * Finds and displays a RegistroHorasPresupuesto entity.
+     *
+     * @Route("/{id}", name="horaspresupuesto_show_plain")
+     * @Method("GET")
+     * @Template("AppBundle:RegistroHorasPresupuesto:showRegistroHorasPresupuestoPlain.html.twig")
+     */
+    public function showPlainAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find RegistroHorasPresupuesto entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+
     /**
      * Displays a form to edit an existing RegistroHorasPresupuesto entity.
      *
+     * @Security("is_granted('ROLE_GERENTE')")
      * @Route("/{id}/edit", name="horaspresupuesto_edit")
      * @Method("GET")
      *@Template("AppBundle:RegistroHorasPresupuesto:editRegistroHorasPresupuesto.html.twig")
@@ -179,6 +208,7 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Edits an existing RegistroHorasPresupuesto entity.
      *
+     * @Security("is_granted('ROLE_GERENTE')")
      * @Route("/{id}", name="horaspresupuesto_update")
      * @Method("PUT")
      * @Template("AppBundle:RegistroHorasPresupuesto:editRegistroHorasPresupuesto.html.twig")
@@ -212,6 +242,7 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Deletes a RegistroHorasPresupuesto entity.
      *
+     * @Security("is_granted('ROLE_GERENTE')")
      * @Route("/{id}", name="horaspresupuesto_delete")
      * @Method("DELETE")
      */
@@ -239,7 +270,7 @@ class RegistroHorasPresupuestoController extends Controller
      * Creates a form to delete a RegistroHorasPresupuesto entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * 
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)

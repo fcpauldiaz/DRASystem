@@ -72,12 +72,12 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createCreateForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType(), $entity, array(
+        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create','attr' => ['class' => 'btn btn-primary btn-block']));
 
         return $form;
     }
@@ -162,7 +162,7 @@ class ProyectoPresupuestoController extends Controller
     */
     private function createEditForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType(), $entity, array(
+        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

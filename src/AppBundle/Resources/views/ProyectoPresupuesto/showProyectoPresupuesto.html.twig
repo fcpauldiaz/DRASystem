@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
+{% block body %}
     <h1>ProyectoPresupuesto</h1>
 
     <table class="table table-striped table-hover">
@@ -9,29 +9,32 @@
                 <th>Nombre Proyecto presupuesto</th>
                 <td>{{ entity.nombrePresupuesto }}</td>
             </tr>
+            {% set contador = 0 %}
             {% for presupuesto in entity.presupuestoIndividual %}
              <tr>
                 <th>Código Prespuesto Asociado</th>
-                <td>{{ presupuesto }}  <a class="btn btn-info btn-xs" href="{{ path('horaspresupuesto_show', { 'id': presupuesto.id }) }}">
-                    mostrar
-                </a>
+                <td>{{ presupuesto }}    <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalProyectoPresupuesto{{contador}}">
+               Mostrar presupuesto
+              </button>
                 </td>
             </tr>
+            {% set contador = contador + 1 %}
            {% endfor %}
         </tbody>
     </table>
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('proyectopresupuesto') }}">
-            Back to the list
-        </a>
-    </li>
+  
     <li>
         <a class="btn btn-default" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">
-            Edit
+            Editar
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+{% set contador = 0 %}
+{% for presupuesto in entity.presupuestoIndividual %}
+    {% include 'AppBundle:ProyectoPresupuesto:modal_showProyectoPresupuesto.html.twig' %}
+    {% set contador = contador + 1 %}
+{% endfor %}
 {% endblock %}

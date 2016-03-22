@@ -9,6 +9,15 @@ use AppBundle\Form\RegistroHorasPresupuestoType;
 
 class ProyectoPresupuestoType extends AbstractType
 {
+    private $usuario;
+
+    //única forma que encontré para guardar el campo ingresado por
+    //porque los formularios embedded no pasan por el controller
+    public function __construct($usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
     /* @param FormBuilderInterface $builder
      * @param array                $options
      */
@@ -17,7 +26,7 @@ class ProyectoPresupuestoType extends AbstractType
         $builder
           ->add('nombrePresupuesto')
           ->add('presupuestoIndividual', 'bootstrap_collection', [
-                    'type' => new RegistroHorasPresupuestoType(),
+                    'type' => new RegistroHorasPresupuestoType($this->usuario),
                     'label' => 'Registro Horas Presupuesto',
                     'allow_add' => true,
                     'allow_delete' => true,
