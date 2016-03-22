@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+	<br>
+	<br>
+    <h1>Consulta Detallada por actividad</h1>
+    <h2>Presupuesto de esta actividad: {{presupuesto}}</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Actividad</th>
+                <th>Usuario</th>
+                <th>Puesto</th>
+                <th>Cliente</th>
+                <th>Horas invertidas (costo)</th>
+                <th>Presupuesto Acumulado</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% set pActual = presupuesto %}
+            {% for registro in registros %}
+
+            <tr>
+                <td>{{registro.actividad}}</td>
+                <td>{{registro.ingresadoPor}}</td>
+                <td>{{registro.ingresadoPor.getPuestoActual()}}</td>
+                <td>{{registro.cliente}}</td>
+                <td>{{registro.horasInvertidas}}</td>
+                {% set pActual = pActual - registro.horasInvertidas %}
+                <td>{{pActual}}</td>
+               
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    	
+
+      <br>
+      <br>
+    {% endblock %}

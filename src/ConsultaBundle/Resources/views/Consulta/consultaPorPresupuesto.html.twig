@@ -10,11 +10,10 @@
         <thead>
             <tr>
                 <th>Actividad</th>
-                <th>Usuario</th>
-                <th>Puesto</th>
-                <th>Presupuesto</th>
                 <th>Costo</th>
+                <th>Presupuesto</th>
                 <th>Diferencia</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -26,17 +25,15 @@
 
             <tr>
                 <td>{{presupuesto.actividad}}</td>
-                <td>{{presupuesto.ingresadoPor}}</td>
-                <td>{{presupuesto.ingresadoPor.getPuestoActual()}}</td>
-                <td>{{horaPresupuestada}}</td>
                 <td>{{horaPorActividad}}</td>
+                <td>{{horaPresupuestada}}</td>
                {% if diferencia < 0 %}
                 	<td><font color="red"><b>{{diferencia}}<b></font></td>
                 {% else %}
                 	 <td><b>{{diferencia}}<b></td>
                 {% endif %}
                 <td>
-                	<a  href="{{ path('presupuesto_individual', { 'id': presupuesto.id }) }}" class="btn btn-xs btn-info">Mostrar más</a>
+                	<a  href="{{ path('presupuesto_individual', { 'id': presupuesto.id }) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                 </td>
             </tr>
             {% set contador = contador + 1 %}
@@ -44,8 +41,6 @@
         {% if horasPresupuestadasTotal is defined %}
          <tr>
                 <td> <b>Totales<b> </td>
-                <td></td>
-                <td></td>
                 <td><b>{{horasPresupuestadasTotal}}<b></td>
                 <td><b>{{horasTotal}}<b></td>
                 {% if diferenciaTotal < 0 %}

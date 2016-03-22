@@ -24,6 +24,17 @@ class ConsultaPresupuestoType extends AbstractType
                 ],
                 'required' => false,
             ])
+            ->add('consulta_filtro','choice',
+                [
+                    'choices' => [
+                        0 => 'Actividad',
+                         1 => 'Usuarios',
+                        2 => 'Cliente',
+                    ],
+                     'preferred_choices' => [0],
+                    'label' => 'Escoja el método de filtro',
+
+                ])
             ->add('submit','submit', 
                 [
                     'label' => 'Buscar',

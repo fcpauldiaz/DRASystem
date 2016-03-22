@@ -44,36 +44,47 @@ class ConsultaCostoController extends Controller
         }
         $data = $form->getData();
         $proyecto = $data['proyecto'];
+        $consultaFiltro = $data['consulta_filtro'];
         
-        if (isset($proyecto)){
-        	$presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
-        	
-        	$horasSubTotal = $this->calcularHorasTotales($presupuestosIndividuales,$proyecto);
-        	$diferencia = [];
-        	$totalHoras = [];
-        	$contador= 0;
-        	while($contador != count($presupuestosIndividuales)){
-        		$horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
-        	 	$diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
-        	 	$totalHoras[] = $horasPresupuestadas;
-        	 	$contador +=1;
-        	 }
-        	
+        if ($consultaFiltro == 0){
+            if (isset($proyecto)){
+            	$presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
+            	
+            	$horasSubTotal = $this->calcularHorasTotales($presupuestosIndividuales,$proyecto);
+            	$diferencia = [];
+            	$totalHoras = [];
+            	$contador= 0;
+            	while($contador != count($presupuestosIndividuales)){
+            		$horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
+            	 	$diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
+            	 	$totalHoras[] = $horasPresupuestadas;
+            	 	$contador +=1;
+            	 }
+            	
+            }
+           
+          return $this->render(
+                'ConsultaBundle:Consulta:consultaPorPresupuesto.html.twig',
+                [
+                	'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
+                	'diferenciaSubTotal' => $diferencia,
+                	'horasTotal' => array_sum($horasSubTotal),
+                	'diferenciaTotal' => array_sum($diferencia),
+                	'horasPresupuestadasTotal' => array_sum($totalHoras),
+                	'horasSubTotal' => $horasSubTotal,
+                    'proyecto' => $presupuestosIndividuales,
+                    'form' => $form->createView(),
+                ]
+            );
         }
-       
-      return $this->render(
-            'ConsultaBundle:Consulta:consultaPorPresupuesto.html.twig',
-            [
-            	'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-            	'diferenciaSubTotal' => $diferencia,
-            	'horasTotal' => array_sum($horasSubTotal),
-            	'diferenciaTotal' => array_sum($diferencia),
-            	'horasPresupuestadasTotal' => array_sum($totalHoras),
-            	'horasSubTotal' => $horasSubTotal,
-                'proyecto' => $presupuestosIndividuales,
-                'form' => $form->createView(),
-            ]
-        );
+        //TODO: filtar por usuarios
+        else if ($consultaFiltro == 1){
+
+        }
+        //TODO: filtrar por clientes
+        else if ($consultaFiltro == 2){
+
+        }
 
 	}
 
@@ -100,21 +111,13 @@ class ConsultaCostoController extends Controller
         $registros = $this->getQueryRegistroHorasPorProyecto($presupuesto->getProyecto());
         $horasRealizadas = $this->calcularHorasPorActividad($presupuesto,$registros);
         $registrosFiltrados = $this->filtarRegistrosPorActividad($registros,$presupuesto->getActividad());
-        $usuariosInvolucrados = new \Doctrine\Common\Collections\ArrayCollection();
-        $clientesInvolucrados = new \Doctrine\Common\Collections\ArrayCollection();
        
-        foreach($registrosFiltrados as $registro){
-        	
-        	$usuariosInvolucrados = $this->mergeArrayCollection($usuariosInvolucrados,$registro->getUsuarios());
-        	$clientesInvolucrados = $this->addArrayCollection($clientesInvolucrados,$registro->getCliente());
-        }
-       return $this->render(
-            'ConsultaBundle:Consulta:comparacionPresupuesto.html.twig',
+       
+        return $this->render(
+            'ConsultaBundle:Consulta:consultaDetallePorActividad.html.twig',
             [	
-            	'horasRealizadas' => $horasRealizadas,
-            	'presupuesto' => $presupuesto,
-            	'usuarios' => $usuariosInvolucrados,
-            	'clientes' => $clientesInvolucrados,
+            	'presupuesto' => $presupuesto->getHorasPresupuestadas(),
+                'registros' => $registrosFiltrados,
             ]
         );
 	}
