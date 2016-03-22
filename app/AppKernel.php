@@ -30,7 +30,8 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
-            
+
+            new ConsultaBundle\ConsultaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

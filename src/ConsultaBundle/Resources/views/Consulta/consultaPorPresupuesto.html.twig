@@ -1,0 +1,65 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+	<br>
+	{{ form(form)}}
+    <br>
+    <h1>Consulta Proyecto Presupuesto {{nombrePresupuesto}}</h1>
+   
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Actividad</th>
+                <th>Usuario</th>
+                <th>Puesto</th>
+                <th>Presupuesto</th>
+                <th>Costo</th>
+                <th>Diferencia</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set contador = 0 %}
+        {% for presupuesto in proyecto %}
+        	{% set horaPresupuestada = presupuesto.horasPresupuestadas %}
+			{% set horaPorActividad = horasSubTotal[contador] %}
+			{% set diferencia = diferenciaSubTotal[contador] %}
+
+            <tr>
+                <td>{{presupuesto.actividad}}</td>
+                <td>{{presupuesto.ingresadoPor}}</td>
+                <td>{{presupuesto.ingresadoPor.getPuestoActual()}}</td>
+                <td>{{horaPresupuestada}}</td>
+                <td>{{horaPorActividad}}</td>
+               {% if diferencia < 0 %}
+                	<td><font color="red"><b>{{diferencia}}<b></font></td>
+                {% else %}
+                	 <td><b>{{diferencia}}<b></td>
+                {% endif %}
+                <td>
+                	<a  href="{{ path('presupuesto_individual', { 'id': presupuesto.id }) }}" class="btn btn-xs btn-info">Mostrar más</a>
+                </td>
+            </tr>
+            {% set contador = contador + 1 %}
+        {% endfor %}
+         <tr>
+                <td> <b>Totales<b> </td>
+                <td></td>
+                <td></td>
+                <td><b>{{horasPresupuestadasTotal}}<b></td>
+                <td><b>{{horasTotal}}<b></td>
+                {% if diferenciaTotal < 0 %}
+                	<td><font color="red"><b>{{diferenciaTotal}}<b></font></td>
+                {% else %}
+                	 <td><b>{{diferenciaTotal}}<b></td>
+                {% endif %}
+               
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    	
+
+      <br>
+      <br>
+    {% endblock %}

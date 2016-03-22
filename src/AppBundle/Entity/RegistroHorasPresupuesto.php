@@ -29,14 +29,7 @@ class RegistroHorasPresupuesto
      */
     private $horasPresupuestadas;
 
-    /**
-     * @var [type]
-     *
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroHorasPresupuesto")
-     * @ORM\JoinTable(name="presupuesto_usuario")
-     */
-    private $usuarios;
-
+ 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -74,7 +67,7 @@ class RegistroHorasPresupuesto
 
     public function __construct()
     {
-        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+       
         $this->fechaCreacion = new \DateTime();
     }
     /**
@@ -112,51 +105,10 @@ class RegistroHorasPresupuesto
         return $this->horasPresupuestadas;
     }
 
-    /**
-     * Add usuario.
-     *
-     * @param \UserBundle\Entity\Usuario $usuario
-     *
-     * @return RegistroHoras
-     */
-    public function addUsuario(\UserBundle\Entity\Usuario $usuario)
-    {
-        $this->usuarios[] = $usuario;
+   
 
-        return $this;
-    }
+  
 
-    /**
-     * Add usuario.
-     *
-     * @param \UserBundle\Entity\Usuario $usuario
-     *
-     * @return RegistroHoras
-     */
-    public function getUsuariosSupervisor()
-    {
-        return $this->usuarios;
-    }
-
-    /**
-     * Remove usuario.
-     *
-     * @param \UserBundle\Entity\Usuario $usuario
-     */
-    public function removeUsuario(\UserBundle\Entity\Usuario $usuario)
-    {
-        $this->usuarios->removeElement($usuario);
-    }
-
-    /**
-     * Get usuarios.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsuarios()
-    {
-        return $this->usuarios;
-    }
 
     /**
      * Set actividad.

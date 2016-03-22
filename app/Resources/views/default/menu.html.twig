@@ -29,7 +29,9 @@
                 <li class="dropdown-header">Sección Listado general</li>
                 <li><a href="{{ path('registrohoras')}}">Registro Horas</a></li>
                 <li><a href="{{ path('proyectopresupuesto')}}">Proyectos presupuesto</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Sección Consultas específicas</li>
+                   <li><a href="{{ path('presupuesto_horas')}}">Costos en horas</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección usuarios</li>
                 {% if is_granted('ROLE_SOCIO') and app.user %}

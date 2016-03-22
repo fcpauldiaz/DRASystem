@@ -50,7 +50,7 @@ class RegistroHorasController extends Controller
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-
+ 
         $entity = new RegistroHoras();
         $entity->setIngresadoPor($usuario);
         $form = $this->createCreateForm($entity);
@@ -138,6 +138,7 @@ class RegistroHorasController extends Controller
      * @Route("/{id}/edit", name="registrohoras_edit")
      * @Method("GET")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
+     * @Security("is_granted('ROLE_GERENTE')")
      */
     public function editAction($id)
     {
@@ -183,6 +184,7 @@ class RegistroHorasController extends Controller
      * @Route("/{id}", name="registrohoras_update")
      * @Method("PUT")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
+     * @Security("is_granted('ROLE_GERENTE')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -215,6 +217,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}", name="registrohoras_delete")
      * @Method("DELETE")
+     * @Security("is_granted('ROLE_GERENTE')")
      */
     public function deleteAction(Request $request, $id)
     {

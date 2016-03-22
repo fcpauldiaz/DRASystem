@@ -276,6 +276,16 @@ class UsuarioTrabajador extends Usuario
         return $this->puestos;
     }
 
+     /**
+     * Get el último puesto ingresado
+     *
+     * @return AppBundle\Entity\Puesto
+     */
+    public function getPuestoActual()
+    {
+        return $this->puestos->last();
+    }
+
     /**
      * Set costoPorHora.
      *

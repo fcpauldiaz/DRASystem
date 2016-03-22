@@ -310,6 +310,6 @@ class RegistroHoras
 
     public function __toString()
     {
-        return $this->getActividad();
+        return $this->getActividad()->__toString();
     }
 }

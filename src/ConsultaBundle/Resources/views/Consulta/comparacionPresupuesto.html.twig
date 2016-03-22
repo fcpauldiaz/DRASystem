@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+    {% block body %}
+        <h1>Registro de Horas por Actividad </h1>
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Actividad</th>
+                    <td>{{ presupuesto.actividad }}</td>
+                </tr>
+                <tr>
+                    <th>Ingresado por</th>
+                    <td>{{ presupuesto.ingresadoPor }}</td>
+                </tr>
+                 <tr>
+                    <th>Puesto</th>
+                    <td>{{presupuesto.ingresadoPor.getPuestoActual()}}</td>
+                </tr>
+               
+                {% for usuario in usuarios %}
+                 <tr>
+                    <th>Usuario involucrado</th>
+                    <td>{{usuario}}</td>
+                </tr>
+               {% endfor %}
+               {% for cliente in clientes %}
+                 <tr>
+                    <th>Cliente involucrado</th>
+                    <td>{{cliente}}</td>
+                </tr>
+               {% endfor %}
+                <tr>
+                    <th>Horas presupuestadas</th>
+                    <td>{{ presupuesto.horasPresupuestadas }}</td>
+                </tr>
+                <tr>
+                    <th>Horas realizadas</th>
+                    <td>{{horasRealizadas}}</td>
+                </tr>
+                  <tr>
+                    <th>Diferencia</th>
+                    <td>{{presupuesto.horasPresupuestadas -horasRealizadas}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-default btn-block" href="{{path('presupuesto_horas')}}">Regresar</a>
+    {% endblock %}
