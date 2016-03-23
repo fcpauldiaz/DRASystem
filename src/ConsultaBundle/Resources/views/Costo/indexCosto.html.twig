@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <br>
+    <h1>Costo list</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha inicio</th>
+                <th>Fecha final</th>
+                <th>Fecha creación</th>
+                <th>Costo</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('costo_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.fechaInicio %}{{ entity.fechaInicio|date('d-m-Y') }}{% endif %}</td>
+                <td>{% if entity.fechaFinal %}{{ entity.fechaFinal|date('d-m-Y ') }}{% endif %}</td>
+                <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('d-m-Y H:i:s ') }}{% endif %}</td>
+                <td>{{ entity.costo | number_format(2, '.', ',')}}</td>
+                <td>{{ entity.usuario }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a class="btn btn-info btn-xs" href="{{ path('costo_show', { 'id': entity.id }) }}">Mostrar</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-warning btn-xs" href="{{ path('costo_edit', { 'id': entity.id }) }}">Editar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a class="btn btn-default btn-block" href="{{ path('costo_new') }}">
+                Crear nuevo registro
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

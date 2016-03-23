@@ -1,0 +1,139 @@
+<?php
+
+namespace ConsultaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Costo
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Costo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaInicio", type="datetime")
+     */
+    private $fechaInicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaFinal", type="datetime")
+     */
+    private $fechaFinal;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="costo", type="float")
+     */
+    private $costo;
+
+    /**
+     * @var UsuarioTrabajador
+     * 
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
+     */
+    private $usuario;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fechaInicio
+     *
+     * @param \DateTime $fechaInicio
+     *
+     * @return Costo
+     */
+    public function setFechaInicio($fechaInicio)
+    {
+        $this->fechaInicio = $fechaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaInicio
+     *
+     * @return \DateTime
+     */
+    public function getFechaInicio()
+    {
+        return $this->fechaInicio;
+    }
+
+    /**
+     * Set fechaFinal
+     *
+     * @param \DateTime $fechaFinal
+     *
+     * @return Costo
+     */
+    public function setFechaFinal($fechaFinal)
+    {
+        $this->fechaFinal = $fechaFinal;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaFinal
+     *
+     * @return \DateTime
+     */
+    public function getFechaFinal()
+    {
+        return $this->fechaFinal;
+    }
+
+    /**
+     * Set costo
+     *
+     * @param float $costo
+     *
+     * @return Costo
+     */
+    public function setCosto($costo)
+    {
+        $this->costo = $costo;
+
+        return $this;
+    }
+
+    /**
+     * Get costo
+     *
+     * @return float
+     */
+    public function getCosto()
+    {
+        return $this->costo;
+    }
+
+    public function __toString()
+    {
+        $this->id;
+    }
+}
+

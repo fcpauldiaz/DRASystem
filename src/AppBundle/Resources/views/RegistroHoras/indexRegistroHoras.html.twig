@@ -11,6 +11,7 @@
                 <th>Fecha</th>
                 <th>Horas Invertidas</th>
                 <th>Cliente </th>
+                <th>Realizadas por </th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ entity.horasInvertidas }}</td>
                 <td>{{ entity.cliente }} </td>
+                <td>{{ entity.ingresadoPor }} </td>
                 <td>
                     <ul>
                         <li>

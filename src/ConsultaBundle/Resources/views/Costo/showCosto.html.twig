@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Costo</h1>
+
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Fecha Inicio</th>
+                <td>{{ entity.fechaInicio|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Fecha final</th>
+                <td>{{ entity.fechaFinal|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Fecha Creación</th>
+                <td>{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Costo</th>
+                <td>{{ entity.costo | number_format(2, '.', ',') }}</td>
+            </tr>
+             <tr>
+                <th>Usuario</th>
+                <td>{{ entity.usuario }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('costo') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-default" href="{{ path('costo_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
