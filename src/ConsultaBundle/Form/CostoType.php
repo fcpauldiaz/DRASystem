@@ -15,8 +15,50 @@ class CostoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio')
-            ->add('fechaFinal')
+            ->add('fechaInicio', 'collot_datetime', [ 'pickerOptions' =>
+                [
+                    'format' => 'dd/mm/yyyy',
+                    'weekStart' => 0,
+                    'autoclose' => true,
+                    'startView' => 'year',
+                    'minView' => 'year',
+                    'maxView' => 'decade',
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'es',
+                    'forceParse' => false,
+                    'minuteStep' => 5,
+                    'pickerReferer ' => 'default', //deprecated
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'month',
+                    'showMeridian' => false,
+                ],
+                'read_only' => true,
+
+            ]) 
+             ->add('fechaFinal', 'collot_datetime', [ 'pickerOptions' =>
+                [
+                    'format' => ' dd/mm/yyyy',
+                    'weekStart' => 0,
+                    'autoclose' => true,
+                    'startView' => 'year',
+                    'minView' => 'year',
+                    'maxView' => 'decade',
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'es',
+                    'forceParse' => false,
+                    'minuteStep' => 5,
+                    'pickerReferer ' => 'default', //deprecated
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'month',
+                    'showMeridian' => false,
+                ],
+                'read_only' => true,
+
+            ]) 
             ->add('usuario')
         ;
     }

@@ -119,7 +119,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tehplague/swiftmailer-mailgun-bundle/zipball/005045e7478f678ec856b6fa6f333fbaecbfbec5",
+                "url": "https://api.github.com/repos/tehplague/swiftmailer-mailgun-bundle/zipball/bed8e35174b7dca6d52b8defd2892de79ef3b956",
                 "reference": "005045e7478f678ec856b6fa6f333fbaecbfbec5",
                 "shasum": ""
             },

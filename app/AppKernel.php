@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             //Own bundles
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
+            new ConsultaBundle\ConsultaBundle(),
             
             //Third party libraries
            
@@ -31,7 +32,7 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
 
-            new ConsultaBundle\ConsultaBundle(),
+           
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
