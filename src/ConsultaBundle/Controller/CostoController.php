@@ -279,8 +279,10 @@ class CostoController extends Controller
             ->getSingleScalarResult();
         dump($totalIngreso);
         dump($totalHorasPorPeriodo);
-        $costo = $totalIngreso/$totalHorasPorPeriodo;
-
+        $costo = 0;
+        if ($totalHorasPorPeriodo != 0) {
+            $costo = $totalIngreso/$totalHorasPorPeriodo;
+        }
         return $costo;
 
     }

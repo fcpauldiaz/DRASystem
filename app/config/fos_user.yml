@@ -43,7 +43,7 @@ pugx_multi_user:
         registration:
           form: 
             type: UserBundle\Form\Type\RegistrationSocioFormType
-            validation_groups:  [Registration, Default,EmailDomainValidation]
+            validation_groups:  [Registration, Default]
           template: UserBundle:Registration:register_socio.html.twig
         profile:
           form: 
