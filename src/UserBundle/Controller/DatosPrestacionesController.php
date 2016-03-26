@@ -13,9 +13,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-
 /**
  * DatosPrestaciones controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/datosprestaciones")
  */

@@ -17,7 +17,6 @@ use CostoBundle\Form\CostoType;
  */
 class CostoController extends Controller
 {
-
     /**
      * Lists all Costo entities.
      *
@@ -52,7 +51,7 @@ class CostoController extends Controller
             $fechaInicio = $form['fechaInicio']->getData();
             $fechaFinal = $form['fechaFinal']->getData();
             $usuario = $form['usuario']->getData();
-            $costo = $this->costoAction($fechaInicio,$fechaFinal,$usuario);
+            $costo = $this->costoAction($fechaInicio, $fechaFinal, $usuario);
             $entity->setCosto($costo);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -63,7 +62,7 @@ class CostoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -96,11 +95,11 @@ class CostoController extends Controller
     public function newAction()
     {
         $entity = new Costo();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -124,7 +123,7 @@ class CostoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -150,19 +149,19 @@ class CostoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Costo entity.
-    *
-    * @param Costo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Costo entity.
+     *
+     * @param Costo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Costo $entity)
     {
         $form = $this->createForm(new CostoType(), $entity, array(
@@ -202,8 +201,8 @@ class CostoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -250,7 +249,7 @@ class CostoController extends Controller
         ;
     }
 
-    public function costoAction($fechaInicio, $fechaFin,$usuario)
+    public function costoAction($fechaInicio, $fechaFin, $usuario)
     {
         $datosPrestaciones = $usuario->getDatosPrestaciones()->last();
         $totalIngreso = $datosPrestaciones->getSueldo() +
@@ -262,7 +261,7 @@ class CostoController extends Controller
                  $datosPrestaciones->getOtros() +
                  $datosPrestaciones->getIndemnizacion() +
                  $datosPrestaciones->getAguinaldo() +
-                 $datosPrestaciones->getBono14()+
+                 $datosPrestaciones->getBono14() +
                  $datosPrestaciones->getIgss();
         //ahora busco todas las horas ingresadas por el usuario
         //en el período seleccionado
@@ -281,9 +280,9 @@ class CostoController extends Controller
         dump($totalHorasPorPeriodo);
         $costo = 0;
         if ($totalHorasPorPeriodo != 0) {
-            $costo = $totalIngreso/$totalHorasPorPeriodo;
+            $costo = $totalIngreso / $totalHorasPorPeriodo;
         }
-        return $costo;
 
+        return $costo;
     }
 }

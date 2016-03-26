@@ -21,9 +21,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class CombinarPuestoController extends Controller
 {
-
-      /**
-     * Muestra el template para un nuevo tipo de contacto
+    /**
+     * Muestra el template para un nuevo tipo de contacto.
      *
      * @Route("tipopuesto/new", name="tipopuesto_new")
      * @Method("GET")
@@ -40,8 +39,8 @@ class CombinarPuestoController extends Controller
         );
     }
 
-	 /**
-     * Crear un nuevo tipo puesto via ajax
+    /**
+     * Crear un nuevo tipo puesto via ajax.
      *
      * @Route("tipopuesto/nuevo", name="tipopuesto_nuevo")
      * @Method("POST")
@@ -102,8 +101,8 @@ class CombinarPuestoController extends Controller
         return $form;
     }
 
-      /**
-     * Muestra el template para un nuevo tipo de contacto
+    /**
+     * Muestra el template para un nuevo tipo de contacto.
      *
      * @Route("departamento/new", name="departamento_new")
      * @Method("GET")
@@ -120,8 +119,8 @@ class CombinarPuestoController extends Controller
         );
     }
 
-     /**
-     * Crear un nuevo tipo puesto via ajax
+    /**
+     * Crear un nuevo tipo puesto via ajax.
      *
      * @Route("departamento/nuevo", name="departamento_nuevo")
      * @Method("POST")
@@ -163,7 +162,7 @@ class CombinarPuestoController extends Controller
         );
     }
 
-     /**
+    /**
      * Creates a form to create a TipoPuesto entity.
      *
      * @param TipoPuesto $entity The entity
@@ -181,6 +180,4 @@ class CombinarPuestoController extends Controller
 
         return $form;
     }
-
-
 }

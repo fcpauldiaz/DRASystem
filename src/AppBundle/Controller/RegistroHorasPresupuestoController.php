@@ -12,14 +12,15 @@ use AppBundle\Form\RegistroHorasPresupuestoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  * RegistroHorasPresupuesto controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/horaspresupuesto")
  */
 class RegistroHorasPresupuestoController extends Controller
 {
-
     /**
      * Lists all RegistroHorasPresupuesto entities.
      *
@@ -52,7 +53,7 @@ class RegistroHorasPresupuestoController extends Controller
         }
 
         $entity = new RegistroHorasPresupuesto();
-       
+
         $entity->setIngresadoPor($usuario);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -67,7 +68,7 @@ class RegistroHorasPresupuestoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -100,11 +101,11 @@ class RegistroHorasPresupuestoController extends Controller
     public function newAction()
     {
         $entity = new RegistroHorasPresupuesto();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -128,12 +129,12 @@ class RegistroHorasPresupuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
-     /**
+    /**
      * Finds and displays a RegistroHorasPresupuesto entity.
      *
      * @Route("/{id}", name="horaspresupuesto_show_plain")
@@ -153,11 +154,10 @@ class RegistroHorasPresupuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
-
 
     /**
      * Displays a form to edit an existing RegistroHorasPresupuesto entity.
@@ -181,19 +181,19 @@ class RegistroHorasPresupuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a RegistroHorasPresupuesto entity.
-    *
-    * @param RegistroHorasPresupuesto $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a RegistroHorasPresupuesto entity.
+     *
+     * @param RegistroHorasPresupuesto $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(RegistroHorasPresupuesto $entity)
     {
         $form = $this->createForm(new RegistroHorasPresupuestoType(), $entity, array(
@@ -234,8 +234,8 @@ class RegistroHorasPresupuestoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

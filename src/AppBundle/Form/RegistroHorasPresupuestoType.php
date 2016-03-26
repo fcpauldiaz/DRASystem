@@ -9,21 +9,19 @@ use UserBundle\Entity\Usuario;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-
-
 class RegistroHorasPresupuestoType extends AbstractType
 {
     private $usuario;
 
-    public function __construct(Usuario $usuario = null){
+    public function __construct(Usuario $usuario = null)
+    {
         $this->usuario = $usuario;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-              $builder
+        $builder
 
-         
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
@@ -33,9 +31,8 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
 
-
             ])
-             ->add('horaspresupuestadas',null,[
+             ->add('horaspresupuestadas', null, [
                 'label' => 'Horas Presupuestadas',
                 'required' => true,
             ])
@@ -51,9 +48,8 @@ class RegistroHorasPresupuestoType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\RegistroHorasPresupuesto'
+            'data_class' => 'AppBundle\Entity\RegistroHorasPresupuesto',
         ));
     }
 
@@ -65,7 +61,7 @@ class RegistroHorasPresupuestoType extends AbstractType
         return 'appbundle_registrohoraspresupuesto';
     }
 
-     /**
+    /**
      * Forma de validar el correo de un catedrático.
      *
      * @param FormEvent $event Evento después de mandar la información del formulario
@@ -74,6 +70,5 @@ class RegistroHorasPresupuestoType extends AbstractType
     {
         $registro = $event->getData();
         $registro->setIngresadoPor($this->usuario);
-       
     }
 }

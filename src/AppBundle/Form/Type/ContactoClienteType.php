@@ -19,18 +19,18 @@ class ContactoClienteType extends AbstractType
         $builder
             ->add('nombreContacto', null, [
                 'attr' => [
-                    'placeholder' => 'Nombre/s Contacto'
-                ]
+                    'placeholder' => 'Nombre/s Contacto',
+                ],
             ])
             ->add('apellidosContacto', null, [
                 'attr' => [
-                    'placeholder' => 'Apellidos Contacto'
-                ]
+                    'placeholder' => 'Apellidos Contacto',
+                ],
             ])
               ->add('puesto', null, [
                 'attr' => [
-                    'placeholder' => 'Puesto'
-                ]
+                    'placeholder' => 'Puesto',
+                ],
             ])
            ->add('telefonoContacto', 'bootstrap_collection', [
             'allow_add' => true,

@@ -19,9 +19,9 @@ class ContactoClienteControllerTest extends WebTestCase
 
         // Create a new entry in the database
         $crawler = $client->request('GET', '/contactocliente/');
-       
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /contactocliente/');
-        
+
         $crawler = $client->click($crawler->selectLink('Crear Nuevo contacto')->link());
 
         // Fill in the form and submit it
@@ -29,12 +29,11 @@ class ContactoClienteControllerTest extends WebTestCase
             'appbundle_contactocliente[nombreContacto]' => 'Nombre',
             'appbundle_contactocliente[apellidosContacto]' => 'Apellido',
             'appbundle_contactocliente[puesto]' => 'Puesto',
-            
+
             // ... other fields to fill
         ));
 
         $client->submit($form);
-
 
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
@@ -44,14 +43,13 @@ class ContactoClienteControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('td:contains("Apellido")')->count(), 'Missing element td:contains("Apellido")');
         $this->assertGreaterThan(0, $crawler->filter('td:contains("Puesto")')->count(), 'Missing element td:contains("Puesto")');
 
-
         // Edit the entity
         $crawler = $client->click($crawler->selectLink('Editar')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
             'appbundle_contactocliente[nombreContacto]' => 'NombreEditado',
             'appbundle_contactocliente[apellidosContacto]' => 'ApellidoEditado',
-            'appbundle_contactocliente[puesto]' => 'PuestoEditado'
+            'appbundle_contactocliente[puesto]' => 'PuestoEditado',
             // ... other fields to fill
         ));
 
@@ -64,14 +62,12 @@ class ContactoClienteControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('[value="ApellidoEditado"]')->count(), 'Missing element [value="ApellidoEditado"]');
         $this->assertGreaterThan(0, $crawler->filter('[value="PuestoEditado"]')->count(), 'Missing element [value="PuestoEditado"]');
 
-
         // Delete the entity
         $client->submit($crawler->selectButton('Eliminar')->form());
         $crawler = $client->followRedirect();
 
         // Check the entity has been delete on the list
         $this->assertNotRegExp('/NombreEditado/', $client->getResponse()->getContent());
-       
     }
     /**
      * Close doctrine connections to avoid having a 'too many connections'

@@ -188,8 +188,6 @@ class ContactoCliente
         return $this->clientes;
     }
 
-   
-
     /**
      * Set apellidosContacto.
      *
@@ -222,7 +220,7 @@ class ContactoCliente
     public function setPuesto($puesto)
     {
         $this->puesto = $puesto;
-        
+
         return $this;
     }
 

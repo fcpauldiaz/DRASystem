@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * TipoPuesto
+ * TipoPuesto.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class TipoPuesto
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -30,8 +30,7 @@ class TipoPuesto
      */
     private $nombrePuesto;
 
-
-     /**
+    /**
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=255,nullable=true)
@@ -45,7 +44,6 @@ class TipoPuesto
 
     /**
      * @ORM\ManyToMany(targetEntity="TipoPuesto", inversedBy="jerarquiaPuestos")
-     * 
      */
     private $puestos;
 
@@ -55,11 +53,10 @@ class TipoPuesto
         $this->puestos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -67,7 +64,7 @@ class TipoPuesto
     }
 
     /**
-     * Set nombrePuesto
+     * Set nombrePuesto.
      *
      * @param string $nombrePuesto
      *
@@ -81,7 +78,7 @@ class TipoPuesto
     }
 
     /**
-     * Get nombrePuesto
+     * Get nombrePuesto.
      *
      * @return string
      */
@@ -91,7 +88,7 @@ class TipoPuesto
     }
 
     /**
-     * Set descripcion
+     * Set descripcion.
      *
      * @param string $descripcion
      *
@@ -105,7 +102,7 @@ class TipoPuesto
     }
 
     /**
-     * Get descripcion
+     * Get descripcion.
      *
      * @return string
      */
@@ -119,10 +116,8 @@ class TipoPuesto
         return $this->nombrePuesto;
     }
 
-    
-
     /**
-     * Add jerarquiaPuesto
+     * Add jerarquiaPuesto.
      *
      * @param \UserBundle\Entity\TipoPuesto $jerarquiaPuesto
      *
@@ -136,7 +131,7 @@ class TipoPuesto
     }
 
     /**
-     * Remove jerarquiaPuesto
+     * Remove jerarquiaPuesto.
      *
      * @param \UserBundle\Entity\TipoPuesto $jerarquiaPuesto
      */
@@ -146,7 +141,7 @@ class TipoPuesto
     }
 
     /**
-     * Get jerarquiaPuestos
+     * Get jerarquiaPuestos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -155,10 +150,8 @@ class TipoPuesto
         return $this->jerarquiaPuestos;
     }
 
-
-
     /**
-     * Add puesto
+     * Add puesto.
      *
      * @param \UserBundle\Entity\TipoPuesto $puesto
      *
@@ -172,7 +165,7 @@ class TipoPuesto
     }
 
     /**
-     * Remove puesto
+     * Remove puesto.
      *
      * @param \UserBundle\Entity\TipoPuesto $puesto
      */
@@ -181,9 +174,8 @@ class TipoPuesto
         $this->puesto->removeElement($puesto);
     }
 
-
     /**
-     * Get puestos
+     * Get puestos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

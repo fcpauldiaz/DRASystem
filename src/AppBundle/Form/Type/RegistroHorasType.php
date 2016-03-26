@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistroHorasType extends AbstractType
 {
-
     private $usuario;
 
     public function __construct($usuario)
@@ -25,7 +24,7 @@ class RegistroHorasType extends AbstractType
              ->add('proyectoPresupuesto', 'entity', [
                 'class' => 'AppBundle:proyectoPresupuesto',
                 'required' => true,
-                'empty_value' => 'Seleccione el presupuesto asignado'
+                'empty_value' => 'Seleccione el presupuesto asignado',
 
             ])
              ->add('fechaHoras', 'date', [
@@ -81,9 +80,9 @@ class RegistroHorasType extends AbstractType
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
-            ->add('ingresadoPor','text',[
+            ->add('ingresadoPor', 'text', [
                 'data' => $this->usuario,
-                'disabled' =>true,
+                'disabled' => true,
             ])
         ;
     }

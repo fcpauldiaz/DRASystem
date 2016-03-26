@@ -10,13 +10,12 @@ class CostoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'collot_datetime', [ 'pickerOptions' =>
-                [
+            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -36,9 +35,8 @@ class CostoType extends AbstractType
                 ],
                 'read_only' => true,
 
-            ]) 
-              ->add('fechaFinal', 'collot_datetime', [ 'pickerOptions' =>
-                [
+            ])
+              ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -58,20 +56,20 @@ class CostoType extends AbstractType
                 ],
                 'read_only' => true,
 
-            ]) 
-            ->add('usuario',null,[
+            ])
+            ->add('usuario', null, [
                 'required' => true,
                 ])
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CostoBundle\Entity\Costo'
+            'data_class' => 'CostoBundle\Entity\Costo',
         ));
     }
 

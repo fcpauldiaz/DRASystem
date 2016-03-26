@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Departamento
+ * Departamento.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Departamento
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -37,11 +37,10 @@ class Departamento
      */
     private $descripcion;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -49,7 +48,7 @@ class Departamento
     }
 
     /**
-     * Set nombreDepartamento
+     * Set nombreDepartamento.
      *
      * @param string $nombreDepartamento
      *
@@ -63,7 +62,7 @@ class Departamento
     }
 
     /**
-     * Get nombreDepartamento
+     * Get nombreDepartamento.
      *
      * @return string
      */
@@ -72,8 +71,8 @@ class Departamento
         return $this->nombreDepartamento;
     }
 
-        /**
-     * Set descripcion
+    /**
+     * Set descripcion.
      *
      * @param string $descripcion
      *
@@ -87,7 +86,7 @@ class Departamento
     }
 
     /**
-     * Get descripcion
+     * Get descripcion.
      *
      * @return string
      */
@@ -101,4 +100,3 @@ class Departamento
         return $this->nombreDepartamento;
     }
 }
-

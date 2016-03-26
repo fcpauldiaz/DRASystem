@@ -13,12 +13,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * ProyectoPresupuesto controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/proyectopresupuesto")
  */
 class ProyectoPresupuestoController extends Controller
 {
-
     /**
      * Lists all ProyectoPresupuesto entities.
      *
@@ -59,7 +59,7 @@ class ProyectoPresupuestoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -77,7 +77,7 @@ class ProyectoPresupuestoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => ['class' => 'btn btn-primary btn-block']));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn btn-primary btn-block']));
 
         return $form;
     }
@@ -92,11 +92,11 @@ class ProyectoPresupuestoController extends Controller
     public function newAction()
     {
         $entity = new ProyectoPresupuesto();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -120,7 +120,7 @@ class ProyectoPresupuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -147,19 +147,19 @@ class ProyectoPresupuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a ProyectoPresupuesto entity.
-    *
-    * @param ProyectoPresupuesto $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a ProyectoPresupuesto entity.
+     *
+     * @param ProyectoPresupuesto $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(ProyectoPresupuesto $entity)
     {
         $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
@@ -200,8 +200,8 @@ class ProyectoPresupuestoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

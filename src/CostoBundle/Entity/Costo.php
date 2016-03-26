@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Costo
+ * Costo.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Costo
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,7 +40,7 @@ class Costo
      */
     private $fechaFinal;
 
-      /**
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaCreacion", type="datetime")
@@ -67,9 +67,9 @@ class Costo
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -77,7 +77,7 @@ class Costo
     }
 
     /**
-     * Set fechaInicio
+     * Set fechaInicio.
      *
      * @param \DateTime $fechaInicio
      *
@@ -91,7 +91,7 @@ class Costo
     }
 
     /**
-     * Get fechaInicio
+     * Get fechaInicio.
      *
      * @return \DateTime
      */
@@ -101,7 +101,7 @@ class Costo
     }
 
     /**
-     * Set fechaFinal
+     * Set fechaFinal.
      *
      * @param \DateTime $fechaFinal
      *
@@ -115,7 +115,7 @@ class Costo
     }
 
     /**
-     * Get fechaFinal
+     * Get fechaFinal.
      *
      * @return \DateTime
      */
@@ -124,8 +124,8 @@ class Costo
         return $this->fechaFinal;
     }
 
-     /**
-     * Set fechaCreacion
+    /**
+     * Set fechaCreacion.
      *
      * @param \DateTime $fechaCreacion
      *
@@ -139,7 +139,7 @@ class Costo
     }
 
     /**
-     * Get fechaCreacion
+     * Get fechaCreacion.
      *
      * @return \DateTime
      */
@@ -149,7 +149,7 @@ class Costo
     }
 
     /**
-     * Set costo
+     * Set costo.
      *
      * @param float $costo
      *
@@ -163,7 +163,7 @@ class Costo
     }
 
     /**
-     * Get costo
+     * Get costo.
      *
      * @return float
      */
@@ -172,8 +172,8 @@ class Costo
         return $this->costo;
     }
 
- /**
-     * Set usuario
+    /**
+     * Set usuario.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuario
      *
@@ -187,7 +187,7 @@ class Costo
     }
 
     /**
-     * Get usuario
+     * Get usuario.
      *
      * @return \UserBundle\Entity\UsuarioTrabajador
      */

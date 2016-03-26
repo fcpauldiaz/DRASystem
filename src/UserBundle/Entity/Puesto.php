@@ -3,7 +3,7 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Puesto.
  *
@@ -60,8 +60,6 @@ class Puesto
         return $this->id;
     }
 
-
-
     /**
      * Set date.
      *
@@ -111,7 +109,7 @@ class Puesto
     }
 
     /**
-     * Set tipoPuesto
+     * Set tipoPuesto.
      *
      * @param \UserBundle\Entity\TipoPuesto $tipoPuesto
      *
@@ -125,7 +123,7 @@ class Puesto
     }
 
     /**
-     * Get tipoPuesto
+     * Get tipoPuesto.
      *
      * @return \UserBundle\Entity\TipoPuesto
      */
@@ -135,7 +133,7 @@ class Puesto
     }
 
     /**
-     * Set departamento
+     * Set departamento.
      *
      * @param \UserBundle\Entity\Departamento $departamento
      *
@@ -149,7 +147,7 @@ class Puesto
     }
 
     /**
-     * Get departamento
+     * Get departamento.
      *
      * @return \UserBundle\Entity\Departamento
      */
@@ -158,7 +156,7 @@ class Puesto
         return $this->departamento;
     }
 
-     /**
+    /**
      * Mostrar el noombre del puesto.
      *
      * @return string

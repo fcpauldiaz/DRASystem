@@ -50,6 +50,4 @@ class DatosPrestacionesControllerTest extends WebTestCase
         // Check the entity has been delete on the list
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }*/
-
-    
 }

@@ -74,7 +74,6 @@ class RegistroHoras
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ProyectoPresupuesto")
      * @ORM\JoinColumn(onDelete="SET NULL")
-     * 
      */
     private $proyectoPresupuesto;
 
@@ -211,7 +210,6 @@ class RegistroHoras
         return $this->actividad;
     }
 
-
     /**
      * Set fechaCreacion.
      *
@@ -285,7 +283,7 @@ class RegistroHoras
     }
 
     /**
-     * Set proyectoPresupuesto
+     * Set proyectoPresupuesto.
      *
      * @param \AppBundle\Entity\ProyectoPresupuesto $proyectoPresupuesto
      *
@@ -299,7 +297,7 @@ class RegistroHoras
     }
 
     /**
-     * Get proyectoPresupuesto
+     * Get proyectoPresupuesto.
      *
      * @return \AppBundle\Entity\ProyectoPresupuesto
      */

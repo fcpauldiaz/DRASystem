@@ -24,7 +24,7 @@ class ConsultaPresupuestoType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('consulta_filtro','choice',
+            ->add('consulta_filtro', 'choice',
                 [
                     'choices' => [
                         0 => 'Actividad',
@@ -35,13 +35,12 @@ class ConsultaPresupuestoType extends AbstractType
                     'label' => 'Escoja el método de filtro',
 
                 ])
-            ->add('submit','submit', 
+            ->add('submit', 'submit',
                 [
                     'label' => 'Buscar',
-                    'attr' =>[
-                        'class' => 'btn btn-primary btn-block'
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
                     ],
-
 
                 ])
 
@@ -53,7 +52,6 @@ class ConsultaPresupuestoType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        
     }
 
     /**

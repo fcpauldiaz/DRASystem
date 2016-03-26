@@ -13,12 +13,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * TipoPuesto controller.
+ *
  * @Security("is_granted('ROLE_USER')") 
  * @Route("/tipopuesto")
  */
 class TipoPuestoController extends Controller
 {
-
     /**
      * Lists all TipoPuesto entities.
      *
@@ -59,7 +59,7 @@ class TipoPuestoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -92,11 +92,11 @@ class TipoPuestoController extends Controller
     public function newAction()
     {
         $entity = new TipoPuesto();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -120,7 +120,7 @@ class TipoPuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -146,19 +146,19 @@ class TipoPuestoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a TipoPuesto entity.
-    *
-    * @param TipoPuesto $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a TipoPuesto entity.
+     *
+     * @param TipoPuesto $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(TipoPuesto $entity)
     {
         $form = $this->createForm(new TipoPuestoType(), $entity, array(
@@ -198,8 +198,8 @@ class TipoPuestoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }

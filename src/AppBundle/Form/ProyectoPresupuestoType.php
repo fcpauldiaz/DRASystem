@@ -5,7 +5,6 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AppBundle\Form\RegistroHorasPresupuestoType;
 
 class ProyectoPresupuestoType extends AbstractType
 {
@@ -22,7 +21,7 @@ class ProyectoPresupuestoType extends AbstractType
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {   
+    {
         $builder
           ->add('nombrePresupuesto')
           ->add('presupuestoIndividual', 'bootstrap_collection', [
@@ -39,7 +38,7 @@ class ProyectoPresupuestoType extends AbstractType
                     'attr' => [
                             'class' => 'select2',
                         ],
-                  
+
                 ])
         ;
     }
@@ -49,7 +48,7 @@ class ProyectoPresupuestoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto'
+            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
         ));
     }
 

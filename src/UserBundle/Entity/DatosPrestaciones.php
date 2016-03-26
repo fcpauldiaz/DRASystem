@@ -78,38 +78,40 @@ class DatosPrestaciones
     private $depreciacion;
 
     /**
-     * 8.33%
-     * @var  float 
+     * 8.33%.
+     *
+     * @var float
      *
      * @ORM\Column(name="indemnizacion",type="float", nullable=true)
      */
     private $indemnizacion;
 
     /**
-     * 8.33%
-     * @var  float 
+     * 8.33%.
+     *
+     * @var float
      *
      * @ORM\Column(name="aguinaldo",type="float", nullable=true)
      */
     private $aguinaldo;
 
-     /**
-     *  8.33%
-     * @var  float 
+    /**
+     *  8.33%.
+     *
+     * @var float
      *
      * @ORM\Column(name="bono14",type="float", nullable=true)
      */
     private $bono14;
 
-     /**
-     *  Cuota Patronal 10.67% +1 % +1% = 12.67%
-     * @var  float 
+    /**
+     *  Cuota Patronal 10.67% +1 % +1% = 12.67%.
+     *
+     * @var float
      *
      * @ORM\Column(name="igss",type="float", nullable=true)
      */
     private $igss;
-
-
 
     /**
      * @var Usuario
@@ -344,9 +346,8 @@ class DatosPrestaciones
         return $this->usuario;
     }
 
-
     /**
-     * Set indemnizacion
+     * Set indemnizacion.
      *
      * @param float $indemnizacion
      *
@@ -360,7 +361,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get indemnizacion
+     * Get indemnizacion.
      *
      * @return float
      */
@@ -370,7 +371,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set aguinaldo
+     * Set aguinaldo.
      *
      * @param float $aguinaldo
      *
@@ -384,7 +385,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get aguinaldo
+     * Get aguinaldo.
      *
      * @return float
      */
@@ -394,7 +395,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set bono14
+     * Set bono14.
      *
      * @param float $bono14
      *
@@ -408,7 +409,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get igss
+     * Get igss.
      *
      * @return float
      */
@@ -417,8 +418,8 @@ class DatosPrestaciones
         return $this->igss;
     }
 
-      /**
-     * Set igss
+    /**
+     * Set igss.
      *
      * @param float $igss
      *
@@ -432,7 +433,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get bono14
+     * Get bono14.
      *
      * @return float
      */

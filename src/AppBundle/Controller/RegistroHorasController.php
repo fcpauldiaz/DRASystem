@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * RegistroHoras controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/registrohoras")
  */
@@ -50,7 +51,7 @@ class RegistroHorasController extends Controller
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
- 
+
         $entity = new RegistroHoras();
         $entity->setIngresadoPor($usuario);
         $form = $this->createCreateForm($entity);

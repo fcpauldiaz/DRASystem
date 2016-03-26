@@ -51,7 +51,6 @@ abstract class Usuario extends BaseUser
      */
     protected $registroHoras;
 
-
     /**
      * Constructor.
      */
@@ -59,7 +58,6 @@ abstract class Usuario extends BaseUser
     {
         parent::__construct();// construye los metodos y atributos de Base
         $this->registroHoras = new \Doctrine\Common\Collections\ArrayCollection();
-      
     }
     /**
      * Get id.

@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Actividad controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/actividad")
  */

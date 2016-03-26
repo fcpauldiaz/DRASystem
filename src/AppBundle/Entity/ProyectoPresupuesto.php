@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProyectoPresupuesto
+ * ProyectoPresupuesto.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ProyectoPresupuesto
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,20 +28,19 @@ class ProyectoPresupuesto
      */
     private $nombrePresupuesto;
 
-
-    
     /**
      * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"})
      */
     private $presupuestoIndividual;
 
-     public function __construct() {
+    public function __construct()
+    {
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -49,7 +48,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Add presupuestoIndividual
+     * Add presupuestoIndividual.
      *
      * @param \AppBundle\Entity\RegistroHorasPresupuesto $presupuestoIndividual
      *
@@ -64,7 +63,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Remove presupuestoIndividual
+     * Remove presupuestoIndividual.
      *
      * @param \AppBundle\Entity\RegistroHorasPresupuesto $presupuestoIndividual
      */
@@ -74,7 +73,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get presupuestoIndividual
+     * Get presupuestoIndividual.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -84,7 +83,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Set nombrePresupuesto
+     * Set nombrePresupuesto.
      *
      * @param string $nombrePresupuesto
      *
@@ -98,7 +97,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get nombrePresupuesto
+     * Get nombrePresupuesto.
      *
      * @return string
      */

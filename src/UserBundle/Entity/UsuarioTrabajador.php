@@ -276,8 +276,8 @@ class UsuarioTrabajador extends Usuario
         return $this->puestos;
     }
 
-     /**
-     * Get el último puesto ingresado
+    /**
+     * Get el último puesto ingresado.
      *
      * @return AppBundle\Entity\Puesto
      */

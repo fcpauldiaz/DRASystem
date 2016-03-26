@@ -21,7 +21,6 @@ class RegistroHorasPresupuesto
      */
     private $id;
 
-   
     /**
      * @var int
      *
@@ -29,7 +28,6 @@ class RegistroHorasPresupuesto
      */
     private $horasPresupuestadas;
 
- 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -52,9 +50,10 @@ class RegistroHorasPresupuesto
     private $ingresadoPor;
 
     /**
-     * [$proyecto description]
+     * [$proyecto description].
+     *
      * @var [type]
-     *  @ORM\ManyToOne(targetEntity="ProyectoPresupuesto", inversedBy="presupuestoIndividual", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ProyectoPresupuesto", inversedBy="presupuestoIndividual", cascade={"persist"})
      */
     private $proyecto;
 
@@ -67,7 +66,6 @@ class RegistroHorasPresupuesto
 
     public function __construct()
     {
-       
         $this->fechaCreacion = new \DateTime();
     }
     /**
@@ -80,7 +78,6 @@ class RegistroHorasPresupuesto
         return $this->id;
     }
 
-   
     /**
      * Set horasPresupuestadas.
      *
@@ -105,11 +102,6 @@ class RegistroHorasPresupuesto
         return $this->horasPresupuestadas;
     }
 
-   
-
-  
-
-
     /**
      * Set actividad.
      *
@@ -133,8 +125,6 @@ class RegistroHorasPresupuesto
     {
         return $this->actividad;
     }
-
-  
 
     /**
      * Set fechaCreacion.
@@ -208,10 +198,8 @@ class RegistroHorasPresupuesto
         return $this->ingresadoPor;
     }
 
-      
-
     /**
-     * Set proyecto
+     * Set proyecto.
      *
      * @param \AppBundle\Entity\ProyectoPresupuesto $proyecto
      *
@@ -221,12 +209,11 @@ class RegistroHorasPresupuesto
     {
         $this->proyecto = $proyecto;
 
-
         return $this;
     }
 
     /**
-     * Get proyecto
+     * Get proyecto.
      *
      * @return \AppBundle\Entity\ProyectoPresupuesto
      */
@@ -235,9 +222,8 @@ class RegistroHorasPresupuesto
         return $this->proyecto;
     }
 
-      public function __toString()
+    public function __toString()
     {
         return 'P'.$this->getId();
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ConsultaBundle\Tests\Controller;
+namespace CostoBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
