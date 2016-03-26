@@ -23,7 +23,7 @@ class CostoType extends AbstractType
                     'startView' => 'year',
                     'minView' => 'year',
                     'maxView' => 'decade',
-                    'todayBtn' => true,
+                    'todayBtn' => false,
                     'todayHighlight' => true,
                     'keyboardNavigation' => true,
                     'language' => 'es',
@@ -37,15 +37,15 @@ class CostoType extends AbstractType
                 'read_only' => true,
 
             ]) 
-             ->add('fechaFinal', 'collot_datetime', [ 'pickerOptions' =>
+              ->add('fechaFinal', 'collot_datetime', [ 'pickerOptions' =>
                 [
-                    'format' => ' dd/mm/yyyy',
+                    'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
                     'startView' => 'year',
                     'minView' => 'year',
                     'maxView' => 'decade',
-                    'todayBtn' => true,
+                    'todayBtn' => false,
                     'todayHighlight' => true,
                     'keyboardNavigation' => true,
                     'language' => 'es',
@@ -59,7 +59,9 @@ class CostoType extends AbstractType
                 'read_only' => true,
 
             ]) 
-            ->add('usuario')
+            ->add('usuario',null,[
+                'required' => true,
+                ])
         ;
     }
     

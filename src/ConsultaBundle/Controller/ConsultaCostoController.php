@@ -54,7 +54,7 @@ class ConsultaCostoController extends Controller
             	$diferencia = [];
             	$totalHoras = [];
             	$contador= 0;
-                
+
             	while($contador != count($presupuestosIndividuales)){
             		$horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
             	 	$diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
@@ -180,4 +180,5 @@ class ConsultaCostoController extends Controller
 		}
 		return $array1;
 	}
+
 }

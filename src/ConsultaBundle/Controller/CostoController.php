@@ -52,7 +52,7 @@ class CostoController extends Controller
             $fechaInicio = $form['fechaInicio']->getData();
             $fechaFinal = $form['fechaFinal']->getData();
             $usuario = $form['usuario']->getData();
-            $costo = $this->calcularCosto($fechaInicio,$fechaFinal,$usuario);
+            $costo = $this->costoAction($fechaInicio,$fechaFinal,$usuario);
             $entity->setCosto($costo);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -134,7 +134,7 @@ class CostoController extends Controller
      *
      * @Route("/{id}/edit", name="costo_edit")
      * @Method("GET")
-     *@Template("ConsultaBundle:Costo:editCosto.html.twig")
+     * @Template("ConsultaBundle:Costo:editCosto.html.twig")
      */
     public function editAction($id)
     {
@@ -250,7 +250,7 @@ class CostoController extends Controller
         ;
     }
 
-    private function calcularCosto($fechaInicio, $fechaFin,$usuario)
+    public function costoAction($fechaInicio, $fechaFin,$usuario)
     {
         $datosPrestaciones = $usuario->getDatosPrestaciones()->last();
         $totalIngreso = $datosPrestaciones->getSueldo() +
