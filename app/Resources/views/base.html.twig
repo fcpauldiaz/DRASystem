@@ -76,8 +76,9 @@
         </script>
        <script>
             $('table').dataTable( {
-                   "sPaginationType": "full_numbers",
+                    sPaginationType: "full_numbers",
                     autoFill: true,
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todo"]],
                     colReorder: true,
                     dom: 'Blfrtip',
                     buttons: [
@@ -108,7 +109,7 @@
                     },
                     
                     ],
-                    "language": {
+                    language: {
                         "url": "{{ asset('Json/Spanish.json')}}"
                     }
                 } );
