@@ -1,13 +1,13 @@
 <?php
 
-namespace ConsultaBundle\Controller;
+namespace CostoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use ConsultaBundle\Form\Type\ConsultaPresupuestoType;
+use CostoBundle\Form\Type\ConsultaPresupuestoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -34,7 +34,7 @@ class ConsultaCostoController extends Controller
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
-                'ConsultaBundle:Consulta:consultarPorActividad.html.twig',
+                'CostoBundle:Consulta:consultarPorActividad.html.twig',
                 [
                 	'nombrePresupuesto' => ' ',
                     'proyecto' => [],
@@ -65,7 +65,7 @@ class ConsultaCostoController extends Controller
             }
            
           return $this->render(
-                'ConsultaBundle:Consulta:consultarPorActividad.html.twig',
+                'CostoBundle:Consulta:consultarPorActividad.html.twig',
                 [
                 	'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                 	'diferenciaSubTotal' => $diferencia,
@@ -114,7 +114,7 @@ class ConsultaCostoController extends Controller
        
        
         return $this->render(
-            'ConsultaBundle:Consulta:consultaDetallePorActividad.html.twig',
+            'CostoBundle:Consulta:consultaDetallePorActividad.html.twig',
             [	
             	'presupuesto' => $presupuesto->getHorasPresupuestadas(),
                 'registros' => $registrosFiltrados,

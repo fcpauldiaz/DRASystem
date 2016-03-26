@@ -1,14 +1,14 @@
 <?php
 
-namespace ConsultaBundle\Controller;
+namespace CostoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use ConsultaBundle\Entity\Costo;
-use ConsultaBundle\Form\CostoType;
+use CostoBundle\Entity\Costo;
+use CostoBundle\Form\CostoType;
 
 /**
  * Costo controller.
@@ -23,13 +23,13 @@ class CostoController extends Controller
      *
      * @Route("/", name="costo")
      * @Method("GET")
-     * @Template("ConsultaBundle:Costo:indexCosto.html.twig")
+     * @Template("CostoBundle:Costo:indexCosto.html.twig")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('ConsultaBundle:Costo')->findAll();
+        $entities = $em->getRepository('CostoBundle:Costo')->findAll();
 
         return array(
             'entities' => $entities,
@@ -40,7 +40,7 @@ class CostoController extends Controller
      *
      * @Route("/", name="costo_create")
      * @Method("POST")
-     * @Template("ConsultaBundle:Costo:newCosto.html.twig")
+     * @Template("CostoBundle:Costo:newCosto.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -91,7 +91,7 @@ class CostoController extends Controller
      *
      * @Route("/new", name="costo_new")
      * @Method("GET")
-     * @Template("ConsultaBundle:Costo:newCosto.html.twig")
+     * @Template("CostoBundle:Costo:newCosto.html.twig")
      */
     public function newAction()
     {
@@ -109,13 +109,13 @@ class CostoController extends Controller
      *
      * @Route("/{id}", name="costo_show")
      * @Method("GET")
-     * @Template("ConsultaBundle:Costo:showCosto.html.twig")
+     * @Template("CostoBundle:Costo:showCosto.html.twig")
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ConsultaBundle:Costo')->find($id);
+        $entity = $em->getRepository('CostoBundle:Costo')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Costo entity.');
@@ -134,13 +134,13 @@ class CostoController extends Controller
      *
      * @Route("/{id}/edit", name="costo_edit")
      * @Method("GET")
-     * @Template("ConsultaBundle:Costo:editCosto.html.twig")
+     * @Template("CostoBundle:Costo:editCosto.html.twig")
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ConsultaBundle:Costo')->find($id);
+        $entity = $em->getRepository('CostoBundle:Costo')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Costo entity.');
@@ -179,13 +179,13 @@ class CostoController extends Controller
      *
      * @Route("/{id}", name="costo_update")
      * @Method("PUT")
-     * @Template("ConsultaBundle:Costo:editCosto.html.twig")
+     * @Template("CostoBundle:Costo:editCosto.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ConsultaBundle:Costo')->find($id);
+        $entity = $em->getRepository('CostoBundle:Costo')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Costo entity.');
@@ -220,7 +220,7 @@ class CostoController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ConsultaBundle:Costo')->find($id);
+            $entity = $em->getRepository('CostoBundle:Costo')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Costo entity.');

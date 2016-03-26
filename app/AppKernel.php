@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             //Own bundles
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
-            new ConsultaBundle\ConsultaBundle(),
+            new CostoBundle\CostoBundle(),
             
             //Third party libraries
            

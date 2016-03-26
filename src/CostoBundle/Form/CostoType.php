@@ -1,6 +1,6 @@
 <?php
 
-namespace ConsultaBundle\Form;
+namespace CostoBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -71,7 +71,7 @@ class CostoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ConsultaBundle\Entity\Costo'
+            'data_class' => 'CostoBundle\Entity\Costo'
         ));
     }
 

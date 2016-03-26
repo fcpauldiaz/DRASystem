@@ -1,13 +1,13 @@
 <?php
 
-namespace ConsultaBundle\Controller;
+namespace CostoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use ConsultaBundle\Entity\Costo;
+use CostoBundle\Entity\Costo;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -41,7 +41,7 @@ class CronJobController extends Controller
 			$entidadCosto = new Costo();
 			$entidadCosto->setFechaInicio($firstDay);
 			$entidadCosto->setFechaFinal($lastDay);
-			$costo = $this->forward('ConsultaBundle:Costo:costo', [
+			$costo = $this->forward('CostoBundle:Costo:costo', [
 		        'fechaInicio'  => $firstDay,
 		        'fechaFin' => $lastDay,
 		        'usuario' => $usuario,
@@ -67,7 +67,7 @@ class CronJobController extends Controller
             ->add('submit', 'submit', array('label' => 'Calcular'))
             ->getForm()
         ;
-        return $this->render('ConsultaBundle:Costo:cronJob.html.twig', 
+        return $this->render('CostoBundle:Costo:cronJob.html.twig', 
         	[
         		'form' => $form->createView()
         	]

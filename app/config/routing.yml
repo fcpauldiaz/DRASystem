@@ -1,5 +1,5 @@
 consulta:
-    resource: "@ConsultaBundle/Controller/"
+    resource: "@CostoBundle/Controller/"
     type:     annotation
     prefix:   /
 
