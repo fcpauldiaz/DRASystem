@@ -34,7 +34,7 @@ class ConsultaCostoController extends Controller
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
-                'CostoBundle:Consulta:consultarPorActividad.html.twig',
+                'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
                     'nombrePresupuesto' => ' ',
                     'proyecto' => [],
@@ -64,7 +64,7 @@ class ConsultaCostoController extends Controller
             }
 
             return $this->render(
-                'CostoBundle:Consulta:consultarPorActividad.html.twig',
+                'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                     'diferenciaSubTotal' => $diferencia,
@@ -84,7 +84,12 @@ class ConsultaCostoController extends Controller
         elseif ($consultaFiltro == 2) {
         }
     }
-
+    /**
+     * Método que calcula las horas totales de un proyecto de todas las actividades
+     * @param  RegistroHorasPresupuesto $presupuestosIndividuales 
+     * @param  ProyectoPresupuesto $proyecto    
+     * @return Array  con las horas invertidas de todas las actividades de un proyecto 
+     */
     private function calcularHorasTotales($presupuestosIndividuales, $proyecto)
     {
         $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
@@ -115,7 +120,11 @@ class ConsultaCostoController extends Controller
             ]
         );
     }
-
+    /**
+     * Método que devuleve los registros de un Proyecto
+     * @param  ProyectoPresupuesto $proyecto
+     * @return RegistroHoras       
+     */
     private function getQueryRegistroHorasPorProyecto($proyecto)
     {
         $repositoryRegistro = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
@@ -127,7 +136,12 @@ class ConsultaCostoController extends Controller
 
         return $qb->getQuery()->getResult();
     }
-
+    /**
+     * Calcula las horas por actividad
+     * @param  ProyectoPresupuesto $presupuesto
+     * @param  RegistroHoras $registros   
+     * @return Float              
+     */
     private function calcularHorasPorActividad($presupuesto, $registros)
     {
         $actividad = $presupuesto->getActividad();
@@ -142,6 +156,12 @@ class ConsultaCostoController extends Controller
 
         return $cantidadHorasPorActividad;
     }
+    /**
+     * Obtiene los RegistroHoras por Actividad
+     * @param  Array RegistroHras $registros 
+     * @param  Actividad $actividad 
+     * @return Array RegistroHoras           
+     */
     private function filtarRegistrosPorActividad($registros, $actividad)
     {
         $registrosFiltrados = [];

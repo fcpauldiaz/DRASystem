@@ -441,6 +441,25 @@ class DatosPrestaciones
     {
         return $this->bono14;
     }
+    /**
+     * Calcular la suma de todas las prestaciones
+     * @return float 
+     */
+    public function calcularTotalPrestaciones()
+    {
+        $total = $this->getSueldo() +
+                 $this->getBonificacionIncentivo() +
+                 $this->getBonificacionLey() +
+                 $this->getGasolina() +
+                 $this->getPrestacionesSobreSueldo() +
+                 $this->getOtrasPrestaciones() +
+                 $this->getOtros() +
+                 $this->getIndemnizacion() +
+                 $this->getAguinaldo() +
+                 $this->getBono14() +
+                 $this->getIgss();
+        return $total;
+    }
 
     public function __toString()
     {
