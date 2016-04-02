@@ -78,7 +78,25 @@ class ConsultaCostoController extends Controller
             );
         }
         //TODO: filtar por usuarios
+        //Solo puede ver los que tienen jerarquía.
         elseif ($consultaFiltro == 1) {
+              //ahora filtrar los usuarios que están involucrados en el proyecto
+            $usuariosProyecto = $proyecto->getUsuarios();
+          
+
+            return $this->render(
+                'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
+                [
+                    'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
+                    'diferenciaSubTotal' => $diferencia,
+                    'horasTotal' => array_sum($horasSubTotal),
+                    'diferenciaTotal' => array_sum($diferencia),
+                    'horasPresupuestadasTotal' => array_sum($totalHoras),
+                    'horasSubTotal' => $horasSubTotal,
+                    'proyecto' => $presupuestosIndividuales,
+                    'form' => $form->createView(),
+                ]
+            );
         }
         //TODO: filtrar por clientes
         elseif ($consultaFiltro == 2) {
@@ -136,6 +154,21 @@ class ConsultaCostoController extends Controller
 
         return $qb->getQuery()->getResult();
     }
+
+    private function getQueryUsuariosPorTipoPuesto($arrayTipoPuestos)
+    {
+        $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
+        $qb = $repositoryUsuarios->createQueryBuilder('usuarios');
+        $qb
+            ->select('usuario')
+            ->leftjoin('usuario.puestos', 'puesto')
+            ->leftjoin('puesto.tipopuesto', 'tipopuesto')
+            ->where($qb->expr()->in(':tipopuesto'))
+            ->setParameter('tipopuesto', $arrayTipoPuestos);
+           
+        return $qb->getQuery()->getResult();   
+    }
+
     /**
      * Calcula las horas por actividad
      * @param  ProyectoPresupuesto $presupuesto

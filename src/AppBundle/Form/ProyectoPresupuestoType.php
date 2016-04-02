@@ -23,7 +23,33 @@ class ProyectoPresupuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('nombrePresupuesto')
+            ->add('nombrePresupuesto')
+            ->add('usuarios', 'bootstrap_collection', [
+                    'type' => 'entity',
+                    'label' => 'Agregar usuarios',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'add_button_text' => 'Agregar Usuario involucrado',
+                    'delete_button_text' => 'Eliminar Usuario',
+                    'sub_widget_col' => 9,
+                    'button_col' => 3,
+                    'attr' => [
+                            'class' => 'select2',
+                            'help_text' => 'Escoja los usuarios que desea vincular con el proyecto'
+                        ],
+                    'options' => [
+                       'empty_value' => 'Seleccionar Usuario',
+                        'class' => 'UserBundle:Usuario',
+                        'required' => true,
+                        'label' => 'Buscador de Usuarios',
+                        'property' => 'codigoString',
+                        'attr' => [
+                            'class' => 'select2',
+                            
+                        ],
+                    ],
+                    'required' => true,
+                ])
           ->add('presupuestoIndividual', 'bootstrap_collection', [
                     'type' => new RegistroHorasPresupuestoType($this->usuario),
                     'label' => 'Registro Horas Presupuesto',

@@ -28,13 +28,22 @@ class ProyectoPresupuesto
      */
     private $nombrePresupuesto;
 
+     /**
+     * @var [type]
+     *
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroHoras")
+     * @ORM\JoinTable(name="horas_usuario")
+     */
+    private $usuarios;
+
     /**
      * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"})
      */
     private $presupuestoIndividual;
 
     public function __construct()
-    {
+    {   
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
@@ -106,8 +115,44 @@ class ProyectoPresupuesto
         return $this->nombrePresupuesto;
     }
 
+   
+    /**
+     * Add usuario
+     *
+     * @param \UserBundle\Entity\Usuario $usuario
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function addUsuario(\UserBundle\Entity\Usuario $usuario)
+    {
+        $this->usuarios[] = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuario
+     *
+     * @param \UserBundle\Entity\Usuario $usuario
+     */
+    public function removeUsuario(\UserBundle\Entity\Usuario $usuario)
+    {
+        $this->usuarios->removeElement($usuario);
+    }
+
+    /**
+     * Get usuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
+    }
+
     public function __toString()
     {
         return $this->nombrePresupuesto;
     }
+
 }

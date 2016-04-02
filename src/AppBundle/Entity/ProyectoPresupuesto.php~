@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProyectoPresupuesto
+ * ProyectoPresupuesto.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ProyectoPresupuesto
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,20 +28,28 @@ class ProyectoPresupuesto
      */
     private $nombrePresupuesto;
 
+     /**
+     * @var [type]
+     *
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroHoras")
+     * @ORM\JoinTable(name="horas_usuario")
+     */
+    private $usuarios;
 
-    // ...
     /**
-     * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto")
+     * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"})
      */
     private $presupuestoIndividual;
 
-     public function __construct() {
+    public function __construct()
+    {   
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -49,7 +57,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Add presupuestoIndividual
+     * Add presupuestoIndividual.
      *
      * @param \AppBundle\Entity\RegistroHorasPresupuesto $presupuestoIndividual
      *
@@ -58,12 +66,13 @@ class ProyectoPresupuesto
     public function addPresupuestoIndividual(\AppBundle\Entity\RegistroHorasPresupuesto $presupuestoIndividual)
     {
         $this->presupuestoIndividual[] = $presupuestoIndividual;
+        $presupuestoIndividual->setProyecto($this); //esta línea es muy importante para que se guarda la relación
 
         return $this;
     }
 
     /**
-     * Remove presupuestoIndividual
+     * Remove presupuestoIndividual.
      *
      * @param \AppBundle\Entity\RegistroHorasPresupuesto $presupuestoIndividual
      */
@@ -73,7 +82,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get presupuestoIndividual
+     * Get presupuestoIndividual.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -83,7 +92,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Set nombrePresupuesto
+     * Set nombrePresupuesto.
      *
      * @param string $nombrePresupuesto
      *
@@ -97,7 +106,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get nombrePresupuesto
+     * Get nombrePresupuesto.
      *
      * @return string
      */
