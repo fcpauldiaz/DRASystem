@@ -44,12 +44,7 @@ abstract class Usuario extends BaseUser
      */
     protected $apiKey;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\RegistroHoras", mappedBy="usuarios")
-     *
-     * @var [type]
-     */
-    protected $registroHoras;
+  
 
     /**
      * Constructor.
@@ -168,40 +163,6 @@ abstract class Usuario extends BaseUser
     public function getApiKey()
     {
         return $this->apiKey;
-    }
-
-    /**
-     * Add registroHora.
-     *
-     * @param \AppBundle\Entity\RegistroHoras $registroHora
-     *
-     * @return Usuario
-     */
-    public function addRegistroHora(\AppBundle\Entity\RegistroHoras $registroHora)
-    {
-        $this->registroHoras[] = $registroHora;
-
-        return $this;
-    }
-
-    /**
-     * Remove registroHora.
-     *
-     * @param \AppBundle\Entity\RegistroHoras $registroHora
-     */
-    public function removeRegistroHora(\AppBundle\Entity\RegistroHoras $registroHora)
-    {
-        $this->registroHoras->removeElement($registroHora);
-    }
-
-    /**
-     * Get registroHoras.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRegistroHoras()
-    {
-        return $this->registroHoras;
     }
 
     public function getCodigoString()

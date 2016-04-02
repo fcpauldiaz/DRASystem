@@ -47,61 +47,21 @@ class ConsultaCostoController extends Controller
         $consultaFiltro = $data['consulta_filtro'];
 
         if ($consultaFiltro == 0) {
-            if (isset($proyecto)) {
-                $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
-
-                $horasSubTotal = $this->calcularHorasTotales($presupuestosIndividuales, $proyecto);
-                $diferencia = [];
-                $totalHoras = [];
-                $contador = 0;
-
-                while ($contador != count($presupuestosIndividuales)) {
-                    $horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
-                    $diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
-                    $totalHoras[] = $horasPresupuestadas;
-                    $contador += 1;
-                }
-            }
-
-            return $this->render(
-                'CostoBundle:Consulta:consultaPorActividad.html.twig',
-                [
-                    'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                    'diferenciaSubTotal' => $diferencia,
-                    'horasTotal' => array_sum($horasSubTotal),
-                    'diferenciaTotal' => array_sum($diferencia),
-                    'horasPresupuestadasTotal' => array_sum($totalHoras),
-                    'horasSubTotal' => $horasSubTotal,
-                    'proyecto' => $presupuestosIndividuales,
-                    'form' => $form->createView(),
-                ]
-            );
+            $this->consultaPorActividadAction($proyecto);
         }
         //TODO: filtar por usuarios
         //Solo puede ver los que tienen jerarquía.
-        elseif ($consultaFiltro == 1) {
+        if ($consultaFiltro == 1) {
               //ahora filtrar los usuarios que están involucrados en el proyecto
-            $usuariosProyecto = $proyecto->getUsuarios();
-          
-
-            return $this->render(
-                'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
-                [
-                    'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                    'diferenciaSubTotal' => $diferencia,
-                    'horasTotal' => array_sum($horasSubTotal),
-                    'diferenciaTotal' => array_sum($diferencia),
-                    'horasPresupuestadasTotal' => array_sum($totalHoras),
-                    'horasSubTotal' => $horasSubTotal,
-                    'proyecto' => $presupuestosIndividuales,
-                    'form' => $form->createView(),
-                ]
-            );
+                     
+            $this->consultaPorUsuariosAction($proyecto);
         }
         //TODO: filtrar por clientes
         elseif ($consultaFiltro == 2) {
         }
     }
+
+
     /**
      * Método que calcula las horas totales de un proyecto de todas las actividades
      * @param  RegistroHorasPresupuesto $presupuestosIndividuales 
@@ -138,6 +98,60 @@ class ConsultaCostoController extends Controller
             ]
         );
     }
+    /**
+     * Detalle de la consulta por usuarios y proyecto
+     * @param  ProyectoPresupuesto $proyecto 
+     * @return Response         
+     */
+    public function consultaPorUsuariosAction($proyecto)
+    {
+
+            return $this->render(
+                'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
+                [
+                    
+                ]
+            );
+    }
+
+    /**
+     * Detalle de la consulta por Actividad
+     * @param  ProyectoPresupuesto $proyecto 
+     * @return Response           
+     */
+    public function consultaPorActividadAction($proyecto)
+    {   
+          if (isset($proyecto)) {
+                $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
+
+                $horasSubTotal = $this->calcularHorasTotales($presupuestosIndividuales, $proyecto);
+                $diferencia = [];
+                $totalHoras = [];
+                $contador = 0;
+
+                while ($contador != count($presupuestosIndividuales)) {
+                    $horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
+                    $diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
+                    $totalHoras[] = $horasPresupuestadas;
+                    $contador += 1;
+                }
+            }
+
+            return $this->render(
+                'CostoBundle:Consulta:consultaPorActividad.html.twig',
+                [
+                    'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
+                    'diferenciaSubTotal' => $diferencia,
+                    'horasTotal' => array_sum($horasSubTotal),
+                    'diferenciaTotal' => array_sum($diferencia),
+                    'horasPresupuestadasTotal' => array_sum($totalHoras),
+                    'horasSubTotal' => $horasSubTotal,
+                    'proyecto' => $presupuestosIndividuales,
+                    'form' => $form->createView(),
+                ]
+            );
+    }
+
     /**
      * Método que devuleve los registros de un Proyecto
      * @param  ProyectoPresupuesto $proyecto
