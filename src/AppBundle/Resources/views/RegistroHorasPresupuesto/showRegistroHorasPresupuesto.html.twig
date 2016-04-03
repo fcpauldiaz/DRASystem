@@ -25,6 +25,12 @@
                 <th>Cliente</th>
                 <td>{{ entity.cliente }}</td>
             </tr>
+            {% for usuario in usuariosAsignados %}
+             <tr>
+                <th>Usuarios asignado</th>
+                <td>{{ usuario }}</td>
+            </tr>
+            {% endfor %}
             <tr>
                 <th>Proyecto</th>
                 <td>{{ entity.proyecto}}</td>

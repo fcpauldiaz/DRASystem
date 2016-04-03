@@ -8,7 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\RegistroHorasPresupuesto;
-use AppBundle\Form\RegistroHorasPresupuestoType;
+use AppBundle\Form\Type\RegistroHorasPresupuestoType;
+use AppBundle\Form\Type\RegistroHorasPresupuestoEditType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -196,7 +197,7 @@ class RegistroHorasPresupuestoController extends Controller
      */
     private function createEditForm(RegistroHorasPresupuesto $entity)
     {
-        $form = $this->createForm(new RegistroHorasPresupuestoType(), $entity, array(
+        $form = $this->createForm(new RegistroHorasPresupuestoEditType(), $entity, array(
             'action' => $this->generateUrl('horaspresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

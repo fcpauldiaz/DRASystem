@@ -43,11 +43,11 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario",cascade={"persist","remove"})
-     *
-     * @var [type]
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroPresupuesto")
+     * @ORM\JoinTable(name="usuarios_asignados_presupuesto")
      */
-    private $ingresadoPor;
+    private $usuariosAsignados;
+
 
     /**
      * [$proyecto description].
@@ -67,6 +67,7 @@ class RegistroHorasPresupuesto
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
+        $this->usuariosAsignados = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -172,31 +173,7 @@ class RegistroHorasPresupuesto
     public function getCliente()
     {
         return $this->cliente;
-    }
-
-    /**
-     * Set ingresadoPor.
-     *
-     * @param \UserBundle\Entity\Usuario $ingresadoPor
-     *
-     * @return RegistroHoras
-     */
-    public function setIngresadoPor(\UserBundle\Entity\Usuario $ingresadoPor = null)
-    {
-        $this->ingresadoPor = $ingresadoPor;
-
-        return $this;
-    }
-
-    /**
-     * Get ingresadoPor.
-     *
-     * @return \UserBundle\Entity\Usuario
-     */
-    public function getIngresadoPor()
-    {
-        return $this->ingresadoPor;
-    }
+    }    
 
     /**
      * Set proyecto.
@@ -220,6 +197,40 @@ class RegistroHorasPresupuesto
     public function getProyecto()
     {
         return $this->proyecto;
+    }
+
+    /**
+     * Add usuariosAsignado
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $usuariosAsignado
+     *
+     * @return RegistroHorasPresupuesto
+     */
+    public function addUsuariosAsignado(\UserBundle\Entity\UsuarioTrabajador $usuariosAsignado)
+    {
+        $this->usuariosAsignados[] = $usuariosAsignado;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuariosAsignado
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $usuariosAsignado
+     */
+    public function removeUsuariosAsignado(\UserBundle\Entity\UsuarioTrabajador $usuariosAsignado)
+    {
+        $this->usuariosAsignados->removeElement($usuariosAsignado);
+    }
+
+    /**
+     * Get usuariosAsignados
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsuariosAsignados()
+    {
+        return $this->usuariosAsignados;
     }
 
     public function __toString()

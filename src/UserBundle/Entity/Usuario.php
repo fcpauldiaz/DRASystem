@@ -44,15 +44,18 @@ abstract class Usuario extends BaseUser
      */
     protected $apiKey;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\RegistroHorasPresupuesto", mappedBy="usuariosAsignados")
+     */
+    protected $registroPresupuesto;
   
-
     /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();// construye los metodos y atributos de Base
-        $this->registroHoras = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->registroPresupuesto = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -189,5 +192,39 @@ abstract class Usuario extends BaseUser
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    /**
+     * Add registroPresupuesto
+     *
+     * @param \AppBundle\Entity\RegistroHorasPresupuesto $registroPresupuesto
+     *
+     * @return Usuario
+     */
+    public function addRegistroPresupuesto(\AppBundle\Entity\RegistroHorasPresupuesto $registroPresupuesto)
+    {
+        $this->registroPresupuesto[] = $registroPresupuesto;
+
+        return $this;
+    }
+
+    /**
+     * Remove registroPresupuesto
+     *
+     * @param \AppBundle\Entity\RegistroHorasPresupuesto $registroPresupuesto
+     */
+    public function removeRegistroPresupuesto(\AppBundle\Entity\RegistroHorasPresupuesto $registroPresupuesto)
+    {
+        $this->registroPresupuesto->removeElement($registroPresupuesto);
+    }
+
+    /**
+     * Get registroPresupuesto
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRegistroPresupuesto()
+    {
+        return $this->registroPresupuesto;
     }
 }

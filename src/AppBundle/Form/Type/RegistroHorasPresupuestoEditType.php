@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,18 +9,9 @@ use UserBundle\Entity\Usuario;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class RegistroHorasPresupuestoType extends AbstractType
+class RegistroHorasPresupuestoEditType extends AbstractType
 {
-    private $usuario;
-    private $collectionUsuario;
-    
-    public function __construct(Usuario $usuario = null)
-    {
-        $this->usuario = $usuario;
-        $this->collectionUsuario = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->collectionUsuario->add($usuario);
-    }
-
+   
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -47,7 +38,6 @@ class RegistroHorasPresupuestoType extends AbstractType
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'multiple' => true,
                     'required' => true,
-                    'data' => $this->collectionUsuario,
 
             ])
              ->add('horaspresupuestadas', null, [

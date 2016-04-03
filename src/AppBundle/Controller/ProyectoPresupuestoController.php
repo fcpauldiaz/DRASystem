@@ -8,7 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ProyectoPresupuesto;
-use AppBundle\Form\ProyectoPresupuestoType;
+use AppBundle\Form\Type\ProyectoPresupuestoType;
+use AppBundle\Form\Type\ProyectoPresupuestoEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
@@ -162,7 +163,7 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createEditForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(new ProyectoPresupuestoEditType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

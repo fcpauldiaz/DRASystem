@@ -22,7 +22,7 @@ class RegistroHorasType extends AbstractType
     {
         $builder
              ->add('proyectoPresupuesto', 'entity', [
-                'class' => 'AppBundle:proyectoPresupuesto',
+                'class' => 'AppBundle:ProyectoPresupuesto',
                 'required' => true,
                 'empty_value' => 'Seleccione el presupuesto asignado',
 
@@ -41,30 +41,6 @@ class RegistroHorasType extends AbstractType
                  'required' => true,
 
             ])
-           ->add('usuarios', 'bootstrap_collection', [
-                    'type' => 'entity',
-                    'label' => 'Agregar usuarios',
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'add_button_text' => 'Agregar Usuario involucrado',
-                    'delete_button_text' => 'Eliminar Usuario',
-                    'sub_widget_col' => 9,
-                    'button_col' => 3,
-                    'attr' => [
-                            'class' => 'select2',
-                        ],
-                    'options' => [
-                       'empty_value' => 'Seleccionar Usuario',
-                        'class' => 'UserBundle:Usuario',
-                        'required' => true,
-                        'label' => 'Buscador de Usuarios',
-                        'property' => 'codigoString',
-                        'attr' => [
-                            'class' => 'select2',
-                        ],
-                    ],
-                    'required' => true,
-                ])
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
@@ -74,7 +50,7 @@ class RegistroHorasType extends AbstractType
             ->add('actividad', 'entity', [
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
-                'Seleccione la actividad',
+                'empty_value' => 'Seleccione la actividad',
             ])
             ->add('horasInvertidas', null, [
                 'label' => 'Horas invertidas',

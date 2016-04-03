@@ -28,7 +28,7 @@ class ConsultaPresupuestoType extends AbstractType
                 [
                     'choices' => [
                         0 => 'Actividad',
-                         1 => 'Usuarios',
+                        1 => 'Usuarios',
                         2 => 'Cliente',
                     ],
                      'preferred_choices' => [0],

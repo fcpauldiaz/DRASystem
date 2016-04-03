@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+	<br>
+	{{ form(form)}}
+    <br>
+    <h1>Consulta Proyecto Presupuesto {{nombrePresupuesto}}</h1>
+   
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Costo</th>
+                <th>Presupuesto</th>
+                <th>Diferencia</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in consultaUsuario %}
+                <tr>
+                 <td>{{entity.usuario.username}}</td>
+                <td>{{entity.horasCalculadas}}</td>
+                <td>{{entity.horasPresupuesto}}</td>
+                <td>{{entity.diferencia}}</td>
+                 <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    	
+
+      <br>
+      <br>
+    {% endblock %}
