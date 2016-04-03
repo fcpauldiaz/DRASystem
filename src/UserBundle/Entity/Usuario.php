@@ -48,7 +48,7 @@ abstract class Usuario extends BaseUser
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\RegistroHorasPresupuesto", mappedBy="usuariosAsignados")
      */
     protected $registroPresupuesto;
-  
+
     /**
      * Constructor.
      */
@@ -195,7 +195,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Add registroPresupuesto
+     * Add registroPresupuesto.
      *
      * @param \AppBundle\Entity\RegistroHorasPresupuesto $registroPresupuesto
      *
@@ -209,7 +209,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Remove registroPresupuesto
+     * Remove registroPresupuesto.
      *
      * @param \AppBundle\Entity\RegistroHorasPresupuesto $registroPresupuesto
      */
@@ -219,7 +219,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Get registroPresupuesto
+     * Get registroPresupuesto.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

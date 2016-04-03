@@ -48,7 +48,6 @@ class RegistroHorasPresupuesto
      */
     private $usuariosAsignados;
 
-
     /**
      * [$proyecto description].
      *
@@ -173,7 +172,7 @@ class RegistroHorasPresupuesto
     public function getCliente()
     {
         return $this->cliente;
-    }    
+    }
 
     /**
      * Set proyecto.
@@ -200,7 +199,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Add usuariosAsignado
+     * Add usuariosAsignado.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuariosAsignado
      *
@@ -214,7 +213,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Remove usuariosAsignado
+     * Remove usuariosAsignado.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuariosAsignado
      */
@@ -224,7 +223,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Get usuariosAsignados
+     * Get usuariosAsignados.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

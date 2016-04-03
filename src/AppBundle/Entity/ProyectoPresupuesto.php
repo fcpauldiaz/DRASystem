@@ -27,14 +27,14 @@ class ProyectoPresupuesto
      * @ORM\Column(name="nombrePresupuesto", type="string")
      */
     private $nombrePresupuesto;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"})
      */
     private $presupuestoIndividual;
 
     public function __construct()
-    {   
+    {
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
@@ -106,10 +106,8 @@ class ProyectoPresupuesto
         return $this->nombrePresupuesto;
     }
 
-   
     public function __toString()
     {
         return $this->nombrePresupuesto;
     }
-
 }

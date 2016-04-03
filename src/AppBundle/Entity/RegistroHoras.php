@@ -35,7 +35,6 @@ class RegistroHoras
      */
     private $horasInvertidas;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -72,7 +71,6 @@ class RegistroHoras
 
     public function __construct()
     {
-        
         $this->fechaCreacion = new \DateTime();
     }
     /**
@@ -86,7 +84,7 @@ class RegistroHoras
     }
 
     /**
-     * Set fecha.lll
+     * Set fecha.lll.
      *
      * @param \DateTime $fecha
      *
@@ -132,8 +130,6 @@ class RegistroHoras
     {
         return $this->horasInvertidas;
     }
-
-  
 
     /**
      * Set actividad.

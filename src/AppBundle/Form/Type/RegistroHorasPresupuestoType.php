@@ -6,14 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use UserBundle\Entity\Usuario;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 class RegistroHorasPresupuestoType extends AbstractType
 {
     private $usuario;
     private $collectionUsuario;
-    
+
     public function __construct(Usuario $usuario = null)
     {
         $this->usuario = $usuario;
@@ -42,7 +40,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                     'property' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',
-                        'help_text' => 'Seleccione los usuarios que realizarán las horas'
+                        'help_text' => 'Seleccione los usuarios que realizarán las horas',
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'multiple' => true,
@@ -55,10 +53,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'required' => true,
             ])
 
-
         ;
-       
-     
     }
 
     /**
@@ -78,5 +73,4 @@ class RegistroHorasPresupuestoType extends AbstractType
     {
         return 'appbundle_registrohoraspresupuesto';
     }
-  
 }

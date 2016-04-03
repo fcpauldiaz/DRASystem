@@ -442,8 +442,9 @@ class DatosPrestaciones
         return $this->bono14;
     }
     /**
-     * Calcular la suma de todas las prestaciones
-     * @return float 
+     * Calcular la suma de todas las prestaciones.
+     *
+     * @return float
      */
     public function calcularTotalPrestaciones()
     {
@@ -458,6 +459,7 @@ class DatosPrestaciones
                  $this->getAguinaldo() +
                  $this->getBono14() +
                  $this->getIgss();
+
         return $total;
     }
 
