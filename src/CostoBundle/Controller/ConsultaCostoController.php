@@ -68,7 +68,7 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * @Route("presupuesto/individual/{id}/", name="presupuesto_individual")
+     * @Route("presupuesto/actividad/individual/{id}/", name="presupuesto_individual")
      */
     public function consultaPresupuestoInidivual($id)
     {
@@ -153,6 +153,45 @@ class ConsultaCostoController extends Controller
             );
     }
 
+     /**
+     * @Route("presupuesto/actividad/individual/{nombrePresupuesto}/{usuario_id}", name="presupuesto_individual_usuario")
+     */
+    public function consultaUsuarioIndividualAction($nombrePresupuesto,$usuario_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        //obtener el presupuesto Proyecto presupuesto
+        $proyecto = $em->getRepository('AppBundle:ProyectoPresupuesto')->findOneBy(['nombrePresupuesto' => $nombrePresupuesto]);
+        $usuario = $em->getRepository('UserBundle:UsuarioTrabajador')->findOneById($usuario_id);
+        //obtener los registros que pertencen al proyecto
+        $registros = $em->getRepository('AppBundle:RegistroHoras')->findBy(['proyectoPresupuesto' => $proyecto]);
+        //juntar los registros por actividad
+        $registrosFiltrados = $this->filtarRegistrosPorUsuario($registros, $usuario);
+
+        return $this->render(
+            'CostoBundle:Consulta:consultaDetallePorUsuario.html.twig',
+            [
+               'presupuesto' => $this->calcularHorasPorUsuarioPresupuesto($usuario,$proyecto->getPresupuestoIndividual()),
+               'registros' => $registrosFiltrados,
+            ]
+        );
+    }
+
+    /**
+     * @Route("presupuesto/usuario/individual", name="filtrar_presupuesto_usuario")
+     * Método para filtrar los registros
+     * @return [type] [description]
+     */
+    private function filtarRegistrosPorUsuario($registros, $usuario)
+    {
+        $returnArray = [];
+        foreach($registros as $registro){
+            if ($registro->getIngresadoPor() == $usuario){
+                $returnArray[] = $registro;
+            }
+        }
+        return $returnArray;
+    }
+
     /**
      * Método que calcula las horas totales de un proyecto de todas las actividades.
      *
@@ -185,7 +224,7 @@ class ConsultaCostoController extends Controller
     private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto)
     {
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
-
+         $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
         //este ciclo coloca en un array instancias de ConsultaUsuario
         //que guarda el costo por usuario.
         foreach ($usuariosAsignadosPorProyecto as $usuario) {
@@ -218,7 +257,7 @@ class ConsultaCostoController extends Controller
 
         $usuariosAsignadosPorProyecto = new \Doctrine\Common\Collections\ArrayCollection();
 
-        $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
+       
         $returnArray = [];
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin usuarios repetidos

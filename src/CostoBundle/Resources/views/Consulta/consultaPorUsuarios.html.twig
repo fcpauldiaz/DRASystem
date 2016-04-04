@@ -23,7 +23,9 @@
                 <td>{{entity.horasCalculadas}}</td>
                 <td>{{entity.horasPresupuesto}}</td>
                 <td>{{entity.diferencia}}</td>
-                 <td></td>
+                   <td>
+                    <a  href="{{ path('presupuesto_individual_usuario', { 'nombrePresupuesto': nombrePresupuesto , 'usuario_id' : entity.usuario.id}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
+                </td>
                 </tr>
             {% endfor %}
         </tbody>
