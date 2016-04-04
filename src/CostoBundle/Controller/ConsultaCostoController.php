@@ -153,10 +153,10 @@ class ConsultaCostoController extends Controller
             );
     }
 
-     /**
+    /**
      * @Route("presupuesto/actividad/individual/{nombrePresupuesto}/{usuario_id}", name="presupuesto_individual_usuario")
      */
-    public function consultaUsuarioIndividualAction($nombrePresupuesto,$usuario_id)
+    public function consultaUsuarioIndividualAction($nombrePresupuesto, $usuario_id)
     {
         $em = $this->getDoctrine()->getManager();
         //obtener el presupuesto Proyecto presupuesto
@@ -170,7 +170,7 @@ class ConsultaCostoController extends Controller
         return $this->render(
             'CostoBundle:Consulta:consultaDetallePorUsuario.html.twig',
             [
-               'presupuesto' => $this->calcularHorasPorUsuarioPresupuesto($usuario,$proyecto->getPresupuestoIndividual()),
+               'presupuesto' => $this->calcularHorasPorUsuarioPresupuesto($usuario, $proyecto->getPresupuestoIndividual()),
                'registros' => $registrosFiltrados,
             ]
         );
@@ -179,16 +179,18 @@ class ConsultaCostoController extends Controller
     /**
      * @Route("presupuesto/usuario/individual", name="filtrar_presupuesto_usuario")
      * Método para filtrar los registros
+     *
      * @return [type] [description]
      */
     private function filtarRegistrosPorUsuario($registros, $usuario)
     {
         $returnArray = [];
-        foreach($registros as $registro){
-            if ($registro->getIngresadoPor() == $usuario){
+        foreach ($registros as $registro) {
+            if ($registro->getIngresadoPor() == $usuario) {
                 $returnArray[] = $registro;
             }
         }
+
         return $returnArray;
     }
 
@@ -224,7 +226,7 @@ class ConsultaCostoController extends Controller
     private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto)
     {
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
-         $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
+        $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
         //este ciclo coloca en un array instancias de ConsultaUsuario
         //que guarda el costo por usuario.
         foreach ($usuariosAsignadosPorProyecto as $usuario) {
@@ -257,7 +259,6 @@ class ConsultaCostoController extends Controller
 
         $usuariosAsignadosPorProyecto = new \Doctrine\Common\Collections\ArrayCollection();
 
-       
         $returnArray = [];
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin usuarios repetidos
