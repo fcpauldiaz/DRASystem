@@ -12,6 +12,8 @@
                 <th>Usuario</th>
                 <th>Puesto</th>
                 <th>Cliente</th>
+                <th>Fecha de las horas invertidas</th>
+                <th>Fecha de ingreso</th>
                 <th>Horas invertidas (costo)</th>
                 <th>Presupuesto Acumulado</th>
                 
@@ -26,6 +28,8 @@
                 <td>{{registro.ingresadoPor}}</td>
                 <td>{{registro.ingresadoPor.getPuestoActual()}}</td>
                 <td>{{registro.cliente}}</td>
+                <td>{{registro.fechaHoras|date('d-m-Y')}}</td>
+                <td>{{registro.fechaCreacion|date('d-m-Y')}}</td>
                 <td>{{registro.horasInvertidas}}</td>
                 {% set pActual = pActual - registro.horasInvertidas %}
                 <td>{{pActual}}</td>

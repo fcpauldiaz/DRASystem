@@ -22,7 +22,7 @@ class ConsultaPresupuestoType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
-                'required' => false,
+                'required' => true,
             ])
             ->add('consulta_filtro', 'choice',
                 [
@@ -31,8 +31,10 @@ class ConsultaPresupuestoType extends AbstractType
                         1 => 'Usuarios',
                         2 => 'Cliente',
                     ],
-                     'preferred_choices' => [0],
+                    'empty_value' => 'Seleccionar Tipo de filtro',
+                    'preferred_choices' => [0],
                     'label' => 'Escoja el método de filtro',
+                    'required' => true,
 
                 ])
             ->add('submit', 'submit',
