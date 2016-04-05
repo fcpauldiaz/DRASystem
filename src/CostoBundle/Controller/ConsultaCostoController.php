@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
+use CostoBundle\Entity\ConsultaCliente;
 
 /**
  * ConsutlaCosto controller.
@@ -103,10 +104,26 @@ class ConsultaCostoController extends Controller
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
-                ['consultaUsuario' => $consultaUsuario,
+                [
+                    'consultaUsuario' => $consultaUsuario,
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                     'form' => $form->createView(),
                 ]
+            );
+    }
+
+    public function consultaPorClientesAction($proyecto, $form)
+    {
+        $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
+        $consultaCliente = $this->calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto);
+
+        return $this->render(
+            'CostoBundle:Consulta:consultaPorCliente.html.twig',
+            [
+                'consultaCliente' => $consultaCliente,
+                'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
+                'form' => $form->createView(),
+            ]
             );
     }
 
@@ -154,7 +171,7 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * @Route("presupuesto/actividad/individual/{nombrePresupuesto}/{usuario_id}", name="presupuesto_individual_usuario")
+     * @Route("presupuesto/usuario/individual/{nombrePresupuesto}/{usuario_id}", name="presupuesto_individual_usuario")
      */
     public function consultaUsuarioIndividualAction($nombrePresupuesto, $usuario_id)
     {
@@ -177,6 +194,28 @@ class ConsultaCostoController extends Controller
     }
 
     /**
+     * @Route("presupuesto/cliente/individual/{nombrePresupuesto}/{cliente_id}", name="presupuesto_individual_cliente")
+     */
+    public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $proyecto = $em->getRepository('AppBundle:ProyectoPresupuesto')->findOneBy(['nombrePresupuesto' => $nombrePresupuesto]);
+        $cliente = $em->getRepository('AppBundle:Cliente')->findOneById($cliente_id);
+        $registros = $em->getRepository('AppBundle:RegistroHoras')->findBy(['proyectoPresupuesto' => $proyecto]);
+        $registrosFiltrados = $this->filtarRegistrosPorCliente($registros, $cliente);
+
+        return $this->render(
+            'CostoBundle:Consulta:consultaDetallePorCliente.html.twig',
+            [
+                'presupuesto' => $this->calcularHorasPorClientePresupuesto($cliente, $proyecto->getPresupuestoIndividual()),
+                'registros' => $registrosFiltrados,
+            ]
+
+            );
+    }
+
+    /**
      * @Route("presupuesto/usuario/individual", name="filtrar_presupuesto_usuario")
      * Método para filtrar los registros
      *
@@ -187,6 +226,18 @@ class ConsultaCostoController extends Controller
         $returnArray = [];
         foreach ($registros as $registro) {
             if ($registro->getIngresadoPor() == $usuario) {
+                $returnArray[] = $registro;
+            }
+        }
+
+        return $returnArray;
+    }
+
+    private function filtarRegistrosPorCliente($registros, $cliente)
+    {
+        $returnArray = [];
+        foreach ($registros as $registro) {
+            if ($registro->getCliente() == $cliente) {
                 $returnArray[] = $registro;
             }
         }
@@ -245,6 +296,23 @@ class ConsultaCostoController extends Controller
 
         return $returnArray;
     }
+    private function calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto)
+    {
+        $returnArray = [];
+        $clientesPorProyecto = $this->filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto);
+        $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
+
+        foreach ($clientesPorProyecto as $cliente) {
+            $horas = $this->calcularHorasPorCliente($cliente, $registros);
+            $horasPresupuesto = $this->calcularHorasPorClientePresupuesto($cliente, $presupuestosIndividuales);
+            $consultaCliente = new ConsultaCliente($cliente, $horas, $horasPresupuesto);
+            $consultaCliente->calcularDiferencia();
+            $returnArray[] = $consultaCliente;
+        }
+
+        return $returnArray;
+    }
+
     /**
      * Método acumular todos los usuarios asignados en un proyecto.
      *
@@ -267,6 +335,21 @@ class ConsultaCostoController extends Controller
         $usuariosAsignadosPorProyecto = $usuariosAsignadosPorProyecto->toArray();
 
         return $usuariosAsignadosPorProyecto;
+    }
+
+    private function filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto)
+    {
+        $clientesPorProyecto = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $returnArray = [];
+        foreach ($presupuestosIndividuales as $presupuesto) {
+            //sin clientes repetidos
+            $clientesPorProyecto = $this->addArrayCollection($clientesPorProyecto, $presupuesto->getCliente());
+        }
+
+        $clientesPorProyecto = $clientesPorProyecto->toArray();
+
+        return $clientesPorProyecto;
     }
 
     /**
@@ -311,6 +394,32 @@ class ConsultaCostoController extends Controller
         }
 
         return $cantidadHorasPorUsuario;
+    }
+
+    private function calcularHorasPorCliente($cliente, $registros)
+    {
+        $cantidadHorasCliente = 0;
+        foreach ($registros as $registro) {
+            $registroCliente = $registro->getCliente();
+            if ($registroCliente == $cliente) {
+                $cantidadHorasCliente += $registro->getHorasInvertidas();
+            }
+        }
+
+        return $cantidadHorasCliente;
+    }
+
+    private function calcularHorasPorClientePresupuesto($cliente, $registros)
+    {
+        $cantidadHorasCliente = 0;
+        foreach ($registros as $registro) {
+            $registroCliente = $registro->getCliente();
+            if ($registroCliente == $cliente) {
+                $cantidadHorasCliente += $registro->getHorasPresupuestadas();
+            }
+        }
+
+        return $cantidadHorasCliente;
     }
 
     /**

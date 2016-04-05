@@ -3,12 +3,12 @@
 {% block body -%}
 	<br>
 	<br>
-    <h1>Consulta Detallada por Usuario</h1>
-    <h2>Presupuesto de este usuario:{{presupuesto}} </h2>
+    <h1>Consulta Detallada por Cliente</h1>
+    <h2>Presupuesto de este cliente:{{presupuesto}} </h2>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Usuario</th>
+                <th>Cliente</th>
                 <th>Actividad</th>
                 <th>Puesto</th>
                 <th>Cliente</th>
@@ -24,7 +24,7 @@
             {% for registro in registros %}
 
             <tr>
-                <td>{{registro.ingresadoPor}}</td>
+                <td>{{registro.cliente}}</td>
                 <td>{{registro.actividad}}</td>
                 <td>{{registro.ingresadoPor.getPuestoActual()}}</td>
                 <td>{{registro.cliente}}</td>
