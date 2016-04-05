@@ -1,0 +1,22 @@
+
+{% block stylesheets %}
+   
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ form_javascript(form) }}
+   <script src="{{asset('js/dateModifier.js')}}"></script>
+   <script>
+        $(document).ready(function() { 
+            $("#consultabundle_costo_usuario").select2({ width: '100%' });           
+        });
+    </script>
+
+{% endblock %}
+
+    <h1>Nuevo cálculo del costo</h1>
+
+    {{ form(form) }}
+
+

@@ -1,5 +1,14 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+   
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ form_javascript(form) }}
+   <script src="{{asset('js/dateModifier.js')}}"></script>
+{% endblock %}
 {% block body -%}
 	<br>
 	{{ form(form)}}
@@ -55,11 +64,16 @@
                 <td></td>
             </tr>
         {% endif %}
+
         </tbody>
     </table>
-    
-    	
+      {% if horasPresupuestadasTotal is defined %}
+
+        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalCosto">Calcular costos en unidades monetarias</button>
+   
+    {% endif %}
 
       <br>
       <br>
+    {% include 'CostoBundle:Costo:modal_costo.html.twig' %}
     {% endblock %}

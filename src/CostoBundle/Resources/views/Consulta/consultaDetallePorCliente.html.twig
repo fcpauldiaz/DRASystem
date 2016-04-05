@@ -10,7 +10,7 @@
             <tr>
                 <th>Cliente</th>
                 <th>Actividad</th>
-                <th>Puesto</th>
+                <th>Ingresado Por</th>
                 <th>Cliente</th>
                 <th>Fecha de las horas invertidas</th>
                 <th>Fecha de ingreso</th>
@@ -26,7 +26,7 @@
             <tr>
                 <td>{{registro.cliente}}</td>
                 <td>{{registro.actividad}}</td>
-                <td>{{registro.ingresadoPor.getPuestoActual()}}</td>
+                <td>{{registro.ingresadoPor}}</td>
                 <td>{{registro.cliente}}</td>
                 <td>{{registro.fechaHoras|date('d-m-Y')}}</td>
                 <td>{{registro.fechaCreacion|date('d-m-Y')}}</td>

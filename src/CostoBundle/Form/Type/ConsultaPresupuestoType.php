@@ -4,7 +4,11 @@ namespace CostoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ConsultaPresupuestoType extends AbstractType
 {
@@ -15,8 +19,8 @@ class ConsultaPresupuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-             ->add('proyecto', 'entity', [
-                'empty_value' => 'Seleccionar Proyecto Presupuesto',
+             ->add('proyecto', EntityType::class, [
+                'placeholder' => 'Seleccionar Proyecto Presupuesto',
                 'class' => 'AppBundle:ProyectoPresupuesto',
                 'label' => 'Buscador Proyectos Presupuesto',
                 'attr' => [
@@ -24,20 +28,21 @@ class ConsultaPresupuestoType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('consulta_filtro', 'choice',
+            ->add('consulta_filtro', ChoiceType::class,
                 [
                     'choices' => [
-                        0 => 'Actividad',
-                        1 => 'Usuarios',
-                        2 => 'Cliente',
+                        'Actividad' => 'Actividad',
+                        'Usuarios' => 'Usuarios',
+                        'Cliente' => 'Cliente',
                     ],
-                    'empty_value' => 'Seleccionar Tipo de filtro',
-                    'preferred_choices' => [0],
+                    'choices_as_values' => true,
+                    'placeholder' => 'Seleccionar Tipo de filtro',
+                    'preferred_choices' => ['Actividad' => 'Actividad'],
                     'label' => 'Escoja el método de filtro',
                     'required' => true,
 
                 ])
-            ->add('submit', 'submit',
+            ->add('submit', SubmitType::class,
                 [
                     'label' => 'Buscar',
                     'attr' => [
@@ -52,14 +57,15 @@ class ConsultaPresupuestoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
+    
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consultabundle_consultapresupuesto';
     }

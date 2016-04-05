@@ -3,11 +3,11 @@ user_homepage:
     defaults: { _controller: UserBundle:Default:index }
 
 trabajador_registration:
-    pattern:  /register/trabajador
+    path:  /register/trabajador
     defaults: { _controller: UserBundle:RegisterTrabajador:register }
 
 socio_registration:
-    pattern:  /register/socio
+    path:  /register/socio
     defaults: { _controller: UserBundle:RegisterSocio:register }
 
 datos_prestaciones:
@@ -34,6 +34,6 @@ supervision:
    resource: "@UserBundle/Controller/SupervisorUsuariosController.php"
    type: annotation
 user_profile:
-    pattern:  /edit/usuario
+    path:  /edit/usuario
     defaults: { _controller: UserBundle:Profile:edit }
 

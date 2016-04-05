@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use CostoBundle\Entity\Costo;
-use CostoBundle\Form\CostoType;
+use CostoBundle\Form\Type\CostoType;
 
 /**
  * Costo controller.
@@ -93,6 +93,23 @@ class CostoController extends Controller
      * @Template("CostoBundle:Costo:newCosto.html.twig")
      */
     public function newAction()
+    {
+        $entity = new Costo();
+        $form = $this->createCreateForm($entity);
+
+        return array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+        );
+    }
+      /**
+     * Displays a form to create a new Costo entity.
+     *
+     * @Route("/new/plain", name="costo_new_plain")
+     * @Method("GET")
+     * @Template("CostoBundle:Costo:newCostoPlain.html.twig")
+     */
+    public function newPlainAction()
     {
         $entity = new Costo();
         $form = $this->createCreateForm($entity);
@@ -252,17 +269,7 @@ class CostoController extends Controller
     public function costoAction($fechaInicio, $fechaFin, $usuario)
     {
         $datosPrestaciones = $usuario->getDatosPrestaciones()->last();
-        $totalIngreso = $datosPrestaciones->getSueldo() +
-                 $datosPrestaciones->getBonificacionIncentivo() +
-                 $datosPrestaciones->getBonificacionLey() +
-                 $datosPrestaciones->getGasolina() +
-                 $datosPrestaciones->getPrestacionesSobreSueldo() +
-                 $datosPrestaciones->getOtrasPrestaciones() +
-                 $datosPrestaciones->getOtros() +
-                 $datosPrestaciones->getIndemnizacion() +
-                 $datosPrestaciones->getAguinaldo() +
-                 $datosPrestaciones->getBono14() +
-                 $datosPrestaciones->getIgss();
+        $totalIngreso = $datosPrestaciones->calcularTotalPrestaciones();
         //ahora busco todas las horas ingresadas por el usuario
         //en el período seleccionado
         $repository = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
@@ -276,8 +283,6 @@ class CostoController extends Controller
             ->setParameter('usuario', $usuario)
             ->getQuery()
             ->getSingleScalarResult();
-        dump($totalIngreso);
-        dump($totalHorasPorPeriodo);
         $costo = 0;
         if ($totalHorasPorPeriodo != 0) {
             $costo = $totalIngreso / $totalHorasPorPeriodo;

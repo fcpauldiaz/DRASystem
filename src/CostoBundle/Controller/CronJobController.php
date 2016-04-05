@@ -23,9 +23,7 @@ class CronJobController extends Controller
 
         $firstDay = new \DateTime('first day of this month');
 
-       // dump($firstDay);
         $lastDay = new \Datetime('last day of this month');
-       // dump($lastDay);
 
         foreach ($usuarios as $usuario) {
             $entidadCosto = new Costo();

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use CostoBundle\Form\Type\ConsultaPresupuestoType;
+use CostoBundle\Form\Type\CostoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -31,7 +32,7 @@ class ConsultaCostoController extends Controller
         }
 
         $form = $this->createForm(
-            new ConsultaPresupuestoType());
+            ConsultaPresupuestoType::class);
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
@@ -49,18 +50,18 @@ class ConsultaCostoController extends Controller
 
         $consultaFiltro = $data['consulta_filtro'];
 
-        if ($consultaFiltro == 0) {
+        if ($consultaFiltro == 'Actividad') {
             return $this->consultaPorActividadAction($proyecto, $form);
         }
-        //TODO: filtar por usuarios
+        //filtar por usuarios
         //Solo puede ver los que tienen jerarquía.
-        if ($consultaFiltro == 1) {
+        if ($consultaFiltro == 'Usuarios') {
             //ahora filtrar los usuarios que están involucrados en el proyecto
 
             return $this->consultaPorUsuariosAction($proyecto, $form);
         }
-        //TODO: filtrar por clientes
-        if ($consultaFiltro == 2) {
+        //filtrar por clientes
+        if ($consultaFiltro == 'Cliente') {
             return $this->consultaPorClientesAction($proyecto, $form);
         }
 
@@ -71,7 +72,7 @@ class ConsultaCostoController extends Controller
     /**
      * @Route("presupuesto/actividad/individual/{id}/", name="presupuesto_individual")
      */
-    public function consultaPresupuestoInidivual($id)
+    public function consultaPresupuestoInidividual($id)
     {
         $em = $this->getDoctrine()->getManager();
         //obtener el presupuesto Proyecto presupuesto
@@ -111,7 +112,12 @@ class ConsultaCostoController extends Controller
                 ]
             );
     }
-
+    /**
+     * Consulta de registros y costos por cliente
+     * @param  ProyectoPresupuesto $proyecto [
+     * @param  ConsultaType $form     
+     * @return Response           
+     */
     public function consultaPorClientesAction($proyecto, $form)
     {
         $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
@@ -166,11 +172,14 @@ class ConsultaCostoController extends Controller
                     'horasSubTotal' => $horasSubTotal,
                     'proyecto' => $presupuestosIndividuales,
                     'form' => $form->createView(),
+
                 ]
             );
     }
 
     /**
+     * Muestra el detalle de una consulta por usuario
+     * 
      * @Route("presupuesto/usuario/individual/{nombrePresupuesto}/{usuario_id}", name="presupuesto_individual_usuario")
      */
     public function consultaUsuarioIndividualAction($nombrePresupuesto, $usuario_id)
@@ -194,6 +203,8 @@ class ConsultaCostoController extends Controller
     }
 
     /**
+     * Muestra el detalle de una consulta por cliente
+     * 
      * @Route("presupuesto/cliente/individual/{nombrePresupuesto}/{cliente_id}", name="presupuesto_individual_cliente")
      */
     public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id)
@@ -202,6 +213,7 @@ class ConsultaCostoController extends Controller
 
         $proyecto = $em->getRepository('AppBundle:ProyectoPresupuesto')->findOneBy(['nombrePresupuesto' => $nombrePresupuesto]);
         $cliente = $em->getRepository('AppBundle:Cliente')->findOneById($cliente_id);
+        //obtener solo los registros asociados al proyecto de presupuesto.
         $registros = $em->getRepository('AppBundle:RegistroHoras')->findBy(['proyectoPresupuesto' => $proyecto]);
         $registrosFiltrados = $this->filtarRegistrosPorCliente($registros, $cliente);
 
@@ -232,7 +244,12 @@ class ConsultaCostoController extends Controller
 
         return $returnArray;
     }
-
+    /**
+     * Devuelve solo los registros ingresados por cliente
+     * @param  [type] $registros [description]
+     * @param  [type] $cliente   [description]
+     * @return [type]            [description]
+     */
     private function filtarRegistrosPorCliente($registros, $cliente)
     {
         $returnArray = [];
@@ -296,6 +313,13 @@ class ConsultaCostoController extends Controller
 
         return $returnArray;
     }
+
+    /**
+     * Calcula las horas totales (invertidas y presupuestadas) por cliente
+     * @param  RegistroHorasPresupuesto $presupuestosIndividuales ArrayCollection
+     * @param  ProyectoPresupuesto $proyecto                 
+     * @return Array of ConsultaCliente                        
+     */
     private function calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto)
     {
         $returnArray = [];
@@ -336,7 +360,12 @@ class ConsultaCostoController extends Controller
 
         return $usuariosAsignadosPorProyecto;
     }
-
+    /**
+     * Devuelve los clientes asignados a un proyecto de presupuesto
+     * @param  ArrayCollection of RegistroHorasPresupuesto $presupuestosIndividuales 
+     * @param  ProyectoPresupuesto $proyecto               
+     * @return ArrayCollection de clientes                           
+     */
     private function filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto)
     {
         $clientesPorProyecto = new \Doctrine\Common\Collections\ArrayCollection();
@@ -396,6 +425,12 @@ class ConsultaCostoController extends Controller
         return $cantidadHorasPorUsuario;
     }
 
+    /**
+     * Calcula las horas invertidas por cliente
+     * @param  Cliente $cliente   
+     * @param  RegistroHoras $registros 
+     * @return Float           
+     */
     private function calcularHorasPorCliente($cliente, $registros)
     {
         $cantidadHorasCliente = 0;
@@ -409,6 +444,12 @@ class ConsultaCostoController extends Controller
         return $cantidadHorasCliente;
     }
 
+    /**
+     * calcula las horas presupuestadas por cliente
+     * @param  Cliente $cliente   
+     * @param  RegistroHoras $registros 
+     * @return Float  
+     */
     private function calcularHorasPorClientePresupuesto($cliente, $registros)
     {
         $cantidadHorasCliente = 0;
@@ -445,18 +486,8 @@ class ConsultaCostoController extends Controller
 
         return $cantidadHorasPorUsuario;
     }
-
-    private function getQueryRegistroHorasPorUsuario($proyecto)
-    {
-        $repositoryRegistro = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
-        $qb = $repositoryRegistro->createQueryBuilder('registro');
-        $qb
-            ->select('registro')
-            ->Where('registro.proyectoPresupuesto = :proyecto')
-            ->setParameter('proyecto', $proyecto);
-
-        return $qb->getQuery()->getResult();
-    }
+   
+   
 
     /**
      * Método que devuleve los registros de un Proyecto.
@@ -513,6 +544,11 @@ class ConsultaCostoController extends Controller
         return $registrosFiltrados;
     }
 
+    /**
+     * Agregar elemento a un array collection 
+     * @param ArrayCollection $array1 
+     * @param T $item  
+     */
     private function addArrayCollection($array1, $item)
     {
         if (!$array1->contains($item)) {
@@ -521,6 +557,13 @@ class ConsultaCostoController extends Controller
 
         return $array1;
     }
+
+    /**
+     * Unir dos ArrayCollection
+     * @param  ArrayCollection $array1 
+     * @param  ArrayCollection $array2 
+     * @return ArrayCollection         
+     */
     private function mergeArrayCollection($array1, $array2)
     {
         foreach ($array2 as $item) {
