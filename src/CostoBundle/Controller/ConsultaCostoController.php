@@ -101,14 +101,16 @@ class ConsultaCostoController extends Controller
     {       //Obtener todos los registros de presupuesto de un proyecto
             $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
             //Array de entidad Consulta Usuario
-            $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto);
+            $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto,$form);
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
                 [
                     'consultaUsuario' => $consultaUsuario,
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                    'form' => $form->createView(),
+                    'form' => $this->createForm(
+                    ConsultaPresupuestoType::class)
+                    ->createView(),
                 ]
             );
     }
@@ -171,7 +173,9 @@ class ConsultaCostoController extends Controller
                     'horasPresupuestadasTotal' => array_sum($totalHoras),
                     'horasSubTotal' => $horasSubTotal,
                     'proyecto' => $presupuestosIndividuales,
-                    'form' => $form->createView(),
+                    'form' => $this->createForm(
+                     ConsultaPresupuestoType::class)
+                    ->createView(),
 
                 ]
             );
@@ -291,8 +295,9 @@ class ConsultaCostoController extends Controller
      *
      * @return Symfony Response                          
      */
-    private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto)
+    private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto,$form)
     {
+        $data = $form->getData();
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
         $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
         //este ciclo coloca en un array instancias de ConsultaUsuario
@@ -301,8 +306,18 @@ class ConsultaCostoController extends Controller
             $horas = $this->calcularHorasPorUsuario($usuario, $registros);
             //horas presupuestadas de un usuarios asignadas
             $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
+            $costoPorHora = $this->getQueryCostoPorFecha($data['fechaInicio'], $data['fechaFinal'],$usuario );   
+            $costoPorHora = $costoPorHora['costo'];        
+            $costoTotal = $this->calcularCostoMonetarioPorUsuario($horas,$costoPorHora);
 
-            $consultaUsuario = new ConsultaUsuario($usuario, $horas, $horasPresupuesto);
+            $consultaUsuario = new ConsultaUsuario(
+                $usuario, 
+                $horas, 
+                $horasPresupuesto, 
+                $costoPorHora, 
+                $costoTotal
+            );
+
             $consultaUsuario->calcularDiferencia();
 
             $returnArray[] = $consultaUsuario;
@@ -405,7 +420,7 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * Calcula las horas por actividad.
+     * Calcula las horas por usuario.
      *
      * @param Usuario       $usuario   usuarios asignados al proyecto
      * @param RegistroHoras $registros del proyecto presupuesto
@@ -423,6 +438,20 @@ class ConsultaCostoController extends Controller
         }
 
         return $cantidadHorasPorUsuario;
+    }
+
+    /**
+     * Calcula el costo monterio por usuario.
+     *
+     * @param Usuario       $usuario   usuarios asignados al proyecto
+     * @param RegistroHoras $registros del proyecto presupuesto
+     *
+     * @return Float
+     */
+    private function calcularCostoMonetarioPorUsuario($horas, $costoPorHora)
+    {
+      
+        return $horas * $costoPorHora;
     }
 
     /**
@@ -508,6 +537,23 @@ class ConsultaCostoController extends Controller
         return $qb->getQuery()->getResult();
     }
 
+    private function getQueryCostoPorFecha($fechaInicio, $fechaFinal, $usuario)
+    {
+        
+        $repositoryCosto = $this->getDoctrine()->getRepository('CostoBundle:Costo');
+        $qb = $repositoryCosto->createQueryBuilder('costo');
+        $qb 
+            ->select('costo.costo')
+            ->where('costo.fechaInicio = :fechaInicio')
+            ->andWhere('costo.fechaFinal = :fechaFinal')
+            ->andWhere('costo.usuario = :usuario')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('usuario', $usuario);
+
+        return $qb->getQuery()->getOneOrNullResult();
+
+    }
     private function getQueryUsuariosPorTipoPuesto($arrayTipoPuestos)
     {
         $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');

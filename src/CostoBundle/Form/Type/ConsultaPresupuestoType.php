@@ -42,6 +42,78 @@ class ConsultaPresupuestoType extends AbstractType
                     'required' => true,
 
                 ])
+            ->add('costo_monetario', 'choice',[
+                'mapped' => false,
+                 'choices' => [
+                    'No' => 0,
+                    'Si' => 1,
+                ],
+                'attr' => [
+                    'class' => 'hide-element-decision',
+                ],
+                'required' => true,
+                // always include this
+                'choices_as_values' => true,
+                ])
+            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+                    'format' => 'dd/mm/yyyy',
+                    'weekStart' => 0,
+                    'autoclose' => true,
+                    'startView' => 'year', 
+                    'minView' => 'year',
+                    'maxView' => 'decade',
+                    'todayBtn' => false,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'es',
+                    'forceParse' => false,
+                    'minuteStep' => 5,
+                    'pickerReferer ' => 'default', //deprecated
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'month',
+                    'showMeridian' => false,
+                ],
+                'attr' => [
+                    'class' => 'hide-element fecha-inicial'
+                ],
+                'label_attr'  => [
+                    'class' => 'hide-element'
+                ],
+                'read_only' => true,
+                'required' => false,
+            ])
+           ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+                            'format' => 'dd/mm/yyyy',
+                            'weekStart' => 0,
+                            'autoclose' => true,
+                            'startView' => 'year',
+                            'minView' => 'year',
+                            'maxView' => 'decade',
+                            'todayBtn' => false,
+                            'todayHighlight' => true,
+                            'keyboardNavigation' => true,
+                            'language' => 'es',
+                            'forceParse' => false,
+                            'minuteStep' => 5,
+                            'pickerReferer ' => 'default', //deprecated
+                            'pickerPosition' => 'bottom-right',
+                            'viewSelect' => 'month',
+                            'showMeridian' => false,
+                        ],
+
+                        'attr' => [
+                            'class' => 'hide-element fecha-final'
+                        ],
+
+                        'label_attr'  => [
+                            'class' => 'hide-element'
+                        ],
+
+                        'read_only' => true,
+                        'required' => false,
+
+
+                    ])
             ->add('submit', SubmitType::class,
                 [
                     'label' => 'Buscar',

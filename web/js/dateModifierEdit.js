@@ -2,7 +2,7 @@ $('.fecha-inicial')
     .on('changeMonth', function(ev){
    
     var day = ev.date.getDate();
-    var month = ev.date.getMonth() + 1;
+    var month = ev.date.getMonth() + 2;
     var year = ev.date.getFullYear();
     if (day < 10) {
         day = "0" + day;
@@ -11,14 +11,14 @@ $('.fecha-inicial')
         month = "0" + month;
     }
     
-    var date = day + "/" + month + "/" + year;
-    $(this).val(date);
+    var date = "01" + "/" + month + "/" + year;
+    $(this).val(date)
    
 });
 $('.fecha-final')
     .on('changeMonth', function(ev){
    
-    var month = ev.date.getMonth() + 1;
+    var month = ev.date.getMonth() + 2;
     var year = ev.date.getFullYear();
     var newDate =  new Date( (new Date(year, month,1))-1 );
     var newDay = newDate.getDate();

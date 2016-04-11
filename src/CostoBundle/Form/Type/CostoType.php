@@ -34,6 +34,9 @@ class CostoType extends AbstractType
                     'viewSelect' => 'month',
                     'showMeridian' => false,
                 ],
+                'attr' => [
+                    'class' => 'fecha-inicial'
+                ],
                 'read_only' => true,
 
             ])
@@ -54,6 +57,9 @@ class CostoType extends AbstractType
                     'pickerPosition' => 'bottom-right',
                     'viewSelect' => 'month',
                     'showMeridian' => false,
+                ],
+                'attr' => [
+                    'class' => 'fecha-final'
                 ],
                 'read_only' => true,
 

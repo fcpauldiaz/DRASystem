@@ -42,18 +42,28 @@ class ConsultaUsuario
      */
     private $diferencia;
 
+    private $costoPorHora;
+
+    /**
+     * Se guarda el cálculo del costoMonetario
+     * @var float
+     */
+    private $costoTotal;
+
     /**
      * 
      * @var Usuario
      */
     private $usuario;
 
-    public function __construct($usuario, $horas, $horasPresupuesto)
+    public function __construct($usuario, $horas, $horasPresupuesto,$costoPorHora, $costoTotal)
     {
         $this->horasCalculadas = $horas;
         $this->usuario = $usuario;
         $this->horasPresupuesto = $horasPresupuesto;
         $this->diferencia = 0;
+        $this->costoPorHora = $costoPorHora;
+        $this->costoTotal = $costoTotal;
     }
 
     
@@ -114,4 +124,27 @@ class ConsultaUsuario
         
         return $this;
     }
+
+    public function getCostoTotal()
+    {
+        return $this->costoTotal;
+    }
+
+    public function setCostoTotal($costo)
+    {
+        $this->costoTotal = $costo;
+        return $this;
+    }
+
+    public function getCostoPorHora()
+    {
+        return $this->costoPorHora;
+    }
+
+    public function setCostoPorHora($costoPorHora)
+    {
+        $this->costoPorHora = $costoPorHora;
+        return $this;
+    }
+
 }
