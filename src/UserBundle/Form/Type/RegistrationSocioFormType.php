@@ -7,6 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints;
+
 
 class RegistrationSocioFormType extends AbstractType
 {
@@ -35,6 +39,9 @@ class RegistrationSocioFormType extends AbstractType
                         'class' => 'form-control input-lg',
                         'placeholder' => 'Nombre de Usuario',
                     ],
+                    'constraints' => [
+                        new Callback([$this, 'validarNombreUsuario']),
+                    ],
                 ])
             ->add('email', 'email', [
                     'label' => 'Correo',
@@ -43,6 +50,9 @@ class RegistrationSocioFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control input-lg',
                         'placeholder' => 'Correo electrónico',
+                    ],
+                    'constraints' => [
+                        new Callback([$this, 'validarCorreoSocio']),
                     ],
                 ])
 
@@ -112,5 +122,41 @@ class RegistrationSocioFormType extends AbstractType
         $usuario = $event->getData();
 
         $usuario->addRole('ROLE_SOCIO');
+       
+    }
+
+      /**
+     * Validar que el correo pertenezca a un socio de la empresa.
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarCorreoSocio($correo, ExecutionContextInterface $context)
+    {
+       if (strpos($correo,'marco') === false &&
+           strpos($correo,'melani') === false &&
+           strpos($correo,'oscar')  === false &&
+           strpos($correo,'julio')  === false) {
+
+            $context->buildViolation('El usuario no parece ser de un socio de la firma DRA')
+                ->atPath('socio_registration')
+                ->addViolation();
+
+        }
+    }
+
+     /**
+     * Validar que el nombre de usuario no tenga espacios en blanco.
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarNombreUsuario($username, ExecutionContextInterface $context)
+    {
+        if (preg_match('/\s/', $username)) {
+            $context->buildViolation('El nombre de usuario no puede tener espacios en blanco')
+                ->atPath('socio_registration')
+                ->addViolation();
+        }
     }
 }

@@ -19,7 +19,7 @@ class ConsultaCostoType extends AbstractType
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
-                    'startView' => 'year',
+                    'startView' => 'year', 
                     'minView' => 'year',
                     'maxView' => 'decade',
                     'todayBtn' => false,

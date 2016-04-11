@@ -36,6 +36,9 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'class' => 'form-control input-lg',
                     'placeholder' => 'Nombre de Usuario',
                 ],
+                'constraints' => [
+                    new Callback([$this, 'validarNombreUsuario']),
+                ],
             ])
             ->add('email', 'email', [
                 'label' => 'Correo',
@@ -144,6 +147,21 @@ class RegistrationTrabajadorFormType extends AbstractType
         if (strpos($nit, '-') !== false) {
             $context->buildViolation('El NIT no puede tener guión')
                 ->atPath('cliente_new')
+                ->addViolation();
+        }
+    }
+
+      /**
+     * Validar que el nombre de usuario no tenga espacios en blanco.
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarNombreUsuario($username, ExecutionContextInterface $context)
+    {
+        if (preg_match('/\s/', $username)) {
+            $context->buildViolation('El nombre de usuario no puede tener espacios en blanco')
+                ->atPath('trabajador_registration')
                 ->addViolation();
         }
     }

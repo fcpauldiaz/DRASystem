@@ -2,15 +2,20 @@
 
 namespace CostoBundle\Entity;
 
+
 /**
  * ConsultaPorUsuario.
  * Clase para agrupar los cálculos necesarios
- * para realizar el query de horas por usuario.
+ * para realizar el query de horas por usuario
  */
 class ConsultaUsuario
 {
+
+
     /**
      * @var float
+     *
+     * total horas calculadas invertidaas
      */
     private $horasCalculadas;
 
@@ -25,17 +30,20 @@ class ConsultaUsuario
      * @var float
      *
      * actividades
+     *
+     * Horas presupuestadas que tenía en usuario
      */
     private $horasPresupuesto;
 
-    /**
+     /**
      * @var float
      *
-     * actividades
+     * diferencie entre costo y presupuesto
      */
     private $diferencia;
 
     /**
+     * 
      * @var Usuario
      */
     private $usuario;
@@ -48,10 +56,10 @@ class ConsultaUsuario
         $this->diferencia = 0;
     }
 
+    
     public function setHorasCalculadas($horas)
     {
         $this->horasCalculadas = $horas;
-
         return $this;
     }
 
@@ -63,7 +71,6 @@ class ConsultaUsuario
     public function addActividad($actividad)
     {
         $this->actividades[] = $actividad;
-
         return $this;
     }
 
@@ -75,7 +82,6 @@ class ConsultaUsuario
     public function setUsuario($usuario)
     {
         $this->usuario = $usuario;
-
         return $this;
     }
 
@@ -87,7 +93,7 @@ class ConsultaUsuario
     public function setHorasPresupuesto($horasPresupuesto)
     {
         $this->horasPresupuesto = $horasPresupuesto;
-
+        
         return $this;
     }
 
@@ -95,7 +101,7 @@ class ConsultaUsuario
     {
         return $this->horasPresupuesto;
     }
-
+    
     public function getDiferencia()
     {
         return $this->diferencia;
@@ -103,9 +109,9 @@ class ConsultaUsuario
 
     public function calcularDiferencia()
     {
-        $this->diferencia = $this->horasPresupuesto -
+        $this->diferencia = $this->horasPresupuesto - 
         $this->horasCalculadas;
-
+        
         return $this;
     }
 }
