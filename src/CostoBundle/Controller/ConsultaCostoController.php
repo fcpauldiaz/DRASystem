@@ -6,12 +6,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use CostoBundle\Form\Type\ConsultaPresupuestoType;
-use CostoBundle\Form\Type\CostoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
 use CostoBundle\Entity\ConsultaCliente;
+use CostoBundle\Entity\ConsultaActividad;
 
 /**
  * ConsutlaCosto controller.
@@ -40,7 +40,7 @@ class ConsultaCostoController extends Controller
                 'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
                     'nombrePresupuesto' => ' ',
-                    'proyecto' => [],
+                    'consultasPorActividades' => [],
                     'form' => $form->createView(),
                 ]
             );
@@ -101,7 +101,7 @@ class ConsultaCostoController extends Controller
     {       //Obtener todos los registros de presupuesto de un proyecto
             $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
             //Array de entidad Consulta Usuario
-            $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto,$form);
+            $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form);
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
@@ -115,15 +115,17 @@ class ConsultaCostoController extends Controller
             );
     }
     /**
-     * Consulta de registros y costos por cliente
-     * @param  ProyectoPresupuesto $proyecto [
-     * @param  ConsultaType $form     
-     * @return Response           
+     * Consulta de registros y costos por cliente.
+     *
+     * @param ProyectoPresupuesto $proyecto [
+     * @param ConsultaType        $form
+     *
+     * @return Response
      */
     public function consultaPorClientesAction($proyecto, $form)
     {
         $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
-        $consultaCliente = $this->calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto);
+        $consultaCliente = $this->calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto, $form);
 
         return $this->render(
             'CostoBundle:Consulta:consultaPorCliente.html.twig',
@@ -149,29 +151,14 @@ class ConsultaCostoController extends Controller
                 $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
 
                 //calculo de todas las horas por actividad
-                $horasSubTotal = $this->calcularHorasTotales($presupuestosIndividuales, $proyecto);
-
-            $diferencia = [];
-            $totalHoras = [];
-            $contador = 0;
-                //realizar los calculos finales
-                while ($contador != count($presupuestosIndividuales)) {
-                    $horasPresupuestadas = $presupuestosIndividuales[$contador]->getHorasPresupuestadas();
-                    $diferencia[] = $horasPresupuestadas - $horasSubTotal[$contador];
-                    $totalHoras[] = $horasPresupuestadas;
-                    $contador += 1;
-                }
+                $consultasPorActividades = $this->calcularHorasTotales($presupuestosIndividuales, $proyecto, $form);
         }
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                    'diferenciaSubTotal' => $diferencia,
-                    'horasTotal' => array_sum($horasSubTotal),
-                    'diferenciaTotal' => array_sum($diferencia),
-                    'horasPresupuestadasTotal' => array_sum($totalHoras),
-                    'horasSubTotal' => $horasSubTotal,
+                    'consultasPorActividades' => $consultasPorActividades,
                     'proyecto' => $presupuestosIndividuales,
                     'form' => $this->createForm(
                      ConsultaPresupuestoType::class)
@@ -182,7 +169,7 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * Muestra el detalle de una consulta por usuario
+     * Muestra el detalle de una consulta por usuario.
      * 
      * @Route("presupuesto/usuario/individual/{nombrePresupuesto}/{usuario_id}", name="presupuesto_individual_usuario")
      */
@@ -207,11 +194,11 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * Muestra el detalle de una consulta por cliente
+     * Muestra el detalle de una consulta por cliente.
      * 
      * @Route("presupuesto/cliente/individual/{nombrePresupuesto}/{cliente_id}", name="presupuesto_individual_cliente")
      */
-    public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id)
+    public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id, $form = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -224,7 +211,7 @@ class ConsultaCostoController extends Controller
         return $this->render(
             'CostoBundle:Consulta:consultaDetallePorCliente.html.twig',
             [
-                'presupuesto' => $this->calcularHorasPorClientePresupuesto($cliente, $proyecto->getPresupuestoIndividual()),
+                'presupuesto' => $this->calcularHorasPorClientePresupuesto($cliente, $proyecto->getPresupuestoIndividual(), $form),
                 'registros' => $registrosFiltrados,
             ]
 
@@ -249,10 +236,12 @@ class ConsultaCostoController extends Controller
         return $returnArray;
     }
     /**
-     * Devuelve solo los registros ingresados por cliente
-     * @param  [type] $registros [description]
-     * @param  [type] $cliente   [description]
-     * @return [type]            [description]
+     * Devuelve solo los registros ingresados por cliente.
+     *
+     * @param [type] $registros [description]
+     * @param [type] $cliente   [description]
+     *
+     * @return [type] [description]
      */
     private function filtarRegistrosPorCliente($registros, $cliente)
     {
@@ -274,14 +263,36 @@ class ConsultaCostoController extends Controller
      *
      * @return Array con las horas invertidas de todas las actividades de un proyecto 
      */
-    private function calcularHorasTotales($presupuestosIndividuales, $proyecto)
+    private function calcularHorasTotales($presupuestosIndividuales, $proyecto, $form)
     {
+        $data = $form->getData();
         //registro horas por proyecto
         $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
         $returnArray = [];
 
         foreach ($presupuestosIndividuales as $presupuesto) {
-            $returnArray[] = $this->calcularHorasPorActividad($presupuesto, $registros);
+            //obtener cada actividad
+            //calcular horas por actividad
+            //calcular horas presupuesto por actividad
+            //get costo por fecha
+            //calcular costo monetario por usuario
+            //calcular dif
+            $actividad = $presupuesto->getActividad();
+            $arrayCostos = $this->calcularHorasPorActividad($presupuesto, $registros, $form);
+            $horasPresupuesto = $presupuesto->getHorasPresupuestadas();
+            $horas = $arrayCostos[0];
+            $costo = $arrayCostos[1];
+
+            $consultaActividad = new ConsultaActividad(
+                $actividad,
+                $horas,
+                $horasPresupuesto,
+                $costo
+            );
+            $consultaActividad->setCliente($presupuesto->getCliente());
+            $consultaActividad->setPresupuestoId($presupuesto->getId());
+            $consultaActividad->calcularDiferencia();
+            $returnArray[] = $consultaActividad;
         }
 
         return $returnArray;
@@ -295,7 +306,7 @@ class ConsultaCostoController extends Controller
      *
      * @return Symfony Response                          
      */
-    private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto,$form)
+    private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form)
     {
         $data = $form->getData();
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
@@ -306,15 +317,15 @@ class ConsultaCostoController extends Controller
             $horas = $this->calcularHorasPorUsuario($usuario, $registros);
             //horas presupuestadas de un usuarios asignadas
             $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
-            $costoPorHora = $this->getQueryCostoPorFecha($data['fechaInicio'], $data['fechaFinal'],$usuario );   
-            $costoPorHora = $costoPorHora['costo'];        
-            $costoTotal = $this->calcularCostoMonetarioPorUsuario($horas,$costoPorHora);
+            $costoPorHora = $this->getQueryCostoPorFechaYUsuario($data['fechaInicio'], $data['fechaFinal'], $usuario);
+            $costoPorHora = $costoPorHora['costo'];
+            $costoTotal = $this->calcularCostoMonetarioPorUsuario($horas, $costoPorHora);
 
             $consultaUsuario = new ConsultaUsuario(
-                $usuario, 
-                $horas, 
-                $horasPresupuesto, 
-                $costoPorHora, 
+                $usuario,
+                $horas,
+                $horasPresupuesto,
+                $costoPorHora,
                 $costoTotal
             );
 
@@ -330,21 +341,32 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * Calcula las horas totales (invertidas y presupuestadas) por cliente
-     * @param  RegistroHorasPresupuesto $presupuestosIndividuales ArrayCollection
-     * @param  ProyectoPresupuesto $proyecto                 
+     * Calcula las horas totales (invertidas y presupuestadas) por cliente.
+     *
+     * @param RegistroHorasPresupuesto $presupuestosIndividuales ArrayCollection
+     * @param ProyectoPresupuesto      $proyecto
+     *
      * @return Array of ConsultaCliente                        
      */
-    private function calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto)
+    private function calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto, $form)
     {
         $returnArray = [];
         $clientesPorProyecto = $this->filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto);
         $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
 
         foreach ($clientesPorProyecto as $cliente) {
-            $horas = $this->calcularHorasPorCliente($cliente, $registros);
+            $arrayCostos = $this->calcularHorasPorCliente($cliente, $registros, $form);
             $horasPresupuesto = $this->calcularHorasPorClientePresupuesto($cliente, $presupuestosIndividuales);
-            $consultaCliente = new ConsultaCliente($cliente, $horas, $horasPresupuesto);
+            $horas = $arrayCostos[0];
+            $costo = $arrayCostos[1];
+
+            $consultaCliente = new ConsultaCliente(
+                $cliente,
+                $horas,
+                $horasPresupuesto,
+                $costo
+            );
+            $consultaCliente->setCliente($cliente);
             $consultaCliente->calcularDiferencia();
             $returnArray[] = $consultaCliente;
         }
@@ -376,9 +398,11 @@ class ConsultaCostoController extends Controller
         return $usuariosAsignadosPorProyecto;
     }
     /**
-     * Devuelve los clientes asignados a un proyecto de presupuesto
-     * @param  ArrayCollection of RegistroHorasPresupuesto $presupuestosIndividuales 
-     * @param  ProyectoPresupuesto $proyecto               
+     * Devuelve los clientes asignados a un proyecto de presupuesto.
+     *
+     * @param ArrayCollection of RegistroHorasPresupuesto $presupuestosIndividuales
+     * @param ProyectoPresupuesto                         $proyecto
+     *
      * @return ArrayCollection de clientes                           
      */
     private function filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto)
@@ -398,25 +422,47 @@ class ConsultaCostoController extends Controller
 
     /**
      * Calcula las horas por actividad.
+     * En este método hay que considerar que el costo por hora es diferente para cada usuario
+     * porque las actividades pueden ser ingreadas por diferentes usuarios y
+     * por eso hay que multiplicar de un solo el costo por hora por las horas invertidas.
      *
      * @param ProyectoPresupuesto $presupuesto
      * @param RegistroHoras       $registros
      *
      * @return Float
      */
-    private function calcularHorasPorActividad($presupuesto, $registros)
+    private function calcularHorasPorActividad($presupuesto, $registros, $form)
     {
+        $horasPresupuesto = $presupuesto->getHorasPresupuestadas();
         $actividad = $presupuesto->getActividad();
+        $data = $form->getData();
+        $returnArray = [];
 
         $cantidadHorasPorActividad = 0;
+        $costoAcumulado = 0;
         foreach ($registros as $registro) {
             $registroActividad = $registro->getActividad();
+
             if ($actividad == $registroActividad) {
-                $cantidadHorasPorActividad += $registro->getHorasInvertidas();
+                $horasInvertidas = $registro->getHorasInvertidas();
+
+                $cantidadHorasPorActividad += $horasInvertidas;
+
+                $costoPorHora = $this->getQueryCostoPorFechaYUsuario(
+                    $data['fechaInicio'],
+                    $data['fechaFinal'],
+                    $registro->getIngresadoPor()
+                );
+
+                $costoTotal = $this->calcularCostoMonetarioPorUsuario(
+                    $horasInvertidas,
+                    $costoPorHora['costo']
+                    );
+                $costoAcumulado += $costoTotal;
             }
         }
 
-        return $cantidadHorasPorActividad;
+        return [$cantidadHorasPorActividad, $costoAcumulado];
     }
 
     /**
@@ -450,34 +496,53 @@ class ConsultaCostoController extends Controller
      */
     private function calcularCostoMonetarioPorUsuario($horas, $costoPorHora)
     {
-      
         return $horas * $costoPorHora;
     }
 
     /**
-     * Calcula las horas invertidas por cliente
-     * @param  Cliente $cliente   
-     * @param  RegistroHoras $registros 
-     * @return Float           
+     * Calcula las horas invertidas por cliente.
+     *
+     * @param Cliente       $cliente
+     * @param RegistroHoras $registros
+     *
+     * @return Float
      */
-    private function calcularHorasPorCliente($cliente, $registros)
+    private function calcularHorasPorCliente($cliente, $registros, $form)
     {
+        $data = $form->getData();
+
         $cantidadHorasCliente = 0;
+        $costoAcumulado = 0;
         foreach ($registros as $registro) {
             $registroCliente = $registro->getCliente();
             if ($registroCliente == $cliente) {
-                $cantidadHorasCliente += $registro->getHorasInvertidas();
+                $horasInvertidas = $registro->getHorasInvertidas();
+                $cantidadHorasCliente += $horasInvertidas;
+
+                $costoPorHora = $this->getQueryCostoPorFechaYUsuario(
+                    $data['fechaInicio'],
+                    $data['fechaFinal'],
+                    $registro->getIngresadoPor()
+                );
+
+                $costoTotal = $this->calcularCostoMonetarioPorUsuario(
+                    $horasInvertidas,
+                    $costoPorHora['costo']
+                    );
+                $costoAcumulado += $costoTotal;
             }
         }
 
-        return $cantidadHorasCliente;
+        return [$cantidadHorasCliente, $costoAcumulado];
     }
 
     /**
-     * calcula las horas presupuestadas por cliente
-     * @param  Cliente $cliente   
-     * @param  RegistroHoras $registros 
-     * @return Float  
+     * calcula las horas presupuestadas por cliente.
+     *
+     * @param Cliente       $cliente
+     * @param RegistroHoras $registros
+     *
+     * @return Float
      */
     private function calcularHorasPorClientePresupuesto($cliente, $registros)
     {
@@ -515,8 +580,6 @@ class ConsultaCostoController extends Controller
 
         return $cantidadHorasPorUsuario;
     }
-   
-   
 
     /**
      * Método que devuleve los registros de un Proyecto.
@@ -537,12 +600,21 @@ class ConsultaCostoController extends Controller
         return $qb->getQuery()->getResult();
     }
 
-    private function getQueryCostoPorFecha($fechaInicio, $fechaFinal, $usuario)
+    /**
+     * Query para buscar solo un costo por usuario.
+     * Devuelve un costo o null.
+     *
+     * @param DATE    $fechaInicio
+     * @param DATE    $fechaFinal
+     * @param Usuario $usuario
+     *
+     * @return Array Costo de un elemento.
+     */
+    private function getQueryCostoPorFechaYUsuario($fechaInicio, $fechaFinal, $usuario)
     {
-        
         $repositoryCosto = $this->getDoctrine()->getRepository('CostoBundle:Costo');
         $qb = $repositoryCosto->createQueryBuilder('costo');
-        $qb 
+        $qb
             ->select('costo.costo')
             ->where('costo.fechaInicio = :fechaInicio')
             ->andWhere('costo.fechaFinal = :fechaFinal')
@@ -552,7 +624,30 @@ class ConsultaCostoController extends Controller
             ->setParameter('usuario', $usuario);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
 
+    /**
+     * query para buscar todos las entidades costo que coincidan con la fecha
+     * ingresada.
+     * Puede retornar más de una entdidad.
+     *
+     * @param DATE $fechaInicio
+     * @param DaTe $fechaFinal
+     *
+     * @return Array Costo              [
+     */
+    private function getQueryCostoPorFecha($fechaInicio, $fechaFinal)
+    {
+        $repositoryCosto = $this->getDoctrine()->getRepository('CostoBundle:Costo');
+        $qb = $repositoryCosto->createQueryBuilder('costo');
+        $qb
+            ->select('costo.costo')
+            ->where('costo.fechaInicio = :fechaInicio')
+            ->andWhere('costo.fechaFinal = :fechaFinal')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal);
+
+        return $qb->getQuery()->getResult();
     }
     private function getQueryUsuariosPorTipoPuesto($arrayTipoPuestos)
     {
@@ -591,9 +686,10 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * Agregar elemento a un array collection 
-     * @param ArrayCollection $array1 
-     * @param T $item  
+     * Agregar elemento a un array collection.
+     *
+     * @param ArrayCollection $array1
+     * @param T               $item
      */
     private function addArrayCollection($array1, $item)
     {
@@ -605,10 +701,12 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * Unir dos ArrayCollection
-     * @param  ArrayCollection $array1 
-     * @param  ArrayCollection $array2 
-     * @return ArrayCollection         
+     * Unir dos ArrayCollection.
+     *
+     * @param ArrayCollection $array1
+     * @param ArrayCollection $array2
+     *
+     * @return ArrayCollection
      */
     private function mergeArrayCollection($array1, $array2)
     {

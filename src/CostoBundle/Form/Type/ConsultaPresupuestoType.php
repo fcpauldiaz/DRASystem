@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ConsultaPresupuestoType extends AbstractType
@@ -37,12 +36,11 @@ class ConsultaPresupuestoType extends AbstractType
                     ],
                     'choices_as_values' => true,
                     'placeholder' => 'Seleccionar Tipo de filtro',
-                    'preferred_choices' => ['Actividad' => 'Actividad'],
                     'label' => 'Escoja el método de filtro',
                     'required' => true,
 
                 ])
-            ->add('costo_monetario', 'choice',[
+            ->add('costo_monetario', 'choice', [
                 'mapped' => false,
                  'choices' => [
                     'No' => 0,
@@ -55,11 +53,11 @@ class ConsultaPresupuestoType extends AbstractType
                 // always include this
                 'choices_as_values' => true,
                 ])
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+             ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
-                    'startView' => 'year', 
+                    'startView' => 'year',
                     'minView' => 'year',
                     'maxView' => 'decade',
                     'todayBtn' => false,
@@ -74,10 +72,10 @@ class ConsultaPresupuestoType extends AbstractType
                     'showMeridian' => false,
                 ],
                 'attr' => [
-                    'class' => 'hide-element fecha-inicial'
+                    'class' => 'hide-element fecha-inicial',
                 ],
-                'label_attr'  => [
-                    'class' => 'hide-element'
+                'label_attr' => [
+                    'class' => 'hide-element',
                 ],
                 'read_only' => true,
                 'required' => false,
@@ -102,18 +100,18 @@ class ConsultaPresupuestoType extends AbstractType
                         ],
 
                         'attr' => [
-                            'class' => 'hide-element fecha-final'
+                            'class' => 'hide-element fecha-final',
                         ],
 
-                        'label_attr'  => [
-                            'class' => 'hide-element'
+                        'label_attr' => [
+                            'class' => 'hide-element',
                         ],
 
                         'read_only' => true,
                         'required' => false,
 
-
                     ])
+
             ->add('submit', SubmitType::class,
                 [
                     'label' => 'Buscar',
@@ -131,7 +129,6 @@ class ConsultaPresupuestoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-    
     }
 
     /**

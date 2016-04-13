@@ -13,7 +13,7 @@
 
 {% block body -%}
 	<br>
-	{{ form(form)}}
+	 {{ form(form)}}
     <br>
     <h1>Consulta Proyecto Presupuesto {{nombrePresupuesto}}</h1>
    
@@ -46,6 +46,45 @@
                 </td>
                 </tr>
             {% endfor %}
+             <tr>
+                <td><b>Totales:<b> </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_horas(consultaUsuario)}}
+                        </font>
+                    </b>    
+                </td>
+                 <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_presupuesto(consultaUsuario)}}
+                        </font>
+                    </b>    
+                </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_diferencia(consultaUsuario)}}
+                        </font>
+                    </b>    
+                </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_costo_hora(consultaUsuario) | number_format(2, '.', ', ')}}
+                        </font>
+                    </b>    
+                </td>
+                <td>
+                    <b>
+                        <font color="#27ae60">
+                            {{sum_costo(consultaUsuario) | number_format(2, '.', ', ')}}
+                        </font>
+                    </b>
+                </td>
+                <td> </td>
+        </tr>
         </tbody>
     </table>
     

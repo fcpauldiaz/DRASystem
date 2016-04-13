@@ -102,7 +102,7 @@ class CostoController extends Controller
             'form' => $form->createView(),
         );
     }
-      /**
+    /**
      * Displays a form to create a new Costo entity.
      *
      * @Route("/new/plain", name="costo_new_plain")

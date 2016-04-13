@@ -2,16 +2,13 @@
 
 namespace CostoBundle\Entity;
 
-
 /**
  * ConsultaPorUsuario.
  * Clase para agrupar los cálculos necesarios
- * para realizar el query de horas por usuario
+ * para realizar el query de horas por usuario.
  */
 class ConsultaUsuario
 {
-
-
     /**
      * @var float
      *
@@ -35,7 +32,7 @@ class ConsultaUsuario
      */
     private $horasPresupuesto;
 
-     /**
+    /**
      * @var float
      *
      * diferencie entre costo y presupuesto
@@ -45,18 +42,18 @@ class ConsultaUsuario
     private $costoPorHora;
 
     /**
-     * Se guarda el cálculo del costoMonetario
+     * Se guarda el cálculo del costoMonetario.
+     *
      * @var float
      */
     private $costoTotal;
 
     /**
-     * 
      * @var Usuario
      */
     private $usuario;
 
-    public function __construct($usuario, $horas, $horasPresupuesto,$costoPorHora, $costoTotal)
+    public function __construct($usuario, $horas, $horasPresupuesto, $costoPorHora, $costoTotal)
     {
         $this->horasCalculadas = $horas;
         $this->usuario = $usuario;
@@ -66,10 +63,10 @@ class ConsultaUsuario
         $this->costoTotal = $costoTotal;
     }
 
-    
     public function setHorasCalculadas($horas)
     {
         $this->horasCalculadas = $horas;
+
         return $this;
     }
 
@@ -81,6 +78,7 @@ class ConsultaUsuario
     public function addActividad($actividad)
     {
         $this->actividades[] = $actividad;
+
         return $this;
     }
 
@@ -92,6 +90,7 @@ class ConsultaUsuario
     public function setUsuario($usuario)
     {
         $this->usuario = $usuario;
+
         return $this;
     }
 
@@ -103,7 +102,7 @@ class ConsultaUsuario
     public function setHorasPresupuesto($horasPresupuesto)
     {
         $this->horasPresupuesto = $horasPresupuesto;
-        
+
         return $this;
     }
 
@@ -111,7 +110,7 @@ class ConsultaUsuario
     {
         return $this->horasPresupuesto;
     }
-    
+
     public function getDiferencia()
     {
         return $this->diferencia;
@@ -119,9 +118,9 @@ class ConsultaUsuario
 
     public function calcularDiferencia()
     {
-        $this->diferencia = $this->horasPresupuesto - 
+        $this->diferencia = $this->horasPresupuesto -
         $this->horasCalculadas;
-        
+
         return $this;
     }
 
@@ -133,6 +132,7 @@ class ConsultaUsuario
     public function setCostoTotal($costo)
     {
         $this->costoTotal = $costo;
+
         return $this;
     }
 
@@ -144,7 +144,7 @@ class ConsultaUsuario
     public function setCostoPorHora($costoPorHora)
     {
         $this->costoPorHora = $costoPorHora;
+
         return $this;
     }
-
 }

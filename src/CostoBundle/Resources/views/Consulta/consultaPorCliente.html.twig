@@ -1,8 +1,18 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+   
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ form_javascript(form) }}
+   <script src="{{asset('js/showHideElements.js')}}"></script>
+   <script src="{{asset('js/dateModifier.js')}}"></script>
+{% endblock %}
 {% block body -%}
 	<br>
-	{{ form(form)}}
+	 {{ form(form)}}
     <br>
     <h1>Consulta Proyecto Presupuesto {{nombrePresupuesto}}</h1>
    
@@ -13,6 +23,7 @@
                 <th>Costo</th>
                 <th>Presupuesto</th>
                 <th>Diferencia</th>
+                <th>Costo Total</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -24,11 +35,45 @@
                 <td>{{consulta.horasCalculadas}}</td>
                 <td>{{consulta.horasPresupuesto}}</td>
                 <td>{{consulta.diferencia}}</td>
+                <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
                    <td>
                     <a  href="{{ path('presupuesto_individual_cliente', { 'nombrePresupuesto': nombrePresupuesto , 'cliente_id' : consulta.cliente.id}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                 </td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td><b>Totales:<b> </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_horas(consultaCliente)}}
+                        </font>
+                    </b>    
+                </td>
+                 <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_presupuesto(consultaCliente)}}
+                        </font>
+                    </b>    
+                </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_diferencia(consultaCliente)}}
+                        </font>
+                    </b>    
+                </td>
+                <td>
+                   <b>
+                        <font color="#27ae60">
+                            {{sum_costo(consultaCliente) | number_format(2, '.', ', ')}}
+                        </font>
+                    </b>
+                    
+                </td>
+                <td> </td>
+        </tr>
         </tbody>
     </table>
     

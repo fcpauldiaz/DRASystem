@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * ProyectoPresupuesto.
  *
@@ -30,6 +29,14 @@ class ProyectoPresupuesto
      * @ORM\Column(name="nombrePresupuesto", type="string")
      */
     private $nombrePresupuesto;
+
+    /**
+     * Honorarios a recolectar (opcional).
+     *
+     * @var float
+     * @ORM\Column(name="honorarios", type="float", nullable = true)
+     */
+    private $honorarios;
 
     /**
      * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"})
@@ -112,5 +119,29 @@ class ProyectoPresupuesto
     public function __toString()
     {
         return $this->nombrePresupuesto;
+    }
+
+    /**
+     * Set honorarios.
+     *
+     * @param float $honorarios
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function setHonorarios($honorarios)
+    {
+        $this->honorarios = $honorarios;
+
+        return $this;
+    }
+
+    /**
+     * Get honorarios.
+     *
+     * @return float
+     */
+    public function getHonorarios()
+    {
+        return $this->honorarios;
     }
 }

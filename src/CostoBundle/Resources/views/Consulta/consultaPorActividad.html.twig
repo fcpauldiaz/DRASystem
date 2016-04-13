@@ -13,6 +13,7 @@
 {% block body -%}
 	<br>
 	{{ form(form)}}
+   
     <br>
     <h1>Consulta Proyecto Presupuesto {{nombrePresupuesto}}</h1>
    
@@ -21,59 +22,72 @@
             <tr>
                 <th>Actividad</th>
                 <th>Cliente</th>
-                <th>Costo</th>
-                <th>Presupuesto</th>
-                <th>Diferencia</th>
+                <th>Horas invertidas</th>
+                <th>Horas Presupuesto</th>
+                <th>Horas Diferencia</th>
+                <th>CostoTotal</th>
                 <th>Acción</th>
             </tr>
         </thead>
         <tbody>
-        {% set contador = 0 %}
-        {% for presupuesto in proyecto %}
-        	{% set horaPresupuestada = presupuesto.horasPresupuestadas %}
-			{% set horaPorActividad = horasSubTotal[contador] %}
-			{% set diferencia = diferenciaSubTotal[contador] %}
+      
+        {% for consulta in consultasPorActividades %}
+        	
 
             <tr>
-                <td>{{presupuesto.actividad}}</td>
-                <td>{{presupuesto.cliente}}</td>
-                <td>{{horaPorActividad}}</td>
-                <td>{{horaPresupuestada}}</td>
-                {% if diferencia < 0 %}
-                	<td><font color="red"><b>{{diferencia}}<b></font></td>
+                <td>{{consulta.actividad}}</td>
+                <td>{{consulta.cliente}}</td>
+                <td>{{consulta.horasCalculadas}}</td>
+                <td>{{consulta.horasPresupuesto}}</td>
+
+                {% if consulta.diferencia < 0 %}
+                	<td><font color="red"><b>{{consulta.diferencia }}<b></font></td>
                 {% else %}
-                	 <td><b>{{ diferencia }}<b></td>
+                	 <td><b>{{ consulta.diferencia  }}<b></td>
                 {% endif %}
+                <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
                 <td>
-                	<a  href="{{ path('presupuesto_individual', { 'id': presupuesto.id }) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
+                	<a  href="{{ path('presupuesto_individual', { 'id': consulta.presupuestoId }) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                 </td>
             </tr>
-            {% set contador = contador + 1 %}
+           
         {% endfor %}
-        {% if horasPresupuestadasTotal is defined %}
-         <tr>
-                <td> <b>Totales<b> </td>
-                <td></td>
-                <td><b>{{horasTotal}}<b></td>
-                <td><b>{{horasPresupuestadasTotal}}<b></td>
-                {% if diferenciaTotal < 0 %}
-                	<td><font color="red"><b>{{diferenciaTotal}}<b></font></td>
-                {% else %}
-                	 <td><b>{{diferenciaTotal}}<b></td>
-                {% endif %}
-               
-                <td></td>
-            </tr>
-        {% endif %}
-
+           
+        <tr>
+                <td><b>Totales:<b> </td>
+                <td> </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_horas(consultasPorActividades)}}
+                        </font>
+                    </b>    
+                </td>
+                 <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_presupuesto(consultasPorActividades)}}
+                        </font>
+                    </b>    
+                </td>
+                <td> 
+                    <b> 
+                        <font color="#27ae60">
+                            {{sum_diferencia(consultasPorActividades)}}
+                        </font>
+                    </b>    
+                </td>
+                <td>
+                    <b>
+                        <font color="#27ae60">
+                            {{sum_costo(consultasPorActividades) | number_format(2, '.', ', ')}}
+                        </font>
+                    </b>
+                </td>
+                <td> </td>
+        </tr>
         </tbody>
     </table>
-      {% if horasPresupuestadasTotal is defined %}
-
-        <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modalCosto">Calcular costos en unidades monetarias</button>
-   
-    {% endif %}
-
       <br>
       <br>
     {% include 'CostoBundle:Costo:modal_costo.html.twig' %}

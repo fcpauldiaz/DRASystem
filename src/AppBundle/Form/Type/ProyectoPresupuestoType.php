@@ -23,7 +23,21 @@ class ProyectoPresupuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombrePresupuesto')
+            ->add('nombrePresupuesto', null, [
+                'label' => 'Nombre del presupuesto*',
+                'required' => true,
+
+            ])
+            ->add('honorarios', 'money', [
+                'required' => false,
+                'label' => 'Honorarios (opcional)',
+                'attr' => [
+                    'help_text' => 'Si ya se tiene designado los honorarios del presupuesto',
+                ],
+                'currency' => 'GTQ',
+                'grouping' => true,
+
+            ])
             ->add('presupuestoIndividual', 'bootstrap_collection', [
                     'type' => new RegistroHorasPresupuestoType($this->usuario),
                     'label' => 'Registro Horas Presupuesto',

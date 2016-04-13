@@ -19,7 +19,7 @@ class ConsultaCostoClienteType extends AbstractType
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
-                    'startView' => 'year', 
+                    'startView' => 'year',
                     'minView' => 'year',
                     'maxView' => 'decade',
                     'todayBtn' => false,
@@ -34,10 +34,9 @@ class ConsultaCostoClienteType extends AbstractType
                     'showMeridian' => false,
                 ],
                  'attr' => [
-                    'class' => 'fecha-inicial'
+                    'class' => 'fecha-inicial',
                 ],
                 'read_only' => true,
-
 
             ])
             ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
@@ -59,7 +58,7 @@ class ConsultaCostoClienteType extends AbstractType
                     'showMeridian' => false,
                 ],
                  'attr' => [
-                    'class' => 'fecha-final'
+                    'class' => 'fecha-final',
                 ],
                 'read_only' => true,
 
@@ -69,7 +68,6 @@ class ConsultaCostoClienteType extends AbstractType
                 'empty_value' => 'Escoja el cliente',
 
             ])
-          
 
         ;
     }
@@ -79,7 +77,6 @@ class ConsultaCostoClienteType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        
     }
 
     /**

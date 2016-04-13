@@ -151,7 +151,7 @@ class RegistrationTrabajadorFormType extends AbstractType
         }
     }
 
-      /**
+    /**
      * Validar que el nombre de usuario no tenga espacios en blanco.
      *
      * @param Array                     $data    contiene los datos del formulario

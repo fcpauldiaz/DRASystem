@@ -32,6 +32,8 @@
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección Consultas específicas</li>
                    <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
+                    <li><a href="{{ path('presupuesto_horas')}}">Costos Por Cliente</a></li>
+                     <li><a href="{{ path('consulta_cliente')}}">Costos Por Usuario</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección usuarios</li>
                 {% if is_granted('ROLE_SOCIO') and app.user %}

@@ -5,7 +5,6 @@ namespace CostoBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CostoType extends AbstractType
 {
@@ -35,7 +34,7 @@ class CostoType extends AbstractType
                     'showMeridian' => false,
                 ],
                 'attr' => [
-                    'class' => 'fecha-inicial'
+                    'class' => 'fecha-inicial',
                 ],
                 'read_only' => true,
 
@@ -59,7 +58,7 @@ class CostoType extends AbstractType
                     'showMeridian' => false,
                 ],
                 'attr' => [
-                    'class' => 'fecha-final'
+                    'class' => 'fecha-final',
                 ],
                 'read_only' => true,
 

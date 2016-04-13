@@ -19,7 +19,7 @@ class ConsultaCostoType extends AbstractType
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
-                    'startView' => 'year', 
+                    'startView' => 'year',
                     'minView' => 'year',
                     'maxView' => 'decade',
                     'todayBtn' => false,
@@ -57,7 +57,6 @@ class ConsultaCostoType extends AbstractType
                 'read_only' => true,
 
             ])
-          
 
         ;
     }
@@ -67,7 +66,6 @@ class ConsultaCostoType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        
     }
 
     /**

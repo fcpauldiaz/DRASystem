@@ -44,12 +44,15 @@ class ConsultaCliente
      */
     private $cliente;
 
-    public function __construct($cliente, $horas, $horasPresupuesto)
+    private $costoTotal;
+
+    public function __construct($cliente, $horas, $horasPresupuesto, $costoTotal)
     {
         $this->horasCalculadas = $horas;
         $this->cliente = $cliente;
         $this->horasPresupuesto = $horasPresupuesto;
         $this->diferencia = 0;
+        $this->costoTotal = $costoTotal;
     }
 
     public function setHorasCalculadas($horas)
@@ -109,6 +112,18 @@ class ConsultaCliente
     {
         $this->diferencia = $this->horasPresupuesto -
         $this->horasCalculadas;
+
+        return $this;
+    }
+
+    public function getCostoTotal()
+    {
+        return $this->costoTotal;
+    }
+
+    public function setCostoTotal($costo)
+    {
+        $this->costoTotal = $costo;
 
         return $this;
     }

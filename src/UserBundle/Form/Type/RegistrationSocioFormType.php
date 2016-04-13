@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
 
-
 class RegistrationSocioFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -122,10 +121,9 @@ class RegistrationSocioFormType extends AbstractType
         $usuario = $event->getData();
 
         $usuario->addRole('ROLE_SOCIO');
-       
     }
 
-      /**
+    /**
      * Validar que el correo pertenezca a un socio de la empresa.
      *
      * @param Array                     $data    contiene los datos del formulario
@@ -133,19 +131,17 @@ class RegistrationSocioFormType extends AbstractType
      */
     public function validarCorreoSocio($correo, ExecutionContextInterface $context)
     {
-       if (strpos($correo,'marco') === false &&
-           strpos($correo,'melani') === false &&
-           strpos($correo,'oscar')  === false &&
-           strpos($correo,'julio')  === false) {
-
+        if (strpos($correo, 'marco') === false &&
+           strpos($correo, 'melani') === false &&
+           strpos($correo, 'oscar')  === false &&
+           strpos($correo, 'julio')  === false) {
             $context->buildViolation('El usuario no parece ser de un socio de la firma DRA')
                 ->atPath('socio_registration')
                 ->addViolation();
-
         }
     }
 
-     /**
+    /**
      * Validar que el nombre de usuario no tenga espacios en blanco.
      *
      * @param Array                     $data    contiene los datos del formulario

@@ -60,6 +60,13 @@ class RegistroHorasType extends AbstractType
                 'data' => $this->usuario,
                 'disabled' => true,
             ])
+
+            ->add('submit', 'submit', [
+                    'label' => 'Guardar',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ])
         ;
     }
 
