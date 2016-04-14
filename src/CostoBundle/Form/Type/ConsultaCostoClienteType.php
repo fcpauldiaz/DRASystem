@@ -68,6 +68,13 @@ class ConsultaCostoClienteType extends AbstractType
                 'empty_value' => 'Escoja el cliente',
 
             ])
+            ->add('submit', 'submit', [
+                'label' => 'Buscar',
+                'attr' => [
+                    'class' => 'btn btn-primary btn-block',
+                ],
+
+            ])
 
         ;
     }

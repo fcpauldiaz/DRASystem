@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Actividad.
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @UniqueEntity("nombre")
  */
 class Actividad
 {
@@ -42,6 +44,17 @@ class Actividad
      */
     private $abreviatura;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="horaNoCargable", type="boolean")
+     */
+    private $horaNoCargable;
+
+    public function __construct()
+    {
+        $this->horaNoCargable = false;
+    }
     /**
      * Get id.
      *
@@ -132,5 +145,29 @@ class Actividad
         }
 
         return $this->nombre;
+    }
+
+    /**
+     * Set horaNoCargable.
+     *
+     * @param bool $horaNoCargable
+     *
+     * @return Actividad
+     */
+    public function setHoraNoCargable($horaNoCargable)
+    {
+        $this->horaNoCargable = $horaNoCargable;
+
+        return $this;
+    }
+
+    /**
+     * Get horaNoCargable.
+     *
+     * @return bool
+     */
+    public function getHoraNoCargable()
+    {
+        return $this->horaNoCargable;
     }
 }

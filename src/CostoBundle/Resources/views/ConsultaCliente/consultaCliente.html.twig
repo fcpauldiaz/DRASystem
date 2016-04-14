@@ -6,8 +6,12 @@
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{asset('js/dateModifier.js')}}"></script>
+{% endblock %}
+{% block javascriptDataTables %}
     {{ form_javascript(form) }}
-    <script src="{{asset('js/dateModifier.js')}}"></script>
+	<script src = {{asset('js/datatables/dataTablesCliente.js')}}>
+	</script>
 {% endblock %}
 
 {% block body -%}
@@ -22,25 +26,120 @@
 	        <thead>
 	            <tr>
 	                <th>Cliente</th>
-	                <th>Costo</th>
-	                <th>Presupuesto</th>
+	                <th>Actividad</th>
+	                <th>Usuario</th>
+	                <th>Costo Horas</th>
+	                <th>Presupuesto Horas</th>
 	                <th>Diferencia</th>
-	                <th>Acción</th>
+	                <th>CostoTotal</th>
+	                
 	            </tr>
 	        </thead>
 	        <tbody>
 	            
 	            {% for consulta in consultaCliente %}
 	                <tr>
-	                <td>{{consulta.cliente}}</td>
-	                <td>{{consulta.horasCalculadas}}</td>
-	                <td>{{consulta.horasPresupuesto}}</td>
-	                <td>{{consulta.diferencia}}</td>
-	                   <td>
-	                    <a  href="{{ path('presupuesto_individual_cliente', { 'nombrePresupuesto': nombrePresupuesto , 'cliente_id' : consulta.cliente.id}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
-	                </td>
+		                <td>{{consulta.cliente}}</td>
+		                <td>{{consulta.actividad}}</td>
+		                <td>{{consulta.usuario}}</td>
+		                <td>{{consulta.horasCalculadas}}</td>
+		                <td>{{consulta.horasPresupuesto}}</td>
+		                <td>{{consulta.diferencia}}</td>
+		                <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
+	                 
 	                </tr>
 	            {% endfor %}
+	             <tr>
+	                <td><b>Totales<b> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> 
+	                    <b> 
+	                        <font color="#27ae60">
+	                            {{sum_horas(consultaCliente)}}
+	                        </font>
+	                    </b>    
+	                </td>
+	                 <td> 
+	                    <b> 
+	                        <font color="#27ae60">
+	                            {{sum_presupuesto(consultaCliente)}}
+	                        </font>
+	                    </b>    
+	                </td>
+	                <td> 
+	                    <b> 
+	                        <font color="#27ae60">
+	                            {{sum_diferencia(consultaCliente)}}
+	                        </font>
+	                    </b>    
+	                </td>
+	                <td>
+	                   <b>
+	                        <font color="#27ae60">
+	                            {{sum_costo(consultaCliente) | number_format(2, '.', ', ')}}
+	                        </font>
+	                    </b>
+	                    
+	                </td>
+	               
+	        </tr>
+	         <tr>
+	                <td><b>Honorarios<b> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> 
+	                  
+	                </td>
+	                 <td> 
+	                   
+	                </td>
+	                <td> 
+
+	                </td>
+	                <td>
+	                   <b>
+	                        <font color="#27ae60">
+	                            {{honorarios | number_format(2, '.', ', ')}}
+	                        </font>
+	                    </b>
+	                    
+	                </td>
+	               
+	        </tr>
+	        {% set utilidad = honorarios - sum_costo(consultaCliente) %}
+	         <tr>
+	                <td><b>Utilidad<b> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> 
+	                  
+	                </td>
+	                 <td> 
+	                   
+	                </td>
+	                <td> 
+
+	                </td>
+	                <td>
+	                   <b> {% if utilidad < 0 %}
+	                        <font color="#c0392b">
+	                          
+	                           {{utilidad | number_format(2, '.', ', ')}}
+
+	                        </font>
+	                      	{% else %}
+	                      	 <font color="#000000">
+	                          
+	                           {{utilidad | number_format(2, '.', ', ')}}
+
+	                        </font>  
+	                        {% endif %}
+	                    </b>
+	                    
+	                </td>
+	               
+	        </tr>
 	        </tbody>
 	    </table>
 	{% endif %}

@@ -3,7 +3,7 @@ $('.fecha-inicial')
     date = ev.date;
     var firstDay = new Date(date.getFullYear(), date.getMonth() +1 , 1);
     var day = firstDay.getDate();
-    var month = firstDay.getMonth() +1 ;
+    var month = firstDay.getMonth()+1 ;
     var year = firstDay.getFullYear();
     if (day < 10) {
         day = "0" + day;
@@ -19,7 +19,7 @@ $('.fecha-inicial')
 $('.fecha-final')
     .on('changeMonth', function(ev){
     date = ev.date;
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     var day = lastDay.getDate();
     var month = lastDay.getMonth()+1;
     var year = lastDay.getFullYear();

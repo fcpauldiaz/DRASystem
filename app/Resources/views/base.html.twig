@@ -34,7 +34,6 @@
         {% block stylesheets %}
         {% endblock stylesheets %}
         <script src="{{asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
-
   
     </head>
     <body>
@@ -61,7 +60,9 @@
         <script src="{{asset('js/bc-bootstrap-collection.js')}}"></script>
         <script src="{{asset('js/jquery.initialize.js')}}"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/t/bs/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,r-2.0.2/datatables.min.js"></script>
-   
+        {% block javascriptDataTables %}
+        {% endblock javascriptDataTables %}
+        <script src="{{asset('js/colResizable-1.5.min.js')}}"></script>
          <script type="text/javascript">
                 (function(){
                         $("select").initialize( function(){
@@ -74,45 +75,7 @@
                           
                 })();
         </script>
-       <script>
-            $('table').dataTable( {
-                    sPaginationType: "full_numbers",
-                    autoFill: true,
-                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todo"]],
-                    colReorder: true,
-                    dom: 'Blfrtip',
-                    buttons: [
-                    {
-                        extend: 'copy',
-                        text: 'copiar',
-                        className: 'btn btn-default btn-xs'
-                    },
-                   {
-                        extend: 'csv',
-                        text: 'csv',
-                        className: 'btn btn-default btn-xs'
-                    },
-                    {
-                        extend: 'excel',
-                        text: 'excel',
-                        className: 'btn btn-default btn-xs'
-                    },
-                    {
-                        extend: 'pdf',
-                        text: 'pdf',
-                        className: 'btn btn-default btn-xs'
-                    },
-                    {
-                        extend: 'print',
-                        text: 'imprimir',
-                        className: 'btn btn-default btn-xs'
-                    },
-                    
-                    ],
-                    language: {
-                        "url": "{{ asset('Json/Spanish.json')}}"
-                    }
-                } );
+       <script src = "{{asset('js/datatables/dataTablesInit.js')}}">
         </script>
 
 
