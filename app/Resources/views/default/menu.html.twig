@@ -30,11 +30,12 @@
                 <li class="dropdown-header">Sección Listado general</li>
                 <li><a href="{{ path('registrohoras')}}">Registro Horas</a></li>
                 <li><a href="{{ path('proyectopresupuesto')}}">Proyectos presupuesto</a></li>
+                 <li><a href="{{ path('cliente')}}">Clientes</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección Consultas específicas</li>
                    <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
                     <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
-                     <li><a href="{{ path('consulta_cliente')}}">Costos Por Usuario</a></li>
+                     <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección usuarios</li>
                 {% if is_granted('ROLE_SOCIO') and app.user %}

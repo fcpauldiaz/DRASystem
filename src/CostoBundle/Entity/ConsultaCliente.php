@@ -52,6 +52,12 @@ class ConsultaCliente
     private $costoTotal;
 
     /**
+     * Guarda el costo del presupuesto
+     * @var float
+     */
+    private $costoPresupuesto;
+
+    /**
      * Guardar el usuario que ingresó las horas.
      *
      * @var Usuario
@@ -150,5 +156,16 @@ class ConsultaCliente
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    public function getCostoPresupuesto()
+    {
+        return $this->costoPresupuesto;
+    }
+
+    public function setCostoPresupuesto($costo)
+    {
+        $this->costoPresupuesto = $costo;
+        return $this;
     }
 }

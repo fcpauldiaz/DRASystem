@@ -12,7 +12,19 @@ class ArrayExtension extends \Twig_Extension
         new \Twig_SimpleFunction('sum_presupuesto', array($this, 'sumArrayHorasPresupuesto')),
         new \Twig_SimpleFunction('sum_diferencia', array($this, 'sumArrayDiferencia')),
         new \Twig_SimpleFunction('sum_costo_hora', array($this, 'sumArrayCostoPorHora')),
+        new \Twig_SimpleFunction('sum_costo_presupuesto', array($this, 'sumArrayCostoPresupuesto')),
     );
+    }
+
+    public function sumArrayCostoPresupuesto($consultas = [])
+    {
+         $array = [];
+        foreach ($consultas as $consulta) {
+            $array[] = $consulta->getCostoPresupuesto();
+        }
+
+        return array_sum($array);
+
     }
 
     public function sumArrayHorasInvertidas($consultas = [])

@@ -1,5 +1,7 @@
- var table = $('table').dataTable( {
-					bDestroy : true,
+ $(function(){
+  $("table").colResizable();
+  var table = $('table').dataTable( {
+                    bDestroy : true,
                     columnDefs: [
                         { "width": "20%", "targets": 0 }
                     ],
@@ -49,5 +51,7 @@
                     language: {
                         "url": "{{ asset('Json/Spanish.json')}}"
                     }
-                } );  	
-	 
+                } );    
+     
+});
+ 

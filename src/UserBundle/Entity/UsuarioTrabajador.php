@@ -79,12 +79,19 @@ class UsuarioTrabajador extends Usuario
      */
     private $costoPorHora;
 
+     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="gerentes")
+     * 
+     */
+    private $presupuestos;
+
     /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();
+        $this->presupuestos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->datosPrestaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -313,5 +320,39 @@ class UsuarioTrabajador extends Usuario
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    /**
+     * Add presupuesto
+     *
+     * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
+     *
+     * @return UsuarioTrabajador
+     */
+    public function addPresupuesto(\AppBundle\Entity\ProyectoPresupuesto $presupuesto)
+    {
+        $this->presupuestos[] = $presupuesto;
+
+        return $this;
+    }
+
+    /**
+     * Remove presupuesto
+     *
+     * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
+     */
+    public function removePresupuesto(\AppBundle\Entity\ProyectoPresupuesto $presupuesto)
+    {
+        $this->presupuestos->removeElement($presupuesto);
+    }
+
+    /**
+     * Get presupuestos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPresupuestos()
+    {
+        return $this->presupuestos;
     }
 }

@@ -39,6 +39,7 @@ class ConsultaCostoController extends Controller
             return $this->render(
                 'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
+                    'verificador' => true,
                     'nombrePresupuesto' => ' ',
                     'consultasPorActividades' => [],
                     'form' => $form->createView(),
@@ -106,11 +107,10 @@ class ConsultaCostoController extends Controller
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
                 [
+                    'verificador' => false,
                     'consultaUsuario' => $consultaUsuario,
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                    'form' => $this->createForm(
-                    ConsultaPresupuestoType::class)
-                    ->createView(),
+                    'form' => $form->createView()
                 ]
             );
     }
@@ -130,9 +130,10 @@ class ConsultaCostoController extends Controller
         return $this->render(
             'CostoBundle:Consulta:consultaPorCliente.html.twig',
             [
+                'verificador' => false,
                 'consultaCliente' => $consultaCliente,
                 'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                'form' => $form->createView(),
+                'form' => $form->createView()
             ]
             );
     }
@@ -160,9 +161,8 @@ class ConsultaCostoController extends Controller
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                     'consultasPorActividades' => $consultasPorActividades,
                     'proyecto' => $presupuestosIndividuales,
-                    'form' => $this->createForm(
-                     ConsultaPresupuestoType::class)
-                    ->createView(),
+                    'verificador' => false,
+                    'form' => $form->createView()
 
                 ]
             );
@@ -282,12 +282,14 @@ class ConsultaCostoController extends Controller
             $horasPresupuesto = $presupuesto->getHorasPresupuestadas();
             $horas = $arrayCostos[0];
             $costo = $arrayCostos[1];
-
+            $costoPresupuesto = $arrayCostos[2];
+            $costoPresupuesto = $costoPresupuesto * $presupuesto->getHorasPresupuestadas();
             $consultaActividad = new ConsultaActividad(
                 $actividad,
                 $horas,
                 $horasPresupuesto,
-                $costo
+                $costo,
+                $costoPresupuesto
             );
             $consultaActividad->setCliente($presupuesto->getCliente());
             $consultaActividad->setPresupuestoId($presupuesto->getId());
@@ -328,7 +330,8 @@ class ConsultaCostoController extends Controller
                 $costoPorHora,
                 $costoTotal
             );
-
+            $costoPresupuesto = $costoPorHora * $horasPresupuesto;
+            $consultaUsuario->setCostoPresupuesto($costoPresupuesto);
             $consultaUsuario->calcularDiferencia();
 
             $returnArray[] = $consultaUsuario;
@@ -359,13 +362,15 @@ class ConsultaCostoController extends Controller
             $horasPresupuesto = $this->calcularHorasPorClientePresupuesto($cliente, $presupuestosIndividuales);
             $horas = $arrayCostos[0];
             $costo = $arrayCostos[1];
-
+            $costoPresupuesto = $arrayCostos[2];
             $consultaCliente = new ConsultaCliente(
                 $cliente,
                 $horas,
                 $horasPresupuesto,
                 $costo
             );
+            $costoPresupuesto = $costoPresupuesto*$horasPresupuesto;
+            $consultaCliente->setCostoPresupuesto($costoPresupuesto);
             $consultaCliente->setCliente($cliente);
             $consultaCliente->calcularDiferencia();
             $returnArray[] = $consultaCliente;
@@ -440,6 +445,8 @@ class ConsultaCostoController extends Controller
 
         $cantidadHorasPorActividad = 0;
         $costoAcumulado = 0;
+        $costoAcumuladoPresupuesto = [];
+       
         foreach ($registros as $registro) {
             $registroActividad = $registro->getActividad();
 
@@ -458,11 +465,18 @@ class ConsultaCostoController extends Controller
                     $horasInvertidas,
                     $costoPorHora['costo']
                     );
+
                 $costoAcumulado += $costoTotal;
+                $costoAcumuladoPresupuesto[] = $costoPorHora['costo'];
+               
+
             }
         }
+        if (count($costoAcumuladoPresupuesto) === 0) {
+            $costoAcumuladoPresupuesto[] = 0;
+        }
 
-        return [$cantidadHorasPorActividad, $costoAcumulado];
+        return [$cantidadHorasPorActividad, $costoAcumulado, array_sum($costoAcumuladoPresupuesto)/count($costoAcumuladoPresupuesto)];
     }
 
     /**
@@ -513,6 +527,7 @@ class ConsultaCostoController extends Controller
 
         $cantidadHorasCliente = 0;
         $costoAcumulado = 0;
+        $costoAcumuladoCliente = [];
         foreach ($registros as $registro) {
             $registroCliente = $registro->getCliente();
             if ($registroCliente == $cliente) {
@@ -530,10 +545,15 @@ class ConsultaCostoController extends Controller
                     $costoPorHora['costo']
                     );
                 $costoAcumulado += $costoTotal;
+                $costoAcumuladoCliente[] = $costoPorHora['costo'];
             }
         }
-
-        return [$cantidadHorasCliente, $costoAcumulado];
+        $cantidadArray = count($costoAcumuladoCliente);
+        if ($cantidadArray === 0){
+            $costoAcumuladoCliente[] = 0; 
+        }
+       
+        return [$cantidadHorasCliente, $costoAcumulado, array_sum($costoAcumuladoCliente)/$cantidadArray];
     }
 
     /**
@@ -610,14 +630,15 @@ class ConsultaCostoController extends Controller
      *
      * @return Array Costo de un elemento.
      */
+    
     private function getQueryCostoPorFechaYUsuario($fechaInicio, $fechaFinal, $usuario)
     {
         $repositoryCosto = $this->getDoctrine()->getRepository('CostoBundle:Costo');
         $qb = $repositoryCosto->createQueryBuilder('costo');
         $qb
             ->select('costo.costo')
-            ->where('costo.fechaInicio = :fechaInicio')
-            ->andWhere('costo.fechaFinal = :fechaFinal')
+            ->where('costo.fechaInicio >= :fechaInicio')
+            ->andWhere('costo.fechaFinal <= :fechaFinal')
             ->andWhere('costo.usuario = :usuario')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
@@ -642,8 +663,8 @@ class ConsultaCostoController extends Controller
         $qb = $repositoryCosto->createQueryBuilder('costo');
         $qb
             ->select('costo.costo')
-            ->where('costo.fechaInicio = :fechaInicio')
-            ->andWhere('costo.fechaFinal = :fechaFinal')
+            ->where('costo.fechaInicio >= :fechaInicio')
+            ->andWhere('costo.fechaFinal <= :fechaFinal')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal);
 

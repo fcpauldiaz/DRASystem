@@ -56,9 +56,10 @@ class RegistroHorasType extends AbstractType
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
-            ->add('ingresadoPor', 'text', [
+            ->add('ingresadoPor', 'entity', [
+                'class' => 'UserBundle:Usuario',
                 'data' => $this->usuario,
-                'disabled' => true,
+              
             ])
 
             ->add('submit', 'submit', [

@@ -8,6 +8,12 @@
 {% block javascripts %}
     {{ form_javascript(form) }}
    <script src="{{asset('js/showHideElements.js')}}"></script>
+   <script>
+        //forma de arreglar bug cuando se recarga javascript
+        //en campo de date.
+        var verifier = {{ verificador|json_encode|raw }};
+
+    </script>
    <script src="{{asset('js/dateModifier.js')}}"></script>
 {% endblock %}
 {% block body -%}
@@ -25,7 +31,8 @@
                 <th>Horas invertidas</th>
                 <th>Horas Presupuesto</th>
                 <th>Horas Diferencia</th>
-                <th>CostoTotal</th>
+                <th>CostoPresupuesto</th>
+                <th>CostoReal</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -45,6 +52,7 @@
                 {% else %}
                 	 <td><b>{{ consulta.diferencia  }}<b></td>
                 {% endif %}
+                <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
                 <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
                 <td>
                 	<a  href="{{ path('presupuesto_individual', { 'id': consulta.presupuestoId }) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
@@ -80,6 +88,13 @@
                 <td>
                     <b>
                         <font color="#27ae60">
+                            {{sum_costo_presupuesto(consultasPorActividades) | number_format(2, '.', ', ')}}
+                        </font>
+                    </b>
+                </td>
+                <td>
+                    <b>
+                        <font color="#27ae60">
                             {{sum_costo(consultasPorActividades) | number_format(2, '.', ', ')}}
                         </font>
                     </b>
@@ -90,5 +105,4 @@
     </table>
       <br>
       <br>
-    {% include 'CostoBundle:Costo:modal_costo.html.twig' %}
     {% endblock %}

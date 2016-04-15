@@ -21,7 +21,7 @@ class ConsultaUsuario
      *
      * actividades
      */
-    private $actividades = [];
+    private $actividad;
 
     /**
      * @var float
@@ -39,6 +39,10 @@ class ConsultaUsuario
      */
     private $diferencia;
 
+    /**
+     * Guarda el costo por hora del usuario
+     * @var float
+     */
     private $costoPorHora;
 
     /**
@@ -49,9 +53,17 @@ class ConsultaUsuario
     private $costoTotal;
 
     /**
+     * Guarda el costo del Presupuesto
+     * @var float
+     */
+    private $costoPresupuesto;
+
+    /**
      * @var Usuario
      */
     private $usuario;
+
+    private $cliente;
 
     public function __construct($usuario, $horas, $horasPresupuesto, $costoPorHora, $costoTotal)
     {
@@ -75,16 +87,16 @@ class ConsultaUsuario
         return $this->horasCalculadas;
     }
 
-    public function addActividad($actividad)
+    public function setActividad($actividad)
     {
-        $this->actividades[] = $actividad;
+        $this->actividad = $actividad;
 
         return $this;
     }
 
-    public function getActividades()
+    public function getActividad()
     {
-        return $this->actividades;
+        return $this->actividad;
     }
 
     public function setUsuario($usuario)
@@ -146,5 +158,26 @@ class ConsultaUsuario
         $this->costoPorHora = $costoPorHora;
 
         return $this;
+    }
+    public function setCliente($cliente)
+    {
+        $this->cliente = $cliente;
+        return $this;
+    }
+
+    public function getCliente()
+    {
+        return $this->cliente;
+    }
+
+    public function setCostoPresupuesto($costo)
+    {
+        $this->costoPresupuesto = $costo;
+        return $this;
+    }
+
+    public function getCostoPresupuesto()
+    {
+        return $this->costoPresupuesto;
     }
 }

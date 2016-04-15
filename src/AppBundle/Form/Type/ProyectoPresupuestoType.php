@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ProyectoPresupuestoType extends AbstractType
 {
@@ -36,6 +37,27 @@ class ProyectoPresupuestoType extends AbstractType
                 ],
                 'currency' => 'GTQ',
                 'grouping' => true,
+
+            ])
+              ->add('socios', 'entity', [
+                'required' => false,
+                'label' => 'Socio/s asignados',
+                'class' => 'UserBundle:UsuarioSocio',
+                'multiple' => true,
+
+            ])
+            ->add('gerentes', 'entity', [
+                'required' => false,
+                'label' => 'Gerentes/s asignados',
+                'class' => 'UserBundle:UsuarioTrabajador',
+                'multiple' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('usuario')
+                        ->leftJoin('usuario.puestos', 'puesto')
+                        ->leftJoin('puesto.tipoPuesto', 'tipopuesto')
+                        ->where('tipopuesto.id = :idGerente')
+                        ->setParameter('idGerente', 4);
+                },
 
             ])
             ->add('presupuestoIndividual', 'bootstrap_collection', [

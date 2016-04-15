@@ -25,7 +25,52 @@ class UsuarioSocio extends Usuario
      */
     protected $id;
 
-    public function __toString()
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="socios")
+     * 
+     */
+    private $presupuestos;
+
+    public function __construct()
+    {
+        $this->presupuestos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add presupuesto
+     *
+     * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
+     *
+     * @return UsuarioSocio
+     */
+    public function addPresupuesto(\AppBundle\Entity\ProyectoPresupuesto $presupuesto)
+    {
+        $this->presupuestos[] = $presupuesto;
+
+        return $this;
+    }
+
+    /**
+     * Remove presupuesto
+     *
+     * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
+     */
+    public function removePresupuesto(\AppBundle\Entity\ProyectoPresupuesto $presupuesto)
+    {
+        $this->presupuestos->removeElement($presupuesto);
+    }
+
+    /**
+     * Get presupuestos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPresupuestos()
+    {
+        return $this->presupuestos;
+    }
+
+     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
     }

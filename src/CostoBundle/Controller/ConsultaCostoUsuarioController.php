@@ -5,36 +5,36 @@ namespace CostoBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CostoBundle\Form\Type\ConsultaCostoClienteType;
+use CostoBundle\Form\Type\ConsultaCostoUsuarioType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use CostoBundle\Entity\ConsultaCliente;
+use CostoBundle\Entity\ConsultaUsuario;
 
 /**
  * ConsutlaCosto controller.
  *
  * @Security("is_granted('ROLE_USER')")
- * @Route("/consulta/cliente/")
+ * @Route("/consulta/usuario/")
  */
-class ConsultaCostoClienteController extends Controller
+class ConsultaCostoUsuarioController extends Controller
 {
-    /**
-     * @ROUTE("", name="consulta_cliente")
+	 /**
+     * @ROUTE("", name="consulta_usuario")
      *
      * @param Request $request [description]
      *
-     * @return [type] [description]
+     * @return Response
      */
-    public function consultaClienteAction(Request $request)
+    public function consultaUsuarioAction(Request $request)
     {
         $form = $this->createForm(
-            ConsultaCostoClienteType::class);
+            ConsultaCostoUsuarioType::class);
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
-                'CostoBundle:ConsultaCliente:consultaCliente.html.twig',
+                'CostoBundle:ConsultaUsuario:consultaUsuario.html.twig',
                 [
-                    'verificador' => true,
-                    'consultaCliente' => [],
+                     'verificador' => true, //mandar variable a javascript
+                    'consultaUsuario' => [],
                     'form' => $form->createView(),
                 ]
             );
@@ -43,13 +43,11 @@ class ConsultaCostoClienteController extends Controller
 
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
-        $cliente = $data['cliente'];
-        //array
-        $registros = $this->queryRegistroHorasPorFecha($fechaInicio, $fechaFinal, $cliente);
-        //array
-        $registrosPresupuesto = $this->buscarRegistrosPresupuesto($registros, $cliente);
+        $usuario = $data['usuario'];
 
-        $returnArray = [];
+        $registros = $this->queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario);
+        $registrosPresupuesto = $this->buscarRegistrosPresupuesto($registros, $usuario);
+         $returnArray = [];
         foreach ($registros as $registro) {
             $cliente = $registro->getCliente();
             $horas = $registro->getHorasInvertidas();
@@ -61,33 +59,29 @@ class ConsultaCostoClienteController extends Controller
             if ($actividad->getHoraNoCargable() === true) {
                 $costoTotal = 0;
             }
-            $consultaCliente = new ConsultaCliente(
-                $cliente,
+            $consultaUsuario = new ConsultaUsuario(
+                $usuario,
                 $horas,
                 $horasPresupuesto,
+                0,
                 $costoTotal
                 );
-
-            $consultaCliente->setActividad($actividad);
-            $consultaCliente->calcularDiferencia();
-            $consultaCliente->setUsuario($registro->getIngresadoPor());
-            $returnArray[] = $consultaCliente;
+            $consultaUsuario->setCliente($cliente);
+            $consultaUsuario->setActividad($actividad);
+            $consultaUsuario->calcularDiferencia();
+            $returnArray[] = $consultaUsuario;
         }
-        $honorarios = $this->calcularHonorariosTotales($registros);
 
-        //buscar presupesto en estas fechas
-        //buscar registro horas en estas fechas
-        //
-       return $this->render(
-            'CostoBundle:ConsultaCliente:consultaCliente.html.twig',
+        return $this->render(
+            'CostoBundle:ConsultaUsuario:consultaUsuario.html.twig',
             [
-                 'verificador' => false,
-                'honorarios' => $honorarios,
-                'consultaCliente' => $returnArray,
+                 'verificador' => false,  //mandar variable a javascript
+                'consultaUsuario' => $returnArray,
                 'form' => $form->createView(),
             ]
         );
-    }
+
+   }
 
     private function calcularHorasPresupuesto($registrosPresupuesto, $actividad)
     {
@@ -101,32 +95,12 @@ class ConsultaCostoClienteController extends Controller
         return $horasPresupuesto;
     }
 
-    private function calcularHonorariosTotales($registros)
-    {
-        $honorarios = 0;
-        //se utilizará este array collection para no usar los honorarios
-        //de un proyecto
-        $proyectosAcum = new \Doctrine\Common\Collections\ArrayCollection();
-
-        foreach ($registros as $registro) {
-            $proyecto = $registro->getProyectoPresupuesto();
-            //condición para no usar los honorarios de un mismo proyecto.
-            if (!$proyectosAcum->contains($proyecto)) {
-                $honorarios += $proyecto->getHonorarios();
-            }
-            //se agrega el proyecto ya analizado
-            $proyectosAcum = $this->addArrayCollection($proyectosAcum, $proyecto);
-        }
-
-        return $honorarios;
-    }
-
-    private function buscarRegistrosPresupuesto($registros, $cliente)
+    private function buscarRegistrosPresupuesto($registros, $usuario)
     {
         $returnArray = new \Doctrine\Common\Collections\ArrayCollection();
         foreach ($registros as $registro) {
             $proyecto = $registro->getProyectoPresupuesto();
-            $registrosPresupuesto = $this->queryRegistroPresupuestos($proyecto, $cliente);
+            $registrosPresupuesto = $this->queryRegistroPresupuestos($proyecto, $usuario);
             $registrosArrayCollection = new \Doctrine\Common\Collections\ArrayCollection($registrosPresupuesto);
             $returnArray = $this->mergeArrayCollection($returnArray, $registrosArrayCollection);
         }
@@ -134,8 +108,23 @@ class ConsultaCostoClienteController extends Controller
         return $returnArray->toArray();
     }
 
-    /**
-     * Query para buscar solo un costo por usuario.
+       private function queryRegistroPresupuestos($proyecto, $usuario)
+    {
+        $repositoryRegistroHorasPresupuesto = $this->getDoctrine()->getRepository('AppBundle:RegistroHorasPresupuesto');
+        $qb = $repositoryRegistroHorasPresupuesto->createQueryBuilder('registro');
+        $qb
+            ->select('registro')
+            ->where('registro.proyecto = :proyecto')
+            ->leftJoin('registro.usuariosAsignados', 'usuario')
+            ->andWhere('usuario = :usuario')
+            ->setParameter('proyecto', $proyecto)
+            ->setParameter('usuario', $usuario)
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /** Query para buscar solo un costo por usuario.
      * Devuelve un costo o null.
      *
      * @param DATE    $fechaInicio
@@ -160,22 +149,8 @@ class ConsultaCostoClienteController extends Controller
         return $qb->getQuery()->getOneOrNullResult()['costo'];
     }
 
-    private function queryRegistroPresupuestos($proyecto, $cliente)
-    {
-        $repositoryRegistroHorasPresupuesto = $this->getDoctrine()->getRepository('AppBundle:RegistroHorasPresupuesto');
-        $qb = $repositoryRegistroHorasPresupuesto->createQueryBuilder('registro');
-        $qb
-            ->select('registro')
-            ->where('registro.proyecto = :proyecto')
-            ->andWhere('registro.cliente = :cliente')
-            ->setParameter('proyecto', $proyecto)
-            ->setParameter('cliente', $cliente)
-            ;
 
-        return $qb->getQuery()->getResult();
-    }
-
-    private function queryRegistroHorasPorFecha($fechaInicio, $fechaFinal, $cliente)
+    private function queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario)
     {
         $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
@@ -183,10 +158,10 @@ class ConsultaCostoClienteController extends Controller
             ->select('registro')
             ->where('registro.fechaHoras >= :fechaInicio')
             ->andWhere('registro.fechaHoras <= :fechaFinal')
-            ->andWhere('registro.cliente = :cliente')
+            ->andWhere('registro.ingresadoPor = :usuario')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('cliente', $cliente)
+            ->setParameter('usuario', $usuario)
             ;
 
         return $qb->getQuery()->getResult();

@@ -43,9 +43,22 @@ class ProyectoPresupuesto
      */
     private $presupuestoIndividual;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioSocio", inversedBy="presupuestos")
+     * @ORM\JoinTable(name="presupuesto_socios")
+     */
+    private $socios;
+    /**
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioTrabajador", inversedBy="presupuestos")
+     * @ORM\JoinTable(name="presupuestos_gerente")
+     */
+    private $gerentes;
+
     public function __construct()
     {
+        $this->socios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gerentes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -143,5 +156,74 @@ class ProyectoPresupuesto
     public function getHonorarios()
     {
         return $this->honorarios;
+    }
+
+    /**
+     * Add socio
+     *
+     * @param \UserBundle\Entity\UsuarioSocio $socio
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function addSocio(\UserBundle\Entity\UsuarioSocio $socio)
+    {
+        $this->socios[] = $socio;
+
+        return $this;
+    }
+
+    /**
+     * Remove socio
+     *
+     * @param \UserBundle\Entity\UsuarioSocio $socio
+     */
+    public function removeSocio(\UserBundle\Entity\UsuarioSocio $socio)
+    {
+        $this->socios->removeElement($socio);
+    }
+
+    /**
+     * Get socios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSocios()
+    {
+        return $this->socios;
+    }
+
+
+    /**
+     * Add gerente
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $gerente
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function addGerente(\UserBundle\Entity\UsuarioTrabajador $gerente)
+    {
+        $this->gerentes[] = $gerente;
+
+        return $this;
+    }
+
+    /**
+     * Remove gerente
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $gerente
+     */
+    public function removeGerente(\UserBundle\Entity\UsuarioTrabajador $gerente)
+    {
+        $this->gerentes->removeElement($gerente);
+    }
+
+    /**
+     * Get gerentes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGerentes()
+    {
+        return $this->gerentes;
     }
 }

@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * ProyectoPresupuesto.
  *
@@ -32,9 +31,10 @@ class ProyectoPresupuesto
     private $nombrePresupuesto;
 
     /**
-     * Honorarios a recolectar (opcional)
+     * Honorarios a recolectar (opcional).
+     *
      * @var float
-     * @ORM\Column(name="honorarios", type="float")
+     * @ORM\Column(name="honorarios", type="float", nullable = true)
      */
     private $honorarios;
 
@@ -43,9 +43,23 @@ class ProyectoPresupuesto
      */
     private $presupuestoIndividual;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioSocio", inversedBy="presupuestos")
+     * @ORM\JoinTable(name="presupuesto_socios")
+
+     */
+    private $socios;
+    /**
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioTrabajador", inversedBy="presupuestos")
+     * @ORM\JoinTable(name="presupuestos_gerente")
+     */
+    private $gerentes;
+
     public function __construct()
     {
+        $this->socios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gerentes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -119,5 +133,29 @@ class ProyectoPresupuesto
     public function __toString()
     {
         return $this->nombrePresupuesto;
+    }
+
+    /**
+     * Set honorarios.
+     *
+     * @param float $honorarios
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function setHonorarios($honorarios)
+    {
+        $this->honorarios = $honorarios;
+
+        return $this;
+    }
+
+    /**
+     * Get honorarios.
+     *
+     * @return float
+     */
+    public function getHonorarios()
+    {
+        return $this->honorarios;
     }
 }

@@ -12,7 +12,6 @@
                 <th>Nombre Comercial</th>
                 <th>Nombre Corto</th>
                 <th>Servicios Prestados</th>
-                <th>Código SAT</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -24,14 +23,13 @@
                 <td>{{ entity.nombreComercial }}</td>
                 <td>{{ entity.nombreCorto }}</td>
                 <td>{{ entity.serviciosPrestados }}</td>
-                <td>{{ entity.codigoSAT }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a class="btn btn-xs btn-default"href="{{ path('cliente_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-xs btn-default"href="{{ path('cliente_show', { 'id': entity.id }) }}">mostrar</a>
                     </li>
                     <li>
-                        <a class="btn btn-xs btn-default" href="{{ path('cliente_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-xs btn-default" href="{{ path('cliente_edit', { 'id': entity.id }) }}">editar</a>
                     </li>
                 </ul>
                 </td>
@@ -40,11 +38,10 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('cliente_new') }}">
-                Create a new entry
+      
+            <a class="btn btn-primary btn-block" href="{{ path('cliente_new') }}">
+                Crear nuevo cliente
             </a>
-        </li>
-    </ul>
+    <br>
+    <br>
     {% endblock %}

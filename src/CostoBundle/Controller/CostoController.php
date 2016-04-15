@@ -98,6 +98,7 @@ class CostoController extends Controller
         $form = $this->createCreateForm($entity);
 
         return array(
+            'verificador' => true,  //mandar variable a javascript
             'entity' => $entity,
             'form' => $form->createView(),
         );
@@ -166,6 +167,7 @@ class CostoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'verificador' => false, //mandar variable a javascript
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

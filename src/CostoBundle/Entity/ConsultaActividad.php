@@ -45,6 +45,12 @@ class ConsultaActividad
     private $costoTotal;
 
     /**
+     * Se guardar el costo del presupuesto
+     * @var  float
+     */
+    private $costoPresupuesto;
+
+    /**
      * Identificador el registro presupuesto.
      *
      * @var int
@@ -70,13 +76,14 @@ class ConsultaActividad
      * @param int       $horas
      * @param float     $costoTotal
      */
-    public function __construct($actividad, $horas, $horasPresupuesto, $costoTotal)
+    public function __construct($actividad, $horas, $horasPresupuesto, $costoTotal, $costoPresupuesto)
     {
         $this->actividad = $actividad;
         $this->horasCalculadas = $horas;
         $this->horasPresupuesto = $horasPresupuesto;
         $this->diferencia = 0;
         $this->costoTotal = $costoTotal;
+        $this->costoPresupuesto = $costoPresupuesto;
     }
 
     /**
@@ -252,4 +259,16 @@ class ConsultaActividad
     {
         return $this->cliente;
     }
+
+    public function getCostoPresupuesto()
+    {
+        return $this->costoPresupuesto;
+    }
+
+    public function setCostoPresupuesto($costo)
+    {
+        $this->costoPresupuesto = $costo;
+        return $this;
+    }
 }
+

@@ -6,7 +6,13 @@
 
 {% block javascripts %}
     {{ form_javascript(edit_form) }}
-   <script src="{{asset('js/dateModifierEdit.js')}}"></script>
+      <script>
+        //forma de arreglar bug cuando se recarga javascript
+        //en campo de date.
+        var verifier = {{ verificador|json_encode|raw }};
+
+    </script>
+   <script src="{{asset('js/dateModifier.js')}}"></script>
 {% endblock %}
 {% block body -%}
 	<br>
