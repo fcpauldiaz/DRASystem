@@ -19,3 +19,5 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+    consulta.query_controller:
+        class: CostoBundle\Controller\QueryController

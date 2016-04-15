@@ -102,7 +102,9 @@ class ConsultaCostoUsuarioController extends Controller
             $proyecto = $registro->getProyectoPresupuesto();
             $registrosPresupuesto = $this->queryRegistroPresupuestos($proyecto, $usuario);
             $registrosArrayCollection = new \Doctrine\Common\Collections\ArrayCollection($registrosPresupuesto);
-            $returnArray = $this->mergeArrayCollection($returnArray, $registrosArrayCollection);
+            $returnArray = $this
+                 ->get('consulta.query_controller')
+                ->mergeArrayCollectionAction($returnArray, $registrosArrayCollection);
         }
 
         return $returnArray->toArray();
@@ -167,37 +169,5 @@ class ConsultaCostoUsuarioController extends Controller
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * Agregar elemento a un array collection.
-     *
-     * @param ArrayCollection $array1
-     * @param T               $item
-     */
-    private function addArrayCollection($array1, $item)
-    {
-        if (!$array1->contains($item)) {
-            $array1->add($item);
-        }
-
-        return $array1;
-    }
-
-    /**
-     * Unir dos ArrayCollection.
-     *
-     * @param ArrayCollection $array1
-     * @param ArrayCollection $array2
-     *
-     * @return ArrayCollection
-     */
-    private function mergeArrayCollection($array1, $array2)
-    {
-        foreach ($array2 as $item) {
-            if (!$array1->contains($item)) {
-                $array1->add($item);
-            }
-        }
-
-        return $array1;
-    }
+  
 }

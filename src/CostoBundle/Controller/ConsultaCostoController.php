@@ -39,7 +39,7 @@ class ConsultaCostoController extends Controller
             return $this->render(
                 'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
-                    'verificador' => true,
+                    'verificador' => true, //mandar variable a javascript
                     'nombrePresupuesto' => ' ',
                     'consultasPorActividades' => [],
                     'form' => $form->createView(),
@@ -107,7 +107,7 @@ class ConsultaCostoController extends Controller
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
                 [
-                    'verificador' => false,
+                    'verificador' => false, //mandar variable a javascript
                     'consultaUsuario' => $consultaUsuario,
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                     'form' => $form->createView()
@@ -130,7 +130,7 @@ class ConsultaCostoController extends Controller
         return $this->render(
             'CostoBundle:Consulta:consultaPorCliente.html.twig',
             [
-                'verificador' => false,
+                'verificador' => false, //mandar variable a javascript
                 'consultaCliente' => $consultaCliente,
                 'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                 'form' => $form->createView()
@@ -161,7 +161,7 @@ class ConsultaCostoController extends Controller
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                     'consultasPorActividades' => $consultasPorActividades,
                     'proyecto' => $presupuestosIndividuales,
-                    'verificador' => false,
+                    'verificador' => false,  //mandar variable a javascript
                     'form' => $form->createView()
 
                 ]
@@ -396,8 +396,12 @@ class ConsultaCostoController extends Controller
         $returnArray = [];
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin usuarios repetidos
-            $usuariosAsignadosPorProyecto = $this->mergeArrayCollection($usuariosAsignadosPorProyecto, $presupuesto->getUsuariosAsignados());
+            $usuariosAsignadosPorProyecto = $this->get('consulta.query_controller')->mergeArrayCollectionAction(
+                $usuariosAsignadosPorProyecto,
+                $presupuesto->getUsuariosAsignados()
+            );
         }
+      
         $usuariosAsignadosPorProyecto = $usuariosAsignadosPorProyecto->toArray();
 
         return $usuariosAsignadosPorProyecto;
@@ -417,7 +421,10 @@ class ConsultaCostoController extends Controller
         $returnArray = [];
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin clientes repetidos
-            $clientesPorProyecto = $this->addArrayCollection($clientesPorProyecto, $presupuesto->getCliente());
+            //
+            $clientesPorProyecto = $this
+            ->get('consulta.query_controller')
+            ->addArrayCollectionAction($clientesPorProyecto, $presupuesto->getCliente());
         }
 
         $clientesPorProyecto = $clientesPorProyecto->toArray();
@@ -706,37 +713,7 @@ class ConsultaCostoController extends Controller
         return $registrosFiltrados;
     }
 
-    /**
-     * Agregar elemento a un array collection.
-     *
-     * @param ArrayCollection $array1
-     * @param T               $item
-     */
-    private function addArrayCollection($array1, $item)
-    {
-        if (!$array1->contains($item)) {
-            $array1->add($item);
-        }
+  
 
-        return $array1;
-    }
-
-    /**
-     * Unir dos ArrayCollection.
-     *
-     * @param ArrayCollection $array1
-     * @param ArrayCollection $array2
-     *
-     * @return ArrayCollection
-     */
-    private function mergeArrayCollection($array1, $array2)
-    {
-        foreach ($array2 as $item) {
-            if (!$array1->contains($item)) {
-                $array1->add($item);
-            }
-        }
-
-        return $array1;
-    }
+   
 }
