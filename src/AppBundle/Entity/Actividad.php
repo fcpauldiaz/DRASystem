@@ -47,9 +47,9 @@ class Actividad
     /**
      * @var bool
      *
-     * @ORM\Column(name="horaNoCargable", type="boolean")
+     * @ORM\Column(name="actividadNoCargable", type="boolean")
      */
-    private $horaNoCargable;
+    private $actividadNoCargable;
 
     public function __construct()
     {
@@ -147,27 +147,29 @@ class Actividad
         return $this->nombre;
     }
 
+    
+
     /**
-     * Set horaNoCargable.
+     * Set actividadNoCargable
      *
-     * @param bool $horaNoCargable
+     * @param boolean $actividadNoCargable
      *
      * @return Actividad
      */
-    public function setHoraNoCargable($horaNoCargable)
+    public function setActividadNoCargable($actividadNoCargable)
     {
-        $this->horaNoCargable = $horaNoCargable;
+        $this->actividadNoCargable = $actividadNoCargable;
 
         return $this;
     }
 
     /**
-     * Get horaNoCargable.
+     * Get actividadNoCargable
      *
-     * @return bool
+     * @return boolean
      */
-    public function getHoraNoCargable()
+    public function getActividadNoCargable()
     {
-        return $this->horaNoCargable;
+        return $this->actividadNoCargable;
     }
 }

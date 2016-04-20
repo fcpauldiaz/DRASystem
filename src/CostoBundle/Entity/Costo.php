@@ -9,11 +9,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Costo.
  *
  * @ORM\Table()
- * @ORM\Entity
  * @UniqueEntity(fields={"fechaInicio", "fechaFinal","usuario"},
  *     message = "No se puede calcular el costo para un mismo período de un mismo usuario"
  * 
  * )
+ * @ORM\Entity(repositoryClass="CostoRepository")
  */
 class Costo
 {

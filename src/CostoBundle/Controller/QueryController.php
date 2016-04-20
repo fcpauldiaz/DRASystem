@@ -20,8 +20,7 @@ class QueryController
     }
 
      /**
-     * Unir dos ArrayCollection.
-     *
+     * Unir dos ArrayCollection.     
      * @param ArrayCollection $array1
      * @param ArrayCollection $array2
      *

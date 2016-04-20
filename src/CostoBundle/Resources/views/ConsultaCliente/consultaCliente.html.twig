@@ -22,7 +22,22 @@
 
 {% block body -%}
 	<br>
-	{{form(form)}}
+	<h1>Consulta por Clientes</h1>
+	{{ form_start(form)}}
+	<div class="row">
+		<div class="col-md-6">
+			{{form_row(form.fechaInicio)}}
+		</div>
+		<div class="col-md-6">
+			{{form_row(form.fechaFinal)}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			{{form_row(form.cliente)}}
+		</div>
+	</div>
+	{{form_end(form)}}
 	<br>
 	<br>
 
@@ -37,6 +52,7 @@
 	                <th>Costo Horas</th>
 	                <th>Presupuesto Horas</th>
 	                <th>Diferencia</th>
+	                <th>CostoPresupuesto</th>
 	                <th>CostoTotal</th>
 	                
 	            </tr>
@@ -51,6 +67,7 @@
 		                <td>{{consulta.horasCalculadas}}</td>
 		                <td>{{consulta.horasPresupuesto}}</td>
 		                <td>{{consulta.diferencia}}</td>
+		                  <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
 		                <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
 	                 
 	                </tr>
@@ -80,6 +97,14 @@
 	                        </font>
 	                    </b>    
 	                </td>
+	                 <td>
+	                   <b>
+	                        <font color="#27ae60">
+	                            {{sum_costo_presupuesto(consultaCliente) | number_format(2, '.', ', ')}}
+	                        </font>
+	                    </b>
+	                    
+	                </td>
 	                <td>
 	                   <b>
 	                        <font color="#27ae60">
@@ -94,15 +119,10 @@
 	                <td><b>Honorarios<b> </td>
 	                <td> </td>
 	                <td> </td>
-	                <td> 
-	                  
-	                </td>
-	                 <td> 
-	                   
-	                </td>
-	                <td> 
-
-	                </td>
+	                <td>  </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
 	                <td>
 	                   <b>
 	                        <font color="#27ae60">
@@ -118,15 +138,10 @@
 	                <td><b>Utilidad<b> </td>
 	                <td> </td>
 	                <td> </td>
-	                <td> 
-	                  
-	                </td>
-	                 <td> 
-	                   
-	                </td>
-	                <td> 
-
-	                </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
 	                <td>
 	                   <b> {% if utilidad < 0 %}
 	                        <font color="#c0392b">

@@ -22,7 +22,21 @@
 
 {% block body -%}
 	<br>
-	{{form(form)}}
+		{{ form_start(form)}}
+	<div class="row">
+		<div class="col-md-6">
+			{{form_row(form.fechaInicio)}}
+		</div>
+		<div class="col-md-6">
+			{{form_row(form.fechaFinal)}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			{{form_row(form.usuario)}}
+		</div>
+	</div>
+	{{form_end(form)}}
 	<br>
 	<br>
 
@@ -95,6 +109,52 @@
 	                        <font color="#27ae60">
 	                            {{sum_costo(consultaUsuario) | number_format(2, '.', ', ')}}
 	                        </font>
+	                    </b>
+	                    
+	                </td>
+	               
+	        </tr>
+	         <tr>
+	                <td><b>Honorarios<b> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td>  </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td>
+	                   <b>
+	                        <font color="#27ae60">
+	                            {{honorarios | number_format(2, '.', ', ')}}
+	                        </font>
+	                    </b>
+	                    
+	                </td>
+	               
+	        </tr>
+	        {% set utilidad = honorarios - sum_costo(consultaUsuario) %}
+	         <tr>
+	                <td><b>Utilidad<b> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td> </td>
+	                <td>
+	                   <b> {% if utilidad < 0 %}
+	                        <font color="#c0392b">
+	                          
+	                           {{utilidad | number_format(2, '.', ', ')}}
+
+	                        </font>
+	                      	{% else %}
+	                      	 <font color="#000000">
+	                          
+	                           {{utilidad | number_format(2, '.', ', ')}}
+
+	                        </font>  
+	                        {% endif %}
 	                    </b>
 	                    
 	                </td>

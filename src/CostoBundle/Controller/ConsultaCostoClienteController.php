@@ -54,20 +54,25 @@ class ConsultaCostoClienteController extends Controller
             $cliente = $registro->getCliente();
             $horas = $registro->getHorasInvertidas();
             $usuario = $registro->getIngresadoPor();
-            $costo = $this->getQueryCostoPorFechaYUsuario($fechaInicio, $fechaFinal, $usuario);
-            $costoTotal = $horas * $costo;
+            $costo = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('CostoBundle:Costo')
+                ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
+            $costoTotal = $horas * $costo['costo'];
             $actividad = $registro->getActividad();
             $horasPresupuesto = $this->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
-            if ($actividad->getHoraNoCargable() === true) {
+            $costoPresupuesto = $horasPresupuesto * $costo['costo'];
+            if ($actividad->getActividadNoCargable() === true) {
                 $costoTotal = 0;
             }
+
             $consultaCliente = new ConsultaCliente(
                 $cliente,
                 $horas,
                 $horasPresupuesto,
                 $costoTotal
                 );
-
+            $consultaCliente->setCostoPresupuesto($costoPresupuesto);
             $consultaCliente->setActividad($actividad);
             $consultaCliente->calcularDiferencia();
             $consultaCliente->setUsuario($registro->getIngresadoPor());
@@ -81,7 +86,7 @@ class ConsultaCostoClienteController extends Controller
        return $this->render(
             'CostoBundle:ConsultaCliente:consultaCliente.html.twig',
             [
-                 'verificador' => false,
+                'verificador' => false,
                 'honorarios' => $honorarios,
                 'consultaCliente' => $returnArray,
                 'form' => $form->createView(),
@@ -138,31 +143,7 @@ class ConsultaCostoClienteController extends Controller
         return $returnArray->toArray();
     }
 
-    /**
-     * Query para buscar solo un costo por usuario.
-     * Devuelve un costo o null.
-     *
-     * @param DATE    $fechaInicio
-     * @param DATE    $fechaFinal
-     * @param Usuario $usuario
-     *
-     * @return Array Costo de un elemento.
-     */
-    private function getQueryCostoPorFechaYUsuario($fechaInicio, $fechaFinal, $usuario)
-    {
-        $repositoryCosto = $this->getDoctrine()->getRepository('CostoBundle:Costo');
-        $qb = $repositoryCosto->createQueryBuilder('costo');
-        $qb
-            ->select('costo.costo')
-            ->where('costo.fechaInicio = :fechaInicio')
-            ->andWhere('costo.fechaFinal = :fechaFinal')
-            ->andWhere('costo.usuario = :usuario')
-            ->setParameter('fechaInicio', $fechaInicio)
-            ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('usuario', $usuario);
-
-        return $qb->getQuery()->getOneOrNullResult()['costo'];
-    }
+    
 
     private function queryRegistroPresupuestos($proyecto, $cliente)
     {

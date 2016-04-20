@@ -72,13 +72,7 @@ class UsuarioTrabajador extends Usuario
      */
     private $puestos;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="costoPorHora", type="float",nullable=true)
-     */
-    private $costoPorHora;
-
+    
      /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="gerentes")
      * 
@@ -293,29 +287,6 @@ class UsuarioTrabajador extends Usuario
         return $this->puestos->last();
     }
 
-    /**
-     * Set costoPorHora.
-     *
-     * @param float $costoPorHora
-     *
-     * @return UsuarioTrabajador
-     */
-    public function setCostoPorHora($costoPorHora)
-    {
-        $this->costoPorHora = $costoPorHora;
-
-        return $this;
-    }
-
-    /**
-     * Get costoPorHora.
-     *
-     * @return float
-     */
-    public function getCostoPorHora()
-    {
-        return $this->costoPorHora;
-    }
 
     public function __toString()
     {

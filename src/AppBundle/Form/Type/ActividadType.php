@@ -26,8 +26,8 @@ class ActividadType extends AbstractType
                 'label' => 'Abreviatura (opcional)',
                 'required' => false,
             ])
-            ->add('horaNoCargable', null, [
-                'label' => 'Hora no Cargable',
+            ->add('actividadNoCargable', null, [
+                'label' => 'Actividad No cargable',
                 'required' => false,
                 'data' => false,
                 'attr' => [

@@ -1,13 +1,6 @@
-#documento
-UserBundle\Entity\Puesto:
-    puesto{1..100}:
-        tipoPuesto: @tipoPuesto*
-        departamento: @departamento*
-        date: <datetime()>
-        usuario: @usuario*
-
+#Prestaciones de un trabajador
 UserBundle\Entity\DatosPrestaciones:
-    prestaciones{1..100}:
+    prestaciones{1..1000}:
         sueldo: <randomFloat()>
         bonificacionIncentivo: <randomFloat()>
         bonificacionLey: <randomFloat()>
@@ -18,14 +11,105 @@ UserBundle\Entity\DatosPrestaciones:
 
 #usuarios
 UserBundle\Entity\UsuarioTrabajador:
-     usuario{2..300}:
+     usuario{2..2000}:
         nombre: <word()>
         apellidos: <word()>
         direccion: <word()>
-        dpi (unique) : <current()>
-        nit (unique) : <current()>
+        dpi (unique) : <randomDigit()><current()>
+        nit (unique) : <randomDigit()><current()>
         telefono: <word()>
         username (unique): <username()>
         email (unique): <email()>
         password: 'test'
         enabled: true
+        salt: <md5()>
+        locked: <boolean()>
+        expired: <boolean()>
+UserBundle\Entity\UsuarioSocio:
+     socio{2..2000}:
+        nombre: <word()>
+        apellidos: <word()>
+        username (unique): <username()><current()>
+        email (unique): <current()><email()>
+        password: 'test'
+        enabled: true
+        salt: <md5()>
+        locked: <boolean()>
+        expired: <boolean()>
+        credentialsExpired: <boolean()>
+
+UserBundle\Entity\TipoPuesto:
+    tipoPuesto{1..50}:
+        nombrePuesto: <word()>
+        puestos: [@tipoPuesto*]
+        jerarquiaPuestos: [@tipoPuesto*]
+
+UserBundle\Entity\Puesto:
+    puesto{1..100}:
+        tipoPuesto: @tipoPuesto*
+        departamento: @departamento*
+        date: <datetime()>
+        usuario: @usuario*
+
+UserBundle\Entity\Departamento:
+    departamento{1..100}:
+        nombreDepartamento: <word()>
+
+
+AppBundle\Entity\Actividad:
+    actividad{1..100}:
+        nombre: <word()>
+        descripcion: <word()>
+
+AppBundle\Entity\Cliente:
+    cliente{1..10000}:
+        nit (unique): <randomNumber($nbDigits = 7)><current()>
+        razonSocial: <word()>
+        serviciosPrestados: <word()>
+        codigoSat: <randomNumber()>
+        contactos: [@contacto*]
+        numeroContrato: <randomNumber($nbDigits = 8)>
+
+AppBundle\Entity\RegistroHoras:
+    horasQ{1..2000}:
+        fechaHoras: <dateTime()>
+        horasInvertidas: <randomNumber()>
+        actividad: @actividad*
+        cliente: @cliente*
+        ingresadoPor: @usuario*
+        fechaCreacion: <dateTime()>
+        proyectoPresupuesto: @proyecto*
+
+AppBundle\Entity\RegistroHorasPresupuesto:
+    horasP{1..2000}:
+        horasPresupuestadas: <randomNumber()>
+        actividad: @actividad*
+        cliente: @cliente*
+        fechaCreacion: <dateTime()>
+        proyecto: @proyecto*
+        usuariosAsignados: [@usuario*]
+
+AppBundle\Entity\ProyectoPresupuesto:
+    proyecto{1..100}:
+        nombrePresupuesto: <word()>
+        presupuestoIndividual: [@horasP*]
+        honorarios: <randomNumber()>
+        socios: [@socio*]
+        gerentes: [@usuario*]
+
+AppBundle\Entity\ContactoCliente:
+    contacto:{1..1000}:
+        nombreContacto: <word()>
+        puesto: <word()>
+        apellidosContacto: <word()>
+        telefonoContacto: [<word()>]
+        correoContacto: [<email()>]
+        clientes: [@cliente*]
+
+CostoBundle\Entity\Costo:
+    costo:{1..2000}:
+        fechaInicio:    <dateTime()>
+        fechaFinal:     <dateTime()>
+        fechaCreacion:  <dateTime()>
+        costo:      <randomFloat()>
+        usuario: @usuario*

@@ -6,6 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints;
 
 class ProyectoPresupuestoType extends AbstractType
 {
@@ -85,6 +88,7 @@ class ProyectoPresupuestoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
+             'constraints' => new Callback([$this, 'validarActividades']),
         ));
     }
 
@@ -94,5 +98,30 @@ class ProyectoPresupuestoType extends AbstractType
     public function getName()
     {
         return 'appbundle_proyectopresupuesto';
+    }
+
+
+    /**
+     * Validar que no se repitan las actividades dentro un mismo presupuesto
+     *
+     * @param Array                     $data    contiene los datos del formulario
+     * @param ExecutionContextInterface $context
+     */
+    public function validarActividades($data, ExecutionContextInterface $context)
+    {
+
+        $registrosPresupuesto = $data->getPresupuestoIndividual();
+        $actividades = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach($registrosPresupuesto as $registro){
+            $actividadActual = $registro->getActividad();
+            if ($actividades->contains($actividadActual)){
+                 $context->buildViolation('Error: no se deben repetir las actividades en un presupuesto')
+                    ->atPath('proyectopresupuesto_new')
+                    ->addViolation();
+            }
+            $actividades->add($actividadActual);
+        }
+       
+        
     }
 }
