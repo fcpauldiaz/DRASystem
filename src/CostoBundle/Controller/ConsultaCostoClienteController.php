@@ -60,7 +60,11 @@ class ConsultaCostoClienteController extends Controller
                 ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
             $costoTotal = $horas * $costo['costo'];
             $actividad = $registro->getActividad();
-            $horasPresupuesto = $this->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+            
+            $horasPresupuesto = $this
+                ->get('consulta.query_controller')
+                ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+            
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
                 $costoTotal = 0;
@@ -78,7 +82,9 @@ class ConsultaCostoClienteController extends Controller
             $consultaCliente->setUsuario($registro->getIngresadoPor());
             $returnArray[] = $consultaCliente;
         }
-        $honorarios = $this->calcularHonorariosTotales($registros);
+        $honorarios = $this
+            ->get('consulta.query_controller')
+            ->calcularHonorariosTotales($registros);
 
         //buscar presupesto en estas fechas
         //buscar registro horas en estas fechas
@@ -94,46 +100,18 @@ class ConsultaCostoClienteController extends Controller
         );
     }
 
-    private function calcularHorasPresupuesto($registrosPresupuesto, $actividad)
-    {
-        $horasPresupuesto = 0;
-        foreach ($registrosPresupuesto as $presupuesto) {
-            if ($presupuesto->getActividad() == $actividad) {
-                $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
-            }
-        }
-
-        return $horasPresupuesto;
-    }
-
-    private function calcularHonorariosTotales($registros)
-    {
-        $honorarios = 0;
-        //se utilizará este array collection para no usar los honorarios
-        //de un proyecto
-        $proyectosAcum = new \Doctrine\Common\Collections\ArrayCollection();
-
-        foreach ($registros as $registro) {
-            $proyecto = $registro->getProyectoPresupuesto();
-            //condición para no usar los honorarios de un mismo proyecto.
-            if (!$proyectosAcum->contains($proyecto)) {
-                $honorarios += $proyecto->getHonorarios();
-            }
-            //se agrega el proyecto ya analizado
-            $proyectosAcum = $this
-                ->get('consulta.query_controller')
-                ->addArrayCollectionAction($proyectosAcum, $proyecto);
-        }
-
-        return $honorarios;
-    }
 
     private function buscarRegistrosPresupuesto($registros, $cliente)
     {
         $returnArray = new \Doctrine\Common\Collections\ArrayCollection();
         foreach ($registros as $registro) {
             $proyecto = $registro->getProyectoPresupuesto();
-            $registrosPresupuesto = $this->queryRegistroPresupuestos($proyecto, $cliente);
+            $registrosPresupuesto = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:RegistroHorasPresupuesto')
+                ->findByCliente($proyecto, $cliente);
+
             $registrosArrayCollection = new \Doctrine\Common\Collections\ArrayCollection($registrosPresupuesto);
             $returnArray = $this
                 ->get('consulta.query_controller')
@@ -141,23 +119,6 @@ class ConsultaCostoClienteController extends Controller
         }
 
         return $returnArray->toArray();
-    }
-
-    
-
-    private function queryRegistroPresupuestos($proyecto, $cliente)
-    {
-        $repositoryRegistroHorasPresupuesto = $this->getDoctrine()->getRepository('AppBundle:RegistroHorasPresupuesto');
-        $qb = $repositoryRegistroHorasPresupuesto->createQueryBuilder('registro');
-        $qb
-            ->select('registro')
-            ->where('registro.proyecto = :proyecto')
-            ->andWhere('registro.cliente = :cliente')
-            ->setParameter('proyecto', $proyecto)
-            ->setParameter('cliente', $cliente)
-            ;
-
-        return $qb->getQuery()->getResult();
     }
 
     private function queryRegistroHorasPorFecha($fechaInicio, $fechaFinal, $cliente)

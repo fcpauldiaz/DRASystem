@@ -58,11 +58,16 @@ class ConsultaCostoUsuarioController extends Controller
                 ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
             $costoTotal = $horas * $costo['costo'];
             $actividad = $registro->getActividad();
-            $horasPresupuesto = $this->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+
+            $horasPresupuesto = $this
+                ->get('consulta.query_controller')
+                ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+            
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
                 $costoTotal = 0;
             }
+            dump($horasPresupuesto);
             $consultaUsuario = new ConsultaUsuario(
                 $usuario,
                 $horas,
@@ -76,7 +81,9 @@ class ConsultaCostoUsuarioController extends Controller
             $consultaUsuario->calcularDiferencia();
             $returnArray[] = $consultaUsuario;
         }
-        $honorarios = $this->calcularHonorariosTotales($registros);
+       $honorarios = $this
+            ->get('consulta.query_controller')
+            ->calcularHonorariosTotales($registros);
 
         return $this->render(
             'CostoBundle:ConsultaUsuario:consultaUsuario.html.twig',
@@ -90,24 +97,17 @@ class ConsultaCostoUsuarioController extends Controller
 
    }
 
-    private function calcularHorasPresupuesto($registrosPresupuesto, $actividad)
-    {
-        $horasPresupuesto = 0;
-        foreach ($registrosPresupuesto as $presupuesto) {
-            if ($presupuesto->getActividad() == $actividad) {
-                $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
-            }
-        }
-
-        return $horasPresupuesto;
-    }
 
     private function buscarRegistrosPresupuesto($registros, $usuario)
     {
         $returnArray = new \Doctrine\Common\Collections\ArrayCollection();
         foreach ($registros as $registro) {
             $proyecto = $registro->getProyectoPresupuesto();
-            $registrosPresupuesto = $this->queryRegistroPresupuestos($proyecto, $usuario);
+            $registrosPresupuesto = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:RegistroHorasPresupuesto')
+                ->findByUsuario($proyecto, $usuario);
             $registrosArrayCollection = new \Doctrine\Common\Collections\ArrayCollection($registrosPresupuesto);
             $returnArray = $this
                  ->get('consulta.query_controller')
@@ -117,46 +117,10 @@ class ConsultaCostoUsuarioController extends Controller
         return $returnArray->toArray();
     }
 
-    private function calcularHonorariosTotales($registros)
-    {
-        $honorarios = 0;
-        //se utilizará este array collection para no usar los honorarios
-        //de un proyecto
-        $proyectosAcum = new \Doctrine\Common\Collections\ArrayCollection();
-
-        foreach ($registros as $registro) {
-            $proyecto = $registro->getProyectoPresupuesto();
-            //condición para no usar los honorarios de un mismo proyecto.
-            if (!$proyectosAcum->contains($proyecto)) {
-                $honorarios += $proyecto->getHonorarios();
-            }
-            //se agrega el proyecto ya analizado
-            $proyectosAcum = $this
-                ->get('consulta.query_controller')
-                ->addArrayCollectionAction($proyectosAcum, $proyecto);
-        }
-
-        return $honorarios;
-    }
-
-
-       private function queryRegistroPresupuestos($proyecto, $usuario)
-    {
-        $repositoryRegistroHorasPresupuesto = $this->getDoctrine()->getRepository('AppBundle:RegistroHorasPresupuesto');
-        $qb = $repositoryRegistroHorasPresupuesto->createQueryBuilder('registro');
-        $qb
-            ->select('registro')
-            ->where('registro.proyecto = :proyecto')
-            ->leftJoin('registro.usuariosAsignados', 'usuario')
-            ->andWhere('usuario = :usuario')
-            ->setParameter('proyecto', $proyecto)
-            ->setParameter('usuario', $usuario)
-            ;
-
-        return $qb->getQuery()->getResult();
-    }
-
    
+
+
+    
     private function queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario)
     {
         $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');

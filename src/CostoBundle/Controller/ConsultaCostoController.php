@@ -79,7 +79,11 @@ class ConsultaCostoController extends Controller
         //obtener el presupuesto Proyecto presupuesto
         $presupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findOneById($id);
         //obtener los registros que pertencen al proyecto
-        $registros = $this->getQueryRegistroHorasPorProyecto($presupuesto->getProyecto());
+        $registros = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:RegistroHoras')
+            ->findByProyecto($presupuesto->getProyecto());
         //juntar los registros por actividad
         $registrosFiltrados = $this->filtarRegistrosPorActividad($registros, $presupuesto->getActividad());
 
@@ -273,7 +277,11 @@ class ConsultaCostoController extends Controller
     {
         $data = $form->getData();
         //registro horas por proyecto
-        $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
+        $registros = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:RegistroHoras')
+            ->findByProyecto($proyecto);
         $returnArray = [];
 
         foreach ($presupuestosIndividuales as $presupuesto) {
@@ -318,7 +326,13 @@ class ConsultaCostoController extends Controller
     {
         $data = $form->getData();
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
-        $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
+        
+        $registros = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:RegistroHoras')
+            ->findByProyecto($proyecto);
+
         //este ciclo coloca en un array instancias de ConsultaUsuario
         //que guarda el costo por usuario.
         foreach ($usuariosAsignadosPorProyecto as $usuario) {
@@ -364,7 +378,12 @@ class ConsultaCostoController extends Controller
     {
         $returnArray = [];
         $clientesPorProyecto = $this->filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto);
-        $registros = $this->getQueryRegistroHorasPorProyecto($proyecto);
+        
+        $registros = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:RegistroHoras')
+            ->findByProyecto($proyecto);
 
         foreach ($clientesPorProyecto as $cliente) {
             $arrayCostos = $this->calcularHorasPorCliente($cliente, $registros, $form);
@@ -638,24 +657,7 @@ class ConsultaCostoController extends Controller
         return $cantidadHorasPorUsuario;
     }
 
-    /**
-     * Método que devuleve los registros de un Proyecto.
-     *
-     * @param ProyectoPresupuesto $proyecto
-     *
-     * @return RegistroHoras
-     */
-    private function getQueryRegistroHorasPorProyecto($proyecto)
-    {
-        $repositoryRegistro = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
-        $qb = $repositoryRegistro->createQueryBuilder('registro');
-        $qb
-            ->select('registro')
-            ->Where('registro.proyectoPresupuesto = :proyecto')
-            ->setParameter('proyecto', $proyecto);
-
-        return $qb->getQuery()->getResult();
-    }
+  
 
 
    

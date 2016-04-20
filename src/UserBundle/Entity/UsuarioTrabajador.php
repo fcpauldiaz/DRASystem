@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity
+ * 
  * @ORM\Table(name="usuario_trabajador")
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email", targetClass = "UserBundle\Entity\Usuario", message="fos_user.email.already_used")
@@ -16,6 +16,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
+ * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 class UsuarioTrabajador extends Usuario
