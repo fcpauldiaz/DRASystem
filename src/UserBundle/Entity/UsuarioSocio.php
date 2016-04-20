@@ -27,7 +27,6 @@ class UsuarioSocio extends Usuario
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="socios")
-     * 
      */
     private $presupuestos;
 
@@ -37,7 +36,7 @@ class UsuarioSocio extends Usuario
     }
 
     /**
-     * Add presupuesto
+     * Add presupuesto.
      *
      * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
      *
@@ -51,7 +50,7 @@ class UsuarioSocio extends Usuario
     }
 
     /**
-     * Remove presupuesto
+     * Remove presupuesto.
      *
      * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
      */
@@ -61,7 +60,7 @@ class UsuarioSocio extends Usuario
     }
 
     /**
-     * Get presupuestos
+     * Get presupuestos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -70,7 +69,7 @@ class UsuarioSocio extends Usuario
         return $this->presupuestos;
     }
 
-     public function __toString()
+    public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
     }

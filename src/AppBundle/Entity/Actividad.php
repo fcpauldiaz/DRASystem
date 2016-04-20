@@ -147,12 +147,10 @@ class Actividad
         return $this->nombre;
     }
 
-    
-
     /**
-     * Set actividadNoCargable
+     * Set actividadNoCargable.
      *
-     * @param boolean $actividadNoCargable
+     * @param bool $actividadNoCargable
      *
      * @return Actividad
      */
@@ -164,9 +162,9 @@ class Actividad
     }
 
     /**
-     * Get actividadNoCargable
+     * Get actividadNoCargable.
      *
-     * @return boolean
+     * @return bool
      */
     public function getActividadNoCargable()
     {

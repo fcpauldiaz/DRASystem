@@ -18,13 +18,12 @@ class ArrayExtension extends \Twig_Extension
 
     public function sumArrayCostoPresupuesto($consultas = [])
     {
-         $array = [];
+        $array = [];
         foreach ($consultas as $consulta) {
             $array[] = $consulta->getCostoPresupuesto();
         }
 
         return array_sum($array);
-
     }
 
     public function sumArrayHorasInvertidas($consultas = [])

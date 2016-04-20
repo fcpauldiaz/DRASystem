@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 
 /**
- * 
  * @ORM\Table(name="usuario_trabajador")
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email", targetClass = "UserBundle\Entity\Usuario", message="fos_user.email.already_used")
@@ -17,6 +16,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
  * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
+ *
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 class UsuarioTrabajador extends Usuario
@@ -73,10 +73,8 @@ class UsuarioTrabajador extends Usuario
      */
     private $puestos;
 
-    
-     /**
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="gerentes")
-     * 
      */
     private $presupuestos;
 
@@ -288,14 +286,13 @@ class UsuarioTrabajador extends Usuario
         return $this->puestos->last();
     }
 
-
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
     }
 
     /**
-     * Add presupuesto
+     * Add presupuesto.
      *
      * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
      *
@@ -309,7 +306,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Remove presupuesto
+     * Remove presupuesto.
      *
      * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
      */
@@ -319,7 +316,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get presupuestos
+     * Get presupuestos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

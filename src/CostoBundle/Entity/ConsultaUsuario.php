@@ -40,7 +40,8 @@ class ConsultaUsuario
     private $diferencia;
 
     /**
-     * Guarda el costo por hora del usuario
+     * Guarda el costo por hora del usuario.
+     *
      * @var float
      */
     private $costoPorHora;
@@ -53,7 +54,8 @@ class ConsultaUsuario
     private $costoTotal;
 
     /**
-     * Guarda el costo del Presupuesto
+     * Guarda el costo del Presupuesto.
+     *
      * @var float
      */
     private $costoPresupuesto;
@@ -162,6 +164,7 @@ class ConsultaUsuario
     public function setCliente($cliente)
     {
         $this->cliente = $cliente;
+
         return $this;
     }
 
@@ -173,6 +176,7 @@ class ConsultaUsuario
     public function setCostoPresupuesto($costo)
     {
         $this->costoPresupuesto = $costo;
+
         return $this;
     }
 

@@ -45,8 +45,9 @@ class ConsultaActividad
     private $costoTotal;
 
     /**
-     * Se guardar el costo del presupuesto
-     * @var  float
+     * Se guardar el costo del presupuesto.
+     *
+     * @var float
      */
     private $costoPresupuesto;
 
@@ -268,7 +269,7 @@ class ConsultaActividad
     public function setCostoPresupuesto($costo)
     {
         $this->costoPresupuesto = $costo;
+
         return $this;
     }
 }
-

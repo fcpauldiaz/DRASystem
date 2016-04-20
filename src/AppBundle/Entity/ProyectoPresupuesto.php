@@ -159,7 +159,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Add socio
+     * Add socio.
      *
      * @param \UserBundle\Entity\UsuarioSocio $socio
      *
@@ -173,7 +173,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Remove socio
+     * Remove socio.
      *
      * @param \UserBundle\Entity\UsuarioSocio $socio
      */
@@ -183,7 +183,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get socios
+     * Get socios.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -192,9 +192,8 @@ class ProyectoPresupuesto
         return $this->socios;
     }
 
-
     /**
-     * Add gerente
+     * Add gerente.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $gerente
      *
@@ -208,7 +207,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Remove gerente
+     * Remove gerente.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $gerente
      */
@@ -218,7 +217,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get gerentes
+     * Get gerentes.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

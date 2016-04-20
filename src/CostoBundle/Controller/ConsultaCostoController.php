@@ -107,7 +107,7 @@ class ConsultaCostoController extends Controller
             $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
             //Array de entidad Consulta Usuario
             $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form);
-            $honorarios = $proyecto->getHonorarios();
+        $honorarios = $proyecto->getHonorarios();
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
@@ -116,7 +116,7 @@ class ConsultaCostoController extends Controller
                     'verificador' => false, //mandar variable a javascript
                     'consultaUsuario' => $consultaUsuario,
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
                 ]
             );
     }
@@ -136,12 +136,12 @@ class ConsultaCostoController extends Controller
 
         return $this->render(
             'CostoBundle:Consulta:consultaPorCliente.html.twig',
-            [   
+            [
                 'honorarios' => $honorarios,
                 'verificador' => false, //mandar variable a javascript
                 'consultaCliente' => $consultaCliente,
                 'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]
             );
     }
@@ -172,7 +172,7 @@ class ConsultaCostoController extends Controller
                     'consultasPorActividades' => $consultasPorActividades,
                     'proyecto' => $presupuestosIndividuales,
                     'verificador' => false,  //mandar variable a javascript
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
 
                 ]
             );
@@ -326,7 +326,7 @@ class ConsultaCostoController extends Controller
     {
         $data = $form->getData();
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
-        
+
         $registros = $this
             ->getDoctrine()
             ->getManager()
@@ -378,7 +378,7 @@ class ConsultaCostoController extends Controller
     {
         $returnArray = [];
         $clientesPorProyecto = $this->filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto);
-        
+
         $registros = $this
             ->getDoctrine()
             ->getManager()
@@ -397,7 +397,7 @@ class ConsultaCostoController extends Controller
                 $horasPresupuesto,
                 $costo
             );
-            $costoPresupuesto = $costoPresupuesto*$horasPresupuesto;
+            $costoPresupuesto = $costoPresupuesto * $horasPresupuesto;
             $consultaCliente->setCostoPresupuesto($costoPresupuesto);
             $consultaCliente->setCliente($cliente);
             $consultaCliente->calcularDiferencia();
@@ -429,7 +429,7 @@ class ConsultaCostoController extends Controller
                 $presupuesto->getUsuariosAsignados()
             );
         }
-      
+
         $usuariosAsignadosPorProyecto = $usuariosAsignadosPorProyecto->toArray();
 
         return $usuariosAsignadosPorProyecto;
@@ -481,8 +481,7 @@ class ConsultaCostoController extends Controller
         $cantidadHorasPorActividad = 0;
         $costoAcumulado = 0;
         $costoAcumuladoPresupuesto = [];
-         
-       
+
         foreach ($registros as $registro) {
             $registroActividad = $registro->getActividad();
 
@@ -505,24 +504,22 @@ class ConsultaCostoController extends Controller
                     $costoPorHora['costo']
                     );
 
-
                 $costoAcumulado += $costoTotal;
                 $costoAcumuladoPresupuesto[] = $costoPorHora['costo'];
-               
-
             }
         }
         if (count($costoAcumuladoPresupuesto) === 0) {
             $costoAcumuladoPresupuesto[] = 0;
         }
-        if ($actividad->getActividadNoCargable() === true){
-              $costoAcumuladoPresupuesto = [];
-              $costoAcumuladoPresupuesto[] = 0;
-              $costoAcumulado = 0;
-              return [$cantidadHorasPorActividad, $costoAcumulado, array_sum($costoAcumuladoPresupuesto)/count($costoAcumuladoPresupuesto)];
+        if ($actividad->getActividadNoCargable() === true) {
+            $costoAcumuladoPresupuesto = [];
+            $costoAcumuladoPresupuesto[] = 0;
+            $costoAcumulado = 0;
+
+            return [$cantidadHorasPorActividad, $costoAcumulado, array_sum($costoAcumuladoPresupuesto) / count($costoAcumuladoPresupuesto)];
         }
 
-        return [$cantidadHorasPorActividad, $costoAcumulado, array_sum($costoAcumuladoPresupuesto)/count($costoAcumuladoPresupuesto)];
+        return [$cantidadHorasPorActividad, $costoAcumulado, array_sum($costoAcumuladoPresupuesto) / count($costoAcumuladoPresupuesto)];
     }
 
     /**
@@ -538,7 +535,7 @@ class ConsultaCostoController extends Controller
         $cantidadHorasPorUsuario = 0;
         foreach ($registros as $registro) {
             $registroUsuario = $registro->getIngresadoPor();
-            if ($registro->getActividad()->getActividadNoCargable() === true){
+            if ($registro->getActividad()->getActividadNoCargable() === true) {
                 continue;
             }
             if ($usuario == $registroUsuario) {
@@ -596,20 +593,18 @@ class ConsultaCostoController extends Controller
                     $horasInvertidas,
                     $costoPorHora['costo']
                     );
-                if ($registro->getActividad()->getActividadNoCargable() !== true){
-                  
+                if ($registro->getActividad()->getActividadNoCargable() !== true) {
                     $costoAcumulado += $costoTotal;
                     $costoAcumuladoCliente[] = $costoPorHora['costo'];
                 }
             }
-        }   
+        }
         $cantidadArray = count($costoAcumuladoCliente);
-        if ($cantidadArray === 0){
-            $costoAcumuladoCliente[] = 0; 
+        if ($cantidadArray === 0) {
+            $costoAcumuladoCliente[] = 0;
         }
 
-       
-        return [$cantidadHorasCliente, $costoAcumulado, array_sum($costoAcumuladoCliente)/count($costoAcumuladoCliente)];
+        return [$cantidadHorasCliente, $costoAcumulado, array_sum($costoAcumuladoCliente) / count($costoAcumuladoCliente)];
     }
 
     /**
@@ -657,10 +652,6 @@ class ConsultaCostoController extends Controller
         return $cantidadHorasPorUsuario;
     }
 
-  
-
-
-   
     private function getQueryUsuariosPorTipoPuesto($arrayTipoPuestos)
     {
         $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
@@ -696,8 +687,4 @@ class ConsultaCostoController extends Controller
 
         return $registrosFiltrados;
     }
-
-  
-
-   
 }

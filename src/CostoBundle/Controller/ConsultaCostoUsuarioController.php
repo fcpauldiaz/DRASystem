@@ -17,7 +17,7 @@ use CostoBundle\Entity\ConsultaUsuario;
  */
 class ConsultaCostoUsuarioController extends Controller
 {
-	 /**
+    /**
      * @ROUTE("", name="consulta_usuario")
      *
      * @param Request $request [description]
@@ -47,7 +47,7 @@ class ConsultaCostoUsuarioController extends Controller
 
         $registros = $this->queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario);
         $registrosPresupuesto = $this->buscarRegistrosPresupuesto($registros, $usuario);
-         $returnArray = [];
+        $returnArray = [];
         foreach ($registros as $registro) {
             $cliente = $registro->getCliente();
             $horas = $registro->getHorasInvertidas();
@@ -62,7 +62,7 @@ class ConsultaCostoUsuarioController extends Controller
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
                 ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
-            
+
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
                 $costoTotal = 0;
@@ -81,7 +81,7 @@ class ConsultaCostoUsuarioController extends Controller
             $consultaUsuario->calcularDiferencia();
             $returnArray[] = $consultaUsuario;
         }
-       $honorarios = $this
+        $honorarios = $this
             ->get('consulta.query_controller')
             ->calcularHonorariosTotales($registros);
 
@@ -94,9 +94,7 @@ class ConsultaCostoUsuarioController extends Controller
                 'form' => $form->createView(),
             ]
         );
-
-   }
-
+    }
 
     private function buscarRegistrosPresupuesto($registros, $usuario)
     {
@@ -117,10 +115,6 @@ class ConsultaCostoUsuarioController extends Controller
         return $returnArray->toArray();
     }
 
-   
-
-
-    
     private function queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario)
     {
         $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
@@ -137,6 +131,4 @@ class ConsultaCostoUsuarioController extends Controller
 
         return $qb->getQuery()->getResult();
     }
-
-  
 }

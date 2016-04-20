@@ -100,28 +100,24 @@ class ProyectoPresupuestoType extends AbstractType
         return 'appbundle_proyectopresupuesto';
     }
 
-
     /**
-     * Validar que no se repitan las actividades dentro un mismo presupuesto
+     * Validar que no se repitan las actividades dentro un mismo presupuesto.
      *
      * @param Array                     $data    contiene los datos del formulario
      * @param ExecutionContextInterface $context
      */
     public function validarActividades($data, ExecutionContextInterface $context)
     {
-
         $registrosPresupuesto = $data->getPresupuestoIndividual();
         $actividades = new \Doctrine\Common\Collections\ArrayCollection();
-        foreach($registrosPresupuesto as $registro){
+        foreach ($registrosPresupuesto as $registro) {
             $actividadActual = $registro->getActividad();
-            if ($actividades->contains($actividadActual)){
-                 $context->buildViolation('Error: no se deben repetir las actividades en un presupuesto')
+            if ($actividades->contains($actividadActual)) {
+                $context->buildViolation('Error: no se deben repetir las actividades en un presupuesto')
                     ->atPath('proyectopresupuesto_new')
                     ->addViolation();
             }
             $actividades->add($actividadActual);
         }
-       
-        
     }
 }

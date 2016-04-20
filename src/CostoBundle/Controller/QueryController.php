@@ -4,9 +4,10 @@ namespace CostoBundle\Controller;
 
 class QueryController
 {
-   /**
+    /**
      * Agregar elemento a un array collection.
-     *p
+     *p.
+     *
      * @param ArrayCollection $array1
      * @param T               $item
      */
@@ -19,8 +20,9 @@ class QueryController
         return $array1;
     }
 
-     /**
+    /**
      * Unir dos ArrayCollection.     
+     *
      * @param ArrayCollection $array1
      * @param ArrayCollection $array2
      *
@@ -33,6 +35,7 @@ class QueryController
                 $array1->add($item);
             }
         }
+
         return $array1;
     }
 
@@ -68,5 +71,4 @@ class QueryController
 
         return $horasPresupuesto;
     }
-
 }

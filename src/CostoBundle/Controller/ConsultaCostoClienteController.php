@@ -60,11 +60,11 @@ class ConsultaCostoClienteController extends Controller
                 ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
             $costoTotal = $horas * $costo['costo'];
             $actividad = $registro->getActividad();
-            
+
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
                 ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
-            
+
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
                 $costoTotal = 0;
@@ -99,7 +99,6 @@ class ConsultaCostoClienteController extends Controller
             ]
         );
     }
-
 
     private function buscarRegistrosPresupuesto($registros, $cliente)
     {
@@ -137,5 +136,4 @@ class ConsultaCostoClienteController extends Controller
 
         return $qb->getQuery()->getResult();
     }
-
 }
