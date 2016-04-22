@@ -46,7 +46,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control input-lg',
-                    'placeholder' => 'Correo electrónico',
+                    'placeholder' => 'Correo electrónico @diazreyes.com',
                 ],
             ])
 
