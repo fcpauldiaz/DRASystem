@@ -27,7 +27,11 @@
             </tr>
             <tr>
                 <th>Otras Prestaciones</th>
-                <td>{{ entity.otrasPrestaciones | number_format(2, '.', ', ')}}</td>
+                <td>{{ entity.cargosIndirectos | number_format(2, '.', ', ')}}</td>
+            </tr>
+             <tr>
+                <th>Otras Prestaciones</th>
+                <td>{{ entity.viaticos | number_format(2, '.', ', ')}}</td>
             </tr>
             <tr>
                 <th>Otros</th>
@@ -68,13 +72,13 @@
         </a>
     </li>
     <br>
-    <li>{{ form(delete_form) }}</li>
+    
 </ul>
 </div>
 <div class="col-md-6">
     
      {{ render(controller(
-        'UserBundle:Puesto:show',
+        'UserBundle:Puesto:showPlain',
         {'id': app.user.puestos.last().id}
     )) }}
    

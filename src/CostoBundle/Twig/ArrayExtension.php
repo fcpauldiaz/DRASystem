@@ -13,7 +13,13 @@ class ArrayExtension extends \Twig_Extension
         new \Twig_SimpleFunction('sum_diferencia', array($this, 'sumArrayDiferencia')),
         new \Twig_SimpleFunction('sum_costo_hora', array($this, 'sumArrayCostoPorHora')),
         new \Twig_SimpleFunction('sum_costo_presupuesto', array($this, 'sumArrayCostoPresupuesto')),
+        new \Twig_SimpleFunction('sum_array', array($this, 'sumArray')),
     );
+    }
+
+    public function sumArray($array = [])
+    {
+        return array_sum($array);
     }
 
     public function sumArrayCostoPresupuesto($consultas = [])

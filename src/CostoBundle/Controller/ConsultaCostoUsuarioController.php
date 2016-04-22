@@ -67,7 +67,7 @@ class ConsultaCostoUsuarioController extends Controller
             if ($actividad->getActividadNoCargable() === true) {
                 $costoTotal = 0;
             }
-            dump($horasPresupuesto);
+
             $consultaUsuario = new ConsultaUsuario(
                 $usuario,
                 $horas,

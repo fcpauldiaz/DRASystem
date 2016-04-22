@@ -59,11 +59,20 @@ class DatosPrestacionesType extends AbstractType
                 'grouping' => true,
             ])
 
-            ->add('otrasPrestaciones', 'money', [
+            ->add('cargosIndirectos', 'money', [
                 'currency' => 'GTQ',
                 'label' => 'Otras prestaciones',
                 'attr' => [
                     'placeholder' => 'Otras prestaciones',
+                    'class' => 'form-control input-lg',
+                ],
+                'required' => false,
+            ])
+              ->add('viaticos', 'money', [
+                'currency' => 'GTQ',
+                'label' => 'Viáticos',
+                'attr' => [
+                    'placeholder' => 'Viáticos',
                     'class' => 'form-control input-lg',
                 ],
                 'required' => false,

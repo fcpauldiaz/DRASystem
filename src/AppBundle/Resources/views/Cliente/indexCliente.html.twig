@@ -26,11 +26,13 @@
                 <td>
                 <ul>
                     <li>
-                        <a class="btn btn-xs btn-default"href="{{ path('cliente_show', { 'id': entity.id }) }}">mostrar</a>
+                        <a class="btn btn-xs btn-default"href="{{ path('cliente_show', { 'id': entity.id }) }}">Mostrar</a>
                     </li>
-                    <li>
-                        <a class="btn btn-xs btn-default" href="{{ path('cliente_edit', { 'id': entity.id }) }}">editar</a>
-                    </li>
+                    {% if is_granted('ROLE_GERENTE') %}
+                        <li>
+                            <a class="btn btn-xs btn-default" href="{{ path('cliente_edit', { 'id': entity.id }) }}">Editar</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 </td>
             </tr>

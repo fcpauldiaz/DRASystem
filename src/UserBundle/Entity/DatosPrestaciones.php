@@ -59,9 +59,16 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="otrasPrestaciones", type="float", nullable=true)
+     * @ORM\Column(name="cargosIndirectos", type="float", nullable=true)
      */
-    private $otrasPrestaciones;
+    private $cargosIndirectos;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="viaticos", type="float", nullable=true)
+     */
+    private $viaticos;
 
     /**
      * @var float
@@ -251,30 +258,6 @@ class DatosPrestaciones
     }
 
     /**
-     * Set otrasPrestaciones.
-     *
-     * @param float $otrasPrestaciones
-     *
-     * @return DatosPrestaciones
-     */
-    public function setOtrasPrestaciones($otrasPrestaciones)
-    {
-        $this->otrasPrestaciones = $otrasPrestaciones;
-
-        return $this;
-    }
-
-    /**
-     * Get otrasPrestaciones.
-     *
-     * @return float
-     */
-    public function getOtrasPrestaciones()
-    {
-        return $this->otrasPrestaciones;
-    }
-
-    /**
      * Set otros.
      *
      * @param float $otros
@@ -453,7 +436,8 @@ class DatosPrestaciones
                  $this->getBonificacionLey() +
                  $this->getGasolina() +
                  $this->getPrestacionesSobreSueldo() +
-                 $this->getOtrasPrestaciones() +
+                 $this->getCargosIndirectos() +
+                 $this->getViaticos() +
                  $this->getOtros() +
                  $this->getIndemnizacion() +
                  $this->getAguinaldo() +
@@ -461,6 +445,54 @@ class DatosPrestaciones
                  $this->getIgss();
 
         return $total;
+    }
+
+    /**
+     * Set cargosIndirectos.
+     *
+     * @param float $cargosIndirectos
+     *
+     * @return DatosPrestaciones
+     */
+    public function setCargosIndirectos($cargosIndirectos)
+    {
+        $this->cargosIndirectos = $cargosIndirectos;
+
+        return $this;
+    }
+
+    /**
+     * Get cargosIndirectos.
+     *
+     * @return float
+     */
+    public function getCargosIndirectos()
+    {
+        return $this->cargosIndirectos;
+    }
+
+    /**
+     * Set viaticos.
+     *
+     * @param float $viaticos
+     *
+     * @return DatosPrestaciones
+     */
+    public function setViaticos($viaticos)
+    {
+        $this->viaticos = $viaticos;
+
+        return $this;
+    }
+
+    /**
+     * Get viaticos.
+     *
+     * @return float
+     */
+    public function getViaticos()
+    {
+        return $this->viaticos;
     }
 
     public function __toString()

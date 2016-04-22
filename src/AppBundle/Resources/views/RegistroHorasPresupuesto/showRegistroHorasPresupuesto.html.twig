@@ -37,14 +37,18 @@
             </tr>
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_GERENTE') %}
         <ul class="record_actions">
-    
-    <li>
-        <a class="btn btn-default" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        
+            <li>
+                <a class="btn btn-default" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
+                    Editar
+                </a>
+            </li>
+            {% if is_granted('ROLE_GERENTE') %}
+                    <li>{{ form(delete_form) }}</li>
+            {% endif %}
+
+        </ul>
+    {% endif %}
 {% endblock %}

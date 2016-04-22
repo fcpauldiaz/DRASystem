@@ -1,16 +1,25 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Puesto edit</h1>
+    <h1>Editar Puesto</h1>
 
-    {{ form(edit_form) }}
+  	{{form_start(form)}}
+  	{% form_theme form _self %}
+
+    {% block _userbundle_puesto_date %}
+        <div class="form-inline">
+            
+           {{ form_row(form.date)}}
+         </div>
+       
+    {% endblock %}
+  	{{form_end(form)}}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('puesto') }}">
-            Back to the list
+        <a class="btn btn-default" href="{{ path('puesto') }}">
+            Regresar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

@@ -38,16 +38,19 @@
            {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_GERENTE') %}
         <ul class="record_actions">
   
-    <li>
-        <a class="btn btn-default" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <li>
+                <a class="btn btn-default" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">
+                    Editar
+                </a>
+            </li>
+
+            <li>{{ form(delete_form) }}</li>
+
+        </ul>
+    {% endif %}
 {% set contador = 0 %}
 {% for presupuesto in entity.presupuestoIndividual %}
     {% include 'AppBundle:ProyectoPresupuesto:modal_showProyectoPresupuesto.html.twig' %}

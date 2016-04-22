@@ -150,7 +150,6 @@ class DatosPrestacionesController extends Controller
 
         return array(
             'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
 
         );
     }
@@ -178,7 +177,6 @@ class DatosPrestacionesController extends Controller
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -264,7 +262,7 @@ class DatosPrestacionesController extends Controller
      * Creates a form to delete a DatosPrestaciones entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * 
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)

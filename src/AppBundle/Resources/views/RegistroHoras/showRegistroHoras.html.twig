@@ -38,7 +38,7 @@
 
         <ul class="record_actions">
     <li>
-        <a class="btn btn-default" href="{{ path('registrohoras_new') }}">
+        <a class="btn btn-primary" href="{{ path('registrohoras_new') }}">
            Ingresar nuevo registro
         </a>
     </li>
@@ -55,7 +55,9 @@
         </a>
     </li>
     <br>
-    <li>{{ form(delete_form) }}</li>
+    {% if is_granted('ROLE_GERENTE') %}
+        <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 <br>
 <br>

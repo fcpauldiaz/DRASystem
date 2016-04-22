@@ -45,5 +45,7 @@
             Editar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% if is_granted('ROLE_GERENTE') %}
+        <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>

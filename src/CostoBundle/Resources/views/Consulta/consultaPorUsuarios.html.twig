@@ -75,7 +75,7 @@
                 <td>{{entity.costoPorHora | number_format(2, '.', ', ')}}</td>
                 <td>{{entity.costoTotal | number_format(2, '.', ', ')}}</td>
                    <td>
-                    <a  href="{{ path('presupuesto_individual_usuario', { 'nombrePresupuesto': nombrePresupuesto , 'usuario_id' : entity.usuario.id}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
+                    <a  href="{{ path('presupuesto_individual_usuario', { 'nombrePresupuesto': nombrePresupuesto , 'usuario_id' : entity.usuario.id, 'fechaInicio':fechaInicio, 'fechaFinal' : fechaFinal}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                 </td>
                 </tr>
             {% endfor %}

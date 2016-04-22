@@ -16,13 +16,14 @@
                 <th>Fecha de ingreso</th>
                 <th>Horas invertidas (costo)</th>
                 <th>Presupuesto Acumulado</th>
+                <th>CostoReal</th>
                 
             </tr>
         </thead>
         <tbody>
-             {% set pActual = presupuesto %}
+            {% set pActual = presupuesto %}
             {% for registro in registros %}
-
+            {% set cont = 0 %}
             <tr>
                 <td>{{registro.ingresadoPor}}</td>
                 <td>{{registro.actividad}}</td>
@@ -33,11 +34,36 @@
                 <td>{{registro.horasInvertidas}}</td>
                 {% set pActual = pActual - registro.horasInvertidas %}
                 <td>{{pActual}}</td>
+                {% if costoReal is not empty %}
+                    <td>{{costoReal[cont]  | number_format(2, '.', ', ')}}</td>
+                {% else %}
+                    <td> 0.00 </td>
+                {% endif %}
                
+                {% set cont = cont + 1 %}
 
 
             </tr>
             {% endfor %}
+             <tr>
+                <td><b>Total<b> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> 
+                    <b>
+                        <font color="#000000"> 
+                            {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                        </font>
+                    </b>
+                </td>
+                
+
+            </tr>
         </tbody>
     </table>
     

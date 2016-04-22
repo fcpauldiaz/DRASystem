@@ -85,7 +85,8 @@
                     <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
                     <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
                     <td>
-                    	<a  href="{{ path('presupuesto_individual', { 'id': consulta.presupuestoId }) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
+                        
+                    	<a  href="{{ path('presupuesto_individual', { 'id': consulta.presupuestoId , 'fechaInicio' : fechaInicio, 'fechaFinal' : fechaFinal}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                     </td>
                 </tr>
                

@@ -149,11 +149,29 @@ class PuestoController extends Controller
             throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        return array(
+            'entity' => $entity,
+        );
+    }
+    /**
+     * Finds and displays a Puesto entity.
+     *
+     * @Route("/{id}", name="puesto_show_plain")
+     * @Method("GET")
+     * @Template("UserBundle:Puesto:showPuestoPlain.html.twig")
+     */
+    public function showPlainAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('UserBundle:Puesto')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Puesto entity.');
+        }
 
         return array(
             'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -162,7 +180,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}/edit", name="puesto_edit")
      * @Method("GET")
-     * @Template("UserBundle:Puesto:showPuesto.html.twig")
+     * @Template("UserBundle:Puesto:editPuesto.html.twig")
      */
     public function editAction($id)
     {
@@ -175,12 +193,10 @@ class PuestoController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form' => $editForm->createView(),
         );
     }
 
@@ -219,7 +235,6 @@ class PuestoController extends Controller
             throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -232,7 +247,6 @@ class PuestoController extends Controller
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         );
     }
     /**

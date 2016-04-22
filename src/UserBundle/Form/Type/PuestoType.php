@@ -39,6 +39,7 @@ class PuestoType extends AbstractType
                 'data' => new \DateTime(),
                 'attr' => [
                     'class' => 'select2',
+                    'help_text' => 'Fecha de obtención del puesto',
 
                 ],
                 'years' => [

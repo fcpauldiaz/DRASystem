@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+
+{% block javascriptDataTables %}
+    
+    <script src = {{asset('js/datatables/dataTablesCliente.js')}}>
+    </script>
+{% endblock %}
 {% block body -%}
 	<br>
 	<br>
@@ -14,13 +20,15 @@
                 <th>Cliente</th>
                 <th>Fecha de las horas invertidas</th>
                 <th>Fecha de ingreso</th>
-                <th>Horas invertidas (costo)</th>
+                <th>Horas invertidas</th>
                 <th>Presupuesto Acumulado</th>
+                <th>CostoReal</th>
                 
             </tr>
         </thead>
         <tbody>
             {% set pActual = presupuesto %}
+            {% set cont = 0 %}
             {% for registro in registros %}
 
             <tr>
@@ -33,11 +41,35 @@
                 <td>{{registro.horasInvertidas}}</td>
                 {% set pActual = pActual - registro.horasInvertidas %}
                 <td>{{pActual}}</td>
+                {% if costoReal is not empty %}
+                    <td>{{costoReal[cont]  | number_format(2, '.', ', ')}}</td>
+                {% else %}
+                    <td> 0.00 </td>
+                {% endif %}
                
-
+                {% set cont = cont + 1 %}
 
             </tr>
             {% endfor %}
+            <tr>
+                <td><b>Total<b> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> 
+                    <b>
+                        <font color="#000000"> 
+                            {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                        </font>
+                    </b>
+                </td>
+                
+
+            </tr>
         </tbody>
     </table>
     

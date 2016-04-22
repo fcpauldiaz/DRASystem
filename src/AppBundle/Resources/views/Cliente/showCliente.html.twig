@@ -48,11 +48,13 @@
            Ver todos los clientes
         </a>
     </li>
-    <li>
-        <a class="btn btn-warning" href="{{ path('cliente_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+    {% if is_granted('ROLE_GERENTE') %}
+        <li>
+            <a class="btn btn-warning" href="{{ path('cliente_edit', { 'id': entity.id }) }}">
+                Editar
+            </a>
+            </li>
+        <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 {% endblock %}
