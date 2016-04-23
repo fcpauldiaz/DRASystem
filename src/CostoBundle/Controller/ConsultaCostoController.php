@@ -106,10 +106,11 @@ class ConsultaCostoController extends Controller
      * @return Response
      */
     public function consultaPorUsuariosAction($proyecto, $form)
-    {       //Obtener todos los registros de presupuesto de un proyecto
-            $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
-            //Array de entidad Consulta Usuario
-            $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form);
+    {    
+        //Obtener todos los registros de presupuesto de un proyecto
+        $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
+        //Array de entidad Consulta Usuario
+        $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form);
         $honorarios = $proyecto->getHonorarios();
 
         $fechaInicio = 'not defined';

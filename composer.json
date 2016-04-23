@@ -31,7 +31,8 @@
         "ibrows/loggable-bundle": "^2.2",
         "leafo/scssphp": "^0.6.3",
         "patchwork/jsqueeze": "~1.0",
-        "cspoo/swiftmailer-mailgun-bundle": "dev-master"
+        "cspoo/swiftmailer-mailgun-bundle": "dev-master",
+        "liuggio/excelbundle": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8",

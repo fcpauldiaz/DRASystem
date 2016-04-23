@@ -16,14 +16,21 @@
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar <b class="caret"></b></a>
               <ul class="dropdown-menu">
+                {% if is_granted('ROLE_SUPERVISOR') %}
                 <li><a href="{{ path('cliente_new')}}">Clientes</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_GERENTE') %}
                 <li><a href="{{ path('actividad_new')}}">Actividades</a></li>
+                {% endif %}
+
+              
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección Horas</li>
                 <li><a href="{{ path('registrohoras_new')}}">Horas Realizadas</a></li>
                 <li><a href="{{ path('proyectopresupuesto_new')}}">Proyecto Presupuesto</a></li>
              </ul>
             </li>
+            {% if is_granted('ROLE_GERENTE') %}
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -39,20 +46,15 @@
                     <li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
                      <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">Sección usuarios</li>
+                <li class="dropdown-header">Aprobación de horas</li>
                 {% if is_granted('ROLE_SOCIO') and app.user %}
-                <li><a href="/admin">Administración</a>
-                {% endif %}
-                 {% if is_granted('ROLE_SUPERVISOR') and app.user %}
-                <li><a href="{{path('mostrar_usuarios')}}">Ver datos asistentes</a></li>
-                {% else %}
-                  
-                <li><a href="{{path('mostrar_usuarios')}}">Ver datos supervisores</a></li>
+                <li><a href="/admin">Administración</a></li>
                 {% endif %}
                
-              </ul>
-            </li>
-           
+                <li><a href="{{path('mostrar_usuarios')}}">Revisar horas</a></li>
+                </ul>
+              
+            {% endif %}
           </ul>
           {% if app.user %}
             {% if app.session.flashbag.has('warning') %}

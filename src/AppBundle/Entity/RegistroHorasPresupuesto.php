@@ -24,7 +24,7 @@ class RegistroHorasPresupuesto
     /**
      * @var int
      *
-     * @ORM\Column(name="horasPresupuestadas", type="integer")
+     * @ORM\Column(name="horasPresupuestadas", type="float")
      */
     private $horasPresupuestadas;
 

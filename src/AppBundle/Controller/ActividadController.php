@@ -40,6 +40,7 @@ class ActividadController extends Controller
      * Creates a new Actividad entity.
      *
      * @Route("/", name="actividad_create")
+     * @Security("is_granted('ROLE_GERENTE')")
      * @Method("POST")
      * @Template("AppBundle:Actividad:newActividad.html.twig")
      */

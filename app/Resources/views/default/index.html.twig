@@ -46,10 +46,16 @@
           <div class="dropup">
               <a  class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Consultas  <b class="caret"></b></a>
               <ul class="dropdown-menu">
+                {% if is_granted('ROLE_GERENTE') %} 
                 <li><a href="{{ path('presupuesto_horas')}}">Costos por presupuesto</a></li>
                 <li><a href="{{ path('consulta_cliente')}}">Costos por Cliente</a></li>
                  <li><a href="{{ path('consulta_usuario')}}">Costos por Usuario</a></li>
                   <li><a href="{{ path('consulta_socio')}}">Costos por Socio</a></li>
+                {% else %}
+                <li>
+                    <a href="">Solo los gerentes pueden realizar consultas</a>
+                </li>
+                {% endif %}
               </ul>
         </div>
         </div>

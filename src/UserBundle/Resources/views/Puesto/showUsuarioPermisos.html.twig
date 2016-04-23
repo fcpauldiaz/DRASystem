@@ -7,6 +7,7 @@
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Puesto</th>
+                    <th>Acción</th>
                     
                 </tr>
             </thead>
@@ -17,24 +18,15 @@
                     <td>{{usuario.nombre}} </td>
                     <td>{{usuario.apellidos}} </td>
                     <td>{{usuario.puestos.last}}</td>
-                    {#<td>
-                        <ul>
-                            <li>
-                                <a class="btn btn-default btn-xs" href="{{ path('puesto_show', { 'id': usuario.id }) }}">Mostrar</a>
-                            </li>
-                            <li>
-                                <a class="btn btn-default btn-xs"href="{{ path('puesto_edit', { 'id': usuario.id }) }}">Editar</a>
-                            </li>
-                        </ul>
-                    </td>#}
+                    <td>
+                            <a href="{{path('revisar_horas', { 'usuario_id':usuario.id})}}"
+                            class="btn btn-info btn-sm">Revisar horas</a> 
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <br>
-        <a class="btn btn-block btn-default" href="{{ path('puesto_new') }}">
-        Crear Nuevo Puesto
-        </a>
+      
         <br>
         <br>
         <br>

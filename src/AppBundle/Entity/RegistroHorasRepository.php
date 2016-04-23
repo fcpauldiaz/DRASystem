@@ -31,4 +31,21 @@ class RegistroHorasRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHoras', 'registro')
+            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->andWhere('registro.fechaHoras <= :fechaFinal')
+            ->andWhere('registro.ingresadoPor = :usuario')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('usuario', $usuario);
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+  
+    {% block javascripts %}
+        {{ form_javascript(form) }}
+        <script src="{{asset('js/ajaxAprobacionHoras.js')}}"></script>
+        <script>
+            ajaxAprobacionHoras();
+            ajaxQuitarAprobacionHoras();
+            ajaxEnvioAvisoHoras();
+        </script>
+        <script src = "{{asset('js/initializeHover.js')}}"></script>
+ {% endblock %}
+        
+    {% block body -%}
+        <br>
+        <br>
+        <h1>Buscar registros por fecha</h1>
+            {{form_start(form)}}
+            <div class="row">
+                <div class="col-md-6">
+                {% form_theme form _self %}
+
+                {% block _consulta_aprobacionhoras_fechaInicio %}
+                    <div class="form-inline">
+                        
+                       {{ form_row(form.fechaInicio)}}
+                     </div>
+                   
+                {% endblock %}
+                </div>
+                <div class="col-md-6">
+                     {% form_theme form _self %}
+
+                    {% block _consulta_aprobacionhoras_fechaFinal %}
+                        <div class="form-inline">
+                            
+                           {{ form_row(form.fechaFinal)}}
+                         </div>
+                       
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                    {{form_row(form.submit)}}
+               </div>
+            </div>
+            {{form_end(form)}}
+        <br>
+        <br>
+        <h2>Horas Realizadas por {{usuario}}</h1>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Actividad</th>
+                    <th>Fecha Horas Invertidas</th>
+                    <th>Fecha Horas Ingreso</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if registros is not empty %}
+                {% for registro in registros %}
+                    
+                <tr>
+                    <td>{{registro.ingresadoPor}} </td>
+                    <td>{{registro.actividad}} </td>
+                    <td>{{registro.fechaHoras | date('d-m-Y')}}</td>
+                    <td>{{registro.fechaCreacion | date('d-m-Y')}}</td>
+                    {% if registro.aprobado == false %}
+                    <td>
+                            <a class="btn btn-info btn-sm aprobarHoras" href="{{           path('aprobar_horas', {'idRegistro' : registro.id })}}">Aprobar horas</a> 
+                    </td>
+                    {% endif %}
+
+                    {% if registro.aprobado == true %}
+                          <td>
+                            <a class="btn btn-danger btn-sm quitarHoras" href="{{           path('aprobar_horas', {'idRegistro' : registro.id })}}">Aprobado</a> 
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+         <a class="btn btn-primary btn-lg btn-bloci enviarCorreo" href="{{           path('avisar_horas_no_aprobadas', {'usuario_id' : usuario.id })}}">Mandar correo a {{usuario.nombre}} de todas las horas no aprobadas</a> 
+        <br>
+        <br>
+    {% endblock %}

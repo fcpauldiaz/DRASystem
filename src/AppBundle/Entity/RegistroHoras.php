@@ -31,7 +31,7 @@ class RegistroHoras
     /**
      * @var int
      *
-     * @ORM\Column(name="horasInvertidas", type="integer")
+     * @ORM\Column(name="horasInvertidas", type="float")
      */
     private $horasInvertidas;
 
@@ -69,9 +69,16 @@ class RegistroHoras
      */
     private $proyectoPresupuesto;
 
+    /**
+     * @ORM\Column(name="aprobado", type="boolean")
+     * @var [type]
+     */
+    private $aprobado;
+
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
+        $this->aprobado = false;
     }
     /**
      * Get id.
@@ -128,7 +135,11 @@ class RegistroHoras
      */
     public function getHorasInvertidas()
     {
-        return $this->horasInvertidas;
+        if ($this->aprobado === true ){
+            return $this->horasInvertidas;
+        }
+
+        return 0;
     }
 
     /**
@@ -254,5 +265,29 @@ class RegistroHoras
     public function __toString()
     {
         return $this->getActividad()->__toString();
+    }
+
+    /**
+     * Set aprobado
+     *
+     * @param boolean $aprobado
+     *
+     * @return RegistroHoras
+     */
+    public function setAprobado($aprobado)
+    {
+        $this->aprobado = $aprobado;
+
+        return $this;
+    }
+
+    /**
+     * Get aprobado
+     *
+     * @return boolean
+     */
+    public function getAprobado()
+    {
+        return $this->aprobado;
     }
 }
