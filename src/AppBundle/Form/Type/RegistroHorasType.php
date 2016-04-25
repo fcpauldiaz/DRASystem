@@ -59,7 +59,16 @@ class RegistroHorasType extends AbstractType
             ->add('ingresadoPor', 'entity', [
                 'class' => 'UserBundle:Usuario',
                 'data' => $this->usuario,
+                'attr' => [
+                    'help_text' => 'Usuario que realizó las horas',
+                ],
 
+            ])
+             ->add('horasExtraordinarias', null, [
+                'label' => 'Horas Extraordinarias',
+                'attr' => [
+                    'help_text' => 'Marque esta opción si las horas que está ingresando son extraordinarias',
+                ],
             ])
 
             ->add('submit', 'submit', [

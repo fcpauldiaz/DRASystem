@@ -46,8 +46,8 @@ class ConsultaAprobacionHorasType extends AbstractType
             ->add('submit', 'submit', [
                 'label' => 'Buscar',
                 'attr' => [
-                    'class' => 'btn btn-primary btn-block'
-                 ]
+                    'class' => 'btn btn-primary btn-block',
+                 ],
             ])
         ;
     }
@@ -58,7 +58,7 @@ class ConsultaAprobacionHorasType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            
+
         ));
     }
 

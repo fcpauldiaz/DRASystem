@@ -111,6 +111,17 @@ class ConsultaPresupuestoType extends AbstractType
                         'required' => false,
 
                     ])
+            ->add('horas_extraordinarias', 'choice', [
+                'choices' => [
+                    'Sí' => 0,
+                    'No' => 1,
+                ],
+                'label' => '¿Incluir horas extraordinarias?',
+                'required' => true,
+                // always include this
+                'choices_as_values' => true,
+
+            ])
 
             ->add('submit', SubmitType::class,
                 [

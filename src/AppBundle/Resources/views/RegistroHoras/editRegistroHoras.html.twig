@@ -1,16 +1,38 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>RegistroHoras edit</h1>
+    <h1>Editar Registro de horas</h1>
+    {% form_theme edit_form _self %}
+  
+    {{ form_start(edit_form)}}
+    {{ form_row(edit_form.proyectoPresupuesto)}}
+    
+     <div class="row">
+         <div class="col-md-6">
+     {% block appbundle_registrohoras_fechaHoras %}
+            <div class="form-inline">
+                
+              {{ form_row(edit_form.fechaHoras)}}
+             </div>
+           
+     {% endblock %}
+     	</div>
+     </div>
+      {{ form_row(edit_form.cliente)}}
+      {{ form_row(edit_form.actividad)}}
+      {{ form_row(edit_form.horasInvertidas)}}
+      {{ form_row(edit_form.ingresadoPor)}}
+      {{ form_row(edit_form.submit)}}
 
-    {{ form(edit_form) }}
+    {{ form_end(edit_form)}}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('registrohoras') }}">
-            Back to the list
+        <a class="btn btn-primary" href="{{ path('registrohoras') }}">
+           Ver todos los registros
         </a>
     </li>
+    <li> </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

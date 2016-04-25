@@ -32,6 +32,9 @@
         <div class="col-md-6">
             {{form_row(form.costo_monetario)}}
         </div>
+         <div class="col-md-6">
+            {{form_row(form.horas_extraordinarias)}}
+        </div>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -86,7 +89,7 @@
                     <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
                     <td>
                         
-                    	<a  href="{{ path('presupuesto_individual', { 'id': consulta.presupuestoId , 'fechaInicio' : fechaInicio, 'fechaFinal' : fechaFinal}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
+                    	<a  href="{{ path('presupuesto_individual', { 'id': consulta.presupuestoId , 'fechaInicio' : fechaInicio, 'fechaFinal' : fechaFinal, 'horasExtraordinarias': horasExtraordinarias}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                     </td>
                 </tr>
                

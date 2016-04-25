@@ -71,14 +71,23 @@ class RegistroHoras
 
     /**
      * @ORM\Column(name="aprobado", type="boolean")
-     * @var [type]
+     *
+     * @var bool
      */
     private $aprobado;
+
+    /**
+     * @ORM\Column(name="horasExtraordinarias", type="boolean")
+     *
+     * @var bool
+     */
+    private $horasExtraordinarias;
 
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
         $this->aprobado = false;
+        $this->horasExtraordinarias = false;
     }
     /**
      * Get id.
@@ -133,9 +142,14 @@ class RegistroHoras
      *
      * @return int
      */
-    public function getHorasInvertidas()
+    public function getHorasInvertidas($extraordinario = 0)
     {
-        if ($this->aprobado === true ){
+
+        //condición para no tomar en cuenta las horas extraordinarias
+        if ($extraordinario === 1 && $this->horasExtraordinarias === true) {
+            return 0;
+        }
+        if ($this->aprobado === true) {
             return $this->horasInvertidas;
         }
 
@@ -268,9 +282,9 @@ class RegistroHoras
     }
 
     /**
-     * Set aprobado
+     * Set aprobado.
      *
-     * @param boolean $aprobado
+     * @param bool $aprobado
      *
      * @return RegistroHoras
      */
@@ -282,12 +296,36 @@ class RegistroHoras
     }
 
     /**
-     * Get aprobado
+     * Get aprobado.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAprobado()
     {
         return $this->aprobado;
+    }
+
+    /**
+     * Set horasExtraordinarias.
+     *
+     * @param bool $horasExtraordinarias
+     *
+     * @return RegistroHoras
+     */
+    public function setHorasExtraordinarias($horasExtraordinarias)
+    {
+        $this->horasExtraordinarias = $horasExtraordinarias;
+
+        return $this;
+    }
+
+    /**
+     * Get horasExtraordinarias.
+     *
+     * @return bool
+     */
+    public function getHorasExtraordinarias()
+    {
+        return $this->horasExtraordinarias;
     }
 }

@@ -71,9 +71,9 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * @Route("presupuesto/actividad/individual/{id}/{fechaInicio}/{fechaFinal}", name="presupuesto_individual")
+     * @Route("presupuesto/actividad/individual/{id}/{fechaInicio}/{fechaFinal}/{horasExtraordinarias}", name="presupuesto_individual")
      */
-    public function consultaPresupuestoInidividual($id, $fechaInicio, $fechaFinal)
+    public function consultaPresupuestoInidividual($id, $fechaInicio, $fechaFinal, $horasExtraordinarias)
     {
         $em = $this->getDoctrine()->getManager();
         //obtener el presupuesto Proyecto presupuesto
@@ -87,7 +87,7 @@ class ConsultaCostoController extends Controller
         //juntar los registros por actividad
         $registrosFiltrados = $this->filtarRegistrosPorActividad($registros, $presupuesto->getActividad());
 
-        $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal);
+        $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal, $horasExtraordinarias);
 
         return $this->render(
             'CostoBundle:Consulta:consultaDetallePorActividad.html.twig',
@@ -106,7 +106,7 @@ class ConsultaCostoController extends Controller
      * @return Response
      */
     public function consultaPorUsuariosAction($proyecto, $form)
-    {    
+    {
         //Obtener todos los registros de presupuesto de un proyecto
         $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
         //Array de entidad Consulta Usuario
@@ -115,14 +115,16 @@ class ConsultaCostoController extends Controller
 
         $fechaInicio = 'not defined';
         $fechaFinal = 'not defined';
+        $data = $form->getData();
         if (isset($form->getData()['fechaInicio']) && isset($form->getData()['fechaFinal'])) {
-            $fechaInicio = $form->getData()['fechaInicio']->format('Y-m-d');
-            $fechaFinal = $form->getData()['fechaFinal']->format('Y-m-d');
+            $fechaInicio = $data['fechaInicio']->format('Y-m-d');
+            $fechaFinal = $data['fechaFinal']->format('Y-m-d');
         }
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorUsuarios.html.twig',
                 [
+                    'horasExtraordinarias' => $data['horas_extraordinarias'],
                     'honorarios' => $honorarios,
                     'verificador' => false, //mandar variable a javascript
                     'consultaUsuario' => $consultaUsuario,
@@ -149,14 +151,19 @@ class ConsultaCostoController extends Controller
 
         $fechaInicio = 'not defined';
         $fechaFinal = 'not defined';
+        $data = $form->getData();
         if (isset($form->getData()['fechaInicio']) && isset($form->getData()['fechaFinal'])) {
-            $fechaInicio = $form->getData()['fechaInicio']->format('Y-m-d');
-            $fechaFinal = $form->getData()['fechaFinal']->format('Y-m-d');
+            $fechaInicio = $data['fechaInicio']->format('Y-m-d');
+            $fechaFinal = $data['fechaFinal']->format('Y-m-d');
         }
+
+        $honorarios = $proyecto->getHonorarios();
 
         return $this->render(
             'CostoBundle:Consulta:consultaPorCliente.html.twig',
             [
+                'honorarios' => $honorarios,
+                'horasExtraordinarias' => $data['horas_extraordinarias'],
                 'fechaInicio' => $fechaInicio,
                 'fechaFinal' => $fechaFinal,
                 'honorarios' => $honorarios,
@@ -187,14 +194,16 @@ class ConsultaCostoController extends Controller
         $honorarios = $proyecto->getHonorarios();
         $fechaInicio = 'not defined';
         $fechaFinal = 'not defined';
+        $data = $form->getData();
         if (isset($form->getData()['fechaInicio']) && isset($form->getData()['fechaFinal'])) {
-            $fechaInicio = $form->getData()['fechaInicio']->format('Y-m-d');
-            $fechaFinal = $form->getData()['fechaFinal']->format('Y-m-d');
+            $fechaInicio = $data['fechaInicio']->format('Y-m-d');
+            $fechaFinal = $data['fechaFinal']->format('Y-m-d');
         }
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorActividad.html.twig',
                 [
+                    'horasExtraordinarias' => $data['horas_extraordinarias'],
                     'honorarios' => $honorarios,
                     'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
                     'consultasPorActividades' => $consultasPorActividades,
@@ -211,9 +220,9 @@ class ConsultaCostoController extends Controller
     /**
      * Muestra el detalle de una consulta por usuario.
      * 
-     * @Route("presupuesto/usuario/individual/{nombrePresupuesto}/{usuario_id}/{fechaInicio}/{fechaFinal}", name="presupuesto_individual_usuario")
+     * @Route("presupuesto/usuario/individual/{nombrePresupuesto}/{usuario_id}/{fechaInicio}/{fechaFinal}/{horasExtraordinarias}", name="presupuesto_individual_usuario")
      */
-    public function consultaUsuarioIndividualAction($nombrePresupuesto, $usuario_id, $fechaInicio, $fechaFinal)
+    public function consultaUsuarioIndividualAction($nombrePresupuesto, $usuario_id, $fechaInicio, $fechaFinal, $horasExtraordinarias)
     {
         $em = $this->getDoctrine()->getManager();
         //obtener el presupuesto Proyecto presupuesto
@@ -224,7 +233,7 @@ class ConsultaCostoController extends Controller
         //juntar los registros por actividad
         $registrosFiltrados = $this->filtarRegistrosPorUsuario($registros, $usuario);
 
-        $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal);
+        $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal, $horasExtraordinarias);
 
         return $this->render(
             'CostoBundle:Consulta:consultaDetallePorUsuario.html.twig',
@@ -239,9 +248,9 @@ class ConsultaCostoController extends Controller
     /**
      * Muestra el detalle de una consulta por cliente.
      * 
-     * @Route("presupuesto/cliente/individual/{nombrePresupuesto}/{cliente_id}/{fechaInicio}/{fechaFinal}", name="presupuesto_individual_cliente")
+     * @Route("presupuesto/cliente/individual/{nombrePresupuesto}/{cliente_id}/{fechaInicio}/{fechaFinal}/{horasExtraordinarias}", name="presupuesto_individual_cliente")
      */
-    public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id, $fechaInicio, $fechaFinal)
+    public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id, $fechaInicio, $fechaFinal, $horasExtraordinarias)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -251,7 +260,7 @@ class ConsultaCostoController extends Controller
         $registros = $em->getRepository('AppBundle:RegistroHoras')->findBy(['proyectoPresupuesto' => $proyecto]);
         $registrosFiltrados = $this->filtarRegistrosPorCliente($registros, $cliente);
 
-        $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal);
+        $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal, $horasExtraordinarias);
 
         return $this->render(
             'CostoBundle:Consulta:consultaDetallePorCliente.html.twig',
@@ -372,7 +381,7 @@ class ConsultaCostoController extends Controller
         //este ciclo coloca en un array instancias de ConsultaUsuario
         //que guarda el costo por usuario.
         foreach ($usuariosAsignadosPorProyecto as $usuario) {
-            $horas = $this->calcularHorasPorUsuario($usuario, $registros);
+            $horas = $this->calcularHorasPorUsuario($usuario, $registros, $data['horas_extraordinarias']);
             //horas presupuestadas de un usuarios asignadas
             $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
             $costoPorHora = $this->getDoctrine()
@@ -522,7 +531,7 @@ class ConsultaCostoController extends Controller
             $registroActividad = $registro->getActividad();
 
             if ($actividad == $registroActividad) {
-                $horasInvertidas = $registro->getHorasInvertidas();
+                $horasInvertidas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
 
                 $cantidadHorasPorActividad += $horasInvertidas;
 
@@ -566,7 +575,7 @@ class ConsultaCostoController extends Controller
      *
      * @return Float
      */
-    private function calcularHorasPorUsuario($usuario, $registros)
+    private function calcularHorasPorUsuario($usuario, $registros, $horasExtraordinarias)
     {
         $cantidadHorasPorUsuario = 0;
         foreach ($registros as $registro) {
@@ -575,7 +584,7 @@ class ConsultaCostoController extends Controller
                 continue;
             }
             if ($usuario == $registroUsuario) {
-                $cantidadHorasPorUsuario += $registro->getHorasInvertidas();
+                $cantidadHorasPorUsuario += $registro->getHorasInvertidas($horasExtraordinarias);
             }
         }
 
@@ -613,7 +622,7 @@ class ConsultaCostoController extends Controller
         foreach ($registros as $registro) {
             $registroCliente = $registro->getCliente();
             if ($registroCliente == $cliente) {
-                $horasInvertidas = $registro->getHorasInvertidas();
+                $horasInvertidas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
                 $cantidadHorasCliente += $horasInvertidas;
 
                 $costoPorHora = $this->getDoctrine()
@@ -664,7 +673,7 @@ class ConsultaCostoController extends Controller
         return $cantidadHorasCliente;
     }
 
-    private function calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal)
+    private function calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal, $horasExtraordinarias)
     {
         $costoReal = [];
         if ($fechaInicio != 'not defined' && $fechaFinal != 'not defined') {
@@ -677,7 +686,7 @@ class ConsultaCostoController extends Controller
                 if ($registro->getActividad()->getActividadNoCargable() === true) {
                     $costo = 0;
                 }
-                $costoReal[] = $costo * $registro->getHorasInvertidas();
+                $costoReal[] = $costo * $registro->getHorasInvertidas($horasExtraordinarias);
             }
         }
 

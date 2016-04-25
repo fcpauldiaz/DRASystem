@@ -105,7 +105,8 @@ function ajaxEnvioAvisoHoras()
             success: function(data) {
            
             
-                elementoActual.text(data);
+            elementoActual.text(data);
+            elementoActual.attr('class', 'btn btn-primary btn-lg');
                 
                 
                
