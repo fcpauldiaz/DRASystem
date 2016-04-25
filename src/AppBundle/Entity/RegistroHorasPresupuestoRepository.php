@@ -36,8 +36,7 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->select('registro')
             ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
             ->where('registro.proyecto = :proyecto')
-            ->leftJoin('registro.usuariosAsignados', 'usuario')
-            ->andWhere('usuario = :usuario')
+            ->andWhere('registro.usuario = :usuario')
             ->setParameter('proyecto', $proyecto)
             ->setParameter('usuario', $usuario)
             ;

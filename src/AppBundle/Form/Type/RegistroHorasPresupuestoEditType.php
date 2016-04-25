@@ -23,18 +23,19 @@ class RegistroHorasPresupuestoEditType extends AbstractType
                 'required' => true,
 
             ])
-             ->add('usuariosAsignados', 'entity', [
+              ->add('usuario', 'entity', [
                     'class' => 'UserBundle:Usuario',
                     'required' => true,
-                    'label' => 'Asignación de Usuarios',
+                    'label' => 'Asignar Usuario',
                     'property' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',
                         'help_text' => 'Seleccione los usuarios que realizarán las horas',
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
-                    'multiple' => true,
                     'required' => true,
+                    'multiple' => false,
+                    'data' => $this->usuario,
 
             ])
              ->add('horaspresupuestadas', null, [

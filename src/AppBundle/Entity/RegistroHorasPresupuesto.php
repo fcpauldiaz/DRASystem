@@ -43,10 +43,10 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="registroPresupuesto")
-     * @ORM\JoinTable(name="usuarios_asignados_presupuesto")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * 
      */
-    private $usuariosAsignados;
+    private $usuario;
 
     /**
      * [$proyecto description].
@@ -66,7 +66,6 @@ class RegistroHorasPresupuesto
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
-        $this->usuariosAsignados = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -198,42 +197,32 @@ class RegistroHorasPresupuesto
         return $this->proyecto;
     }
 
+    public function __toString()
+    {
+        return 'P'.$this->getId();
+    }
+
     /**
-     * Add usuariosAsignado.
+     * Set usuario
      *
-     * @param \UserBundle\Entity\UsuarioTrabajador $usuariosAsignado
+     * @param \UserBundle\Entity\Usuario $usuario
      *
      * @return RegistroHorasPresupuesto
      */
-    public function addUsuariosAsignado(\UserBundle\Entity\UsuarioTrabajador $usuariosAsignado)
+    public function setUsuario(\UserBundle\Entity\Usuario $usuario = null)
     {
-        $this->usuariosAsignados[] = $usuariosAsignado;
+        $this->usuario = $usuario;
 
         return $this;
     }
 
     /**
-     * Remove usuariosAsignado.
+     * Get usuario
      *
-     * @param \UserBundle\Entity\UsuarioTrabajador $usuariosAsignado
+     * @return \UserBundle\Entity\Usuario
      */
-    public function removeUsuariosAsignado(\UserBundle\Entity\UsuarioTrabajador $usuariosAsignado)
+    public function getUsuario()
     {
-        $this->usuariosAsignados->removeElement($usuariosAsignado);
-    }
-
-    /**
-     * Get usuariosAsignados.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsuariosAsignados()
-    {
-        return $this->usuariosAsignados;
-    }
-
-    public function __toString()
-    {
-        return 'P'.$this->getId();
+        return $this->usuario;
     }
 }

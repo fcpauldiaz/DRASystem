@@ -88,7 +88,7 @@ class ProyectoPresupuestoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
-             'constraints' => new Callback([$this, 'validarActividades']),
+            'constraints' => new Callback([$this, 'validarActividades']),
         ));
     }
 
@@ -109,15 +109,30 @@ class ProyectoPresupuestoType extends AbstractType
     public function validarActividades($data, ExecutionContextInterface $context)
     {
         $registrosPresupuesto = $data->getPresupuestoIndividual();
-        $actividades = new \Doctrine\Common\Collections\ArrayCollection();
+        $actividades = [];
         foreach ($registrosPresupuesto as $registro) {
-            $actividadActual = $registro->getActividad();
-            if ($actividades->contains($actividadActual)) {
-                $context->buildViolation('Error: no se deben repetir las actividades en un presupuesto')
+            $actividadActual = $registro->getActividad()->getId();
+            $usuario = $registro->getUsuario()->getId();
+            
+           
+            if ($this->checkArray($actividades, $actividadActual, $usuario) === true){
+                $context->buildViolation('Error: no se deben repetir las actividades por usuario en un presupuesto')
                     ->atPath('proyectopresupuesto_new')
                     ->addViolation();
             }
-            $actividades->add($actividadActual);
+            $actividades[] = [$actividadActual, $usuario];
+
         }
+       
+    }
+
+    public function checkArray($array, $id1, $id2){
+        $i = 0;
+        foreach($array as $innerArray){
+                if ($innerArray[0] == $id1 && $innerArray[1] == $id2){
+                    return true;
+                }
+        }
+        return false;
     }
 }

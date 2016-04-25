@@ -10,13 +10,10 @@ use UserBundle\Entity\Usuario;
 class RegistroHorasPresupuestoType extends AbstractType
 {
     private $usuario;
-    private $collectionUsuario;
-
+   
     public function __construct(Usuario $usuario = null)
     {
         $this->usuario = $usuario;
-        $this->collectionUsuario = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->collectionUsuario->add($usuario);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -33,19 +30,19 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'required' => true,
 
             ])
-             ->add('usuariosAsignados', 'entity', [
+             ->add('usuario', 'entity', [
                     'class' => 'UserBundle:Usuario',
                     'required' => true,
-                    'label' => 'Asignación de Usuarios',
+                    'label' => 'Asignar Usuario',
                     'property' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',
                         'help_text' => 'Seleccione los usuarios que realizarán las horas',
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
-                    'multiple' => true,
                     'required' => true,
-                    'data' => $this->collectionUsuario,
+                    'muliple' => false,
+                    'data' => $this->usuario,
 
             ])
              ->add('horaspresupuestadas', null, [

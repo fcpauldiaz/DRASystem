@@ -7,7 +7,7 @@ fos_user:
             from_email:
                 address:        no-responder@newtonlabs.com.gt
                 sender_name:    Smart Time
-            enabled:    true # change to true for required email confirmation
+            enabled:    false # change to true for required email confirmation
             template:   UserBundle:Registration:registration.email.twig  
     resetting: #password resetting
         token_ttl: 86400

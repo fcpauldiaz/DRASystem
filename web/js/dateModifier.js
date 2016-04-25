@@ -3,7 +3,8 @@ $('.fecha-inicial')
     .on('changeMonth', function(ev){
     date = ev.date;
     if (this.value == ''|| verifier == true){
-        var firstDay = new Date(date.getFullYear(), date.getMonth() +1 , 1);
+        //var firstDay = new Date(date.getFullYear(), date.getMonth() +1 , 1);
+        var firstDay = new Date(date.getFullYear(), date.getMonth() + 2 , 1);
     }
     else {
        
@@ -28,7 +29,8 @@ $('.fecha-final')
     .on('changeMonth', function(ev){
     date = ev.date;
      if (this.value == '' || verifier == true ){
-       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+       //var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
     }
     else {
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
