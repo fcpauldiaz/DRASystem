@@ -35,18 +35,16 @@ security:
         - { path: ^/registrohoras/, roles: ROLE_USER }
         - { path: ^/cliente/, roles: ROLE_USER }
         - { path: ^/datosprestaciones/, roles: ROLE_USER }
-        - { path: ^/admin/, roles: [ ROLE_GERENTE, ROLE_GERENTEJR, ROLE_SOCIO] }
+        - { path: ^/admin/, roles: [ ROLE_GERENTE, ROLE_SOCIO] }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 
 
     role_hierarchy:
-        ROLE_ASISTENTE:   ROLE_USER
-        ROLE_ENCARGADO:   ROLE_ASISTENTE
-        ROLE_SUPERVISOR:  ROLE_ENCARGADO
-        ROLE_GERENTE:     ROLE_SUPERVISOR
-        ROLE_GERENTEJR:   ROLE_SUPERVISOR
-        ROLE_SOCIO:       ROLE_GERENTE
-        ROLE_SOCIO:       ROLE_GERENTEJR
-        ROLE_ADMIN:       ROLE_SOCIO
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_ASISTENTE:         ROLE_USER
+        ROLE_ENCARGADO:         ROLE_ASISTENTE
+        ROLE_SUPERVISOR:        ROLE_ENCARGADO
+        ROLE_GERENTE:           ROLE_SUPERVISOR
+        ROLE_SOCIO:             ROLE_GERENTE
+        ROLE_ADMIN:             ROLE_SOCIO
+        ROLE_SUPER_ADMIN:       ROLE_ADMIN

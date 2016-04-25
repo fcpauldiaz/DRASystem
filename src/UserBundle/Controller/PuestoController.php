@@ -79,7 +79,37 @@ class PuestoController extends Controller
                 $usuario->removeRole($role);
             }
             $tipoPuesto = $data->getTipoPuesto()->getNombrePuesto();
-            $tipoPuesto = 'ROLE_'.strtoupper($tipoPuesto);
+            $nombrePuesto = strtoupper($tipoPuesto);
+
+            $valid_role1 = 'GERENTE';
+            $valid_role2 = 'ASISTENTE';
+            $valid_role3 = 'ENCARGADO';
+            $valid_role4 = 'SUPERVISOR';
+            
+            if ($nombrePuesto !== $valid_role1 
+                &&
+                $nombrePuesto !== $valid_role2
+                &&
+                $nombrePuesto !== $valid_role3
+                &&
+                $nombrePuesto !== $valid_role4){
+                if (strpos($nombrePuesto , $valid_role1) !== false){
+                    $tipoPuesto = 'ROLE_GERENTE';
+                }
+                if (strpos($nombrePuesto , $valid_role2) !== false){
+                    $tipoPuesto = 'ROLE_ASISTENTE';
+                }
+                if (strpos($nombrePuesto , $valid_role3) !== false){
+                    $tipoPuesto = 'ROLE_ENCARGADO';
+                }
+                if (strpos($nombrePuesto , $valid_role4) !== false){
+                    $tipoPuesto = 'ROLE_SUPERVISOR';
+                }
+            }else {
+                $tipoPuesto = 'ROLE_'.strtoupper($tipoPuesto);
+            }
+           
+            
             $usuario->addRole($tipoPuesto);
             $em->persist($usuario);
             $em->flush();
