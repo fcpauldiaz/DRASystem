@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Codigo</h1>
+
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Codigo</th>
+                <td>{{ entity.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombres</th>
+                <td>{{ entity.nombres }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ entity.apellidos }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('codigo') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a class="btn btn-default" href="{{ path('codigo_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -18,6 +18,10 @@ tipo_puesto:
     resource: "@UserBundle/Controller/TipoPuestoController.php"
     type:     annotation
 
+codigo:
+  resource: "@UserBundle/Controller/CodigoController.php"
+  type: annotation
+
 departamento:
     resource: "@UserBundle/Controller/DepartamentoController.php"
     type:     annotation

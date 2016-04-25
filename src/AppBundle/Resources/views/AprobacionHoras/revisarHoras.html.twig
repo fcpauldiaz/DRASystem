@@ -56,6 +56,7 @@
                     <th>Actividad</th>
                     <th>Fecha Horas Invertidas</th>
                     <th>Fecha Horas Ingreso</th>
+                    <th>Horas Invertidas</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -68,6 +69,7 @@
                     <td>{{registro.actividad}} </td>
                     <td>{{registro.fechaHoras | date('d-m-Y')}}</td>
                     <td>{{registro.fechaCreacion | date('d-m-Y')}}</td>
+                     <td>{{registro.horasInvertidas}}</td>
                     {% if registro.aprobado == false %}
                     <td>
                             <a class="btn btn-info btn-sm aprobarHoras" href="{{           path('aprobar_horas', {'idRegistro' : registro.id })}}">Aprobar horas</a> 
@@ -84,7 +86,7 @@
             {% endif %}
             </tbody>
         </table>
-         <a class="btn btn-primary btn-lg btn-bloci enviarCorreo" href="{{           path('avisar_horas_no_aprobadas', {'usuario_id' : usuario.id })}}">Mandar correo a {{usuario.nombre}} de todas las horas no aprobadas</a> 
+         <a class="btn btn-primary btn-lg btn-block enviarCorreo" href="{{           path('avisar_horas_no_aprobadas', {'usuario_id' : usuario.id })}}">Mandar correo a {{usuario.nombre}} de todas las horas no aprobadas</a> 
         <br>
         <br>
     {% endblock %}

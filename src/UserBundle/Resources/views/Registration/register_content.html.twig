@@ -118,8 +118,17 @@
                     <div class="tab-pane" role="tabpanel" id="complete">
                       <hr class="colorgraph">
 
-                         
-                        <h3>Guardar información</h3>
+                        <div data-alerts="alerts" data-titles="{'danger': '<em>Danger!</em>'}" data-ids="tab1" data-fade="3000"></div>
+                       <h3>Guardar información</h3>
+                        <br>
+                        <h4>Código Administrativo</h4>
+                        {{ form_row(form.codigo)}}
+                         <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#modalCodigo">
+                        Crear nuevo código
+                        </button>
+                        <br>
+                        <br>
+                        <br>
                         {{ form_row(form.submit)}}
 
                         <hr class="colorgraph">
@@ -132,3 +141,12 @@
    </div>
 </div>
 <div class="col-md-2"></div>
+{% include 'UserBundle:Registration:modal_codigos.html.twig' %}
+<script src="{{ asset('js/ajaxCodigo.js')}}"></script>
+<script>
+ajaxCodigo();
+$(document).ready(function() { 
+    $("#fos_user_registration_form_codigo").select2({ width: '50%' });           
+});
+
+</script>

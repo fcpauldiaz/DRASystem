@@ -59,6 +59,12 @@ class RegistroHorasController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $usuario = $data->getIngresadoPor();
+            if ($usuario->hasRole('ROLE_GERENTE')){
+                $entity->setAprobado(true);
+            }
+          
             $em->persist($entity);
             $em->flush();
 
@@ -137,7 +143,7 @@ class RegistroHorasController extends Controller
      * @Route("/{id}/edit", name="registrohoras_edit")
      * @Method("GET")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * 
      */
     public function editAction($id)
     {
@@ -183,7 +189,7 @@ class RegistroHorasController extends Controller
      * @Route("/{id}", name="registrohoras_update")
      * @Method("PUT")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * 
      */
     public function updateAction(Request $request, $id)
     {
@@ -216,7 +222,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}", name="registrohoras_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * 
      */
     public function deleteAction(Request $request, $id)
     {

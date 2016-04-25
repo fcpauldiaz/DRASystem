@@ -355,6 +355,27 @@ class ConsultaCostoController extends Controller
             $consultaActividad->calcularDiferencia();
             $returnArray[] = $consultaActividad;
         }
+        //para actividades repetidas
+        $innerCont = 0;
+       
+       foreach($returnArray as &$consulta){
+            $actividad = $consulta->getActividad();
+            $cont = 0;
+            foreach ($returnArray as &$subConsulta) {
+                if ($subConsulta->getActividad() == $actividad && $innerCont < $cont){
+                
+                    $p1 = $consulta->getHorasPresupuesto();
+                    $p2 = $subConsulta->getHorasPresupuesto();
+                    $consulta->setHorasPresupuesto($p1+$p2);
+
+                    unset($returnArray[$cont]);
+                   
+                }
+                $cont++;
+            }
+            $innerCont++;
+        }
+        
 
         return $returnArray;
     }
@@ -638,7 +659,7 @@ class ConsultaCostoController extends Controller
                     $horasInvertidas,
                     $costoPorHora['costo']
                     );
-                if ($registro->getActividad()->getActividadNoCargable() !== true) {
+                if ($registro->getActividad()->getActividadNoCargable() === false) {
                     $costoAcumulado += $costoTotal;
                     $costoAcumuladoCliente[] = $costoPorHora['costo'];
                 }

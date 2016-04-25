@@ -108,6 +108,14 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => false,
             ])
+            ->add('codigo', 'entity', [
+                'class' => 'UserBundle:Codigo',
+                'label' => false,
+                'attr' => [
+                    'class' => 'select2',
+                ],
+                'required' => true,
+            ])
             ->add('submit', 'submit', [
                 'label' => 'Guardar y agregar puesto',
                 'attr' => [

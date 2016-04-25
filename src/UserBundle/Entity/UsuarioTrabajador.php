@@ -12,7 +12,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * 
  * @UniqueEntity(fields = "nit", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El nit debe ser único")
  * @UniqueEntity(fields = "dpi", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El dpi debe ser único")
- 
+ *
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
  * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
@@ -77,6 +77,14 @@ class UsuarioTrabajador extends Usuario
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="gerentes")
      */
     private $presupuestos;
+
+    /**
+     * Código ya utilizado en DRA
+     * 
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @var Entity
+     */
+    private $codigo;
 
     /**
      * Constructor.
@@ -323,5 +331,29 @@ class UsuarioTrabajador extends Usuario
     public function getPresupuestos()
     {
         return $this->presupuestos;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param string $codigo
+     *
+     * @return UsuarioTrabajador
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return string
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
     }
 }

@@ -1435,16 +1435,16 @@
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.12.5",
+            "version": "v1.12.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "eda75dd019182091022d186de7e25f2a2f71db00"
+                "reference": "e19d9d808b828117c7d7c93ef50ea6e6a9f9160e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/eda75dd019182091022d186de7e25f2a2f71db00",
-                "reference": "eda75dd019182091022d186de7e25f2a2f71db00",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/e19d9d808b828117c7d7c93ef50ea6e6a9f9160e",
+                "reference": "e19d9d808b828117c7d7c93ef50ea6e6a9f9160e",
                 "shasum": ""
             },
             "require": {
@@ -1510,7 +1510,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2016-04-03 17:00:44"
+            "time": "2016-04-24 18:54:26"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2633,20 +2633,20 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "2.11.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "d156f625dc3ce04f44e6d0ce36ae19cc35f51a97"
+                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/d156f625dc3ce04f44e6d0ce36ae19cc35f51a97",
-                "reference": "d156f625dc3ce04f44e6d0ce36ae19cc35f51a97",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
+                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "~1.12",
+                "monolog/monolog": "~1.18",
                 "php": ">=5.3.2",
                 "symfony/config": "~2.3|~3.0",
                 "symfony/dependency-injection": "~2.3|~3.0",
@@ -2689,7 +2689,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-04-12 18:48:21"
+            "time": "2016-04-13 16:21:01"
         },
         {
             "name": "symfony/polyfill-apcu",

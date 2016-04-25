@@ -47,10 +47,6 @@
                      <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Aprobación de horas</li>
-                {% if is_granted('ROLE_SOCIO') and app.user %}
-                <li><a href="/admin">Administración</a></li>
-                {% endif %}
-               
                 <li><a href="{{path('mostrar_usuarios')}}">Revisar horas</a></li>
                 </ul>
               
@@ -88,6 +84,9 @@
                          <ul class="dropdown-menu">
                              <li style="text-align: left;"class="navigation"><a href="{{path('puesto')}}"><i class="icon-off"></i>Ver Puesto</a></li>
                               <li class="navigation"><a href="{{path('datosprestaciones')}}"><i class="icon-off"></i>Ver Datos <br> Prestaciones</a></li>
+                               {% if is_granted('ROLE_GERENTE') and app.user %}
+                                <li><a href="/admin">Administrar usuarios</a></li>
+                                {% endif %}
                            
                         </ul>
 
