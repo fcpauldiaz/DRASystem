@@ -47,7 +47,7 @@ class Actividad
     /**
      * @var bool
      *
-     * @ORM\Column(name="actividadNoCargable", type="boolean")
+     * @ORM\Column(name="actividad_no_cargable", type="boolean")
      */
     private $actividadNoCargable;
 

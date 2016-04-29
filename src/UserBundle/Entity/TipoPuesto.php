@@ -26,7 +26,7 @@ class TipoPuesto
     /**
      * @var string
      *
-     * @ORM\Column(name="nombrePuesto", type="string", length=255)
+     * @ORM\Column(name="nombre_puesto", type="string", length=255)
      */
     private $nombrePuesto;
 

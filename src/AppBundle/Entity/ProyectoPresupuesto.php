@@ -26,7 +26,7 @@ class ProyectoPresupuesto
     /**
      * @var string
      *
-     * @ORM\Column(name="nombrePresupuesto", type="string")
+     * @ORM\Column(name="nombre_presupuesto", type="string")
      */
     private $nombrePresupuesto;
 
