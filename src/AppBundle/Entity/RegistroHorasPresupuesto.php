@@ -24,7 +24,7 @@ class RegistroHorasPresupuesto
     /**
      * @var int
      *
-     * @ORM\Column(name="horasPresupuestadas", type="float")
+     * @ORM\Column(name="horas_presupuestadas", type="float")
      */
     private $horasPresupuestadas;
 
@@ -59,7 +59,7 @@ class RegistroHorasPresupuesto
     /**
      * @var date
      *
-     * @ORM\Column(name="fechaCreacion", type="datetime")
+     * @ORM\Column(name="fecha_creacion", type="datetime")
      */
     private $fechaCreacion;
 

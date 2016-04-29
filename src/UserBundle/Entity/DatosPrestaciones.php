@@ -31,14 +31,14 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="bonificacionIncentivo", type="float")
+     * @ORM\Column(name="bonificacion_incentivo", type="float")
      */
     private $bonificacionIncentivo;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="bonificacionLey", type="float", nullable=true)
+     * @ORM\Column(name="bonificacion_ley", type="float", nullable=true)
      */
     private $bonificacionLey;
 
@@ -52,14 +52,14 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="prestacionesSobreSueldo", type="float",nullable=true)
+     * @ORM\Column(name="prestaciones_sobre_sueldo", type="float",nullable=true)
      */
     private $prestacionesSobreSueldo;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="cargosIndirectos", type="float", nullable=true)
+     * @ORM\Column(name="cargos_indirectos", type="float", nullable=true)
      */
     private $cargosIndirectos;
 

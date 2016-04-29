@@ -36,7 +36,7 @@ class UsuarioTrabajador extends Usuario
 
     /**
      * @var date fecha de egreso de la empresa.
-     * @ORM\Column(name="fechaEgreso", type="date",nullable=true)
+     * @ORM\Column(name="fecha_egreso", type="date",nullable=true)
      */
     private $fechaEgreso;
 

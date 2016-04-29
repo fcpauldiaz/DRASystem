@@ -27,7 +27,7 @@ class ContactoCliente
     /**
      * @var string
      *
-     * @ORM\Column(name="nombreContacto", type="string", length=255)
+     * @ORM\Column(name="nombre_contacto", type="string", length=255)
      */
     private $nombreContacto;
 
@@ -41,14 +41,14 @@ class ContactoCliente
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidosContacto", type="string", length=255)
+     * @ORM\Column(name="apellidos_contacto", type="string", length=255)
      */
     private $apellidosContacto;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="telefonoContacto", type="array")
+     *k
+     * @ORM\Column(name="telefonos_contacto", type="array")
      */
     private $telefonoContacto;
 
@@ -58,7 +58,7 @@ class ContactoCliente
      *     @Assert\Email()
      * })
      * 
-     * @ORM\Column(name="correoContacto", type="array")
+     * @ORM\Column(name="correos_contacto", type="array")
      */
     private $correoContacto;
 

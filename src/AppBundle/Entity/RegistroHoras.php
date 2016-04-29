@@ -24,14 +24,14 @@ class RegistroHoras
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaHoras", type="date")
+     * @ORM\Column(name="fecha_horas", type="date")
      */
     private $fechaHoras;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="horasInvertidas", type="float")
+     * @ORM\Column(name="horas_invertidas", type="float")
      */
     private $horasInvertidas;
 
@@ -59,7 +59,7 @@ class RegistroHoras
     /**
      * @var date
      *
-     * @ORM\Column(name="fechaCreacion", type="datetime")
+     * @ORM\Column(name="fecha_creacion", type="datetime")
      */
     private $fechaCreacion;
 
@@ -77,7 +77,7 @@ class RegistroHoras
     private $aprobado;
 
     /**
-     * @ORM\Column(name="horasExtraordinarias", type="boolean")
+     * @ORM\Column(name="horas_extraordinarias", type="boolean")
      *
      * @var bool
      */

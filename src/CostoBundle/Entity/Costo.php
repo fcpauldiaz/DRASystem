@@ -29,21 +29,21 @@ class Costo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaInicio", type="date")
+     * @ORM\Column(name="fecha_inicio", type="date")
      */
     private $fechaInicio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaFinal", type="date")
+     * @ORM\Column(name="fecha_final", type="date")
      */
     private $fechaFinal;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaCreacion", type="datetime")
+     * @ORM\Column(name="fecha_creacion", type="datetime")
      */
     private $fechaCreacion;
 

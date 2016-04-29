@@ -33,7 +33,7 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroContrato", type="string", length=100, nullable = true)
+     * @ORM\Column(name="numero_contrato", type="string", length=100, nullable = true)
      */
     private $numeroContrato;
 
@@ -47,28 +47,28 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\Column(name="nombreComercial", type="string", length=255, nullable = true)
+     * @ORM\Column(name="nombre_comercial", type="string", length=255, nullable = true)
      */
     private $nombreComercial;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombreCorto", type="string", length=255, nullable = true)
+     * @ORM\Column(name="nombre_corto", type="string", length=255, nullable = true)
      */
     private $nombreCorto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="serviciosPrestados", type="string", length=255, nullable = true)
+     * @ORM\Column(name="servicios_prestados", type="string", length=255, nullable = true)
      */
     private $serviciosPrestados;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codigoSAT", type="string", length=255, nullable = true)
+     * @ORM\Column(name="codigo_sat", type="string", length=255, nullable = true)
      */
     private $codigoSAT;
 
