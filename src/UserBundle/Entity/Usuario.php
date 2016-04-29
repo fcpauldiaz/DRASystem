@@ -40,7 +40,7 @@ abstract class Usuario extends BaseUser
     protected $apellidos;
 
     /**
-     * @ORM\Column(type="string", unique=true,nullable=true)
+     * @ORM\Column(name="api_key",type="string", unique=true,nullable=true)
      */
     protected $apiKey;
 

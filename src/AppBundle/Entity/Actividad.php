@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity
  * @UniqueEntity("nombre")
+ * @ORM\Entity(repositoryClass="ActividadRepository")
  */
 class Actividad
 {

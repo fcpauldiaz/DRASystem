@@ -43,4 +43,37 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function calcularHorasPresupuestoPorActividad($proyecto, $actividad)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb
+            ->select('sum(r.horasPresupuestadas)')
+            ->where('r.proyecto = :proyecto')
+            ->andWhere('r.actividad = :actividad')
+            ->setParameter('proyecto', $proyecto)
+            ->setParameter('actividad', $actividad);
+        return $qb->getQuery()->getSingleScalarResult();
+    }    
+
+     /**
+     * Método que devuleve los registros de un Proyecto.
+     *
+     * @param ProyectoPresupuesto $proyecto
+     *
+     * @return RegistroHoras
+     */
+    public function findByProyecto($proyecto)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
+            ->Where('registro.proyecto = :proyecto')
+            ->setParameter('proyecto', $proyecto);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }
