@@ -295,11 +295,6 @@ class UsuarioTrabajador extends Usuario
         return $this->puestos->last();
     }
 
-    public function __toString()
-    {
-        return $this->nombre.' '.$this->apellidos;
-    }
-
     /**
      * Add presupuesto.
      *
@@ -356,5 +351,10 @@ class UsuarioTrabajador extends Usuario
     public function getCodigo()
     {
         return $this->codigo;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre.' '.$this->apellidos;
     }
 }

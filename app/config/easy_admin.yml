@@ -17,13 +17,27 @@ easy_admin:
                 fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
             edit:
                 fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
-        DatosPrestaciones:
-            class: UserBundle\Entity\DatosPrestaciones
-        Puesto:
-            class: UserBundle\Entity\Puesto
         Actividad:
             class: AppBundle\Entity\Actividad
         Cliente:
             class: AppBundle\Entity\Cliente
         RegistroHoras:
             class: AppBundle\Entity\RegistroHoras
+        RegistroHorasPresupuesto:
+            class: AppBundle\Entity\RegistroHorasPresupuesto
+        ContactoCliente:
+            class: AppBundle\Entity\ContactoCliente
+        ProyectoPresupuesto:
+            class: AppBundle\Entity\ProyectoPresupuesto
+        Costo:
+            class: CostoBundle\Entity\Costo
+        Codigo:
+            class: UserBundle\Entity\Codigo
+        Departamento:
+            class: UserBundle\Entity\Departamento
+        TipoPuesto:
+            class: UserBundle\Entity\TipoPuesto
+        DatosPrestaciones:
+            class: UserBundle\Entity\DatosPrestaciones
+        Puesto:
+            class: UserBundle\Entity\Puesto
