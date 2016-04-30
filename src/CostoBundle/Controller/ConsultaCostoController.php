@@ -78,7 +78,6 @@ class ConsultaCostoController extends Controller
      */
     public function consultaActividadDetalleAction(Request $request)
     {
-
         $actividad_id = $request->get('actividad_id');
         $proyecto_id = $request->get('proyecto_id');
         $fechaInicio = $request->get('fechaInicio');
@@ -199,7 +198,7 @@ class ConsultaCostoController extends Controller
     {
         if (isset($proyecto)) {
             //obtener los registros de presupuesto de un proyecto presupuesto
-               
+
                 //calculo de todas las horas por actividad
                 $consultasPorActividades = $this->calcularHorasTotales($proyecto, $form);
         }
@@ -219,7 +218,7 @@ class ConsultaCostoController extends Controller
                     'honorarios' => $honorarios,
                     'proyecto' => $proyecto,
                     'consultasPorActividades' => $consultasPorActividades,
-                   
+
                     'verificador' => false,  //mandar variable a javascript
                     'fechaInicio' => $fechaInicio,
                     'fechaFinal' => $fechaFinal,
@@ -295,7 +294,6 @@ class ConsultaCostoController extends Controller
     {
         $returnArray = [];
         foreach ($registros as $registro) {
-
             if ($registro->getIngresadoPor() == $usuario) {
                 $returnArray[] = $registro;
             }
@@ -348,7 +346,6 @@ class ConsultaCostoController extends Controller
             ->getRepository('AppBundle:RegistroHorasPresupuesto')
             ->findByProyecto($proyecto);
 
-        
         $actividades = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Actividad')
@@ -358,24 +355,21 @@ class ConsultaCostoController extends Controller
             ->getDoctrine()
             ->getRepository('AppBundle:Actividad')
             ->findByRegistrosPresupuesto($registroPresupuesto);
-        
+
         $actividades = $this->completarActividades($actividades, $verificadorActividades);
-        
-       
-        
-      
+
         //sería mas intuitivo hacer el outer cycle
         //por las actividades en un proyecto.
-        foreach($actividades as $actividad) {
+        foreach ($actividades as $actividad) {
             //calcular las horas de los registros de
             //horas invertidos en el proyecto
             //
             //calcular las horas presupuestadas
             //busco en el proyecto los registros de
             //presupuesto y los filtro por actividad
-        
-            $arrayCostos = $this->calcularHorasPorActividad($registros,$actividad, $form);
-           
+
+            $arrayCostos = $this->calcularHorasPorActividad($registros, $actividad, $form);
+
             $horas = $arrayCostos[0];
             $costo = $arrayCostos[1];
             $horasPresupuestadas = $this
@@ -392,13 +386,11 @@ class ConsultaCostoController extends Controller
                 $costo,
                 $costoPresupuesto
             );
-            
+
             $consultaActividad->setPresupuestoId(1);
             $consultaActividad->calcularDiferencia();
             $returnArray[] = $consultaActividad;
         }
-        
-        
 
         return $returnArray;
     }
@@ -562,7 +554,6 @@ class ConsultaCostoController extends Controller
      */
     private function calcularHorasPorActividad($registros, $actividad, $form)
     {
-      
         $data = $form->getData();
         $returnArray = [];
 
@@ -727,29 +718,32 @@ class ConsultaCostoController extends Controller
                     ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $registro->getIngresadoPor());
                 $costo = $costo['costo'];
                 if ($registro->getActividad()->getActividadNoCargable() === true) {
-                    $costo = 0;    
+                    $costo = 0;
                 }
                 $costoReal[] = $costo * $registro->getHorasInvertidas($horasExtraordinarias);
             }
         }
-     
+
         return $costoReal;
     }
 
     /**
      * Método para agregar las actividades que fueron ingresadas
      * como presupuesto pero no hay ingreso de horas todavía.
-     * @param  Array of Actividadees $verificadorActividades 
-     * @param  Array of actividades $verificador            
+     *
+     * @param Array of Actividadees $verificadorActividades
+     * @param Array of actividades  $verificador
+     *
      * @return Array de actividades cmpleto
      */
     private function completarActividades($verificadorActividades, $actividades)
     {
-         foreach($verificadorActividades as $verificador) {
-            if (!in_array($verificador, $actividades)){
+        foreach ($verificadorActividades as $verificador) {
+            if (!in_array($verificador, $actividades)) {
                 $actividades[] = $verificador;
             }
         }
+
         return $actividades;
     }
 
@@ -766,12 +760,10 @@ class ConsultaCostoController extends Controller
         $cantidadHorasPorUsuario = 0;
         foreach ($registros as $registro) {
             $usuario2 = $registro->getUsuario();
-            
-          
+
             if ($usuario == $usuario2) {
                 $cantidadHorasPorUsuario += $registro->getHorasPresupuestadas();
             }
-            
         }
 
         return $cantidadHorasPorUsuario;

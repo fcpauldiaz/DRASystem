@@ -53,10 +53,11 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('r.actividad = :actividad')
             ->setParameter('proyecto', $proyecto)
             ->setParameter('actividad', $actividad);
-        return $qb->getQuery()->getSingleScalarResult();
-    }    
 
-     /**
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * Método que devuleve los registros de un Proyecto.
      *
      * @param ProyectoPresupuesto $proyecto
@@ -75,5 +76,4 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
 }

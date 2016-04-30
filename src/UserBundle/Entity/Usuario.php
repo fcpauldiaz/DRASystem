@@ -44,14 +44,12 @@ abstract class Usuario extends BaseUser
      */
     protected $apiKey;
 
-   
     /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();// construye los metodos y atributos de Base
-      
     }
     /**
      * Get id.
@@ -189,6 +187,4 @@ abstract class Usuario extends BaseUser
     {
         return $this->nombre.' '.$this->apellidos;
     }
-
-   
 }

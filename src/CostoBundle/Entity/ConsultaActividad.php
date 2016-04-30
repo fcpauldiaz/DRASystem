@@ -58,7 +58,6 @@ class ConsultaActividad
      */
     private $presupuestoId;
 
-  
     /**
      * @var Usuario
      */

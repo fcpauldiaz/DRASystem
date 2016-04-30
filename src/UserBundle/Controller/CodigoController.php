@@ -18,8 +18,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class CodigoController extends Controller
 {
-
-   
     /**
      * Creates a new Codigo entity.
      *
@@ -56,8 +54,6 @@ class CodigoController extends Controller
             //llega aquí cuando no cumple la validación del formulario
             return new JsonResponse(['error' => $form->getErrorsAsString()], 400);
         }
-
-
     }
 
     /**
@@ -89,11 +85,11 @@ class CodigoController extends Controller
     public function newAction()
     {
         $entity = new Codigo();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -117,7 +113,7 @@ class CodigoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -143,19 +139,19 @@ class CodigoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Codigo entity.
-    *
-    * @param Codigo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Codigo entity.
+     *
+     * @param Codigo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Codigo $entity)
     {
         $form = $this->createForm(new CodigoType(), $entity, array(
@@ -195,10 +191,9 @@ class CodigoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
-   
 }

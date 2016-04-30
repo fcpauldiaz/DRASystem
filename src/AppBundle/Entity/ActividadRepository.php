@@ -12,37 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class ActividadRepository extends EntityRepository
 {
-	
-
-	public function findByRegistros($registros)
-	{
-	
-	    $qb = $this->createQueryBuilder('a');
+    public function findByRegistros($registros)
+    {
+        $qb = $this->createQueryBuilder('a');
         $qb
             ->select('a')
             ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.actividad = a.id')
             ->where('r IN (:registros)')
             ->setParameter('registros', $registros);
-            
 
         return $qb->getQuery()->getResult();
+    }
 
-	}
-
-	
-
-	public function findByRegistrosPresupuesto($registros)
-	{
-	
-	    $qb = $this->createQueryBuilder('a');
+    public function findByRegistrosPresupuesto($registros)
+    {
+        $qb = $this->createQueryBuilder('a');
         $qb
             ->select('a')
             ->innerJoin('AppBundle:RegistroHorasPresupuesto', 'r', 'with', 'r.actividad = a.id')
             ->where('r IN (:registros)')
             ->setParameter('registros', $registros);
-            
 
         return $qb->getQuery()->getResult();
-
-	}
+    }
 }

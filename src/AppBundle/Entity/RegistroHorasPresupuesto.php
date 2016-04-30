@@ -44,7 +44,6 @@ class RegistroHorasPresupuesto
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
-     * 
      */
     private $usuario;
 
@@ -203,7 +202,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Set usuario
+     * Set usuario.
      *
      * @param \UserBundle\Entity\Usuario $usuario
      *
@@ -217,7 +216,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Get usuario
+     * Get usuario.
      *
      * @return \UserBundle\Entity\Usuario
      */

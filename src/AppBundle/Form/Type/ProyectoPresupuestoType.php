@@ -113,26 +113,25 @@ class ProyectoPresupuestoType extends AbstractType
         foreach ($registrosPresupuesto as $registro) {
             $actividadActual = $registro->getActividad()->getId();
             $usuario = $registro->getUsuario()->getId();
-            
-           
-            if ($this->checkArray($actividades, $actividadActual, $usuario) === true){
+
+            if ($this->checkArray($actividades, $actividadActual, $usuario) === true) {
                 $context->buildViolation('Error: no se deben repetir las actividades por usuario en un presupuesto')
                     ->atPath('proyectopresupuesto_new')
                     ->addViolation();
             }
             $actividades[] = [$actividadActual, $usuario];
-
         }
-       
     }
 
-    public function checkArray($array, $id1, $id2){
+    public function checkArray($array, $id1, $id2)
+    {
         $i = 0;
-        foreach($array as $innerArray){
-                if ($innerArray[0] == $id1 && $innerArray[1] == $id2){
-                    return true;
-                }
+        foreach ($array as $innerArray) {
+            if ($innerArray[0] == $id1 && $innerArray[1] == $id2) {
+                return true;
+            }
         }
+
         return false;
     }
 }

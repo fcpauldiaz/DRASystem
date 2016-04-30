@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Codigo
+ * Codigo.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Codigo
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -44,11 +44,10 @@ class Codigo
      */
     private $apellidos;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -56,7 +55,7 @@ class Codigo
     }
 
     /**
-     * Set codigo
+     * Set codigo.
      *
      * @param string $codigo
      *
@@ -70,7 +69,7 @@ class Codigo
     }
 
     /**
-     * Get codigo
+     * Get codigo.
      *
      * @return string
      */
@@ -80,7 +79,7 @@ class Codigo
     }
 
     /**
-     * Set nombres
+     * Set nombres.
      *
      * @param string $nombres
      *
@@ -94,7 +93,7 @@ class Codigo
     }
 
     /**
-     * Get nombres
+     * Get nombres.
      *
      * @return string
      */
@@ -104,7 +103,7 @@ class Codigo
     }
 
     /**
-     * Set apellidos
+     * Set apellidos.
      *
      * @param string $apellidos
      *
@@ -118,7 +117,7 @@ class Codigo
     }
 
     /**
-     * Get apellidos
+     * Get apellidos.
      *
      * @return string
      */
@@ -129,8 +128,6 @@ class Codigo
 
     public function __toString()
     {
-        return $this->codigo.': ' . $this->nombres .' '. $this->apellidos;
+        return $this->codigo.': '.$this->nombres.' '.$this->apellidos;
     }
-
 }
-

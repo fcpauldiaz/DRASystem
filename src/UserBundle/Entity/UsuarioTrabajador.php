@@ -79,9 +79,10 @@ class UsuarioTrabajador extends Usuario
     private $presupuestos;
 
     /**
-     * Código ya utilizado en DRA
+     * Código ya utilizado en DRA.
      * 
      * @ORM\OneToOne(targetEntity="UserBundle\Entity\Codigo")
+     *
      * @var Entity
      */
     private $codigo;
@@ -334,7 +335,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set codigo
+     * Set codigo.
      *
      * @param string $codigo
      *
@@ -348,7 +349,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get codigo
+     * Get codigo.
      *
      * @return string
      */

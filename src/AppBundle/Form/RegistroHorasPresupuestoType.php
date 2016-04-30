@@ -10,7 +10,7 @@ use UserBundle\Entity\Usuario;
 class RegistroHorasPresupuestoType extends AbstractType
 {
     private $usuario;
-   
+
     public function __construct(Usuario $usuario = null)
     {
         $this->usuario = $usuario;
