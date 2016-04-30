@@ -136,7 +136,7 @@
                        
                        <b>
                             <font color="#27ae60">
-                                {{honorarios | number_format(2, '.', ', ')}}
+                             Q   {{honorarios | number_format(2, '.', ', ')}}
                             </font>
                         </b>
                     </td>
@@ -159,13 +159,13 @@
                         <b> {% if utilidad < 0 %}
                             <font color="#c0392b">
                               
-                               {{utilidad | number_format(2, '.', ', ')}}
+                             Q  {{utilidad | number_format(2, '.', ', ')}}
 
                             </font>
                             {% else %}
                              <font color="#000000">
                               
-                               {{utilidad | number_format(2, '.', ', ')}}
+                             Q  {{utilidad | number_format(2, '.', ', ')}}
 
                             </font>  
                             {% endif %}

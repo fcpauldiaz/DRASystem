@@ -13,7 +13,7 @@
                 <th>Puesto</th>
                 <th>Cliente</th>
                 <th>Fecha de las horas invertidas</th>
-                <th>Fecha de ingreso</th>
+                <th>FechaIngreso</th>
                 <th>Horas invertidas (costo)</th>
                 <th>Presupuesto Acumulado</th>
                 <th>CostoReal</th>
@@ -22,8 +22,9 @@
         </thead>
         <tbody>
             {% set pActual = presupuesto %}
-            {% for registro in registros %}
+            {% set totalHoras = 0 %}
             {% set cont = 0 %}
+            {% for registro in registros %}
             <tr>
                 <td>{{registro.ingresadoPor}}</td>
                 <td>{{registro.actividad}}</td>
@@ -32,6 +33,7 @@
                 <td>{{registro.fechaHoras|date('d-m-Y')}}</td>
                 <td>{{registro.fechaCreacion|date('d-m-Y')}}</td>
                 <td>{{registro.horasInvertidas}}</td>
+                {% set totalHoras = totalHoras + registro.horasInvertidas %}
                 {% set pActual = pActual - registro.horasInvertidas %}
                 <td>{{pActual}}</td>
                 {% if costoReal is not empty %}
@@ -52,12 +54,12 @@
                 <td> </td>
                 <td> </td>
                 <td> </td>
-                <td> </td>
+                <td><b>{{totalHoras}} </b></td>
                 <td> </td>
                 <td> 
                     <b>
                         <font color="#000000"> 
-                            {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                            Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
                         </font>
                     </b>
                 </td>

@@ -58,13 +58,7 @@ class ConsultaActividad
      */
     private $presupuestoId;
 
-    /**
-     * Cliente asignado.
-     *
-     * @var Cliente
-     */
-    private $cliente;
-
+  
     /**
      * @var Usuario
      */
@@ -237,28 +231,6 @@ class ConsultaActividad
     public function getPresupuestoId()
     {
         return $this->presupuestoId;
-    }
-
-    /**
-     * Set Cliente.
-     *
-     * @param Cliente $cliente
-     */
-    public function setCliente($cliente)
-    {
-        $this->cliente = $cliente;
-
-        return $this;
-    }
-
-    /**
-     * Get cliente.
-     *
-     * @return Cliente.
-     */
-    public function getCliente()
-    {
-        return $this->cliente;
     }
 
     public function getCostoPresupuesto()

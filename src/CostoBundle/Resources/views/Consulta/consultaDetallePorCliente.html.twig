@@ -11,10 +11,9 @@
                 <th>Cliente</th>
                 <th>Actividad</th>
                 <th>Ingresado Por</th>
-                <th>Cliente</th>
                 <th>Fecha de las horas invertidas</th>
-                <th>Fecha de ingreso</th>
-                <th>Horas invertidas (costo)</th>
+                <th>FechaIngreso</th>
+                <th>Horas invertidas</th>
                 <th>Presupuesto Acumulado</th>
                 <th>CostoReal</th>
                 
@@ -29,7 +28,6 @@
                 <td>{{registro.cliente}}</td>
                 <td>{{registro.actividad}}</td>
                 <td>{{registro.ingresadoPor}}</td>
-                <td>{{registro.cliente}}</td>
                 <td>{{registro.fechaHoras|date('d-m-Y')}}</td>
                 <td>{{registro.fechaCreacion|date('d-m-Y')}}</td>
                 <td>{{registro.horasInvertidas}}</td>
@@ -55,11 +53,10 @@
                 <td> </td>
                 <td> </td>
                 <td> </td>
-                <td> </td>
                 <td> 
                     <b>
                         <font color="#000000"> 
-                            {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                            Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
                         </font>
                     </b>
                 </td>

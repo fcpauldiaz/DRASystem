@@ -5,6 +5,7 @@ namespace CostoBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use CostoBundle\Form\Type\ConsultaPresupuestoType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
@@ -71,28 +72,40 @@ class ConsultaCostoController extends Controller
     }
 
     /**
-     * @Route("presupuesto/actividad/individual/{id}/{fechaInicio}/{fechaFinal}/{horasExtraordinarias}", name="presupuesto_individual")
+     * @Route("presupuesto/actividad/detalle/", name="presupuesto_individual")
+     * @Method({"PUT", "GET"})
+     * Se mandan los párametro a través del request.
      */
-    public function consultaPresupuestoInidividual($id, $fechaInicio, $fechaFinal, $horasExtraordinarias)
+    public function consultaActividadDetalleAction(Request $request)
     {
+
+        $actividad_id = $request->get('actividad_id');
+        $proyecto_id = $request->get('proyecto_id');
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFinal = $request->get('fechaFinal');
+        $horasExtraordinarias = $request->get('horasExtraordinarias');
+        $horasPresupuestadas = $request->get('presupuesto');
+
         $em = $this->getDoctrine()->getManager();
+
         //obtener el presupuesto Proyecto presupuesto
-        $presupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findOneById($id);
+        $actividad = $em->getRepository('AppBundle:Actividad')->findOneById($actividad_id);
+        $proyecto = $em->getRepository('AppBundle:ProyectoPresupuesto')->findById($proyecto_id);
         //obtener los registros que pertencen al proyecto
         $registros = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:RegistroHoras')
-            ->findByProyecto($presupuesto->getProyecto());
+            ->findByProyecto($proyecto);
         //juntar los registros por actividad
-        $registrosFiltrados = $this->filtarRegistrosPorActividad($registros, $presupuesto->getActividad());
+        $registrosFiltrados = $this->filtarRegistrosPorActividad($registros, $actividad);
 
         $costoReal = $this->calcularCostoDetalle($registrosFiltrados, $fechaInicio, $fechaFinal, $horasExtraordinarias);
 
         return $this->render(
             'CostoBundle:Consulta:consultaDetallePorActividad.html.twig',
             [
-                'presupuesto' => $presupuesto->getHorasPresupuestadas(),
+                'presupuesto' => $horasPresupuestadas,
                 'registros' => $registrosFiltrados,
                 'costoReal' => $costoReal,
             ]
@@ -204,7 +217,7 @@ class ConsultaCostoController extends Controller
                 [
                     'horasExtraordinarias' => $data['horas_extraordinarias'],
                     'honorarios' => $honorarios,
-                    'nombrePresupuesto' => $proyecto->getNombrePresupuesto(),
+                    'proyecto' => $proyecto,
                     'consultasPorActividades' => $consultasPorActividades,
                    
                     'verificador' => false,  //mandar variable a javascript
@@ -282,6 +295,7 @@ class ConsultaCostoController extends Controller
     {
         $returnArray = [];
         foreach ($registros as $registro) {
+
             if ($registro->getIngresadoPor() == $usuario) {
                 $returnArray[] = $registro;
             }
@@ -713,12 +727,12 @@ class ConsultaCostoController extends Controller
                     ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $registro->getIngresadoPor());
                 $costo = $costo['costo'];
                 if ($registro->getActividad()->getActividadNoCargable() === true) {
-                    $costo = 0;
+                    $costo = 0;    
                 }
                 $costoReal[] = $costo * $registro->getHorasInvertidas($horasExtraordinarias);
             }
         }
-
+     
         return $costoReal;
     }
 
