@@ -45,11 +45,28 @@ abstract class Usuario extends BaseUser
     protected $apiKey;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="misUsuariosRelacionados", cascade={"persist"})
+     
+     */
+    private $usuarioRelacionado;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="usuarioRelacionado")
+     * @ORM\JoinTable(name="usuario_relacionado",
+     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="usuario_pertenece_id", referencedColumnName="id")}
+     *      )
+     */
+    private $misUsuariosRelacionados;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();// construye los metodos y atributos de Base
+        $this->usuarioRelacionado =  new \Doctrine\Common\Collections\ArrayCollection();
+        $this->misUsuariosRelacionados =  new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -186,5 +203,75 @@ abstract class Usuario extends BaseUser
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    /**
+     * Add usuarioRelacionado
+     *
+     * @param \UserBundle\Entity\Usuario $usuarioRelacionado
+     *
+     * @return Usuario
+     */
+    public function addUsuarioRelacionado(\UserBundle\Entity\Usuario $usuarioRelacionado)
+    {
+        $usuarioRelacionado->addMisUsuariosRelacionado($this);
+        $this->usuarioRelacionado[] = $usuarioRelacionado;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarioRelacionado
+     *
+     * @param \UserBundle\Entity\Usuario $usuarioRelacionado
+     */
+    public function removeUsuarioRelacionado(\UserBundle\Entity\Usuario $usuarioRelacionado)
+    {
+        $usuarioRelacionado->remove($this);
+        $this->usuarioRelacionado->removeElement($usuarioRelacionado);
+    }
+
+    /**
+     * Get usuarioRelacionado
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsuarioRelacionado()
+    {
+        return $this->usuarioRelacionado;
+    }
+
+    /**
+     * Add misUsuariosRelacionado
+     *
+     * @param \UserBundle\Entity\Usuario $misUsuariosRelacionado
+     *
+     * @return Usuario
+     */
+    public function addMisUsuariosRelacionado(\UserBundle\Entity\Usuario $misUsuariosRelacionado)
+    {   
+        $this->misUsuariosRelacionados[] = $misUsuariosRelacionado;
+
+        return $this;
+    }
+
+    /**
+     * Remove misUsuariosRelacionado
+     *
+     * @param \UserBundle\Entity\Usuario $misUsuariosRelacionado
+     */
+    public function removeMisUsuariosRelacionado(\UserBundle\Entity\Usuario $misUsuariosRelacionado)
+    {
+        $this->misUsuariosRelacionados->removeElement($misUsuariosRelacionado);
+    }
+
+    /**
+     * Get misUsuariosRelacionados
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMisUsuariosRelacionados()
+    {
+        return $this->misUsuariosRelacionados;
     }
 }

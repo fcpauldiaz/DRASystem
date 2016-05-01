@@ -2,7 +2,9 @@
 
 namespace CostoBundle\Controller;
 
-class QueryController
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class QueryController extends Controller
 {
     /**
      * Agregar elemento a un array collection.
@@ -70,5 +72,40 @@ class QueryController
         }
 
         return $horasPresupuesto;
+    }
+    /**
+     * Método para buscar los usuarios relacionados
+     * @param  UserBundle:Usuario $usuario 
+     * @return Array de UserBundle:Usuario
+     */
+    public function buscarUsuariosPorSocio($usuario)
+    {
+       $sql = " 
+            SELECT u1.id 
+            FROM usuario u1
+            WHERE u1.id in 
+            (
+                SELECT r1.usuario_pertenece_id
+                FROM usuario u
+                JOIN usuario_relacionado r1 ON r1.usuario_id =  u.id
+                WHERE u.id = ?
+            )
+            ";
+
+        $em = $this->getDoctrine()->getManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->bindValue(1, $usuario->getId());
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+        $ids = [];
+        foreach($res as $innerRes) {
+            $ids[] = $innerRes["id"]; 
+        }
+        return $this
+            ->getDoctrine()
+            ->getRepository('UserBundle:Usuario')
+            ->findById($ids)
+            ;
+
     }
 }

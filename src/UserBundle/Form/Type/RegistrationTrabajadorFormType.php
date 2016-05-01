@@ -4,6 +4,7 @@ namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -91,7 +92,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'label' => 'NIT *',
                 'attr' => [
                     'class' => 'form-control input-lg',
-                    'placeholder' => 'Número de Identificación Tributaria',
+                    'placeholder' => 'Número de Identificación Tributaria sin guión',
                 ],
                 'required' => true,
                 'constraints' => [
@@ -116,6 +117,25 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => true,
             ])
+            ->add('misUsuariosRelacionados', 'entity', [
+                'class' => 'UserBundle:Usuario',
+                'property' => 'codigoString',
+                'label' => false,
+                 'attr' => [
+                    'class' => 'select2',
+                 ],
+                 'multiple' => true,
+                 'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('user')
+                        ->select('usuario', 'socio')
+                        ->from('UserBundle:UsuarioTrabajador', 'usuario')
+                        ->from('UserBundle:UsuarioSocio', 'socio')
+                        ->leftJoin('usuario.puestos', 'puesto')
+                        ->leftJoin('puesto.tipoPuesto', 'tipopuesto')
+                        ->where('tipopuesto.nombrePuesto LIKE :nombre')
+                        ->setParameter('nombre', '%Gerente%');
+                },
+                ])
             ->add('submit', 'submit', [
                 'label' => 'Guardar y agregar puesto',
                 'attr' => [

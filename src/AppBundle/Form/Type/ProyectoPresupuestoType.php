@@ -58,8 +58,8 @@ class ProyectoPresupuestoType extends AbstractType
                     return $er->createQueryBuilder('usuario')
                         ->leftJoin('usuario.puestos', 'puesto')
                         ->leftJoin('puesto.tipoPuesto', 'tipopuesto')
-                        ->where('tipopuesto.id = :idGerente')
-                        ->setParameter('idGerente', 4);
+                        ->where('tipopuesto.nombrePuesto LIKE :nombre')
+                        ->setParameter('nombre', '%Gerente%');
                 },
 
             ])

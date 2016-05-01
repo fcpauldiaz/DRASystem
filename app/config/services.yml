@@ -21,3 +21,5 @@ services:
             - { name: twig.extension }
     consulta.query_controller:
         class: CostoBundle\Controller\QueryController
+        calls:
+        - [setContainer, ["@service_container"]]

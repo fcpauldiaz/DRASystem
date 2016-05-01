@@ -80,6 +80,20 @@ class ConsultaSocioType extends AbstractType
                 'choices_as_values' => true,
 
             ])
+           ->add('proyecto_o_usuarios', 'choice', [
+                'choices' => [
+                    'Proyecto Presupuesto' => 0,
+                    'Usuarios' => 1,
+                ],
+                'label' => 'Escoja tipo de consulta',
+                'attr' => [
+                    'help_text' => 'La consulta puede ser por el proyecto de presupuesto o por cada usuario relacionado'
+                ],
+                'required' => true,
+                // always include this
+                'choices_as_values' => true,
+
+            ])
             ->add('submit', 'submit', [
                 'label' => 'Buscar',
                 'attr' => [

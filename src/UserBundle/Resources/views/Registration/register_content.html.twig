@@ -128,6 +128,8 @@
                         </button>
                         <br>
                         <br>
+                        {{form_row(form.misUsuariosRelacionados)}}
+                        <br>
                         <br>
                         {{ form_row(form.submit)}}
 
@@ -146,7 +148,8 @@
 <script>
 ajaxCodigo();
 $(document).ready(function() { 
-    $("#fos_user_registration_form_codigo").select2({ width: '50%' });           
+    $("#fos_user_registration_form_codigo").select2({ width: '50%' }); 
+    $("#fos_user_registration_form_misUsuariosRelacionados").select2({ width: '50%' });           
 });
 
 </script>

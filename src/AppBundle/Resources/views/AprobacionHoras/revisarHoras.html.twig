@@ -86,7 +86,9 @@
             {% endif %}
             </tbody>
         </table>
+        {% if usuario != null %}
          <a class="btn btn-primary btn-lg btn-block enviarCorreo" href="{{           path('avisar_horas_no_aprobadas', {'usuario_id' : usuario.id })}}">Mandar correo a {{usuario.nombre}} de todas las horas no aprobadas</a> 
+        {% endif %}
         <br>
         <br>
     {% endblock %}

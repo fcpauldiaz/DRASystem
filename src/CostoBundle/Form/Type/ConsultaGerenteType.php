@@ -65,14 +65,14 @@ class ConsultaGerenteType extends AbstractType
             ])
               ->add('gerente', 'entity', [
                 'required' => false,
-                'label' => 'Gerentes/s asignados',
+                'label' => 'Gerentes',
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                     return $er->createQueryBuilder('usuario')
                         ->leftJoin('usuario.puestos', 'puesto')
                         ->leftJoin('puesto.tipoPuesto', 'tipopuesto')
-                        ->where('tipopuesto.id = :idGerente')
-                        ->setParameter('idGerente', 4);
+                        ->where('tipopuesto.nombrePuesto LIKE :nombre')
+                        ->setParameter('nombre', '%Gerente%');
                 },
 
             ])
@@ -92,6 +92,17 @@ class ConsultaGerenteType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',
                 ],
+
+            ])
+            ->add('proyecto_o_usuarios', 'choice', [
+                'choices' => [
+                    'Proyecto Presupuesto' => 0,
+                    'Usuarios' => 1,
+                ],
+                'label' => '¿Incluir horas extraordinarias?',
+                'required' => true,
+                // always include this
+                'choices_as_values' => true,
 
             ])
 

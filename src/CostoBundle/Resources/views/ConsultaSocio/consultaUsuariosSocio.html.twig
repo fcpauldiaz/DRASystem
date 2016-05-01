@@ -55,8 +55,6 @@
 		 <table class="table table-striped table-hover">
 	        <thead>
 	            <tr>
-	                <th>Cliente</th>
-	                <th>Actividad</th>
 	                <th>Usuario</th>
 	                <th>Horas Invertidas</th>
 	                <th>Horas Presupuestadas</th>
@@ -70,8 +68,6 @@
 	            
 	            {% for consulta in consultaSocio %}
 	                <tr>
-		                <td>{{consulta.cliente}}</td>
-		                <td>{{consulta.actividad}}</td>
 		                <td>{{consulta.usuario}}</td>
 		                <td>{{consulta.horasCalculadas}}</td>
 		                <td>{{consulta.horasPresupuesto}}</td>
@@ -83,8 +79,6 @@
 	            {% endfor %}
 	             <tr>
 	                <td><b>Totales<b> </td>
-	                <td> </td>
-	                <td> </td>
 	                <td> 
 	                    <b> 
 	                        <font color="#27ae60">
@@ -126,32 +120,32 @@
 	        </tr>
 	         <tr>
 	                <td><b>Honorarios<b> </td>
-	                <td> </td>
-	                <td> </td>
 	                <td>  </td>
 	                <td> </td>
 	                <td> </td>
 	                <td> </td>
 	                <td>
+	                   {% if honorarios is not empty %}
 	                   <b>
 	                        <font color="#27ae60">
 	                          Q  {{honorarios | number_format(2, '.', ', ')}}
 	                        </font>
 	                    </b>
-	                    
+	                    {% endif %}
 	                </td>
 	               
 	        </tr>
+	        {% if honorarios is not empty %}
 	        {% set utilidad = honorarios - sum_costo(consultaSocio) %}
+	        {% endif %}
 	         <tr>
 	                <td><b>Utilidad<b> </td>
 	                <td> </td>
 	                <td> </td>
 	                <td> </td>
 	                <td> </td>
-	                <td> </td>
-	                <td> </td>
 	                <td>
+	                    {% if honorarios is not empty %}
 	                   <b> {% if utilidad < 0 %}
 	                        <font color="#c0392b">
 	                          
@@ -166,8 +160,9 @@
 	                        </font>  
 	                        {% endif %}
 	                    </b>
-	                    
+	                    {% endif %}
 	                </td>
+	        
 	               
 	        </tr>
 	        </tbody>

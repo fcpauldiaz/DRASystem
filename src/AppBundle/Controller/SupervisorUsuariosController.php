@@ -73,6 +73,23 @@ class SupervisorUsuariosController extends Controller
             ]
         );
     }
+    /**
+     *  
+     *  @Route("/mostrar/usuarios/relacionados", name="mostrar_usuarios_relacionados")  
+     */
+    public function mostrarUsuariosRelacionadosAction(Request $request)
+    {
+        $usuario = $this->getUser();
+        $usuarios = $this
+            ->get('consulta.query_controller')
+            ->buscarUsuariosPorSocio($usuario);
+        
+         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
+            [
+                'usuarios' => $usuarios,
+            ]
+        );
+    }
 
     /**
      * @Security("is_granted('ROLE_GERENTE')") 

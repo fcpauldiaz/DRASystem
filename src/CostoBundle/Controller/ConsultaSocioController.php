@@ -47,11 +47,25 @@ class ConsultaSocioController extends Controller
         }
 
         $data = $form->getData();
+        $socio = $data['socio'];
+        $tipoConsulta = $data['proyecto_o_usuarios'];
 
+        if ($tipoConsulta === 1) {
+            
+            return $this->subConsultaSocioUsuario($socio, $form);
+        }
+        if ($tipoConsulta === 0){
+            return $this->subConsultaSocioProyecto($socio, $form);
+        }
+
+       
+    }
+
+    private function subConsultaSocioProyecto($socio, $form)
+    {
+        $data = $form->getData();
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
-        $socio = $data['socio'];
-
         $proyectos = $this->queryProyectosPorSocio($socio);
 
         $registros = [];
@@ -110,6 +124,87 @@ class ConsultaSocioController extends Controller
         );
     }
 
+    private function subConsultaSocioUsuario($socio, $form)
+    {
+        $data = $form->getData();
+        $usuarios = $this
+            ->get('consulta.query_controller')
+            ->buscarUsuariosPorSocio($socio);
+   
+        $registros = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras')->findAll();
+        $presupuestosIndividuales = $this->getDoctrine()
+            ->getRepository('AppBundle:RegistroHorasPresupuesto')
+                ->findAll();
+
+        foreach($usuarios as $usuario) {
+             $horas = $this->calcularHorasPorUsuario($usuario, $registros, true);
+        //horas presupuestadas de un usuarios asignadas
+        $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
+        $costoPorHora = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('CostoBundle:Costo')
+            ->findByFechaAndUsuario($data['fechaInicio'], $data['fechaFinal'], $usuario);
+        $costoPorHora = $costoPorHora['costo'];
+        $costoTotal = $horas*$costoPorHora;
+
+        $consultaUsuario = new ConsultaUsuario(
+            $usuario,
+            $horas,
+            $horasPresupuesto,
+            $costoPorHora,
+            $costoTotal
+        );
+        $costoPresupuesto = $costoPorHora * $horasPresupuesto;
+        $consultaUsuario->setCostoPresupuesto($costoPresupuesto);
+        $consultaUsuario->calcularDiferencia();
+
+        $returnArray[] = $consultaUsuario;
+
+        }
+        $honorarios = $this
+            ->get('consulta.query_controller')
+            ->calcularHonorariosTotales($registros);
+        return $this->render(
+            'CostoBundle:ConsultaSocio:consultaUsuariosSocio.html.twig',
+            [
+                'honorarios' => $honorarios,
+                'verificador' => false,  //mandar variable a javascript
+                'consultaSocio' => $returnArray,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    private function calcularHorasPorUsuarioPresupuesto($usuario, $registros)
+    {
+        $cantidadHorasPorUsuario = 0;
+        foreach ($registros as $registro) {
+            $usuario2 = $registro->getUsuario();
+
+            if ($usuario == $usuario2) {
+                $cantidadHorasPorUsuario += $registro->getHorasPresupuestadas();
+            }
+        }
+
+        return $cantidadHorasPorUsuario;
+    }
+
+    private function calcularHorasPorUsuario($usuario, $registros, $horasExtraordinarias)
+    {
+        $cantidadHorasPorUsuario = 0;
+        foreach ($registros as $registro) {
+            $registroUsuario = $registro->getIngresadoPor();
+            if ($registro->getActividad()->getActividadNoCargable() === true) {
+                continue;
+            }
+            if ($usuario == $registroUsuario) {
+                $cantidadHorasPorUsuario += $registro->getHorasInvertidas($horasExtraordinarias);
+            }
+        }
+
+        return $cantidadHorasPorUsuario;
+    }
+
     /**
      * @Route("gerente/", name = "consulta_gerente")
      */
@@ -141,17 +236,20 @@ class ConsultaSocioController extends Controller
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
         $gerente = $data['gerente'];
-
+        //buscar los proyectos relacionados con el gerente
         $proyectos = $this->queryProyectosPorGerente($gerente);
 
         $registros = [];
         $registrosPesupuesto = [];
+        //iterar todos los proyectos encontrados
         foreach ($proyectos as $proyecto) {
+            //buscar los registros de cada proyecto y acumularlos
             $registros = array_merge($registros, $this->queryRegistroHorasPorProyecto($proyecto));
+            //buscar lso registros de presupuesto de cada proyecto y acumularlos
             $registrosPresupuesto = array_merge($registrosPesupuesto, $proyecto->getPresupuestoIndividual()->toArray());
         }
         $returnArray = [];
-
+        //los registros ya están filtrados
         foreach ($registros as $registro) {
             $cliente = $registro->getCliente();
             $horas = $registro->getHorasInvertidas($data['horas_extraordinarias']);

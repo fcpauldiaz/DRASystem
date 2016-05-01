@@ -4,7 +4,7 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as Unique;
 /**
  * @ORM\Table(name="usuario_trabajador")
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
@@ -12,7 +12,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * 
  * @UniqueEntity(fields = "nit", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El nit debe ser único")
  * @UniqueEntity(fields = "dpi", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El dpi debe ser único")
- *
+ * @Unique("codigo")
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
  * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
