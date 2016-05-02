@@ -76,11 +76,20 @@ class RegistrationSocioFormType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
 
             ])
+            ->add('codigo', 'entity', [
+                'class' => 'UserBundle:Codigo',
+                'label' => false,
+                'property' => 'codigoCompleto',
+                'attr' => [
+                    'class' => 'select2',
+                ],
+                'required' => true,
+            ])
 
               ->add('submit', 'submit', [
                         'label' => 'Guardar',
                         'attr' => [
-                                'class' => 'btn btn-primary',
+                                'class' => 'btn btn-primary btn-block',
                             ],
                     ])
 

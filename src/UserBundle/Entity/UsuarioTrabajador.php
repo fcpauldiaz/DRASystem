@@ -79,15 +79,6 @@ class UsuarioTrabajador extends Usuario
     private $presupuestos;
 
     /**
-     * Código ya utilizado en DRA.
-     * 
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Codigo")
-     *
-     * @var Entity
-     */
-    private $codigo;
-
-    /**
      * Constructor.
      */
     public function __construct()
@@ -327,30 +318,6 @@ class UsuarioTrabajador extends Usuario
     public function getPresupuestos()
     {
         return $this->presupuestos;
-    }
-
-    /**
-     * Set codigo.
-     *
-     * @param string $codigo
-     *
-     * @return UsuarioTrabajador
-     */
-    public function setCodigo($codigo)
-    {
-        $this->codigo = $codigo;
-
-        return $this;
-    }
-
-    /**
-     * Get codigo.
-     *
-     * @return string
-     */
-    public function getCodigo()
-    {
-        return $this->codigo;
     }
 
     public function __toString()

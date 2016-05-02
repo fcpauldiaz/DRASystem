@@ -15,7 +15,9 @@ class CodigoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo')
+            ->add('codigo', null, [
+                'label' => 'Código',
+            ])
             ->add('nombres')
             ->add('apellidos')
         ;

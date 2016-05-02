@@ -7,8 +7,6 @@ easy_admin:
                 fields: ['nombre','apellidos','username','email', 'datosPrestaciones','puestos','enabled','lastLogin','roles']
             new:
                 fields: ['nombre','apellidos',,'username','email','datosPrestaciones','puestos','enabled','password','roles']
-            edit:
-                fields: ['nombre','apellidos',,'username','email','datosPrestaciones','puestos','enabled','lastLogin','password','expiresAt','locked','expired','roles']
         UsuarioSocio:
             class: UserBundle\Entity\UsuarioSocio
             list:

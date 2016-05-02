@@ -37,7 +37,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                     'property' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',
-                        'help_text' => 'Seleccione los usuarios que realizarán las horas',
+                        'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'required' => true,

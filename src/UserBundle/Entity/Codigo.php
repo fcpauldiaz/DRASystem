@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Codigo.
  *
- * @ORM\Table()
+ * @ORM\Table("codigo_usuario")
  * @ORM\Entity
  * @UniqueEntity("codigo")
  */
@@ -126,8 +126,13 @@ class Codigo
         return $this->apellidos;
     }
 
+    public function getCodigoCompleto()
+    {
+         return $this->codigo.': '.$this->nombres.' '.$this->apellidos;
+    }
+
     public function __toString()
     {
-        return $this->codigo.': '.$this->nombres.' '.$this->apellidos;
+        return $this->codigo;
     }
 }

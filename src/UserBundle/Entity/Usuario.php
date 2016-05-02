@@ -59,6 +59,14 @@ abstract class Usuario extends BaseUser
      */
     private $misUsuariosRelacionados;
 
+     /**
+     * Código ya utilizado en DRA.
+     * 
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Codigo")
+     *
+     * @var Entity
+     */
+    private $codigo;
     /**
      * Constructor.
      */
@@ -182,19 +190,19 @@ abstract class Usuario extends BaseUser
     public function getCodigoString()
     {
         if ($this->hasRole('ROLE_ASISTENTE')) {
-            return 'AS'.' '.$this->getId().' : '.$this->__toString();
+            return 'AS'.' '.$this->getCodigo().' : '.$this->__toString();
         }
         if ($this->hasRole('ROLE_ENCARGADO')) {
-            return 'EN'.' '.$this->getId().' : '.$this->__toString();
+            return 'EN'.' '.$this->getCodigo().' : '.$this->__toString();
         }
         if ($this->hasRole('ROLE_SUPERVISOR')) {
-            return 'SU'.' '.$this->getId().' : '.$this->__toString();
+            return 'SU'.' '.$this->getCodigo().' : '.$this->__toString();
         }
         if ($this->hasRole('ROLE_GERENTE')) {
-            return 'GE'.' '.$this->getId().' : '.$this->__toString();
+            return 'GE'.' '.$this->getCodigo().' : '.$this->__toString();
         }
         if ($this->hasRole('ROLE_SOCIO')) {
-            return 'SC'.' '.$this->getId().' : '.$this->__toString();
+            return 'SC'.' '.$this->getCodigo().' : '.$this->__toString();
         }
 
         return $this->__toString();
@@ -273,5 +281,29 @@ abstract class Usuario extends BaseUser
     public function getMisUsuariosRelacionados()
     {
         return $this->misUsuariosRelacionados;
+    }
+
+     /**
+     * Set codigo.
+     *
+     * @param string $codigo
+     *
+     * @return UsuarioTrabajador
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo.
+     *
+     * @return string
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
     }
 }

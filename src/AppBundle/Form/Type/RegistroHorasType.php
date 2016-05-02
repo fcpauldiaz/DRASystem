@@ -61,7 +61,7 @@ class RegistroHorasType extends AbstractType
                 'property' => 'codigoString',
                 'data' => $this->usuario,
                 'attr' => [
-                    'help_text' => 'Usuario que realizó las horas',
+                    'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],
 
             ])

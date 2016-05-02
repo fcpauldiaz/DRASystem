@@ -112,6 +112,7 @@ class RegistrationTrabajadorFormType extends AbstractType
             ->add('codigo', 'entity', [
                 'class' => 'UserBundle:Codigo',
                 'label' => false,
+                'property' => 'codigoCompleto',
                 'attr' => [
                     'class' => 'select2',
                 ],
