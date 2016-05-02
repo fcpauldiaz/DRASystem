@@ -1,5 +1,31 @@
 {% extends '::base.html.twig' %}
-
+{% block javascripts %}
+    <script src="{{asset('js/bootbox.min.js')}}"></script>
+    <script>
+        $(document).on("click", ".confirm", function(e) {
+            bootbox.dialog({
+                message: "Si elimina un cliente se eliminarán todos las referencias en los registros",
+                title: "Confirmar eliminación",
+                buttons: {
+                    cancel: {
+                      label: "Cancelar",
+                      className: "btn-primary",
+                      callback: function() {
+                       
+                      }
+                    },
+                    main: {
+                      label: "Eliminar",
+                      className: "btn-danger",
+                      callback: function() {
+                        $('form[name="form"]').submit();            
+                        }
+                    },
+                }
+            });
+        });
+    </script>
+{% endblock %}
 {% block body -%}
     <h1>Editar Cliente</h1>
 
@@ -11,6 +37,7 @@
            Ver todos
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li><a class="btn btn-danger confirm">Eliminar</a></li>
+    {{ form(delete_form) }}
 </ul>
 {% endblock %}
