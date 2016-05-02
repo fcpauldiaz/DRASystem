@@ -1,4 +1,32 @@
 {% extends '::base.html.twig' %}
+{% block javascripts %}
+ <script src="{{asset('js/bootbox.min.js')}}"></script>
+    <script>
+        $(document).on("click", ".confirm", function(e) {
+            bootbox.dialog({
+                message: "¿Seguro que desea eliminar el registro de las horas ingresadas?",
+                title: "Confirmar eliminación",
+                buttons: {
+                    cancel: {
+                      label: "Cancelar",
+                      className: "btn-primary",
+                      callback: function() {
+                       
+                      }
+                    },
+                    main: {
+                      label: "Eliminar",
+                      className: "btn-danger",
+                      callback: function() {
+                        $('form[name="form"]').submit();            
+                        }
+                    },
+                }
+            });
+        });
+    </script>
+}
+{% endblock %}
 
 {% block body -%}
     <h1>Editar Registro de horas</h1>
@@ -33,6 +61,7 @@
         </a>
     </li>
     <li> </li>
-    <li>{{ form(delete_form) }}</li>
+    <li><a class="btn btn-danger confirm">Eliminar</a></li>
+    {{ form(delete_form) }}
 </ul>
 {% endblock %}
