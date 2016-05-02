@@ -52,7 +52,7 @@ class ConsultaSocioController extends Controller
 
         if ($tipoConsulta === 1) {
             
-            return $this->subConsultaSocioUsuario($socio, $form);
+            return $this->subConsultaSocioUsuario($socio, $form, 'Socio');
         }
         if ($tipoConsulta === 0){
             return $this->subConsultaSocioProyecto($socio, $form);
@@ -124,7 +124,7 @@ class ConsultaSocioController extends Controller
         );
     }
 
-    private function subConsultaSocioUsuario($socio, $form)
+    private function subConsultaSocioUsuario($socio, $form, $tipo)
     {
         $data = $form->getData();
         $usuarios = $this
@@ -165,7 +165,7 @@ class ConsultaSocioController extends Controller
             ->get('consulta.query_controller')
             ->calcularHonorariosTotales($registros);
         return $this->render(
-            'CostoBundle:ConsultaSocio:consultaUsuariosSocio.html.twig',
+            'CostoBundle:ConsultaSocio:consultaUsuarios'.$tipo.'.html.twig',
             [
                 'honorarios' => $honorarios,
                 'verificador' => false,  //mandar variable a javascript
@@ -236,6 +236,13 @@ class ConsultaSocioController extends Controller
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
         $gerente = $data['gerente'];
+        $tipoConsulta = $data['proyecto_o_usuarios'];
+
+        if ($tipoConsulta === 1) {
+
+          return $this->subConsultaSocioUsuario($gerente, $form, 'Gerente');
+        }
+
         //buscar los proyectos relacionados con el gerente
         $proyectos = $this->queryProyectosPorGerente($gerente);
 

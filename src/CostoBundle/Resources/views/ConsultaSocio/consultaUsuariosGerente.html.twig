@@ -47,30 +47,25 @@
 	</div>
 	{{form_end(form)}}
 	<br>
-	<br>
 
-	{% if consultaGerente is not empty %}
+	{% if consultaSocio is not empty %}
 
 		 <table class="table table-striped table-hover">
 	        <thead>
 	            <tr>
-	                <th>Cliente</th>
-	                <th>Actividad</th>
 	                <th>Usuario</th>
 	                <th>Horas Invertidas</th>
 	                <th>Horas Presupuestadas</th>
 	                <th>Diferencia</th>
 	                <th>CostoPresupuesto</th>
-	                <th>CostoTotal</th>
+	                <th>CostoReal</th>
 	                
 	            </tr>
 	        </thead>
 	        <tbody>
 	            
-	            {% for consulta in consultaGerente %}
+	            {% for consulta in consultaSocio %}
 	                <tr>
-		                <td>{{consulta.cliente}}</td>
-		                <td>{{consulta.actividad}}</td>
 		                <td>{{consulta.usuario}}</td>
 		                <td>{{consulta.horasCalculadas}}</td>
 		                <td>{{consulta.horasPresupuesto}}</td>
@@ -82,33 +77,31 @@
 	            {% endfor %}
 	             <tr>
 	                <td><b>Totales<b> </td>
-	                <td> </td>
-	                <td> </td>
 	                <td> 
 	                    <b> 
 	                        <font color="#27ae60">
-	                            {{sum_horas(consultaGerente)}}
+	                            {{sum_horas(consultaSocio)}}
 	                        </font>
 	                    </b>    
 	                </td>
 	                 <td> 
 	                    <b> 
 	                        <font color="#27ae60">
-	                            {{sum_presupuesto(consultaGerente)}}
+	                            {{sum_presupuesto(consultaSocio)}}
 	                        </font>
 	                    </b>    
 	                </td>
 	                <td> 
 	                    <b> 
 	                        <font color="#27ae60">
-	                            {{sum_diferencia(consultaGerente)}}
+	                            {{sum_diferencia(consultaSocio)}}
 	                        </font>
 	                    </b>    
 	                </td>
 	                 <td>
 	                   <b>
 	                        <font color="#27ae60">
-	                            {{sum_costo_presupuesto(consultaGerente) | number_format(2, '.', ', ')}}
+	                            {{sum_costo_presupuesto(consultaSocio) | number_format(2, '.', ', ')}}
 	                        </font>
 	                    </b>
 	                    
@@ -116,7 +109,7 @@
 	                <td>
 	                   <b>
 	                        <font color="#27ae60">
-	                            {{sum_costo(consultaGerente) | number_format(2, '.', ', ')}}
+	                            {{sum_costo(consultaSocio) | number_format(2, '.', ', ')}}
 	                        </font>
 	                    </b>
 	                    
@@ -125,8 +118,6 @@
 	        </tr>
 	         <tr>
 	                <td><b>Honorarios<b> </td>
-	                <td> </td>
-	                <td> </td>
 	                <td>  </td>
 	                <td> </td>
 	                <td> </td>
@@ -141,11 +132,9 @@
 	                </td>
 	               
 	        </tr>
-	        {% set utilidad = honorarios - sum_costo(consultaGerente) %}
+	        {% set utilidad = honorarios - sum_costo(consultaSocio) %}
 	         <tr>
 	                <td><b>Utilidad<b> </td>
-	                <td> </td>
-	                <td> </td>
 	                <td> </td>
 	                <td> </td>
 	                <td> </td>

@@ -99,7 +99,10 @@ class ConsultaGerenteType extends AbstractType
                     'Proyecto Presupuesto' => 0,
                     'Usuarios' => 1,
                 ],
-                'label' => '¿Incluir horas extraordinarias?',
+                'label' => 'Escoja tipo de consulta',
+                'attr' => [
+                    'help_text' => 'La consulta puede ser por el proyecto de presupuesto o por cada usuario relacionado'
+                ],
                 'required' => true,
                 // always include this
                 'choices_as_values' => true,
