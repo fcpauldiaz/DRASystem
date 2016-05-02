@@ -1,14 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Cliente edit</h1>
+    <h1>Editar Cliente</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('cliente') }}">
-            Back to the list
+        <a class="btn btn-default" href="{{ path('cliente') }}">
+           Ver todos
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

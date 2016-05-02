@@ -26,7 +26,7 @@
                 <td>
                 <ul>
                     <li>
-                        <a class="btn btn-xs btn-default"href="{{ path('cliente_show', { 'id': entity.id }) }}">Mostrar</a>
+                        <a class="btn btn-xs btn-info"href="{{ path('cliente_show', { 'id': entity.id }) }}">Mostrar</a>
                     </li>
                     {% if is_granted('ROLE_GERENTE') %}
                         <li>

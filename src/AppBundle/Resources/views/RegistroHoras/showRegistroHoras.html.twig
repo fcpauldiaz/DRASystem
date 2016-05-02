@@ -12,9 +12,14 @@
             </tr>
              <tr>
                 <th>Proyecto  Presupuesto asignado</th>
-                <td>{{ entity.proyectoPresupuesto }}   <a class="btn btn-info btn-xs" href="{{ path('proyectopresupuesto_show', { 'id': entity.proyectoPresupuesto.id }) }}">
+                <td>{{ entity.proyectoPresupuesto }} 
+                  {% if id is defined %}
+                  <a class="btn btn-info btn-xs" href="{{ path('proyectopresupuesto_show', { 'id': entity.proyectoPresupuesto.id }) }}">
                      Mostrar
-                </a></td>
+                    }
+                    </a>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Horas Invertidas</th>

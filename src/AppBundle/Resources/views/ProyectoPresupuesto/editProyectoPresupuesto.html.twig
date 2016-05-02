@@ -1,17 +1,45 @@
 {% extends '::base.html.twig' %}
+{% block javascripts %}
+    <script src="{{asset('js/bootbox.min.js')}}"></script>
+    <script>
+        $(document).on("click", ".confirm", function(e) {
+            bootbox.dialog({
+                message: "Si eliminar un proyecto de presupuesto se eliminarán todos las horas presupuestadas también",
+                title: "Confirmar eliminación",
+                buttons: {
+                    cancel: {
+                      label: "Cancelar",
+                      className: "btn-primary",
+                      callback: function() {
+                       
+                      }
+                    },
+                    main: {
+                      label: "Eliminar",
+                      className: "btn-danger",
+                      callback: function() {
+                        $('form[name="form"]').submit();            
+                        }
+                    },
+                }
+            });
+        });
+    </script>
+{% endblock %}
 
 {% block body -%}
 	<br>
-    <h1>ProyectoPresupuesto edit</h1>
+    <h1>Editar Proyecto De Presupuesto</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('proyectopresupuesto') }}">
-            Back to the list
+        <a class = "btn btn-primary" href="{{ path('proyectopresupuesto') }}">
+            Ver todos
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li><a class="btn btn-danger confirm">Eliminar</a></li>
+   {{ form(delete_form) }}
 </ul>
 {% endblock %}

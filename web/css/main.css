@@ -222,3 +222,7 @@ span.round-tab:hover {
 .width-select2{
     width: 50%;
 }
+
+.hide-submit{
+    visibility: hidden;
+}
