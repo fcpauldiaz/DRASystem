@@ -29,11 +29,12 @@ class CronJobController extends Controller
             $entidadCosto = new Costo();
             $entidadCosto->setFechaInicio($firstDay);
             $entidadCosto->setFechaFinal($lastDay);
-            $costo = $this->forward('CostoBundle:Costo:costo', [
-                'fechaInicio' => $firstDay,
-                'fechaFin' => $lastDay,
-                'usuario' => $usuario,
-            ]);
+            $costo = $this->calcularCosto(
+                $firstDay,
+                $lastDay,
+                $usuario
+            );
+         
             $entidadCosto->setCosto($costo);
             $entidadCosto->setUsuario($usuario);
             $em->persist($entidadCosto);
@@ -59,5 +60,35 @@ class CronJobController extends Controller
                 'form' => $form->createView(),
             ]
         );
+    }
+
+        private function calcularCosto($fechaInicio, $fechaFin, $usuario)
+        {
+      
+       
+        $datosPrestaciones = $usuario->getDatosPrestaciones()->last();
+        $totalHorasPorPeriodo = 0;
+        if ($datosPrestaciones !== false) {
+            $totalIngreso = $datosPrestaciones->calcularTotalPrestaciones();
+            //ahora busco todas las horas ingresadas por el usuario
+            //en el período seleccionado
+            $repository = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
+            $totalHorasPorPeriodo = $repository->createQueryBuilder('registro')
+                ->select('SUM(registro.horasInvertidas)')
+                ->Where('registro.fechaHoras >= :fechaInicio')
+                ->andWhere('registro.fechaHoras < :fechaFin')
+                ->andWhere('registro.ingresadoPor = :usuario')
+                ->setParameter('fechaInicio', $fechaInicio)
+                ->setParameter('fechaFin', $fechaFin)
+                ->setParameter('usuario', $usuario)
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+        $costo = 0;
+        if ($totalHorasPorPeriodo != 0) {
+            $costo = $totalIngreso / $totalHorasPorPeriodo;
+        }
+       
+        return $costo;
     }
 }
