@@ -86,12 +86,12 @@ class RegistrationSocioFormType extends AbstractType
                 'required' => true,
             ])
 
-              ->add('submit', 'submit', [
-                        'label' => 'Guardar',
-                        'attr' => [
-                                'class' => 'btn btn-primary btn-block',
-                            ],
-                    ])
+            ->add('submit', 'submit', [
+                'label' => 'Guardar',
+                'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ])
 
             ;
 
