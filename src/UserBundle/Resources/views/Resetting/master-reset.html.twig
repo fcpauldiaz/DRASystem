@@ -29,7 +29,7 @@
 										
 										{% block body_text %}
 											{% autoescape 'html' %}
-												<p>Hola {{user.nombreCompleto}}!</p>
+												<p>Hola {{user.nombre}} {{user.apellidos}}!</p>
 												<p>Para restablecer tu contraseña - por favor visita  <a href="{{confirmationUrl}}">Link de Recuperación</a></p>
 												<p>Atentamente,</p>
 												<p>el Equipo.</p>
@@ -89,7 +89,7 @@
 								<tr>
 									<td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
 										&reg; Smart Time<br/>
-										<a href="#" style="color: #ffffff;"><font color="#ffffff">Unsubscribe</font></a> to this newsletter instantly
+										<a href="http://newtonlabs.com.gt" style="color: #ffffff;"><font color="#ffffff">NewtonLabs</font></a>
 									</td>
 									<td align="right" width="25%">
 										<table border="0" cellpadding="0" cellspacing="0">
