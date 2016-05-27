@@ -30,7 +30,7 @@ pugx_multi_user:
           form: 
             type: UserBundle\Form\Type\RegistrationTrabajadorFormType
             name: fos_user_registration_form
-            validation_groups:  [Registration, Default]
+            validation_groups:  [Registration, Default, EmailDomainValidation]
           template: UserBundle:Registration:register.html.twig
         profile:
           form:
