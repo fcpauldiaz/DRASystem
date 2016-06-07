@@ -39,15 +39,16 @@
                 <li><a href="{{ path('proyectopresupuesto')}}">Proyectos presupuesto</a></li>
                  <li><a href="{{ path('cliente')}}">Clientes</a></li>
                 <li class="divider"></li>
+                <li class="dropdown-header">Aprobación de horas</li>
+                <li><a href="{{path('mostrar_usuarios_relacionados')}}">Revisar horas</a></li>
+                <li class="divider"></li>
                 <li class="dropdown-header">Sección Consultas específicas</li>
                    <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
                     <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
                      <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
                     <li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
                      <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Aprobación de horas</li>
-                <li><a href="{{path('mostrar_usuarios_relacionados')}}">Revisar horas</a></li>
+              
                 </ul>
               
             {% endif %}
