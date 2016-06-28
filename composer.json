@@ -1,6 +1,6 @@
 {
-    "name": "pablo/dra-system",
-    "description":"proyecto para administrar DRA",
+    "name": "fcpauldiaz/smart-time",
+    "description":"ERP para administrar el control de horas de una empresa",
     "license": "proprietary",
     "type": "project",
     "secure-http": "false",
@@ -10,7 +10,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.5.0, <7.0.7",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",

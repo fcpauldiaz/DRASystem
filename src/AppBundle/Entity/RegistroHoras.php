@@ -83,6 +83,8 @@ class RegistroHoras
      */
     private $horasExtraordinarias;
 
+    private $horasActividad;
+
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
@@ -319,6 +321,25 @@ class RegistroHoras
         return $this;
     }
 
+    /**
+     * Método para devolver el conjunto de horas-actividad
+     * Este método no es utilizado pero es necesario
+     * @return [type] [description]
+     */
+    public function getHorasActividad()
+    {
+        return $this->horasActividad;
+    }
+
+
+    /**
+     * Método para devolver el conjunto de horas-actividad
+     * Este método no es utilizado pero es necesario
+     */
+    public function setHorasActividad($horasActividad)
+    {
+        $this->horasActividad = $horasActividad;
+    }
     /**
      * Get horasExtraordinarias.
      *

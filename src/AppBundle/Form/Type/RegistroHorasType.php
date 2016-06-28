@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use AppBundle\Form\Type\RegistroActividadHorasType;
 
 class RegistroHorasType extends AbstractType
 {
@@ -47,15 +48,23 @@ class RegistroHorasType extends AbstractType
                 'empty_value' => 'Seleccione el cliente',
 
             ])
-            ->add('actividad', 'entity', [
-                'class' => 'AppBundle:Actividad',
-                'required' => true,
-                'empty_value' => 'Seleccione la actividad',
-            ])
-            ->add('horasInvertidas', null, [
-                'label' => 'Horas invertidas',
-                'required' => true,
-            ])
+            ->add('horasActividad', 'bootstrap_collection', [
+                    'type' => new RegistroActividadHorasType(),
+                    'label' => 'Registro de Actividad y Horas',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'add_button_text' => 'Agregar Actividad',
+                    'delete_button_text' => 'Eliminar Actividad',
+                    'sub_widget_col' => 6,
+                    'button_col' => 12,
+                    'by_reference' => false, //esta linea también es importante para que se guarde la ref
+                    'cascade_validation' => true,
+                    'attr' => [
+                            'class' => 'select2',
+                        ],
+                   
+
+                ])
             ->add('ingresadoPor', 'entity', [
                 'class' => 'UserBundle:Usuario',
                 'property' => 'codigoString',

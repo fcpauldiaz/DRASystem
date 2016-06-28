@@ -58,17 +58,34 @@ class RegistroHorasController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
             $usuario = $data->getIngresadoPor();
             if ($usuario->hasRole('ROLE_GERENTE')) {
                 $entity->setAprobado(true);
             }
+            $horasActividad = $data->getHorasActividad();
+            $entities = [];
+            foreach($horasActividad as $registro) {
+                $entity = new RegistroHoras();
+                $entity->setFechaHoras($data->getFechaHoras());
+                $entity->setHorasInvertidas($registro['horasInvertidas']);
+                $entity->setActividad($registro['actividad']);
+                $entity->setCliente($data->getCliente());
+                $entity->setIngresadoPor($data->getIngresadoPor());
+                $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
+                $entity->setAprobado($data->getAprobado());
+                $entity->setHorasExtraordinarias($data->getHorasExtraordinarias());
+                $em->persist($entity);
+                $em->flush();
+                $entities[] = $entity;
+            }
+      
 
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('registrohoras_show', array('id' => $entity->getId())));
+           return $this->render('AppBundle:RegistroHoras:indexRegistroHoras.html.twig', [
+                'entities' => $entities
+            ]);
         }
 
         return array(
