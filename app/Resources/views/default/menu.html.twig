@@ -13,42 +13,66 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">Inicio</a></li>
+           {% if is_granted('ROLE_USER') %}
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresar <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                {% if is_granted('ROLE_SUPERVISOR') %}
-                <li><a href="{{ path('cliente_new')}}">Clientes</a></li>
+                {% if is_granted('ROLE_CREAR_CLIENTES') %}
+                    <li><a href="{{ path('cliente_new')}}">Clientes</a></li>
                 {% endif %}
-                {% if is_granted('ROLE_GERENTE') %}
-                <li><a href="{{ path('actividad_new')}}">Actividades</a></li>
+                {% if is_granted('ROLE_CREAR_ACTIVIDADES') %}
+                    <li><a href="{{ path('actividad_new')}}">Actividades</a></li>
                 {% endif %}
 
               
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección Horas</li>
-                <li><a href="{{ path('registrohoras_new')}}">Horas Realizadas</a></li>
-                <li><a href="{{ path('proyectopresupuesto_new')}}">Proyecto Presupuesto</a></li>
+                {% if is_granted('ROLE_CREAR_HORAS')%}
+                    <li><a href="{{ path('registrohoras_new')}}">Horas Realizadas</a></li>
+                {% endif %}
+
+                {% if is_granted('ROLE_CREAR_PRESUPUESTOS')%}
+                    <li><a href="{{ path('proyectopresupuesto_new')}}">Proyecto Presupuesto</a></li>
+                {% endif %}
              </ul>
             </li>
-            {% if is_granted('ROLE_GERENTE') %}
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Sección Listado general</li>
-                <li><a href="{{ path('registrohoras')}}">Registro Horas</a></li>
-                <li><a href="{{ path('proyectopresupuesto')}}">Proyectos presupuesto</a></li>
-                 <li><a href="{{ path('cliente')}}">Clientes</a></li>
+
+                 {% if is_granted('ROLE_VER_LISTADO_GENERAL') %}
+               
+                    <li><a href="{{ path('registrohoras')}}">Registro Horas</a></li>
+                {% endif %}
+                
+                {% if is_granted('ROLE_VER_ACTIVIDADES') %}
+                   <li><a href="{{ path('actividad')}}">Actividades</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_VER_PRESUPUESTOS') %}
+                    <li><a href="{{ path('proyectopresupuesto')}}">Proyectos presupuesto</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_VER_CLIENTES') %}
+                    <li><a href="{{ path('cliente')}}">Clientes</a></li>
+                {% endif %}
                 <li class="divider"></li>
                 <li class="dropdown-header">Aprobación de horas</li>
-                <li><a href="{{path('mostrar_usuarios_relacionados')}}">Revisar horas</a></li>
+                {% if is_granted('ROLE_APROBACION_HORAS') %}
+                    <li><a href="{{path('mostrar_usuarios_relacionados')}}">Revisar horas</a></li>
+                {% endif %}
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección Consultas específicas</li>
-                   <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
+                {% if is_granted('ROLE_VER_CONSULTAS') %}
+
+                    <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
                     <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
-                     <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
+                    <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
                     <li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
-                     <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
-              
+                    <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
+                 {% endif %}
                 </ul>
               
             {% endif %}
@@ -85,7 +109,7 @@
                          <ul class="dropdown-menu">
                              <li style="text-align: left;"class="navigation"><a href="{{path('puesto')}}"><i class="icon-off"></i>Ver Puesto</a></li>
                               <li class="navigation"><a href="{{path('datosprestaciones')}}"><i class="icon-off"></i>Ver Datos <br> Prestaciones</a></li>
-                               {% if is_granted('ROLE_GERENTE') and app.user %}
+                               {% if is_granted('ROLE_ADMIN') and app.user %}
                                 <li><a href="/admin">Administrar sistema</a></li>
                                 {% endif %}
                            

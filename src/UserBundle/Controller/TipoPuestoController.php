@@ -23,7 +23,7 @@ class TipoPuestoController extends Controller
      * Lists all TipoPuesto entities.
      *
      * @Route("/", name="tipopuesto")
-     * @Method("GET")
+     *
      * @Template("UserBundle:TipoPuesto:indexTipoPuesto.html.twig")
      */
     public function indexAction()
@@ -31,7 +31,7 @@ class TipoPuestoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('UserBundle:TipoPuesto')->findAll();
-
+       
         return array(
             'entities' => $entities,
         );
@@ -39,8 +39,8 @@ class TipoPuestoController extends Controller
     /**
      * Creates a new TipoPuesto entity.
      *
-     * @Route("/", name="tipopuesto_create")
-     * @Method("POST")
+     * @Route("/create", name="tipopuesto_create")
+     *
      * @Template("UserBundle:TipoPuesto:newTipoPuesto.html.twig")
      */
     public function createAction(Request $request)
@@ -48,7 +48,7 @@ class TipoPuestoController extends Controller
         $entity = new TipoPuesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -77,7 +77,7 @@ class TipoPuestoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn btn-block']));
 
         return $form;
     }
@@ -85,8 +85,8 @@ class TipoPuestoController extends Controller
     /**
      * Displays a form to create a new TipoPuesto entity.
      *
-     * @Route("/new", name="tipopuesto_new")
-     * @Method("GET")
+     * @Route("/new", name="tipopuesto_new_post")
+     * 
      * @Template("UserBundle:TipoPuesto:newTipoPuesto.html.twig")
      */
     public function newAction()
@@ -104,7 +104,7 @@ class TipoPuestoController extends Controller
      * Finds and displays a TipoPuesto entity.
      *
      * @Route("/{id}", name="tipopuesto_show")
-     * @Method("GET")
+     * 
      * @Template("UserBundle:TipoPuesto:showTipoPuesto.html.twig")
      */
     public function showAction($id)
@@ -129,7 +129,7 @@ class TipoPuestoController extends Controller
      * Displays a form to edit an existing TipoPuesto entity.
      *
      * @Route("/{id}/edit", name="tipopuesto_edit")
-     * @Method("GET")
+     * 
      *@Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function editAction($id)
@@ -242,7 +242,7 @@ class TipoPuestoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('tipopuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => ['class' => 'btn btn-danger']))
             ->getForm()
         ;
     }

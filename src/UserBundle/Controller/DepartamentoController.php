@@ -24,6 +24,7 @@ class DepartamentoController extends Controller
      *
      * @Route("/", name="departamento")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_DEPARTAMENTO')") 
      * @Template("UserBundle:Departamento:indexDepartamento.html.twig")
      */
     public function indexAction()
@@ -41,6 +42,7 @@ class DepartamentoController extends Controller
      *
      * @Route("/", name="departamento_create")
      * @Method("POST")
+     * @Security("is_granted('ROLE_CREAR_DEPARTAMENTO')") 
      * @Template("UserBundle:Departamento:newDepartamento.html.twig")
      */
     public function createAction(Request $request)
@@ -87,6 +89,7 @@ class DepartamentoController extends Controller
      *
      * @Route("/new", name="departamento_new")
      * @Method("GET")
+     * @Security("is_granted('ROLE_CREAR_DEPARTAMENTO')") 
      * @Template("UserBundle:Departamento:newDepartamento.html.twig")
      */
     public function newAction()
@@ -105,6 +108,7 @@ class DepartamentoController extends Controller
      *
      * @Route("/{id}", name="departamento_show")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_DEPARTAMENTO')") 
      * @Template("UserBundle:Departamento:showDepartamento.html.twig")
      */
     public function showAction($id)
@@ -130,7 +134,8 @@ class DepartamentoController extends Controller
      *
      * @Route("/{id}/edit", name="departamento_edit")
      * @Method("GET")
-     *@Template("UserBundle:Departamento:editDepartamento.html.twig")
+     * @Security("is_granted('ROLE_EDITAR_DEPARTAMENTO')") 
+     * @Template("UserBundle:Departamento:editDepartamento.html.twig")
      */
     public function editAction($id)
     {
@@ -175,6 +180,7 @@ class DepartamentoController extends Controller
      *
      * @Route("/{id}", name="departamento_update")
      * @Method("PUT")
+     * @Security("is_granted('ROLE_EDITAR_DEPARTAMENTO')") 
      * @Template("UserBundle:Departamento:editDepartamento.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -208,7 +214,8 @@ class DepartamentoController extends Controller
      *
      * @Route("/{id}", name="departamento_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_GERENTE')") 
+     * @Security("is_granted('ROLE_ELIMINAR_DEPARTAMENTO')") 
+     * 
      */
     public function deleteAction(Request $request, $id)
     {

@@ -76,6 +76,7 @@ class SupervisorUsuariosController extends Controller
     /**
      *  
      *  @Route("/mostrar/usuarios/relacionados", name="mostrar_usuarios_relacionados")  
+     *  @Security("is_granted('ROLE_APROBACION_HORAS')")
      */
     public function mostrarUsuariosRelacionadosAction(Request $request)
     {

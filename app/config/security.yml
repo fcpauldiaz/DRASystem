@@ -35,16 +35,70 @@ security:
         - { path: ^/registrohoras/, roles: ROLE_USER }
         - { path: ^/cliente/, roles: ROLE_USER }
         - { path: ^/datosprestaciones/, roles: ROLE_USER }
-        - { path: ^/admin/, roles: [ ROLE_GERENTE, ROLE_SOCIO] }
+        - { path: ^/admin/, roles: [ROLE_ADMIN] }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 
 
     role_hierarchy:
-        ROLE_ASISTENTE:         ROLE_USER
-        ROLE_ENCARGADO:         ROLE_ASISTENTE
-        ROLE_SUPERVISOR:        ROLE_ENCARGADO
-        ROLE_GERENTE:           ROLE_SUPERVISOR
-        ROLE_SOCIO:             ROLE_GERENTE
-        ROLE_ADMIN:             ROLE_SOCIO
+        #Permiso para ver el listado general de horas
+        ROLE_VER_LISTADO_GENERAL: ROLE_USER
+        #permiso para ver listado general de actividades
+        ROLE_VER_ACTIVIDADES: ROLE_USER
+        #permiso para ver listado general de presupuestos
+        ROLE_VER_PRESUPUESTOS: ROLE_USER
+        #Permiso para aprobación de horas
+        ROLE_APROBACION_HORAS: ROLE_USER
+        #Permiso para ver clientes
+        ROLE_VER_CLIENTES: ROLE_USER
+        #permiso para ver consultas de costos
+        ROLE_VER_CONSULTAS: ROLE_USER
+        #permiso para ver los tipos de puestos
+        ROLE_VER_TIPO_PUESTO: ROLE_USER
+        #permiso para ver los departamentos
+        ROLE_VER_DEPARTAMENTO: ROLE_USER
+        #permiso para crear clientes
+        ROLE_CREAR_CLIENTES: ROLE_VER_CLIENTES
+        #permiso para crear actividades
+        ROLE_CREAR_ACIVIDADES: ROLE_VER_ACTIVIDADES
+        #permiso para crear horas
+        ROLE_CREAR_HORAS: ROLE_VER_LISTADO_GENERAL
+        #permiso para crear preseupuesto
+        ROLE_CREAR_PRESUPUESTOS: ROLE_VER_PRESUPUESTOS
+        #permiso para crear usuarios
+        ROLE_CREAR_USUARIOS: ROLE_USER
+        #permiso para crear tipo puesto
+        ROLE_CREAR_TIPO_PUESTO: ROLE_VER_TIPO_PUESTO
+        #permiso para crear departamentos
+        ROLE_CREAR_DEPARTAMENTO: ROLE_VER_DEPARTAMENTO
+        #permiso para editar horas
+        ROLE_EDITAR_HORAS: ROLE_CREAR_HORAS
+        #permiso para editar atividades
+        ROLE_EDITAR_ACTIVIDADES: ROLE_CREAR_ACIVIDADES
+        #permiso para editar presupuestos
+        ROLE_EDITAR_PRESUPUESTO: ROLE_CREAR_PRESUPUESTOS
+        #permiso para editar clientes
+        ROLE_EDITAR_CLIENTES: ROLE_CREAR_CLIENTES
+        #permiso para editar tipo puesto
+        ROLE_EDITAR_TIPO_PUESTO: ROLE_CREAR_TIPO_PUESTO
+        #permiso para editar departamentos
+        ROLE_EDITAR_DEPARTAMENTO: ROLE_CREAR_DEPARTAMENTO
+        #permiso para editar usuarios
+        ROLE_EDITAR_USUARIOS: ROLE_CREAR_USUARIOS
+        #permiso para eliminar horas
+        ROLE_ELIMINAR_HORAS: ROLE_EDITAR_HORAS
+        #permiso para eliminar presupuestos
+        ROLE_ELIMINAR_PRESUPUESTOS: ROLE_EDITAR_PRESUPUESTO
+        #permiso para eliminar actividades
+        ROLE_ELIMINAR_ACTIVIDADES: ROLE_EDITAR_ACTIVIDADES
+        #permiso para eliminar usuarios
+        ROLE_ELIMINAR_USUARIOS: ROLE_EDITAR_USUARIOS
+        #permisio para eliminear clientes
+        ROLE_ELIMINAR_CLIENTES: ROLE_EDITAR_CLIENTES
+        #permiso para eliminar tipo puestos
+        ROLE_ELIMINAR_TIPO_PUESTOS: ROLE_EDITAR_TIPO_PUESTO
+        #permiso para eliminar departamentos
+        ROLE_ELIMINAR_DEPARTAMENTO: ROLE_EDITAR_DEPARTAMENTO
+        #permiso para tener acceso al panel de control.
+        ROLE_ADMIN:             [ROLE_ELIMINAR_CLIENTES, ROLE_ELIMINAR_USUARIOS, ROLE_ELIMINAR_ACTIVIDADES, ROLE_ELIMINAR_HORAS, ROLE_ELIMINAR_PRESUPUESTOS, ROLE_VER_CONSULTAS, ROLE_APROBACION_HORAS]
         ROLE_SUPER_ADMIN:       ROLE_ADMIN

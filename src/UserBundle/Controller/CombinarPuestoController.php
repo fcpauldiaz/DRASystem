@@ -21,10 +21,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class CombinarPuestoController extends Controller
 {
-    /**
+    
+     /**
      * Muestra el template para un nuevo tipo de contacto.
      *
-     * @Route("tipopuesto/new", name="tipopuesto_new")
+     * @Route("tipo_puesto/new", name="tipo_puesto_new")
      * @Method("GET")
      * @Template("UserBundle:TipoPuesto:newTipoPuestoAjax.html.twig")
      */

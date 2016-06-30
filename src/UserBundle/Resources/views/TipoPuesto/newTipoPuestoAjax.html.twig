@@ -1,1 +1,27 @@
-  {{ form(form, { 'attr': {'class' : 'ajaxFormTipoPuesto'}}) }}
+ {{ form_start(form, { 'attr': {'class' : 'ajaxFormTipoPuesto'}}) }}
+    	{{form_row(form.nombrePuesto) }}
+    	{{form_row(form.descripcion) }}
+    	
+
+      
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+          		<h2>Permisos</h2>
+                 {% for i in 1..15 %}
+                  {{ form_row(form.permisos[i]) }}
+                {% endfor %}
+
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+          		<h2>Permisos</h2>
+               {% for i in 15..30 %}
+                  {{ form_row(form.permisos[i]) }}
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+    	
+    {{ form_end(form) }}

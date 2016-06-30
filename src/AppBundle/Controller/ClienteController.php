@@ -23,7 +23,8 @@ class ClienteController extends Controller
      *
      * @Route("/", name="cliente")
      * @Method("GET")
-     * @Template("AppBundle:Cliente:indexCliente.html.twig")
+     * @Security("is_granted('ROLE_VER_CLIENTES')")
+     * Template("AppBundle:Cliente:indexCliente.html.twig")
      */
     public function indexAction()
     {
@@ -40,6 +41,7 @@ class ClienteController extends Controller
      *
      * @Route("/", name="cliente_create")
      * @Method("POST")
+     * @Security("is_granted('ROLE_CREAR_CLIENTES')")
      * @Template("AppBundle:Cliente:newCliente.html.twig")
      */
     public function createAction(Request $request)
@@ -86,6 +88,7 @@ class ClienteController extends Controller
      *
      * @Route("/new", name="cliente_new")
      * @Method("GET")
+     * @Security("is_granted('ROLE_CREAR_CLIENTES')")
      * @Template("AppBundle:Cliente:newCliente.html.twig")
      */
     public function newAction()

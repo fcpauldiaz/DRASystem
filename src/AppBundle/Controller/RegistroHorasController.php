@@ -26,6 +26,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/", name="registrohoras")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
      * @Template("AppBundle:RegistroHoras:indexRegistroHoras.html.twig")
      */
     public function indexAction()
@@ -43,6 +44,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/", name="registrohoras_create")
      * @Method("POST")
+     * @Security("is_granted('ROLE_CREAR_HORAS')")
      * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function createAction(Request $request)
@@ -116,6 +118,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/new", name="registrohoras_new")
      * @Method("GET")
+     * @Security("is_granted('ROLE_CREAR_HORAS')")
      * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function newAction()
@@ -159,6 +162,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}/edit", name="registrohoras_edit")
      * @Method("GET")
+     * @Security("is_granted('ROLE_EDITAR_HORAS')")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
      */
     public function editAction($id)
@@ -204,6 +208,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/{id}", name="registrohoras_update")
      * @Method("PUT")
+     * @Security("is_granted('ROLE_EDITAR_HORAS')")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -236,6 +241,7 @@ class RegistroHorasController extends Controller
      * Deletes a RegistroHoras entity.
      *
      * @Route("/{id}", name="registrohoras_delete")
+     * @Security("is_granted('ROLE_ELIMINAR_HORAS')")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)

@@ -26,6 +26,7 @@ class RegistroHorasPresupuestoController extends Controller
      * Lists all RegistroHorasPresupuesto entities.
      *
      * @Route("/", name="horaspresupuesto")
+     * @Security("is_granted('ROLE_VER_PRESUPUEPSTOS')")
      * @Method("GET")
      * @Template("AppBundle:RegistroHorasPresupuesto:indexRegistroHorasPresupuesto.html.twig")
      */
@@ -44,6 +45,7 @@ class RegistroHorasPresupuestoController extends Controller
      *
      * @Route("/", name="horaspresupuesto_create")
      * @Method("POST")
+     * @Security("is_granted('ROLE_CREAR_PRESUPUESTOS')")
      * @Template("AppBundle:RegistroHorasPresupuesto:newRegistroHorasPresupuesto.html.twig")
      */
     public function createAction(Request $request)
@@ -97,6 +99,7 @@ class RegistroHorasPresupuestoController extends Controller
      *
      * @Route("/new", name="horaspresupuesto_new")
      * @Method("GET")
+     * @Security("is_granted('ROLE_CREAR_PRESUPUESTOS')")
      * @Template("AppBundle:RegistroHorasPresupuesto:newRegistroHorasPresupuesto.html.twig")
      */
     public function newAction()
@@ -115,6 +118,7 @@ class RegistroHorasPresupuestoController extends Controller
      *
      * @Route("/{id}", name="horaspresupuesto_show")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_PRESUESTOS')")
      * @Template("AppBundle:RegistroHorasPresupuesto:showRegistroHorasPresupuesto.html.twig")
      */
     public function showAction($id)
@@ -140,6 +144,7 @@ class RegistroHorasPresupuestoController extends Controller
      *
      * @Route("/{id}", name="horaspresupuesto_show_plain")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_PRESUPUESTOS')")
      * @Template("AppBundle:RegistroHorasPresupuesto:showRegistroHorasPresupuestoPlain.html.twig")
      */
     public function showPlainAction($id)
@@ -163,7 +168,7 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Displays a form to edit an existing RegistroHorasPresupuesto entity.
      *
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTOS')")
      * @Route("/{id}/edit", name="horaspresupuesto_edit")
      * @Method("GET")
      *@Template("AppBundle:RegistroHorasPresupuesto:editRegistroHorasPresupuesto.html.twig")
@@ -209,7 +214,7 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Edits an existing RegistroHorasPresupuesto entity.
      *
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_ELIMINAR_PRESUPUESTOS')")
      * @Route("/{id}", name="horaspresupuesto_update")
      * @Method("PUT")
      * @Template("AppBundle:RegistroHorasPresupuesto:editRegistroHorasPresupuesto.html.twig")

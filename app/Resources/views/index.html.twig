@@ -56,11 +56,14 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
+        {% if is_granted('ROLE_CREAR_USUARIOS') %}
         <div class="col-lg-4">
           <h2>Gerentes</h2>
           <p>El primer paso es crear los usuarios tipo gerente.</p>
           <p><a class="btn btn-primary btn-lg" href="/usuarios/gerentes">Crear usuario</a></p>
         </div>
+      {% endif %}
+
         <div class="col-lg-4">
           <h2>Ingreso de Horas</h2>
           <p>Ingreso de horas invertidas.</p>

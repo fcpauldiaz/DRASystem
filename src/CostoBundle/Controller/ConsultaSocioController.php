@@ -15,7 +15,7 @@ use FOS\UserBundle\Model\UserInterface;
 /**
  * ConsutlaCosto controller.
  *
- * @Security("is_granted('ROLE_USER')")
+ * @Security("is_granted('ROLE_VER_CONSULTAS')")
  * @Route("/consulta/")
  */
 class ConsultaSocioController extends Controller

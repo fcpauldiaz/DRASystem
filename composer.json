@@ -35,7 +35,8 @@
         "liuggio/excelbundle": "^2.0",
         "aws/aws-sdk-php": "~3.0",
         "knplabs/knp-gaufrette-bundle": "^0.3.0",
-        "vich/uploader-bundle": "dev-master"
+        "vich/uploader-bundle": "dev-master",
+         "zendframework/zend-code": "3.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8",

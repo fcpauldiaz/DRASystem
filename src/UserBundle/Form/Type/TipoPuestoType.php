@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
+use UserBundle\Entity\TipoPuesto;
 
 class TipoPuestoType extends AbstractType
 {
@@ -21,29 +22,19 @@ class TipoPuestoType extends AbstractType
             ->add('nombrePuesto', 'text', [
                 'label' => 'Nombre del Puesto*',
                 'required' => true,
-                'constraints' => [
-                    new Callback([$this, 'validarNombre']),
-                ],
+               
             ])
             ->add('descripcion', 'textarea', [
                 'label' => 'Descripción del tipo (opcional)',
                 'required' => false,
 
             ])
-            ->add('puestos', 'entity', [
-                'class' => 'UserBundle:TipoPuesto',
-                'multiple' => true,
-                'label' => 'Jerarquía de puestos',
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'Jerarquía de puestos',
-                    'class' => 'form-control input-lg',
-                    'width' => '100%',
-                    'help_text' => 'En este campo se seleccionan todos los tipos de puestos sobre los cuales se tiene jerarquía.  '.
-                        'Por ejemplo: si se crea un tipo puesto gerente, se coloca aquí asistente, encargado y supervisor',
-                ],
-
-            ])
+            ->add('permisos', 'entity', [
+                'class' => 'UserBundle:Permiso',
+                'expanded' => true,
+                'multiple' => true
+                ])
+           
         ;
     }
 

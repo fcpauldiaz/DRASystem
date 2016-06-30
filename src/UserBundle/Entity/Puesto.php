@@ -38,7 +38,7 @@ class Puesto
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="fecha_creacion", type="date")
      */
     private $date;
 

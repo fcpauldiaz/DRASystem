@@ -24,6 +24,7 @@ class ActividadController extends Controller
      *
      * @Route("/", name="actividad")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_ACTIVIDADES')")
      * @Template("AppBundle:Actividad:indexActividad.html.twig")
      */
     public function indexAction()
@@ -40,7 +41,7 @@ class ActividadController extends Controller
      * Creates a new Actividad entity.
      *
      * @Route("/", name="actividad_create")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_CREAR_ACTIVIDADES')")
      * @Method("POST")
      * @Template("AppBundle:Actividad:newActividad.html.twig")
      */
@@ -87,6 +88,7 @@ class ActividadController extends Controller
      * Displays a form to create a new Actividad entity.
      *
      * @Route("/new", name="actividad_new")
+     * @Security("is_granted('ROLE_CREAR_ACTIVIDADES')")
      * @Method("GET")
      * @Template("AppBundle:Actividad:newActividad.html.twig")
      */
@@ -106,6 +108,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}", name="actividad_show")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_ACTIVIDADES')")
      * @Template("AppBundle:Actividad:showActividad.html.twig")
      */
     public function showAction($id)
@@ -131,6 +134,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}/edit", name="actividad_edit")
      * @Method("GET")
+     * @Security("is_granted('ROLE_EDITAR_ACTIVIDADES')")
      * @Template("AppBundle:Actividad:editActividad.html.twig")
      */
     public function editAction($id)
@@ -176,6 +180,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}", name="actividad_update")
      * @Method("PUT")
+     * @Security("is_granted('ROLE_EDITAR_ACTIVIDADES')")
      * @Template("AppBundle:Actividad:editActividad.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -209,7 +214,7 @@ class ActividadController extends Controller
      *
      * @Route("/{id}", name="actividad_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_ELIMINAR_ACTIVIDADES')")
      */
     public function deleteAction(Request $request, $id)
     {

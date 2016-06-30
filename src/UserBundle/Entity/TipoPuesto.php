@@ -38,19 +38,14 @@ class TipoPuesto
     private $descripcion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TipoPuesto", mappedBy="puestos")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Permiso", inversedBy="tipoPuestos")
+     * @ORM\JoinTable(name="permisos_por_tipo_puesto")
      */
-    private $jerarquiaPuestos;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="TipoPuesto", inversedBy="jerarquiaPuestos")
-     */
-    private $puestos;
+    private $permisos;
 
     public function __construct()
     {
-        $this->jerarquiaPuestos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->puestos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->permisos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -116,71 +111,38 @@ class TipoPuesto
         return $this->nombrePuesto;
     }
 
+
     /**
-     * Add jerarquiaPuesto.
+     * Add permiso
      *
-     * @param \UserBundle\Entity\TipoPuesto $jerarquiaPuesto
+     * @param \UserBundle\Entity\Permiso $permiso
      *
      * @return TipoPuesto
      */
-    public function addJerarquiaPuesto(\UserBundle\Entity\TipoPuesto $jerarquiaPuesto)
+    public function addPermiso(\UserBundle\Entity\Permiso $permiso)
     {
-        $this->jerarquiaPuestos[] = $jerarquiaPuesto;
+        $this->permisos[] = $permiso;
 
         return $this;
     }
 
     /**
-     * Remove jerarquiaPuesto.
+     * Remove permiso
      *
-     * @param \UserBundle\Entity\TipoPuesto $jerarquiaPuesto
+     * @param \UserBundle\Entity\Permiso $permiso
      */
-    public function removeJerarquiaPuesto(\UserBundle\Entity\TipoPuesto $jerarquiaPuesto)
+    public function removePermiso(\UserBundle\Entity\Permiso $permiso)
     {
-        $this->jerarquiaPuestos->removeElement($jerarquiaPuesto);
+        $this->permisos->removeElement($permiso);
     }
 
     /**
-     * Get jerarquiaPuestos.
+     * Get permisos
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getJerarquiaPuestos()
+    public function getPermisos()
     {
-        return $this->jerarquiaPuestos;
-    }
-
-    /**
-     * Add puesto.
-     *
-     * @param \UserBundle\Entity\TipoPuesto $puesto
-     *
-     * @return TipoPuesto
-     */
-    public function addPuesto(\UserBundle\Entity\TipoPuesto $puesto)
-    {
-        $this->puesto[] = $puesto;
-
-        return $this;
-    }
-
-    /**
-     * Remove puesto.
-     *
-     * @param \UserBundle\Entity\TipoPuesto $puesto
-     */
-    public function removePuesto(\UserBundle\Entity\TipoPuesto $puesto)
-    {
-        $this->puesto->removeElement($puesto);
-    }
-
-    /**
-     * Get puestos.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPuestos()
-    {
-        return $this->puestos;
+        return $this->permisos;
     }
 }

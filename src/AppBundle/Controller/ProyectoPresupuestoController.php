@@ -25,6 +25,7 @@ class ProyectoPresupuestoController extends Controller
      *
      * @Route("/", name="proyectopresupuesto")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_PRESUPUESTOS')")
      * @Template("AppBundle:ProyectoPresupuesto:indexProyectoPresupuesto.html.twig")
      */
     public function indexAction()
@@ -107,6 +108,7 @@ class ProyectoPresupuestoController extends Controller
      * @Route("/{id}", name="proyectopresupuesto_show")
      * @Method("GET")
      * @Template("AppBundle:ProyectoPresupuesto:showProyectoPresupuesto.html.twig")
+     * @Security("is_granted('ROLE_VER_PRESUPUESTOS')")
      */
     public function showAction($id)
     {
@@ -131,8 +133,8 @@ class ProyectoPresupuestoController extends Controller
      *
      * @Route("/{id}/edit", name="proyectopresupuesto_edit")
      * @Method("GET")
-     * @Security("is_granted('ROLE_GERENTE')")
      * @Template("AppBundle:ProyectoPresupuesto:editProyectoPresupuesto.html.twig")
+     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTOS')")
      */
     public function editAction($id)
     {
@@ -177,8 +179,9 @@ class ProyectoPresupuestoController extends Controller
      *
      * @Route("/{id}", name="proyectopresupuesto_update")
      * @Method("PUT")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTOS')")
      * @Template("AppBundle:ProyectoPresupuesto:editProyectoPresupuesto.html.twig")
+     * 
      */
     public function updateAction(Request $request, $id)
     {
@@ -210,7 +213,7 @@ class ProyectoPresupuestoController extends Controller
      * Deletes a ProyectoPresupuesto entity.
      *
      * @Route("/{id}", name="proyectopresupuesto_delete")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_ELIMINAR_PRESUPUESTOS')")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)

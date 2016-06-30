@@ -15,6 +15,7 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
+        {% if is_granted('ROLE_CREAR_USUARIOS') %}
         <div class="col-lg-4">
           <h2>Creación de usuarios</h2>
           <p>El primer paso es crear los usuarios.</p>
@@ -26,9 +27,10 @@
            
           </ul>
         </div>
-      </p>
-        </div>
-
+        </p>
+      </div>
+      {% endif %}
+      {% if is_granted('ROLE_CREAR_HORAS') %}
         <div class="col-lg-4">
           <h2>Ingreso de horas</h2>
           <p>El segundo paso es ingresar las horas horas invertidas.</p>
@@ -39,7 +41,9 @@
                 <li><a href="{{ path('registrohoras_new')}}">Ingresar horas invertidas</a></li>
               </ul>
         </div>
-       </div>
+        </div>
+        {% endif %}
+        {% if is_granted('ROLE_VER_CONSULTAS') %}
         <div class="col-lg-4">
           <h2>Consultas</h2>
           <p>Una vez ingresada toda la información necesaria, se pueden hacer las consultas de diferentes formas.</p>
@@ -59,6 +63,7 @@
               </ul>
         </div>
         </div>
+        {% endif %}
         
         <br>
          

@@ -12,7 +12,7 @@ use CostoBundle\Entity\ConsultaCliente;
 /**
  * ConsutlaCosto controller.
  *
- * @Security("is_granted('ROLE_USER')")
+ * @Security("is_granted('ROLE_VER_CONSULTAS')")
  * @Route("/consulta/cliente/")
  */
 class ConsultaCostoClienteController extends Controller
