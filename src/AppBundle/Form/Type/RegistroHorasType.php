@@ -82,7 +82,13 @@ class RegistroHorasType extends AbstractType
             ])
 
             ->add('submit', 'submit', [
-                    'label' => 'Guardar',
+                    'label' => 'Guardar y ver detalle',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ])
+            ->add('submitAndSave', 'submit', [
+                    'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],

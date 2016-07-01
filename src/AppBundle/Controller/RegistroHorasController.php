@@ -82,8 +82,13 @@ class RegistroHorasController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $entities[] = $entity;
+
+                if ($request->query->has('submitAndSave'))
+                    {
+                        return $this->redirectToRoute('registrohoras_new');
+                    }
             }
-      
+            
 
            return $this->render('AppBundle:RegistroHoras:indexRegistroHoras.html.twig', [
                 'entities' => $entities

@@ -16,18 +16,31 @@
     {{ form_start(form) }}
 
      
-            
+    {{ form_row(form.proyectoPresupuesto)}}        
     {{ form_row(form.fechaHoras, { 'style': 'inline' })}}
+    {{ form_row(form.cliente)}}  
+    {{ form_row(form.horasActividad)}}  
+    {{ form_row(form.ingresadoPor)}}
+    {{ form_row(form.horasExtraordinarias)}}  
+    <div class="row">
+        <div class="col-sm-5 col-md-5">
+            <div class="form-group">
+               {{form_row(form.submitAndSave)}}
+            </div>
+        </div>
+       <div class="col-sm-4 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submit)}}
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <div class="form-group">
+                <a class="btn btn-default btn-block" href="{{ path('registrohoras') }}">
+                    Ver todas las horas ingresadas
+                </a>
+            </div>
+        </div>
+    </div>
 
-	
     {{form_end(form)}}
-
-        <br>
-        <br>
-        <a class="btn btn-default btn-sm" href="{{ path('registrohoras') }}">
-            Ver todas las horas ingresadas
-        </a>
- 
-        <br>
-        <br>
 {% endblock %}
