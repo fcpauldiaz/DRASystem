@@ -10,10 +10,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ContactoCliente;
 use AppBundle\Form\Type\ContactoClienteType;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * ContactoCliente controller.
- * 
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/contactocliente")
  */
 class ContactoClienteController extends Controller

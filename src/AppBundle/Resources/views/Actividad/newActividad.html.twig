@@ -3,13 +3,35 @@
 {% block body -%}
     <h1>Creación de Actividades</h1>
 
-    {{ form(form) }}
-
+    {{ form_start(form) }}
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.descripcion) }}
+	{{ form_row(form.abreviatura) }}
+	{{ form_row(form.actividadNoCargable) }}
+	
+    <div class="row">
+        <div class="col-xs-12 col-sm-5 col-md-5">
+            <div class="form-group">
+               {{form_row(form.submitAndSave)}}
+            </div>
+        </div>
+       <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submit)}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3">
+            <div class="form-group">
+             <a class="btn btn-info" href="{{ path('actividad') }}">
+	       		 Mostrar todas las actividades
+			</a>
+            </div>
+        </div>
+    </div>
+	{{ form_end(form) }}
       <br>
       <br>
-        <a class="btn btn-sm btn-info" href="{{ path('actividad') }}">
-            Mostrar todas las actividades
-    	</a>
+	   
       <br>
       <br
 {% endblock %}

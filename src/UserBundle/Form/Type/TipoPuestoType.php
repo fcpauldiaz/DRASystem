@@ -34,7 +34,8 @@ class TipoPuestoType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
                 ])
-           
+         
+          
         ;
     }
 

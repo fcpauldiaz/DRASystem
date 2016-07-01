@@ -34,10 +34,12 @@
         </tbody>
     </table>
 
-        <br>
-            <a class="btn btn-primary btn-block" href="{{ path('actividad_new') }}">
-                Crear a nueva actividad
-            </a>
-       <br>
-       <br>
+    <br>
+    {% if is_granted('ROLE_CREAR_ACTIVIDADES') %}
+        <a class="btn btn-primary btn-block" href="{{ path('actividad_new') }}">
+            Crear a nueva actividad
+        </a>
+    {% endif %} 
+   <br>
+   <br>
     {% endblock %}

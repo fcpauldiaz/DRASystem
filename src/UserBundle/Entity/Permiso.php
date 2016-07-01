@@ -21,11 +21,11 @@ class Permiso
         "Ver listado de presupuestos" =>"ROLE_VER_PRESUPUESTOS",
         "Aprobación de horas" =>"ROLE_APROBACION_HORAS",
         "Ver listado de tipos de puesto" => "ROLE_VER_TIPO_PUESTO",
-        "Ver listado de departamentos" => "ROLE_VER_DEPARTAMENTOS",
+        "Ver listado de departamentos" => "ROLE_VER_DEPARTAMENTO",
         "Ver listado de clientes" => "ROLE_VER_CLIENTES",
         "Ver consultas de costos" => "ROLE_VER_CONSULTAS",
         "Crear clientes" => "ROLE_CREAR_CLIENTES",
-        "Crear actividades" => "ROLE_CREAR_ACIVIDADES",
+        "Crear actividades" => "ROLE_CREAR_ACTIVIDADES",
         "Ingresar horas invertidas" => "ROLE_CREAR_HORAS",
         "Crear presupuestos" => "ROLE_CREAR_PRESUPUESTOS",
         "Crear usuarios" => "ROLE_CREAR_USUARIOS",
@@ -37,11 +37,10 @@ class Permiso
         "Editar clientes" => "ROLE_EDITAR_CLIENTES",
         "Editar usuarios" => "ROLE_EDITAR_USUARIOS",
         "Editar tipo puesto" => "ROLE_EDITAR_TIPO_PUESTO",
-        "Editar departamento" => "ROLE_EDTAR_DEPARTAMENTO",
+        "Editar departamento" => "ROLE_EDITAR_DEPARTAMENTO",
         "Eliminar horas invertidas" => "ROLE_ELIMINAR_HORAS",
         "Eliminar presupuestos" => "ROLE_ELIMINAR_PRESUPUESTOS",
         "Eliminar actividades" => "ROLE_ELIMINAR_ACTIVIDADES",
-        "Eliminar usuarios" => "ROLE_ELIMINAR_USUARIOS",
         "Eliminar clientes" =>"ROLE_ELIMINAR_CLIENTES",
         "Eliminar tipo puesto" => "ROLE_ELIMINAR_TIPO_PUESTO",
         "Eliminar departamentos" => "ROLE_ELIMINAR_DEPARTAMENTO",
@@ -72,7 +71,8 @@ class Permiso
     private $permiso;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\TipoPuesto", mappedBy="permisos")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\TipoPuesto", mappedBy="permisos",  cascade={"remove"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $tipoPuestos;
 
@@ -165,6 +165,7 @@ class Permiso
     {
         $this->tipoPuestos->removeElement($tipoPuesto);
     }
+    
 
     /**
      * Get tipoPuestos

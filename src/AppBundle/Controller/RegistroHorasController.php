@@ -12,6 +12,7 @@ use AppBundle\Form\Type\RegistroHorasType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Form\Type\RegistroHorasEditType;
 
 /**
  * RegistroHoras controller.
@@ -83,12 +84,12 @@ class RegistroHorasController extends Controller
                 $em->flush();
                 $entities[] = $entity;
 
-                if ($request->query->has('submitAndSave'))
-                    {
-                        return $this->redirectToRoute('registrohoras_new');
-                    }
+               
             }
-            
+            if ($form->get('submitAndSave')->isClicked())
+            {
+                return $this->redirectToRoute('registrohoras_new');
+            }
 
            return $this->render('AppBundle:RegistroHoras:indexRegistroHoras.html.twig', [
                 'entities' => $entities
@@ -114,7 +115,18 @@ class RegistroHorasController extends Controller
             'action' => $this->generateUrl('registrohoras_create'),
             'method' => 'POST',
         ));
-
+        $form->add('submitAndSave', 'submit', [
+                    'label' => 'Guardar e ingresar otro',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ]);
+         $form->add('submit', 'submit', [
+                    'label' => 'Guardar y ver detalle',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ]);
         return $form;
     }
 
@@ -199,7 +211,7 @@ class RegistroHorasController extends Controller
      */
     private function createEditForm(RegistroHoras $entity)
     {
-        $form = $this->createForm(new RegistroHorasType($this->getUser()), $entity, array(
+        $form = $this->createForm(new RegistroHorasEditType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('registrohoras_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

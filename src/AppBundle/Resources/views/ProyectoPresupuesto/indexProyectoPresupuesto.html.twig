@@ -22,7 +22,7 @@
                     <li>
                         <a class="btn btn-info btn-xs" href="{{ path('proyectopresupuesto_show', { 'id': entity.id }) }}">Mostrar</a>
                     </li>
-                    {% if is_granted('ROLE_GERENTE') %}
+                    {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
                         <li>
                             <a class="btn btn-warning btn-xs" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">Editar</a>
                         </li>
@@ -34,7 +34,7 @@
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a class="btn btn-default btn-block" href="{{ path('proyectopresupuesto_new') }}">
                 Crear nuevo registro

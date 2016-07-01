@@ -238,11 +238,21 @@ class PuestoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
-
+        $usuario = $this->getUser();
+        
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $data = $editForm->getData();
+            foreach ($usuario->getRoles() as $role) {
+                $usuario->removeRole($role);
+            }
+            $tipoPuesto = $data->getTipoPuesto();
+            $permisos = $tipoPuesto->getPermisos();
+            foreach($permisos as $permiso) {
+                 $usuario->addRole($permiso->getPermiso());
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('puesto_edit', array('id' => $id)));

@@ -25,6 +25,7 @@ class Puesto
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="TipoPuesto")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $tipoPuesto;
 

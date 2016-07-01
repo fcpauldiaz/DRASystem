@@ -7,11 +7,11 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('actividad') }}">
-            Back to the list
+        <a class="btn btn-default" href="{{ path('actividad') }}">
+           Ver todas las actividades
         </a>
     </li>
-    {% if is_granted('ROLE_GERENTE') %}
+    {% if is_granted('ROLE_ELIMINAR_ACTIVIDADES') %}
     	<li>{{ form(delete_form) }}</li>
 	{% endif %}
 </ul>

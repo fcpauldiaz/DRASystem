@@ -23,7 +23,7 @@ class TipoPuestoController extends Controller
      * Lists all TipoPuesto entities.
      *
      * @Route("/", name="tipopuesto")
-     *
+     * @Security("is_granted('ROLE_VER_TIPO_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:indexTipoPuesto.html.twig")
      */
     public function indexAction()
@@ -40,7 +40,7 @@ class TipoPuestoController extends Controller
      * Creates a new TipoPuesto entity.
      *
      * @Route("/create", name="tipopuesto_create")
-     *
+     * @Security("is_granted('ROLE_CREAR_TIPO_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:newTipoPuesto.html.twig")
      */
     public function createAction(Request $request)
@@ -53,6 +53,12 @@ class TipoPuestoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+
+            if ($form->get('submitAndSave')->isClicked())
+                {
+                    return $this->redirectToRoute('tipopuesto_new_post');
+                }
 
             return $this->redirect($this->generateUrl('tipopuesto_show', array('id' => $entity->getId())));
         }
@@ -76,7 +82,12 @@ class TipoPuestoController extends Controller
             'action' => $this->generateUrl('tipopuesto_create'),
             'method' => 'POST',
         ));
-
+        $form->add('submitAndSave', 'submit', [
+                'label' => 'Guardar y crear otro',
+                'attr' => [
+                    'class' => 'btn btn-block'
+                ]
+            ]);
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn btn-block']));
 
         return $form;
@@ -86,7 +97,7 @@ class TipoPuestoController extends Controller
      * Displays a form to create a new TipoPuesto entity.
      *
      * @Route("/new", name="tipopuesto_new_post")
-     * 
+     * @Security("is_granted('ROLE_CREAR_TIPO_PUESTO')")
      * @Template("UserBundle:TipoPuesto:newTipoPuesto.html.twig")
      */
     public function newAction()
@@ -104,7 +115,7 @@ class TipoPuestoController extends Controller
      * Finds and displays a TipoPuesto entity.
      *
      * @Route("/{id}", name="tipopuesto_show")
-     * 
+     * @Security("is_granted('ROLE_VER_TIPO_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:showTipoPuesto.html.twig")
      */
     public function showAction($id)
@@ -129,7 +140,7 @@ class TipoPuestoController extends Controller
      * Displays a form to edit an existing TipoPuesto entity.
      *
      * @Route("/{id}/edit", name="tipopuesto_edit")
-     * 
+     * @Security("is_granted('ROLE_EDITAR_TIPO_PUESTO')") 
      *@Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function editAction($id)
@@ -144,8 +155,18 @@ class TipoPuestoController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        
+        $puestos = $em->getRepository('UserBundle:Puesto')->findBy(['tipoPuesto' => $entity]);
+
+        //se coloca en un string los puestos
+        //para mostrarlos en un modal en la UI.
+        $puestoString = '<br>';
+        foreach($puestos as $puesto) {
+            $puestoString .= $puesto->__toString(). '<br> ';
+        }
 
         return array(
+            'puestos' => $puestoString,
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -175,6 +196,7 @@ class TipoPuestoController extends Controller
      *
      * @Route("/{id}", name="tipopuesto_update")
      * @Method("PUT")
+     * @Security("is_granted('ROLE_EDITAR_TIPO_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -206,9 +228,9 @@ class TipoPuestoController extends Controller
     /**
      * Deletes a TipoPuesto entity.
      *
-     * @Route("/{id}", name="tipopuesto_delete")
+     * @Route("/{id}/delete", name="tipopuesto_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_GERENTE')") 
+     * @Security("is_granted('ROLE_ELIMINAR_TIPO_PUESTO')") 
      */
     public function deleteAction(Request $request, $id)
     {
@@ -218,7 +240,10 @@ class TipoPuestoController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('UserBundle:TipoPuesto')->find($id);
-
+            $permisos = $entity->getPermisos();
+            foreach($permisos as $permiso) {
+                $entity->removePermiso($permiso);
+            }
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find TipoPuesto entity.');
             }

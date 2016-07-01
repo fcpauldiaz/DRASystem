@@ -2,16 +2,73 @@
 
 {% block body -%}
 	<br>
-    <h1>TipoPuesto edit</h1>
+    <h1>Editar Tipo Puesto</h1>
 
-    {{ form(edit_form) }}
+   
+    {{ form_start(edit_form) }}
+        {{form_row(edit_form.nombrePuesto) }}
+        {{form_row(edit_form.descripcion) }}
+        
+       {% set array_length = (edit_form.permisos.vars.choices) | length %}
+       {% set middle = (array_length / 2) |round(0, 'ceil') %}
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+                <h2>Permisos</h2>
+                 {% for i in 1..middle %}
+                  {{ form_row(edit_form.permisos[i]) }}
+                {% endfor %}
+             
+               
+
+          </div>
+        </div>
+       
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+              <h2>Permisos</h2>
+               {% for i in middle..array_length %}
+                  {{ form_row(edit_form.permisos[i]) }}
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+        
+    {{ form_end(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('tipopuesto') }}">
-            Back to the list
+        <a class="btn btn-default" href="{{ path('tipopuesto') }}">
+           Ver todos los tipos puestos
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% if is_granted('ROLE_ELIMINAR_TIPO_PUESTO') %}
+        <li><button id="delete" class="btn btn-danger">Eliminar</button></li>
+  {% endif %}
 </ul>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="dummy">
+  <div class="modal-dialog" role="document">
+    {{form(delete_form)}}
+
+  </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+  <script src="{{asset('js/tipo_puesto_management.js')}}"></script>
+<script>
+
+$('#delete').click(function(){
+    vex.dialog.buttons.YES.text = 'Sí, deseo eliminar';
+    vex.dialog.buttons.NO.text = 'Cancelar';
+    vex.dialog.confirm({
+        message: '¿Desea eliminar el tipo de puesto? Esto ocasionará que se eliminen todos los puestos relacionados: ' + {{ puestos | json_encode | raw}},
+        callback: function(value) {
+          
+            document.form.submit();
+
+        }
+    });
+});
+</script>
 {% endblock %}

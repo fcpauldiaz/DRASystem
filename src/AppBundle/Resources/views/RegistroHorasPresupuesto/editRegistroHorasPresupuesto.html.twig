@@ -6,12 +6,14 @@
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
+    <ul class="record_actions">
     <li>
         <a href="{{ path('horaspresupuesto') }}">
-            Back to the list
+            Ver todos los registros de presupuesto
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
+        <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 {% endblock %}

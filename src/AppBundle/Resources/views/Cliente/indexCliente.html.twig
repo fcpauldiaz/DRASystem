@@ -28,9 +28,9 @@
                     <li>
                         <a class="btn btn-xs btn-info"href="{{ path('cliente_show', { 'id': entity.id }) }}">Mostrar</a>
                     </li>
-                    {% if is_granted('ROLE_GERENTE') %}
+                    {% if is_granted('ROLE_EDITAR_CLIENTES') %}
                         <li>
-                            <a class="btn btn-xs btn-default" href="{{ path('cliente_edit', { 'id': entity.id }) }}">Editar</a>
+                            <a class="btn btn-xs btn-warning" href="{{ path('cliente_edit', { 'id': entity.id }) }}">Editar</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -40,10 +40,11 @@
         </tbody>
     </table>
 
-      
-            <a class="btn btn-primary btn-block" href="{{ path('cliente_new') }}">
-                Crear nuevo cliente
-            </a>
+    {% if is_granted('ROLE_CREAR_CLIENTE') %}
+        <a class="btn btn-primary btn-block" href="{{ path('cliente_new') }}">
+            Crear nuevo cliente
+        </a>
+    {% endif %}
     <br>
     <br>
     {% endblock %}

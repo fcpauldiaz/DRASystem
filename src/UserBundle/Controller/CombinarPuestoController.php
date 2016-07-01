@@ -25,7 +25,7 @@ class CombinarPuestoController extends Controller
      /**
      * Muestra el template para un nuevo tipo de contacto.
      *
-     * @Route("tipo_puesto/new", name="tipo_puesto_new")
+     * @Route("tipo_puesto/new/ajax", name="tipo_puesto_new")
      * @Method("GET")
      * @Template("UserBundle:TipoPuesto:newTipoPuestoAjax.html.twig")
      */
@@ -43,7 +43,7 @@ class CombinarPuestoController extends Controller
     /**
      * Crear un nuevo tipo puesto via ajax.
      *
-     * @Route("tipopuesto/nuevo", name="tipopuesto_nuevo")
+     * @Route("tipopuesto/nuevo/ajax", name="tipopuesto_nuevo")
      * @Method("POST")
      * @Template("UserBundle:TipoPuesto:newTipoPuestoAjax.html.twig")
      */
@@ -105,7 +105,7 @@ class CombinarPuestoController extends Controller
     /**
      * Muestra el template para un nuevo tipo de contacto.
      *
-     * @Route("departamento/new", name="departamento_new")
+     * @Route("departamento/new/ajax", name="departamento_new_ajax")
      * @Method("GET")
      * @Template("UserBundle:Departamento:newDepartamentoAjax.html.twig")
      */
@@ -123,7 +123,7 @@ class CombinarPuestoController extends Controller
     /**
      * Crear un nuevo tipo puesto via ajax.
      *
-     * @Route("departamento/nuevo", name="departamento_nuevo")
+     * @Route("departamento/nuevo/ajax", name="departamento_nuevo")
      * @Method("POST")
      * @Template("UserBundle:Departamento:newDepartamentoAjax.html.twig")
      */

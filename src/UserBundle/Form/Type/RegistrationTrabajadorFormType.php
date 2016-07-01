@@ -79,7 +79,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => true,
             ])
-           ->add('dpi', null, [
+           ->add('dpi', 'number', [
                 'label' => 'DPI *',
                 'attr' => [
                     'class' => 'form-control input-lg',
@@ -88,7 +88,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'required' => true,
 
             ])
-           ->add('nit', null, [
+           ->add('nit', 'number', [
                 'label' => 'NIT *',
                 'attr' => [
                     'class' => 'form-control input-lg',
@@ -100,7 +100,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
 
             ])
-            ->add('telefono', null, [
+            ->add('telefono', 'number', [
                 'label' => 'Teléfono',
                 'translation_domain' => 'FOSUserBundle',
                 'attr' => [
@@ -117,6 +117,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'class' => 'select2',
                 ],
                 'required' => true,
+                
             ])
             ->add('misUsuariosRelacionados', 'entity', [
                 'class' => 'UserBundle:Usuario',
@@ -126,6 +127,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'class' => 'select2',
                  ],
                  'multiple' => true,
+                 'required' => false,
                  'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('user')
                         ->select('usuario', 'socio')

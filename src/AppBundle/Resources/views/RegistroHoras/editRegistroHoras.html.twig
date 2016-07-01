@@ -24,6 +24,13 @@
                 }
             });
         });
+
+        $(document).ready(function() { 
+            $("#appbundle_registrohoras_fechaHoras_day").select2({ width: '8%' }); 
+            $("#appbundle_registrohoras_fechaHoras_month").select2({ width: '8%' }); 
+            $("#appbundle_registrohoras_fechaHoras_year").select2({ width: '10%' });           
+        });
+    
     </script>
 }
 {% endblock %}
@@ -33,27 +40,16 @@
     {% form_theme edit_form _self %}
   
     {{ form_start(edit_form)}}
-    {{ form_row(edit_form.proyectoPresupuesto)}}
+    {{ form_row(edit_form.proyectoPresupuesto)}}        
+    {{ form_row(edit_form.fechaHoras, { 'style': 'inline' })}}
+    {{ form_row(edit_form.cliente)}}  
+    {{ form_row(edit_form.actividad)}}
+    {{ form_row(edit_form.horasInvertidas)}}  
+    {{ form_row(edit_form.ingresadoPor)}}
+    {{ form_row(edit_form.horasExtraordinarias)}}  
     
-     <div class="row">
-         <div class="col-md-6">
-     {% block appbundle_registrohoras_fechaHoras %}
-            <div class="form-inline">
-                
-              {{ form_row(edit_form.fechaHoras)}}
-             </div>
-           
-     {% endblock %}
-     	</div>
-     </div>
-      {{ form_row(edit_form.cliente)}}
-      {{ form_row(edit_form.actividad)}}
-      {{ form_row(edit_form.horasInvertidas)}}
-      {{ form_row(edit_form.ingresadoPor)}}
-      {{ form_row(edit_form.submit)}}
 
-    {{ form_end(edit_form)}}
-
+    {{form_end(edit_form)}}
         <ul class="record_actions">
     <li>
         <a class="btn btn-primary" href="{{ path('registrohoras') }}">

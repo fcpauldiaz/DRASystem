@@ -2,16 +2,18 @@
 
 {% block body -%}
 	<br>
-    <h1>Departamento edit</h1>
+    <h1>Editar Departamento</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('departamento') }}">
-            Back to the list
+        <a class="btn btn-default" href="{{ path('departamento') }}">
+            Regresar a ver todos los departamentos
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% if is_granted('ROLE_ELIMINAR_DEPARTAMENTO') %}
+        <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 {% endblock %}

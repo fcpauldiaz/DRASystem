@@ -3,13 +3,33 @@
 {% block body -%}
     <h1>Crear nuevo Proyecto Presupuesto</h1>
 
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('proyectopresupuesto') }}">
-           Ver todos los presupuestos
-        </a>
-    </li>
-</ul>
+    {{ form_start(form) }}
+    {{ form_row(form.nombrePresupuesto) }}
+    {{ form_row(form.honorarios) }}
+    {{ form_row(form.socios) }}
+    {{ form_row(form.gerentes) }}
+    {{ form_row(form.presupuestoIndividual) }}
+     <div class="row">
+        <div class="col-sm-5 col-md-5">
+            <div class="form-group">
+               {{form_row(form.submitAndSave)}}
+            </div>
+        </div>
+       <div class="col-sm-4 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submit)}}
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <div class="form-group">
+                <a class="btn btn-info" href="{{ path('proyectopresupuesto') }}">
+		           Ver todos los presupuestos
+		        </a>
+            </div>
+        </div>
+    </div>
+	{{ form_end(form) }}
+  	<br>
+  	<br>
+  	<br>
 {% endblock %}

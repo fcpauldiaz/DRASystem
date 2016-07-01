@@ -60,7 +60,7 @@ security:
         #permiso para crear clientes
         ROLE_CREAR_CLIENTES: ROLE_VER_CLIENTES
         #permiso para crear actividades
-        ROLE_CREAR_ACIVIDADES: ROLE_VER_ACTIVIDADES
+        ROLE_CREAR_ACTIVIDADES: ROLE_VER_ACTIVIDADES
         #permiso para crear horas
         ROLE_CREAR_HORAS: ROLE_VER_LISTADO_GENERAL
         #permiso para crear preseupuesto
@@ -74,7 +74,7 @@ security:
         #permiso para editar horas
         ROLE_EDITAR_HORAS: ROLE_CREAR_HORAS
         #permiso para editar atividades
-        ROLE_EDITAR_ACTIVIDADES: ROLE_CREAR_ACIVIDADES
+        ROLE_EDITAR_ACTIVIDADES: ROLE_CREAR_ACTIVIDADES
         #permiso para editar presupuestos
         ROLE_EDITAR_PRESUPUESTO: ROLE_CREAR_PRESUPUESTOS
         #permiso para editar clientes
@@ -96,9 +96,9 @@ security:
         #permisio para eliminear clientes
         ROLE_ELIMINAR_CLIENTES: ROLE_EDITAR_CLIENTES
         #permiso para eliminar tipo puestos
-        ROLE_ELIMINAR_TIPO_PUESTOS: ROLE_EDITAR_TIPO_PUESTO
+        ROLE_ELIMINAR_TIPO_PUESTO: ROLE_EDITAR_TIPO_PUESTO
         #permiso para eliminar departamentos
         ROLE_ELIMINAR_DEPARTAMENTO: ROLE_EDITAR_DEPARTAMENTO
         #permiso para tener acceso al panel de control.
-        ROLE_ADMIN:             [ROLE_ELIMINAR_CLIENTES, ROLE_ELIMINAR_USUARIOS, ROLE_ELIMINAR_ACTIVIDADES, ROLE_ELIMINAR_HORAS, ROLE_ELIMINAR_PRESUPUESTOS, ROLE_VER_CONSULTAS, ROLE_APROBACION_HORAS]
+        ROLE_ADMIN:             [ROLE_ELIMINAR_CLIENTES, ROLE_ELIMINAR_USUARIOS, ROLE_ELIMINAR_ACTIVIDADES, ROLE_ELIMINAR_HORAS, ROLE_ELIMINAR_PRESUPUESTOS, ROLE_VER_CONSULTAS, ROLE_APROBACION_HORAS, ROLE_ELIMINAR_TIPO_PUESTO]
         ROLE_SUPER_ADMIN:       ROLE_ADMIN

@@ -1,18 +1,25 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+
+    <script>
+        $(document).ready(function(){
+            $('#userbundle_puesto_date_day').select2({width: '8%'});
+            $('#userbundle_puesto_date_month').select2({width: '8%'});
+            $('#userbundle_puesto_date_year').select2({width: '10%'});
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
     <h1>Editar Puesto</h1>
 
   	{{form_start(form)}}
-  	{% form_theme form _self %}
-
-    {% block _userbundle_puesto_date %}
-        <div class="form-inline">
+  
             
-           {{ form_row(form.date)}}
-         </div>
-       
-    {% endblock %}
+   {{ form_row(form.date, { 'style': 'inline' })}}
+      
+
   	{{form_end(form)}}
 
         <ul class="record_actions">

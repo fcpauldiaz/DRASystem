@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UserBundle\Entity\Departamento;
-use UserBundle\Form\DepartamentoType;
+use UserBundle\Form\Type\DepartamentoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
@@ -56,6 +56,11 @@ class DepartamentoController extends Controller
             $em->persist($entity);
             $em->flush();
 
+              if ($form->get('submitAndSave')->isClicked())
+            {
+                return $this->redirectToRoute('departamento_new');
+            }
+
             return $this->redirect($this->generateUrl('departamento_show', array('id' => $entity->getId())));
         }
 
@@ -79,7 +84,18 @@ class DepartamentoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submitAndSave', 'submit', [
+                    'label' => 'Guardar e ingresar otro',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ]);
+         $form->add('submit', 'submit', [
+                    'label' => 'Guardar y ver detalle',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ]);
 
         return $form;
     }
@@ -87,7 +103,7 @@ class DepartamentoController extends Controller
     /**
      * Displays a form to create a new Departamento entity.
      *
-     * @Route("/new", name="departamento_new")
+     * @Route("/new/", name="departamento_new")
      * @Method("GET")
      * @Security("is_granted('ROLE_CREAR_DEPARTAMENTO')") 
      * @Template("UserBundle:Departamento:newDepartamento.html.twig")

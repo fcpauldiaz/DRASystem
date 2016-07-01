@@ -43,6 +43,7 @@ class ProyectoPresupuestoController extends Controller
      *
      * @Route("/", name="proyectopresupuesto_create")
      * @Method("POST")
+     * @Security("is_granted('ROLE_CREAR_PRESUPUESTOS')")
      * @Template("AppBundle:ProyectoPresupuesto:newProyectoPresupuesto.html.twig")
      */
     public function createAction(Request $request)
@@ -56,6 +57,10 @@ class ProyectoPresupuestoController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            if ($form->get('submitAndSave')->isClicked())
+            {
+                return $this->redirectToRoute('proyectopresupuesto_new');
+            }
             return $this->redirect($this->generateUrl('proyectopresupuesto_show', array('id' => $entity->getId())));
         }
 
@@ -78,8 +83,18 @@ class ProyectoPresupuestoController extends Controller
             'action' => $this->generateUrl('proyectopresupuesto_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn btn-primary btn-block']));
+        $form->add('submitAndSave', 'submit', [
+                    'label' => 'Guardar e ingresar otro',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ]);
+         $form->add('submit', 'submit', [
+                    'label' => 'Guardar y ver detalle',
+                    'attr' => [
+                        'class' => 'btn btn-primary btn-block',
+                    ],
+            ]);
 
         return $form;
     }
@@ -89,6 +104,7 @@ class ProyectoPresupuestoController extends Controller
      *
      * @Route("/new", name="proyectopresupuesto_new")
      * @Method("GET")
+     * @Security("is_granted('ROLE_CREAR_PRESUPUESTOS')")
      * @Template("AppBundle:ProyectoPresupuesto:newProyectoPresupuesto.html.twig")
      */
     public function newAction()
@@ -134,7 +150,7 @@ class ProyectoPresupuestoController extends Controller
      * @Route("/{id}/edit", name="proyectopresupuesto_edit")
      * @Method("GET")
      * @Template("AppBundle:ProyectoPresupuesto:editProyectoPresupuesto.html.twig")
-     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTOS')")
+     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTO')")
      */
     public function editAction($id)
     {
@@ -179,7 +195,7 @@ class ProyectoPresupuestoController extends Controller
      *
      * @Route("/{id}", name="proyectopresupuesto_update")
      * @Method("PUT")
-     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTOS')")
+     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTO')")
      * @Template("AppBundle:ProyectoPresupuesto:editProyectoPresupuesto.html.twig")
      * 
      */

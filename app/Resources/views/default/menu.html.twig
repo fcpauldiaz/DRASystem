@@ -58,6 +58,12 @@
                 {% if is_granted('ROLE_VER_CLIENTES') %}
                     <li><a href="{{ path('cliente')}}">Clientes</a></li>
                 {% endif %}
+                {% if is_granted('ROLE_VER_TIPO_PUESTO')%}
+                  <li><a href="{{path('tipopuesto')}}">Tipo Puesto</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_VER_DEPARTAMENTO')%}
+                  <li><a href="{{path('departamento')}}">Departamentos</a></li>
+                {% endif %}
                 <li class="divider"></li>
                 <li class="dropdown-header">Aprobación de horas</li>
                 {% if is_granted('ROLE_APROBACION_HORAS') %}

@@ -36,19 +36,22 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
+    <ul class="record_actions">
+    {% if is_granted('ROLE_CREAR_CLIENTE') %}
     <li>
         <a class="btn btn-primary btn-block" href="{{ path('cliente_new')}}">
             Ingresar Nuevo cliente
         </a>
     </li>
+    {% endif %}
     <br>
+
     <li>
         <a class="btn btn-default" href="{{ path('cliente') }}">
            Ver todos los clientes
         </a>
     </li>
-    {% if is_granted('ROLE_GERENTE') %}
+    {% if is_granted('ROLE_EDITAR_CLIENTE') %}
         <li>
             <a class="btn btn-warning" href="{{ path('cliente_edit', { 'id': entity.id }) }}">
                 Editar

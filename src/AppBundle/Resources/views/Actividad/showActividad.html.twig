@@ -24,24 +24,30 @@
         </tbody>
     </table>
     
-        <ul class="record_actions">
+    <ul class="record_actions">
+    {% if is_granted('ROLE_CREAR_ACTIVIDAD') %}
     <li>
         <a class="btn btn-primary btn-block" href="{{ path('actividad_new') }}">
           Crear nueva actividad
         </a>
     </li>
-
+    {% endif %}
+    {# ya no se revisa si se puede ver la actividad, porque para llegar aquí se necesita ese permiso #}
     <li>
         <a class="btn btn-default" href="{{ path('actividad') }}">
            Ver todas las actividades
         </a>
     </li>
+    {% if is_granted('ROLE_EDITAR_ACTIVIDAD') %}
     <li>
         <a class="btn btn-warning" href="{{ path('actividad_edit', { 'id': entity.id }) }}">
             Editar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% endif %}
+    {% if is_granted('ROLE_ELIMINAR_ACTIVIDAD') %}
+        <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 <br>
 <br>

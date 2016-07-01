@@ -3,11 +3,26 @@
 {% block body -%}
     <h1>Crear nuevo Departamento</h1>
 
-    {{ form(form) }}
-
+    {{ form_start(form) }}
+    {{ form_row(form.nombreDepartamento) }}
+    {{ form_row(form.descripcion) }}
+	 <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+            {{form_row(form.submitAndSave)}}
+          </div>
+        </div>
+       
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+            {{form_row(form.submit)}}
+          </div>
+        </div>
+      </div>
+	{{ form_end(form) }}
         <ul class="record_actions">
     <li>
-        <a class="btn btn-primary" href="{{ path('departamento') }}">
+        <a class="btn btn-info" href="{{ path('departamento') }}">
             Mostrar todos los departamentos
         </a>
     </li>

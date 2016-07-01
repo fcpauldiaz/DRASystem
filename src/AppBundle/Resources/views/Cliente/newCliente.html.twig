@@ -71,19 +71,33 @@ ajaxContacto();
       </div>
     </div>
   </div>
-	
+	 <div class="row">
+        <div class="col-sm-5 col-md-5">
+            <div class="form-group">
+               {{form_row(form.submitAndSave)}}
+            </div>
+        </div>
+       <div class="col-sm-4 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submit)}}
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ path('cliente') }}">
+                  Ver todos los clientes
+              </a>
+            </div>
+        </div>
+    </div>
 
 	
 	
     {{ form_end(form)}}
 
-        <ul class="record_actions">
-    <li>
-        <a class="btn btn-sm btn-default" href="{{ path('cliente') }}">
-            Ver todos los clientes
-        </a>
-    </li>
-</ul>
+
+   
+
 
 {% include 'AppBundle:ContactoCliente:modal_contacto_cliente.html.twig' %}
 {% endblock %}

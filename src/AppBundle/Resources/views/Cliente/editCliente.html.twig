@@ -37,7 +37,10 @@
            Ver todos
         </a>
     </li>
-    <li><a class="btn btn-danger confirm">Eliminar</a></li>
+    {% if is_granted('ROLE_ELIMINAR_CLIENTES') %}
+    <li><a class="btn btn-danger confirm">Eliminar</a>
+    </li>
+    {% endif %}
     {{ form(delete_form) }}
 </ul>
 {% endblock %}

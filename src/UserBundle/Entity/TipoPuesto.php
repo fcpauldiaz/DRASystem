@@ -134,6 +134,8 @@ class TipoPuesto
     public function removePermiso(\UserBundle\Entity\Permiso $permiso)
     {
         $this->permisos->removeElement($permiso);
+        $permiso->removeTipoPuesto($this);
+
     }
 
     /**
