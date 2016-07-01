@@ -6,9 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints;
-use UserBundle\Entity\TipoPuesto;
 
 class TipoPuestoType extends AbstractType
 {
@@ -22,7 +19,7 @@ class TipoPuestoType extends AbstractType
             ->add('nombrePuesto', 'text', [
                 'label' => 'Nombre del Puesto*',
                 'required' => true,
-               
+
             ])
             ->add('descripcion', 'textarea', [
                 'label' => 'Descripción del tipo (opcional)',
@@ -32,10 +29,9 @@ class TipoPuestoType extends AbstractType
             ->add('permisos', 'entity', [
                 'class' => 'UserBundle:Permiso',
                 'expanded' => true,
-                'multiple' => true
+                'multiple' => true,
                 ])
-         
-          
+
         ;
     }
 

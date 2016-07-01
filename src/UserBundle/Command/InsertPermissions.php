@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use UserBundle\Entity\Permiso;
 
-class InsertPermissionsCommand extends ContainerAwareCommand
+class InsertPermissions extends ContainerAwareCommand
 {
     protected function configure()
     {
@@ -30,7 +30,7 @@ class InsertPermissionsCommand extends ContainerAwareCommand
     {
         //se utiliza el manager de Symfony
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-       
+
         $cantidadPermisos = count(Permiso::permisosActuales); //contador todos los permisos a insertar
 
         //Mostrar Progreso de todos los usuarios evaluados
@@ -38,12 +38,11 @@ class InsertPermissionsCommand extends ContainerAwareCommand
         $progress->start();
 
         foreach (Permiso::permisosActuales as $etiqueta => $permiso) {
-           
             $permiso = new Permiso($etiqueta, $permiso);
             $em->persist($permiso);
             $em->flush();
             //aumentar la cantidad de permisos creados
-            $cantidadPermisos++;
+            ++$cantidadPermisos;
 
             $progress->advance();
         }

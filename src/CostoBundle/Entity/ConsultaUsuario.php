@@ -1,7 +1,9 @@
 <?php
 
 namespace CostoBundle\Entity;
+
 use CostoBundle\Entity\Consulta as ConsultaMain;
+
 /**
  * ConsultaPorUsuario.
  * Clase para agrupar los cálculos necesarios
@@ -9,7 +11,6 @@ use CostoBundle\Entity\Consulta as ConsultaMain;
  */
 class ConsultaUsuario extends ConsultaMain
 {
-  
     /**
      * Guarda el costo por hora del usuario.
      *
@@ -22,10 +23,10 @@ class ConsultaUsuario extends ConsultaMain
     public function __construct($usuario, $horas, $horasPresupuesto, $costoPorHora, $costoTotal)
     {
         parent::__construct($horas, $horasPresupuesto, $costoTotal);
-      $this->costoPorHora = $costoPorHora;
-      $this->usuario = $usuario;
+        $this->costoPorHora = $costoPorHora;
+        $this->usuario = $usuario;
     }
-    
+
     public function getCostoPorHora()
     {
         return $this->costoPorHora;
@@ -48,5 +49,4 @@ class ConsultaUsuario extends ConsultaMain
     {
         return $this->cliente;
     }
-
-  }
+}

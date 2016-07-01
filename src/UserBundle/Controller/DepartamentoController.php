@@ -56,8 +56,7 @@ class DepartamentoController extends Controller
             $em->persist($entity);
             $em->flush();
 
-              if ($form->get('submitAndSave')->isClicked())
-            {
+            if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('departamento_new');
             }
 
@@ -90,7 +89,7 @@ class DepartamentoController extends Controller
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-         $form->add('submit', 'submit', [
+        $form->add('submit', 'submit', [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -231,7 +230,6 @@ class DepartamentoController extends Controller
      * @Route("/{id}", name="departamento_delete")
      * @Method("DELETE")
      * @Security("is_granted('ROLE_ELIMINAR_DEPARTAMENTO')") 
-     * 
      */
     public function deleteAction(Request $request, $id)
     {

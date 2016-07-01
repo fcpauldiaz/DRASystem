@@ -3,6 +3,7 @@
 namespace CostoBundle\Entity;
 
 use CostoBundle\Entity\Consulta as ConsultaMain;
+
 /**
  * ConsutaPorActividad.
  * Clase para agrupar los cálculos necesarios
@@ -10,20 +11,12 @@ use CostoBundle\Entity\Consulta as ConsultaMain;
  */
 class ConsultaActividad extends ConsultaMain
 {
-   
-    
-
-  
-
-   
     /**
      * Identificador el registro presupuesto.
      *
      * @var int
      */
     private $presupuestoId;
-
-   
 
     /**
      * Constructor inicial.
@@ -34,13 +27,11 @@ class ConsultaActividad extends ConsultaMain
      */
     public function __construct($actividad, $horas, $horasPresupuesto, $costoTotal, $costoPresupuesto)
     {
-        parent::__construct($horas,$horasPresupuesto, $costoTotal);
+        parent::__construct($horas, $horasPresupuesto, $costoTotal);
         $this->actividad = $actividad;
-       
+
         $this->costoPresupuesto = $costoPresupuesto;
     }
-
-  
 
     /**
      * Set presupuesto id.
@@ -62,6 +53,4 @@ class ConsultaActividad extends ConsultaMain
     {
         return $this->presupuestoId;
     }
-
-  
 }

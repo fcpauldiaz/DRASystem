@@ -111,9 +111,8 @@ class TipoPuesto
         return $this->nombrePuesto;
     }
 
-
     /**
-     * Add permiso
+     * Add permiso.
      *
      * @param \UserBundle\Entity\Permiso $permiso
      *
@@ -127,7 +126,7 @@ class TipoPuesto
     }
 
     /**
-     * Remove permiso
+     * Remove permiso.
      *
      * @param \UserBundle\Entity\Permiso $permiso
      */
@@ -135,11 +134,10 @@ class TipoPuesto
     {
         $this->permisos->removeElement($permiso);
         $permiso->removeTipoPuesto($this);
-
     }
 
     /**
-     * Get permisos
+     * Get permisos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

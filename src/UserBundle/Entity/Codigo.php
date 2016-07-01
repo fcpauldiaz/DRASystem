@@ -128,7 +128,7 @@ class Codigo
 
     public function getCodigoCompleto()
     {
-         return $this->codigo.': '.$this->nombres.' '.$this->apellidos;
+        return $this->codigo.': '.$this->nombres.' '.$this->apellidos;
     }
 
     public function __toString()

@@ -34,7 +34,7 @@ class CronJobController extends Controller
                 $lastDay,
                 $usuario
             );
-         
+
             $entidadCosto->setCosto($costo);
             $entidadCosto->setUsuario($usuario);
             $em->persist($entidadCosto);
@@ -62,10 +62,8 @@ class CronJobController extends Controller
         );
     }
 
-        private function calcularCosto($fechaInicio, $fechaFin, $usuario)
-        {
-      
-       
+    private function calcularCosto($fechaInicio, $fechaFin, $usuario)
+    {
         $datosPrestaciones = $usuario->getDatosPrestaciones()->last();
         $totalHorasPorPeriodo = 0;
         if ($datosPrestaciones !== false) {
@@ -88,7 +86,7 @@ class CronJobController extends Controller
         if ($totalHorasPorPeriodo != 0) {
             $costo = $totalIngreso / $totalHorasPorPeriodo;
         }
-       
+
         return $costo;
     }
 }

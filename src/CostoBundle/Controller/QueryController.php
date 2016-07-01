@@ -74,13 +74,15 @@ class QueryController extends Controller
         return $horasPresupuesto;
     }
     /**
-     * Método para buscar los usuarios relacionados
-     * @param  UserBundle:Usuario $usuario 
+     * Método para buscar los usuarios relacionados.
+     *
+     * @param UserBundle:Usuario $usuario
+     *
      * @return Array de UserBundle:Usuario
      */
     public function buscarUsuariosPorSocio($usuario)
     {
-       $sql = " 
+        $sql = ' 
             SELECT u1.id 
             FROM usuario u1
             WHERE u1.id in 
@@ -90,7 +92,7 @@ class QueryController extends Controller
                 JOIN usuario_relacionado r1 ON r1.usuario_id =  u.id
                 WHERE u.id = ?
             )
-            ";
+            ';
 
         $em = $this->getDoctrine()->getManager();
         $stmt = $em->getConnection()->prepare($sql);
@@ -98,14 +100,14 @@ class QueryController extends Controller
         $stmt->execute();
         $res = $stmt->fetchAll();
         $ids = [];
-        foreach($res as $innerRes) {
-            $ids[] = $innerRes["id"]; 
+        foreach ($res as $innerRes) {
+            $ids[] = $innerRes['id'];
         }
+
         return $this
             ->getDoctrine()
             ->getRepository('UserBundle:Usuario')
             ->findById($ids)
             ;
-
     }
 }

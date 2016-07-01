@@ -20,7 +20,7 @@ class ConsultaCostoUsuarioController extends Controller
     /**
      * @ROUTE("", name="consulta_usuario")
      *
-     * @param Request $request 
+     * @param Request $request
      *
      * @return Response
      */

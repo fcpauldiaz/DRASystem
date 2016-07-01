@@ -35,7 +35,6 @@ class RegistroHorasPresupuestoEditType extends AbstractType
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'required' => true,
                     'multiple' => false,
-                    
 
             ])
              ->add('horaspresupuestadas', null, [

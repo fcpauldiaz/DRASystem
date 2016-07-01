@@ -5,7 +5,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AppBundle\Form\Type\RegistroActividadHorasType;
 
 class RegistroHorasType extends AbstractType
 {
@@ -62,7 +61,6 @@ class RegistroHorasType extends AbstractType
                     'attr' => [
                             'class' => 'select2',
                         ],
-                   
 
                 ])
             ->add('ingresadoPor', 'entity', [
@@ -81,8 +79,6 @@ class RegistroHorasType extends AbstractType
                 ],
             ])
 
-           
-           
         ;
     }
 

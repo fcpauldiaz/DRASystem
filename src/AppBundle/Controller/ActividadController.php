@@ -55,8 +55,7 @@ class ActividadController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            if ($form->get('submitAndSave')->isClicked())
-            {
+            if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('actividad_new');
             }
 
@@ -89,7 +88,7 @@ class ActividadController extends Controller
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-         $form->add('submit', 'submit', [
+        $form->add('submit', 'submit', [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',

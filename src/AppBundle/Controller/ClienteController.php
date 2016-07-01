@@ -24,7 +24,6 @@ class ClienteController extends Controller
      * @Route("/", name="cliente")
      * @Method("GET")
      * @Security("is_granted('ROLE_VER_CLIENTES')")
-     * 
      */
     public function indexAction()
     {
@@ -32,7 +31,7 @@ class ClienteController extends Controller
 
         $entities = $em->getRepository('AppBundle:Cliente')->findAll();
 
-        return $this->render('AppBundle:Cliente:indexCliente.html.twig',array(
+        return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -55,10 +54,10 @@ class ClienteController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            if ($form->get('submitAndSave')->isClicked())
-            {
+            if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('cliente_new');
             }
+
             return $this->redirect($this->generateUrl('cliente_show', array('id' => $entity->getId())));
         }
 
@@ -82,18 +81,19 @@ class ClienteController extends Controller
             'method' => 'POST',
         ));
 
-       $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', 'submit', [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-         $form->add('submit', 'submit', [
+        $form->add('submit', 'submit', [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
+
         return $form;
     }
 

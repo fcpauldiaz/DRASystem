@@ -270,10 +270,8 @@ class CostoController extends Controller
 
     public function costoAction($fechaInicio, $fechaFin, $usuario)
     {
-      
-        
         $datosPrestaciones = $usuario->getDatosPrestaciones()->last();
-        
+
         $totalIngreso = $datosPrestaciones->calcularTotalPrestaciones();
         //ahora busco todas las horas ingresadas por el usuario
         //en el período seleccionado
@@ -292,7 +290,7 @@ class CostoController extends Controller
         if ($totalHorasPorPeriodo != 0) {
             $costo = $totalIngreso / $totalHorasPorPeriodo;
         }
-        
+
         return $costo;
     }
 }

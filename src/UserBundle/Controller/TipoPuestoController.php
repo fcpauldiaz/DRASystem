@@ -31,7 +31,7 @@ class TipoPuestoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('UserBundle:TipoPuesto')->findAll();
-       
+
         return array(
             'entities' => $entities,
         );
@@ -48,17 +48,15 @@ class TipoPuestoController extends Controller
         $entity = new TipoPuesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-
-            if ($form->get('submitAndSave')->isClicked())
-                {
-                    return $this->redirectToRoute('tipopuesto_new_post');
-                }
+            if ($form->get('submitAndSave')->isClicked()) {
+                return $this->redirectToRoute('tipopuesto_new_post');
+            }
 
             return $this->redirect($this->generateUrl('tipopuesto_show', array('id' => $entity->getId())));
         }
@@ -85,8 +83,8 @@ class TipoPuestoController extends Controller
         $form->add('submitAndSave', 'submit', [
                 'label' => 'Guardar y crear otro',
                 'attr' => [
-                    'class' => 'btn btn-block'
-                ]
+                    'class' => 'btn btn-block',
+                ],
             ]);
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn btn-block']));
 
@@ -155,14 +153,14 @@ class TipoPuestoController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        
+
         $puestos = $em->getRepository('UserBundle:Puesto')->findBy(['tipoPuesto' => $entity]);
 
         //se coloca en un string los puestos
         //para mostrarlos en un modal en la UI.
         $puestoString = '<br>';
-        foreach($puestos as $puesto) {
-            $puestoString .= $puesto->__toString(). '<br> ';
+        foreach ($puestos as $puesto) {
+            $puestoString .= $puesto->__toString().'<br> ';
         }
 
         return array(
@@ -241,7 +239,7 @@ class TipoPuestoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('UserBundle:TipoPuesto')->find($id);
             $permisos = $entity->getPermisos();
-            foreach($permisos as $permiso) {
+            foreach ($permisos as $permiso) {
                 $entity->removePermiso($permiso);
             }
             if (!$entity) {

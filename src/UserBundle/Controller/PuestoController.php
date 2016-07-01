@@ -80,11 +80,10 @@ class PuestoController extends Controller
             }
             $tipoPuesto = $data->getTipoPuesto();
             $permisos = $tipoPuesto->getPermisos();
-            foreach($permisos as $permiso) {
-                 $usuario->addRole($permiso->getPermiso());
+            foreach ($permisos as $permiso) {
+                $usuario->addRole($permiso->getPermiso());
             }
 
-           
             $em->persist($usuario);
             $em->flush();
 
@@ -239,7 +238,7 @@ class PuestoController extends Controller
             throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
         $usuario = $this->getUser();
-        
+
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -250,8 +249,8 @@ class PuestoController extends Controller
             }
             $tipoPuesto = $data->getTipoPuesto();
             $permisos = $tipoPuesto->getPermisos();
-            foreach($permisos as $permiso) {
-                 $usuario->addRole($permiso->getPermiso());
+            foreach ($permisos as $permiso) {
+                $usuario->addRole($permiso->getPermiso());
             }
             $em->flush();
 

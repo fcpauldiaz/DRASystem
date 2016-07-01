@@ -46,7 +46,6 @@ abstract class Usuario extends BaseUser
 
     /**
      * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="misUsuariosRelacionados", cascade={"persist"})
-     
      */
     private $usuarioRelacionado;
 
@@ -59,7 +58,7 @@ abstract class Usuario extends BaseUser
      */
     private $misUsuariosRelacionados;
 
-     /**
+    /**
      * Código ya utilizado en DRA.
      * 
      * @ORM\OneToOne(targetEntity="UserBundle\Entity\Codigo")
@@ -73,8 +72,8 @@ abstract class Usuario extends BaseUser
     public function __construct()
     {
         parent::__construct();// construye los metodos y atributos de Base
-        $this->usuarioRelacionado =  new \Doctrine\Common\Collections\ArrayCollection();
-        $this->misUsuariosRelacionados =  new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usuarioRelacionado = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->misUsuariosRelacionados = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -214,7 +213,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Add usuarioRelacionado
+     * Add usuarioRelacionado.
      *
      * @param \UserBundle\Entity\Usuario $usuarioRelacionado
      *
@@ -229,7 +228,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Remove usuarioRelacionado
+     * Remove usuarioRelacionado.
      *
      * @param \UserBundle\Entity\Usuario $usuarioRelacionado
      */
@@ -240,7 +239,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Get usuarioRelacionado
+     * Get usuarioRelacionado.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -250,21 +249,21 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Add misUsuariosRelacionado
+     * Add misUsuariosRelacionado.
      *
      * @param \UserBundle\Entity\Usuario $misUsuariosRelacionado
      *
      * @return Usuario
      */
     public function addMisUsuariosRelacionado(\UserBundle\Entity\Usuario $misUsuariosRelacionado)
-    {   
+    {
         $this->misUsuariosRelacionados[] = $misUsuariosRelacionado;
 
         return $this;
     }
 
     /**
-     * Remove misUsuariosRelacionado
+     * Remove misUsuariosRelacionado.
      *
      * @param \UserBundle\Entity\Usuario $misUsuariosRelacionado
      */
@@ -274,7 +273,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Get misUsuariosRelacionados
+     * Get misUsuariosRelacionados.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -283,7 +282,7 @@ abstract class Usuario extends BaseUser
         return $this->misUsuariosRelacionados;
     }
 
-     /**
+    /**
      * Set codigo.
      *
      * @param string $codigo

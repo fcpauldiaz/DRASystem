@@ -117,7 +117,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'class' => 'select2',
                 ],
                 'required' => true,
-                
+
             ])
             ->add('misUsuariosRelacionados', 'entity', [
                 'class' => 'UserBundle:Usuario',

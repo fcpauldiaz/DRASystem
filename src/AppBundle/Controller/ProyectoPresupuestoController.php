@@ -57,10 +57,10 @@ class ProyectoPresupuestoController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            if ($form->get('submitAndSave')->isClicked())
-            {
+            if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('proyectopresupuesto_new');
             }
+
             return $this->redirect($this->generateUrl('proyectopresupuesto_show', array('id' => $entity->getId())));
         }
 
@@ -89,7 +89,7 @@ class ProyectoPresupuestoController extends Controller
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-         $form->add('submit', 'submit', [
+        $form->add('submit', 'submit', [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -197,7 +197,6 @@ class ProyectoPresupuestoController extends Controller
      * @Method("PUT")
      * @Security("is_granted('ROLE_EDITAR_PRESUPUESTO')")
      * @Template("AppBundle:ProyectoPresupuesto:editProyectoPresupuesto.html.twig")
-     * 
      */
     public function updateAction(Request $request, $id)
     {

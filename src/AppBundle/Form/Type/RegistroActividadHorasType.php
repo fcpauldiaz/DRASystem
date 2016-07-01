@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistroActividadHorasType extends AbstractType
 {
-   
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -16,7 +15,7 @@ class RegistroActividadHorasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
+
             ->add('actividad', 'entity', [
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
@@ -35,7 +34,7 @@ class RegistroActividadHorasType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => null
+            'data_class' => null,
         ));
     }
 

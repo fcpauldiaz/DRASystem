@@ -30,7 +30,7 @@ class InsertPermissionsCommand extends ContainerAwareCommand
     {
         //se utiliza el manager de Symfony
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-       
+
         $cantidadPermisos = count(Permiso::permisosActuales); //contador todos los permisos a insertar
 
         //Mostrar Progreso de todos los usuarios evaluados
@@ -38,18 +38,17 @@ class InsertPermissionsCommand extends ContainerAwareCommand
         $progress->start();
 
         foreach (Permiso::permisosActuales as $etiqueta => $permiso) {
-           
             $permiso = new Permiso($etiqueta, $permiso);
             $em->persist($permiso);
             $em->flush();
             //aumentar la cantidad de permisos creados
-            $cantidadPermisos++;
+            ++$cantidadPermisos;
 
             $progress->advance();
         }
         //terminar barra de progreso
         $progress->finish();
 
-        $output->writeln('Cantidad de permisos creados' . $cantidadPermisos);
+        $output->writeln('Cantidad de permisos creados'.$cantidadPermisos);
     }
 }

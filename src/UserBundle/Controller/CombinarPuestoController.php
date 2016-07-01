@@ -21,8 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class CombinarPuestoController extends Controller
 {
-    
-     /**
+    /**
      * Muestra el template para un nuevo tipo de contacto.
      *
      * @Route("tipo_puesto/new/ajax", name="tipo_puesto_new")

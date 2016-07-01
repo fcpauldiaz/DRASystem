@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Codigo controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/codigo")
  */

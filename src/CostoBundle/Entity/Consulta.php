@@ -5,11 +5,11 @@ namespace CostoBundle\Entity;
 /**
  * Consulta que padrea.
  * Clase para agrupar los cálculos necesarios
- * para realizar el query de horas
+ * para realizar el query de horas.
  */
 class Consulta
 {
-	 /**
+    /**
      * @var float
      *
      * total horas calculadas invertidaas
@@ -17,16 +17,16 @@ class Consulta
     private $horasCalculadas;
 
     /**
-     * @var  float 
+     * @var float
      */
     private $horasExtraordinarias;
-/**
+    /**
      * @var Actividad
      *
      * actividades
      */
     private $actividad;
-      /**
+    /**
      * @var float
      *
      * Horas presupuestadas que tenía en usuario
@@ -40,7 +40,7 @@ class Consulta
      */
     private $diferencia;
 
-     /**
+    /**
      * Se guarda el cálculo del costoMonetario.
      *
      * @var float
@@ -54,22 +54,21 @@ class Consulta
      */
     private $costoPresupuesto;
 
-     /**
+    /**
      * @var Usuario
      */
     private $usuario;
 
     public function __construct($horas,
-    	$horasPresupuesto, $costoTotal
-    	)
-    {
-    	$this->horasCalculadas = $horas;
-    	$this->horasPresupuesto = $horasPresupuesto;
-    	$this->diferencia = 0;
-    	$this->costoTotal = $costoTotal;
+        $horasPresupuesto, $costoTotal
+        ) {
+        $this->horasCalculadas = $horas;
+        $this->horasPresupuesto = $horasPresupuesto;
+        $this->diferencia = 0;
+        $this->costoTotal = $costoTotal;
     }
 
-      /**
+    /**
      * Set horas calculadas.
      *
      * @param float
@@ -200,7 +199,7 @@ class Consulta
         return $this;
     }
 
-      public function getCostoPresupuesto()
+    public function getCostoPresupuesto()
     {
         return $this->costoPresupuesto;
     }
@@ -221,5 +220,4 @@ class Consulta
     {
         return $this->horasExtraordinarias;
     }
-
 }

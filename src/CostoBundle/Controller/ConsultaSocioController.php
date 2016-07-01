@@ -51,14 +51,11 @@ class ConsultaSocioController extends Controller
         $tipoConsulta = $data['proyecto_o_usuarios'];
 
         if ($tipoConsulta === 1) {
-            
             return $this->subConsultaSocioUsuario($socio, $form, 'Socio');
         }
-        if ($tipoConsulta === 0){
+        if ($tipoConsulta === 0) {
             return $this->subConsultaSocioProyecto($socio, $form);
         }
-
-       
     }
 
     private function subConsultaSocioProyecto($socio, $form)
@@ -130,40 +127,40 @@ class ConsultaSocioController extends Controller
         $usuarios = $this
             ->get('consulta.query_controller')
             ->buscarUsuariosPorSocio($socio);
-   
+
         $registros = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras')->findAll();
         $presupuestosIndividuales = $this->getDoctrine()
             ->getRepository('AppBundle:RegistroHorasPresupuesto')
                 ->findAll();
 
-        foreach($usuarios as $usuario) {
-             $horas = $this->calcularHorasPorUsuario($usuario, $registros, true);
+        foreach ($usuarios as $usuario) {
+            $horas = $this->calcularHorasPorUsuario($usuario, $registros, true);
         //horas presupuestadas de un usuarios asignadas
         $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
-        $costoPorHora = $this->getDoctrine()
+            $costoPorHora = $this->getDoctrine()
             ->getManager()
             ->getRepository('CostoBundle:Costo')
             ->findByFechaAndUsuario($data['fechaInicio'], $data['fechaFinal'], $usuario);
-        $costoPorHora = $costoPorHora['costo'];
-        $costoTotal = $horas*$costoPorHora;
+            $costoPorHora = $costoPorHora['costo'];
+            $costoTotal = $horas * $costoPorHora;
 
-        $consultaUsuario = new ConsultaUsuario(
+            $consultaUsuario = new ConsultaUsuario(
             $usuario,
             $horas,
             $horasPresupuesto,
             $costoPorHora,
             $costoTotal
         );
-        $costoPresupuesto = $costoPorHora * $horasPresupuesto;
-        $consultaUsuario->setCostoPresupuesto($costoPresupuesto);
-        $consultaUsuario->calcularDiferencia();
+            $costoPresupuesto = $costoPorHora * $horasPresupuesto;
+            $consultaUsuario->setCostoPresupuesto($costoPresupuesto);
+            $consultaUsuario->calcularDiferencia();
 
-        $returnArray[] = $consultaUsuario;
-
+            $returnArray[] = $consultaUsuario;
         }
         $honorarios = $this
             ->get('consulta.query_controller')
             ->calcularHonorariosTotales($registros);
+
         return $this->render(
             'CostoBundle:ConsultaSocio:consultaUsuarios'.$tipo.'.html.twig',
             [
@@ -239,8 +236,7 @@ class ConsultaSocioController extends Controller
         $tipoConsulta = $data['proyecto_o_usuarios'];
 
         if ($tipoConsulta === 1) {
-
-          return $this->subConsultaSocioUsuario($gerente, $form, 'Gerente');
+            return $this->subConsultaSocioUsuario($gerente, $form, 'Gerente');
         }
 
         //buscar los proyectos relacionados con el gerente

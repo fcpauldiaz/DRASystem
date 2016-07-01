@@ -323,7 +323,8 @@ class RegistroHoras
 
     /**
      * Método para devolver el conjunto de horas-actividad
-     * Este método no es utilizado pero es necesario
+     * Este método no es utilizado pero es necesario.
+     *
      * @return [type] [description]
      */
     public function getHorasActividad()
@@ -331,10 +332,9 @@ class RegistroHoras
         return $this->horasActividad;
     }
 
-
     /**
      * Método para devolver el conjunto de horas-actividad
-     * Este método no es utilizado pero es necesario
+     * Este método no es utilizado pero es necesario.
      */
     public function setHorasActividad($horasActividad)
     {

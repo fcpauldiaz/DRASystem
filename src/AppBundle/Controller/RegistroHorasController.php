@@ -61,7 +61,6 @@ class RegistroHorasController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
             $usuario = $data->getIngresadoPor();
@@ -70,7 +69,7 @@ class RegistroHorasController extends Controller
             }
             $horasActividad = $data->getHorasActividad();
             $entities = [];
-            foreach($horasActividad as $registro) {
+            foreach ($horasActividad as $registro) {
                 $entity = new RegistroHoras();
                 $entity->setFechaHoras($data->getFechaHoras());
                 $entity->setHorasInvertidas($registro['horasInvertidas']);
@@ -83,16 +82,13 @@ class RegistroHorasController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $entities[] = $entity;
-
-               
             }
-            if ($form->get('submitAndSave')->isClicked())
-            {
+            if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('registrohoras_new');
             }
 
-           return $this->render('AppBundle:RegistroHoras:indexRegistroHoras.html.twig', [
-                'entities' => $entities
+            return $this->render('AppBundle:RegistroHoras:indexRegistroHoras.html.twig', [
+                'entities' => $entities,
             ]);
         }
 
@@ -121,12 +117,13 @@ class RegistroHorasController extends Controller
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-         $form->add('submit', 'submit', [
+        $form->add('submit', 'submit', [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
+
         return $form;
     }
 

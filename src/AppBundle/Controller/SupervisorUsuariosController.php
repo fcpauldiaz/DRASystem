@@ -74,7 +74,6 @@ class SupervisorUsuariosController extends Controller
         );
     }
     /**
-     *  
      *  @Route("/mostrar/usuarios/relacionados", name="mostrar_usuarios_relacionados")  
      *  @Security("is_granted('ROLE_APROBACION_HORAS')")
      */
@@ -84,8 +83,8 @@ class SupervisorUsuariosController extends Controller
         $usuarios = $this
             ->get('consulta.query_controller')
             ->buscarUsuariosPorSocio($usuario);
-        
-         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
+
+        return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [
                 'usuarios' => $usuarios,
             ]
