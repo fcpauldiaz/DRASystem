@@ -142,7 +142,7 @@ class RegistrationTrabajadorFormType extends AbstractType
             ->add('submit', 'submit', [
                 'label' => 'Guardar y agregar puesto',
                 'attr' => [
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-primary btn-block',
                 ],
             ])
 

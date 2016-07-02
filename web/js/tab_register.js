@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    //función para verificar si un string es un número
+      function isNumeric(num){
+        return !isNaN(num);
+    }
+
     //Initialize tooltips
     $('.nav-tabs > li a[title]').tooltip();
     
@@ -72,7 +77,7 @@ $(document).ready(function () {
           ]);
 
         }
-          if (contraseña == "" || contraseña == null) {
+        if (contraseña == "" || contraseña == null) {
              valido = false;
             $(document).trigger("add-alerts", [
             {
@@ -88,6 +93,16 @@ $(document).ready(function () {
             {
               'message': "Ha dejado la contraseña vacía.",
               'priority': 'warning'
+            }
+          ]);
+
+        }
+         if (contraseña != contraseña2) {
+             valido = false;
+            $(document).trigger("add-alerts", [
+            {
+              'message': "Las contraseñas no coinciden.",
+              'priority': 'danger'
             }
           ]);
 
@@ -117,6 +132,7 @@ $(document).ready(function () {
         var direccion = $('#fos_user_registration_form_direccion').val();
         var dpi = $('#fos_user_registration_form_dpi').val();
         var nit = $('#fos_user_registration_form_nit').val();
+        var telefono = $('#fos_user_registration_form_telefono').val();
 
         var valido = true;
         
@@ -130,7 +146,7 @@ $(document).ready(function () {
             }
           ]);
         }
-         if (dpi == "" || dpi == null) {
+        if (dpi == "" || dpi == null) {
              valido = false;
             $(document).trigger("add-alerts", [
             {
@@ -140,6 +156,26 @@ $(document).ready(function () {
           ]);
 
         }
+        if (!isNumeric(dpi)) {
+             valido = false;
+            $(document).trigger("add-alerts", [
+            {
+              'message': "El campo del DPI no es un número",
+              'priority': 'danger'
+            }
+          ]);
+
+        }
+          if (dpi.length != 13) {
+             valido = false;
+            $(document).trigger("add-alerts", [
+            {
+              'message': "El DPI debe de ser de 13 dígitos",
+              'priority': 'danger'
+            }
+          ]);
+          
+        }
           if (nit == "" || nit == null) {
              valido = false;
             $(document).trigger("add-alerts", [
@@ -148,6 +184,28 @@ $(document).ready(function () {
               'priority': 'warning'
             }
           ]);
+
+        }
+        if (!isNumeric(nit)) {
+             valido = false;
+            $(document).trigger("add-alerts", [
+            {
+              'message': "El campo del NIT no es un número",
+              'priority': 'danger'
+            }
+          ]);
+
+        }
+        if (telefono != "" && telefono != null) {
+            if (!isNumeric(telefono)){
+                valido = false;
+                $(document).trigger("add-alerts", [
+                {
+                  'message': "El campo de telefóno tiene que ser un número",
+                  'priority': 'danger'
+                }
+                ]);
+            }
 
         }
 

@@ -5,6 +5,7 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as Unique;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="usuario_trabajador")
@@ -17,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity as Unique;
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
  * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
- *
+ * 
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 class UsuarioTrabajador extends Usuario
@@ -44,6 +45,11 @@ class UsuarioTrabajador extends Usuario
     /**
      * @var string DPI del trabajador
      * @ORM\Column(name="dpi",type="string",length=20, unique=true)
+     *  
+     * @Assert\Length(
+     *      min = 13,
+     *      max = 13
+     * )
      */
     private $dpi;
 
