@@ -1,0 +1,116 @@
+body {
+  font: 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #777;
+  background: #fff;
+}
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity .15s linear;
+  -o-transition: opacity .15s linear;
+  transition: opacity .15s linear;
+}
+.fade.in {
+  opacity: 1;
+}
+
+/* The blocker goes behind any dialogs or popups. */
+.blocker {
+  display: none;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(51,51,51, 0.6);
+  z-index: 1040;
+}
+
+.dialog {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.35);
+}
+.dialog h1 {
+  text-align: center;
+  font-weight: 100;
+  font-size: 2.6em;
+  margin: 0.555555em auto;
+}
+.dialog .form-group {
+  margin: 1.42857143em auto;
+}
+.dialog .toolbar {
+  margin: 2.85714286em -6em;
+  border-top: 1px solid #ededed;
+  padding-top: 2.6em;
+}
+.dialog .btn {
+  padding: 6px 0;
+  margin: 0 5px;
+  min-width: 100px;
+  /*background-image: none;*/
+  text-shadow: none;
+}
+.dialog .cancel {
+  /*background-color: #ccc;
+  border-color: #ccc;
+  color: #fff;*/
+}
+.dialog .btn-primary {
+  /*background-color: #1369b3;
+  border-color: #1369b3;*/
+}
+
+@media (min-height: 440px) {
+  .dialog {
+    top: 100px;
+  }
+}
+
+@media (min-width: 525px) {
+  .dialog .btn {
+    margin: 0 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .dialog {
+    top: 100px;
+  }
+}
+
+@media (min-width: 768px) and (min-height: 768px) {
+  .dialog {
+    top: 140px;
+  }
+}
+
+#alert .dialog, #confirm .dialog {
+  width: 100%;
+}
+#alert strong, #confirm strong {
+  font-weight: 300;
+}
+#alert .msg, #confirm .msg {
+  margin: 0 1.5em;
+}
+#alert .toolbar, #confirm .toolbar {
+  margin-left: 0;
+  margin-right: 0;
+}
+#alert button, #confirm button {
+  min-width: 120px;
+}
+@media (min-width: 525px) {
+  #alert .dialog, #confirm .dialog {
+    width: 525px;
+  }
+}
