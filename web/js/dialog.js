@@ -158,20 +158,21 @@
       // Create background blocker and add id.
       var blocker = $(settings.blocker).attr("id", name);
      
-     $.ajax({
-          url: 'http://localhost:8000/js/'+name+settings.extension,
-          success: function (data) {
-           
-              dialogs[name].html = data;
-              // Add dialog html to blocker.
-              blocker.append(data);
-              // Add blocker to end of body.
-              $("body").append(blocker);
-              show(name);
-                }
-     }).error(function (xhr, status) {
-        console.log("Error getting dialog", name, "error:", status, xhr);
-      });
+      if (name == 'confirm') {
+        var insertHtml = $('.confirm')[0].outerHTML;  
+      }
+      else if (name == 'alert') {
+        var insertHtml = $('.alert')[0].outerHTML;
+      }
+      
+
+      dialogs[name].html = insertHtml;
+      // Add dialog html to blocker.
+      blocker.append(insertHtml);
+      // Add blocker to end of body.
+      $("body").append(blocker);
+      show(name);
+    
     }
 
     /*
