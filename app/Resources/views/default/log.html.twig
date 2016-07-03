@@ -1,0 +1,42 @@
+    {% for flash_message in app.session.flashBag.get('log') %}
+    <div class="flash-notice">
+        <script>
+        $(document).ready(function(){
+            var mensaje = {{ flash_message |json_encode|raw }};
+            alertify.logPosition("bottom right");
+           
+            alertify.maxLogItems(5).delay(5000).log(mensaje);
+            
+          
+        });
+       
+        </script>
+    </div>
+{% endfor %}
+{% for flash_message in app.session.flashBag.get('success') %}
+    <div class="flash-notice">
+        <script>
+        $(document).ready(function(){
+            var mensaje = {{ flash_message |json_encode|raw }};
+            alertify.logPosition("bottom right");
+            alertify.maxLogItems(5).delay(5000).success(mensaje);
+            
+          
+        });
+       
+        </script>
+    </div>
+{% endfor %}
+{% for flash_message in app.session.flashBag.get('error') %}
+    <div class="flash-notice">
+        <script>
+        $(document).ready(function(){
+            var mensaje = {{ flash_message |json_encode|raw }};
+            alertify.logPosition("bottom right");  
+            alertify.maxLogItems(5).delay(5000).error(mensaje);
+          
+        });
+       
+        </script>
+    </div>
+{% endfor %}
