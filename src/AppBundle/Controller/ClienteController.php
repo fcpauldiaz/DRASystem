@@ -121,6 +121,7 @@ class ClienteController extends Controller
      *
      * @Route("/{id}", name="cliente_show")
      * @Method("GET")
+     * @Security("is_granted('ROLE_VER_CLIENTES')")
      * @Template("AppBundle:Cliente:showCliente.html.twig")
      */
     public function showAction($id)

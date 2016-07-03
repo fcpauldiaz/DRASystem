@@ -29,25 +29,7 @@ class TipoPuestoController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
     
-          $this->addFlash(
-            'success',
-            'HOLA'
-        );
-              $this->addFlash(
-            'log',
-            'HOLA'
-        );
-            $this->addFlash(
-            'error',
-            'HOLA'
-        );
-
-          $this->addFlash(
-            'success',
-            'HOLA2'
-        );
         $entities = $em->getRepository('UserBundle:TipoPuesto')->findAll();
 
         return array(

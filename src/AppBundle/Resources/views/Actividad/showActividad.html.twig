@@ -38,15 +38,12 @@
            Ver todas las actividades
         </a>
     </li>
-    {% if is_granted('ROLE_EDITAR_ACTIVIDAD') %}
+    {% if is_granted('ROLE_EDITAR_ACTIVIDADES') %}
     <li>
         <a class="btn btn-warning" href="{{ path('actividad_edit', { 'id': entity.id }) }}">
             Editar
         </a>
     </li>
-    {% endif %}
-    {% if is_granted('ROLE_ELIMINAR_ACTIVIDAD') %}
-        <li>{{ form(delete_form) }}</li>
     {% endif %}
 </ul>
 <br>
