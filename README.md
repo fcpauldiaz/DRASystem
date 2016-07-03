@@ -2,8 +2,8 @@ DRASystem
 =========
 
 ![Heroku](http://heroku-badge.herokuapp.com/?app=diazreyes&style=flat)
-[![Symfony](http://img.shields.io/badge/Symfony2-2.8.5-blue.svg)](http://syfmony.com)
-[![Symfony](http://img.shields.io/badge/PHP-7.0.6-yellow.svg)](http://syfmony.com)
+[![Symfony](http://img.shields.io/badge/Symfony2-2.8.7-blue.svg)](http://syfmony.com)
+[![Symfony](http://img.shields.io/badge/PHP-7.0.6-yellow.svg)](http://php.net)
 ![PHP](http://img.shields.io/badge/Buildpack-PHP-lightgrey.svg)
 [![NodeJS](http://img.shields.io/badge/Buildpack-NodeJS-lightgrey.svg)](http://nodejs.com)
 
