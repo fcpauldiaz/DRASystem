@@ -54,10 +54,52 @@
    <br>
      <div id="parent" class="container">
      </div>
-     
-   <div class="sticky-footer">
-            <p>Footer</p>
+    {% if app.user %}
+     <div class="sticky-footer">
+        <div class="row">
+
+            <div class="col-sm-1 col-md-1 col-md-offset-1">
+                <div class="form-group">
+                    <div class="dropup">
+                        <a  class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> {{  app.user.username }}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="navigation"><a href="#"><i class="icon-cog"></i>  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
+                            <li class="divider"></li>
+                            <li class="navigation"><a href="{{path('fos_user_profile_edit')}}"><i class="icon-off"></i>Editar Perfil</a></li>
+                            <li class="navigation"><a href="{{path('fos_user_profile_show')}}"><i class="icon-off"></i>Ver Perfil</a></li>
+                            <li class="navigation"><a href="{{path('fos_user_security_logout')}}"><i class="icon-off"></i> Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-sm-1 col-md-1">
+                <div class="form-group">
+                    <div class="dropup">
+                        <a  class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-cog"></i> Ajustes<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li style="text-align: left;"class="navigation"><a href="{{path('puesto')}}"><i class="icon-off"></i>Ver Puesto</a></li>
+                            <li class="navigation"><a href="{{path('datosprestaciones')}}"><i class="icon-off"></i>Ver Datos <br> Prestaciones</a></li>
+                            {% if is_granted('ROLE_ADMIN') and app.user %}
+                            <li><a href="/admin">Administrar sistema</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+              <div class="col-sm-1 col-md-1">
+                <div class="form-group">
+                    <div class="dropup">
+                        {% if is_granted('ROLE_ADMIN') and app.user %}
+                            <a class="btn btn-primary btn-sm" href="{{ path('easyadmin')}}"><i class=" glyphicon glyphicon-dashboard"></i> Administrar sistema</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    {% endif %}
     <script src="{{asset('js/jquery.stickyfooter.min.js')}}"></script>
     <script>
   
