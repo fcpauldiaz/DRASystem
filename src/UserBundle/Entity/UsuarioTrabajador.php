@@ -68,6 +68,17 @@ class UsuarioTrabajador extends Usuario
     private $telefono;
 
     /**
+     * Número de afiliación del igss
+     * @var string
+     * @ORM\Column(name="numero_afiliacion_igss", type="string", length=15, nullable=true)
+     * @Assert\Length(
+     *      min = 9,
+     *      max = 13
+     * )
+     */
+    private $numeroIgss;
+
+    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="DatosPrestaciones", mappedBy="usuario")
      */
@@ -325,6 +336,30 @@ class UsuarioTrabajador extends Usuario
     public function getPresupuestos()
     {
         return $this->presupuestos;
+    }
+
+    /**
+     * Set numeroIgss
+     *
+     * @param string $numeroIgss
+     *
+     * @return UsuarioTrabajador
+     */
+    public function setNumeroIgss($numeroIgss)
+    {
+        $this->numeroIgss = $numeroIgss;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroIgss
+     *
+     * @return string
+     */
+    public function getNumeroIgss()
+    {
+        return $this->numeroIgss;
     }
 
     public function __toString()

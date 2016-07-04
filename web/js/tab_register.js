@@ -133,7 +133,7 @@ $(document).ready(function () {
         var dpi = $('#fos_user_registration_form_dpi').val();
         var nit = $('#fos_user_registration_form_nit').val();
         var telefono = $('#fos_user_registration_form_telefono').val();
-
+        var igss = $('fos_user_registration_form_numeroIgss').val()
         var valido = true;
         
         
@@ -207,6 +207,24 @@ $(document).ready(function () {
                 ]);
             }
 
+        }
+        if (!isNumeric(igss)) {
+          valido = false;
+            $(document).trigger("add-alerts", [
+            {
+              'message': "El campo del IGSS no es un número",
+              'priority': 'danger'
+            }
+          ]);
+        }
+        if (igss.length < 9 || igss.length > 13 ) {
+            valido = false;
+              $(document).trigger("add-alerts", [
+            {
+              'message': "El número de afiliación debe ser entre 9 y 13 dígitos.",
+              'priority': 'danger'
+            }
+          ]);
         }
 
 

@@ -109,6 +109,14 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => false,
             ])
+            ->add('numeroIgss', 'number', [
+                'label' => 'Número de afiliación IGSS',
+                'attr' => [
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'Número afiliación IGSS (sin guión)'
+                ],
+                'required' => false,
+            ])
             ->add('codigo', 'entity', [
                 'class' => 'UserBundle:Codigo',
                 'label' => false,

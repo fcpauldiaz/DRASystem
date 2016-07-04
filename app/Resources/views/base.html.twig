@@ -17,7 +17,7 @@
         <style>
             body {
                 padding-top: 50px;
-                padding-bottom: 20px;
+               
             }
         #f6 {
             font-weight: 200;
@@ -25,7 +25,7 @@
             width: 50px;
         }
         </style>
-        <link rel="stylesheet" href="{{ asset('css/dialog.css')}}">
+     
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('css/main.css')}}"> 
         <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
@@ -43,17 +43,25 @@
     <body>
       {% include 'default/menu.html.twig' %}
       {% include 'default/log.html.twig' %}
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
+     
+    <div class="col-md-10 col-md-offset-1">
         {% block body %}
         {% endblock body %}
-   </div>
-   <div class="col-md-12 col-md-offset-1">
-      <footer>
-        <p>&copy; Díaz Reyes &amp; Asociados, S.A. 2016 creado por Newton Labs. Derechos reservados.</p>
-      </footer>
-        
+    </div>
+   
+   <br>
+   <br>
+   <br>
+     <div id="parent" class="container">
      </div>
+     
+   <div class="sticky-footer">
+            <p>Footer</p>
+    </div>
+    <script src="{{asset('js/jquery.stickyfooter.min.js')}}"></script>
+    <script>
+  
+    </script>
         
 
        
