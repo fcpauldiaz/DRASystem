@@ -55,8 +55,9 @@
      <div id="parent" class="container">
      </div>
     {% if app.user %}
-     <div class="sticky-footer">
-        <div class="row">
+    <div id="containter-footer">
+    <div id="reshow-footer" class="sticky-footer">
+        <div id="show-footer" class="row">
 
             <div class="col-sm-1 col-md-1 col-md-offset-1">
                 <div class="form-group">
@@ -72,7 +73,6 @@
                     </div>
                 </div>
             </div>
-           
             <div class="col-sm-1 col-md-1">
                 <div class="form-group">
                     <div class="dropup">
@@ -80,30 +80,56 @@
                         <ul class="dropdown-menu">
                             <li style="text-align: left;"class="navigation"><a href="{{path('puesto')}}"><i class="icon-off"></i>Ver Puesto</a></li>
                             <li class="navigation"><a href="{{path('datosprestaciones')}}"><i class="icon-off"></i>Ver Datos <br> Prestaciones</a></li>
-                            {% if is_granted('ROLE_ADMIN') and app.user %}
-                            <li><a href="/admin">Administrar sistema</a></li>
-                            {% endif %}
                         </ul>
                     </div>
                 </div>
             </div>
-              <div class="col-sm-1 col-md-1">
+            {% if is_granted('ROLE_ADMIN') and app.user %}
+            <div class="col-sm-1 col-md-1">
                 <div class="form-group">
                     <div class="dropup">
-                        {% if is_granted('ROLE_ADMIN') and app.user %}
                             <a class="btn btn-primary btn-sm" href="{{ path('easyadmin')}}"><i class=" glyphicon glyphicon-dashboard"></i> Administrar sistema</a></li>
-                        {% endif %}
                         </ul>
                     </div>
                 </div>
             </div>
+            <div class="col-md-1 col-md-offset-7">
+                <div class="form-group">
+                        <i id ="hide-footer" class="glyphicon glyphicon-remove white gi-2x"></i>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-md-1 col-md-offset-8">
+                <div class="form-group">
+                        <i id ="hide-footer" class="glyphicon glyphicon-remove white gi-2x"></i>
+                </div>
+            </div>
+           {% endif %}
+          
+           
         </div>
+    </div>
     </div>
     {% endif %}
     <script src="{{asset('js/jquery.stickyfooter.min.js')}}"></script>
-    <script>
-  
+    {% if app.user %}
+     <script>
+      var userText =  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle')| json_encode | raw }}
+      var user = {{ app.user.username | json_encode  |raw}}
     </script>
+    {% endif %}
+     {% if is_granted('ROLE_ADMIN') and app.user %}
+    
+   
+    <script src="{{asset('js/footer.js')}}">
+
+    </script>
+    {% else %}
+    <script src="{{asset('js/footer-user.js')}}">
+    </script>
+    {% endif %}
+   
+
         
 
        

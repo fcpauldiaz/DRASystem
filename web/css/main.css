@@ -249,10 +249,38 @@ footer {
 {
     position: fixed;
     bottom: 0;
-     background-color: #1a242f;
+    background-color: #1a242f;
     width: 100%;
 }
 
+.white, .white a {
+  color: #fff;
+}
+.gi-2x{
+    font-size: 2em;
+    cursor: pointer;
+}
+.gi-3x{
+    font-size: 3em;
+}
+.gi-4x{
+    font-size: 4em;
+}
+.gi-5x{
+    font-size: 5em;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.bottom-right {
+    position: fixed;
+    right:    0;
+    bottom:   0;
+    width: 5%;
+    background-color: #1a242f;
+}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
