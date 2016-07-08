@@ -5,7 +5,7 @@
             var mensaje = {{ flash_message |json_encode|raw }};
             alertify.logPosition("bottom right");
            
-            alertify.maxLogItems(5).delay(5000).log(mensaje);
+            alertify.maxLogItems(5).delay(9000).log(mensaje);
             
           
         });
@@ -19,7 +19,7 @@
         $(document).ready(function(){
             var mensaje = {{ flash_message |json_encode|raw }};
             alertify.logPosition("bottom right");
-            alertify.maxLogItems(5).delay(5000).success(mensaje);
+            alertify.maxLogItems(5).delay(9000).success(mensaje);
             
           
         });
@@ -33,7 +33,7 @@
         $(document).ready(function(){
             var mensaje = {{ flash_message |json_encode|raw }};
             alertify.logPosition("bottom right");  
-            alertify.maxLogItems(5).delay(5000).error(mensaje);
+            alertify.maxLogItems(5).delay(9000).error(mensaje);
           
         });
        

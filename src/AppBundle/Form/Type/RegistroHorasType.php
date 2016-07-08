@@ -70,6 +70,7 @@ class RegistroHorasType extends AbstractType
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],
+                'label' => 'Horas realizadas por',
 
             ])
              ->add('horasExtraordinarias', null, [

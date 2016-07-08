@@ -50,7 +50,7 @@ class ConsultaCostoUsuarioController extends Controller
         $returnArray = [];
         foreach ($registros as $registro) {
             $cliente = $registro->getCliente();
-            $horas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
+            $horas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
             $usuario = $registro->getIngresadoPor();
             $costo = $this->getDoctrine()
                 ->getManager()

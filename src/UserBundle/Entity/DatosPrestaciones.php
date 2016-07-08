@@ -24,7 +24,7 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="sueldo", type="float")
+     * @ORM\Column(name="sueldo_base", type="float")
      */
     private $sueldo;
 
@@ -38,9 +38,9 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="bonificacion_ley", type="float", nullable=true)
+     * @ORM\Column(name="otra_bonificacion", type="float", nullable=true)
      */
-    private $bonificacionLey;
+    private $otraBonificacion;
 
     /**
      * @var float
@@ -185,29 +185,6 @@ class DatosPrestaciones
         return $this->bonificacionIncentivo;
     }
 
-    /**
-     * Set bonificacionLey.
-     *
-     * @param float $bonificacionLey
-     *
-     * @return DatosPrestaciones
-     */
-    public function setBonificacionLey($bonificacionLey)
-    {
-        $this->bonificacionLey = $bonificacionLey;
-
-        return $this;
-    }
-
-    /**
-     * Get bonificacionLey.
-     *
-     * @return float
-     */
-    public function getBonificacionLey()
-    {
-        return $this->bonificacionLey;
-    }
 
     /**
      * Set gasolina.
@@ -498,5 +475,43 @@ class DatosPrestaciones
     public function __toString()
     {
         return $this->sueldo.' '.$this->getUsuario();
+    }
+
+    /**
+     * Set otraBonificacion
+     *
+     * @param float $otraBonificacion
+     *
+     * @return DatosPrestaciones
+     */
+    public function setOtraBonificacion($otraBonificacion)
+    {
+        $this->otraBonificacion = $otraBonificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get otraBonificacion
+     *
+     * @return float
+     */
+    public function getOtraBonificacion()
+    {
+        return $this->otraBonificacion;
+    }
+
+    public function calcularPrestaciones() 
+    {
+        $sueldo = $this->sueldo;
+        $prestacionesSobreSueldo = $sueldo * 0.42;
+        $calculoGeneral = $sueldo * 0.0833;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
+        $cuotaPatronal = $sueldo * 0.1267;
+        $this->prestacionesSobreSueldo = $prestacionesSobreSueldo;
+        $this->indemnizacion = $calculoGeneral;
+        $this->aguinaldo = $calculoGeneral;
+        $this->bono14 = $calculoGeneral;
+        $this->igss = $cuotaPatronal;
+       
     }
 }

@@ -16,10 +16,11 @@ class Permiso
     //poder mostrarlos en dos columnas en la interfaz del usuarios
     const permisosActuales = [
 
+        'Aprobar automáticamente las horas ingresadas' => 'ROLE_APROBACION_HORAS_AUTOMATICO',
         'Ver listado de horas ingresadas ' => 'ROLE_VER_LISTADO_GENERAL',
         'Ver listado de actividades' => 'ROLE_VER_ACTIVIDADES',
         'Ver listado de presupuestos' => 'ROLE_VER_PRESUPUESTOS',
-        'Aprobación de horas' => 'ROLE_APROBACION_HORAS',
+        'Aprobar de horas de otros usuarios' => 'ROLE_APROBACION_HORAS',
         'Ver listado de tipos de puesto' => 'ROLE_VER_TIPO_PUESTO',
         'Ver listado de departamentos' => 'ROLE_VER_DEPARTAMENTO',
         'Ver listado de clientes' => 'ROLE_VER_CLIENTES',

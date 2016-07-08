@@ -144,7 +144,12 @@ class RegistroHoras
      *
      * @return int
      */
-    public function getHorasInvertidas($extraordinario = 0)
+    public function getHorasInvertidas()
+    {
+        return $this->horasInvertidas;
+    }
+
+    public function getHorasAprobadas($extraordinario = 0)
     {
 
         //condición para no tomar en cuenta las horas extraordinarias

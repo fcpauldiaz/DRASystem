@@ -29,16 +29,16 @@ class DatosPrestacionesType extends AbstractType
             ])
             ->add('bonificacionIncentivo', 'money', [
                 'currency' => 'GTQ',
-                'label' => 'Bonificación Incentivo*',
+                'label' => 'Otra Bonificación*',
                 'attr' => [
-                    'placeholder' => 'Bonificación incentivo',
+                    'placeholder' => 'Otra Bonificación',
                     'class' => 'form-control input-lg',
                 ],
                 'required' => true,
                 'grouping' => true,
 
             ])
-            ->add('bonificacionLey', 'money', [
+            ->add('otraBonificacion', 'money', [
                 'currency' => 'GTQ',
                 'label' => 'Bonificación Ley',
                 'attr' => [
@@ -131,14 +131,7 @@ class DatosPrestacionesType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $datosPrestaciones = $event->getData();
-        $sueldo = $datosPrestaciones->getSueldo();
-        $prestacionesSobreSueldo = $sueldo * 0.42;
-        $calculoGeneral = $sueldo * 0.0833;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
-        $cuotaPatronal = $sueldo * 0.1267;
-        $datosPrestaciones->setPrestacionesSobreSueldo($prestacionesSobreSueldo);
-        $datosPrestaciones->setIndemnizacion($calculoGeneral);
-        $datosPrestaciones->setAguinaldo($calculoGeneral);
-        $datosPrestaciones->setBono14($calculoGeneral);
-        $datosPrestaciones->setIgss($cuotaPatronal);
+        $datosPrestaciones->calcularPrestaciones();
+       
     }
 }

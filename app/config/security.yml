@@ -41,13 +41,15 @@ security:
 
 
     role_hierarchy:
+        #permiso para aprobar automáticamente las horas
+        ROLE_APROBACION_HORAS_AUTOMATICO: ROLE_USER
         #Permiso para ver el listado general de horas
         ROLE_VER_LISTADO_GENERAL: ROLE_USER
         #permiso para ver listado general de actividades
         ROLE_VER_ACTIVIDADES: ROLE_USER
         #permiso para ver listado general de presupuestos
         ROLE_VER_PRESUPUESTOS: ROLE_USER
-        #Permiso para aprobación de horas
+        #Permiso para aprobar de horas
         ROLE_APROBACION_HORAS: ROLE_USER
         #Permiso para ver clientes
         ROLE_VER_CLIENTES: ROLE_USER
@@ -100,5 +102,5 @@ security:
         #permiso para eliminar departamentos
         ROLE_ELIMINAR_DEPARTAMENTO: ROLE_EDITAR_DEPARTAMENTO
         #permiso para tener acceso al panel de control.
-        ROLE_ADMIN:             [ROLE_ELIMINAR_CLIENTES, ROLE_ELIMINAR_USUARIOS, ROLE_ELIMINAR_ACTIVIDADES, ROLE_ELIMINAR_HORAS, ROLE_ELIMINAR_PRESUPUESTOS, ROLE_VER_CONSULTAS, ROLE_APROBACION_HORAS, ROLE_ELIMINAR_TIPO_PUESTO, ROLE_ELIMINAR_DEPARTAMENTO]
+        ROLE_ADMIN:             [ROLE_ELIMINAR_CLIENTES, ROLE_ELIMINAR_USUARIOS, ROLE_ELIMINAR_ACTIVIDADES, ROLE_ELIMINAR_HORAS, ROLE_ELIMINAR_PRESUPUESTOS, ROLE_VER_CONSULTAS, ROLE_APROBACION_HORAS, ROLE_ELIMINAR_TIPO_PUESTO, ROLE_ELIMINAR_DEPARTAMENTO,ROLE_APROBACION_HORAS_AUTOMATICO]
         ROLE_SUPER_ADMIN:       ROLE_ADMIN

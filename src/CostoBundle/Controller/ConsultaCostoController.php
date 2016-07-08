@@ -565,7 +565,7 @@ class ConsultaCostoController extends Controller
             $registroActividad = $registro->getActividad();
 
             if ($actividad == $registroActividad) {
-                $horasInvertidas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
+                $horasInvertidas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
 
                 $cantidadHorasPorActividad += $horasInvertidas;
 
@@ -618,7 +618,7 @@ class ConsultaCostoController extends Controller
                 continue;
             }
             if ($usuario == $registroUsuario) {
-                $cantidadHorasPorUsuario += $registro->getHorasInvertidas($horasExtraordinarias);
+                $cantidadHorasPorUsuario += $registro->getHorasAprobadas($horasExtraordinarias);
             }
         }
 
@@ -656,7 +656,7 @@ class ConsultaCostoController extends Controller
         foreach ($registros as $registro) {
             $registroCliente = $registro->getCliente();
             if ($registroCliente == $cliente) {
-                $horasInvertidas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
+                $horasInvertidas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
                 $cantidadHorasCliente += $horasInvertidas;
 
                 $costoPorHora = $this->getDoctrine()
@@ -720,7 +720,7 @@ class ConsultaCostoController extends Controller
                 if ($registro->getActividad()->getActividadNoCargable() === true) {
                     $costo = 0;
                 }
-                $costoReal[] = $costo * $registro->getHorasInvertidas($horasExtraordinarias);
+                $costoReal[] = $costo * $registro->getHorasAprobadas($horasExtraordinarias);
             }
         }
 

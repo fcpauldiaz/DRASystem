@@ -32,7 +32,7 @@ class UsuarioTrabajador extends Usuario
 
     /**
      * @var string
-     * @ORM\Column(name="direccion",type="string",length=255)
+     * @ORM\Column(name="direccion",type="string",length=255, nullable=true)
      */
     private $direccion;
 
@@ -44,7 +44,7 @@ class UsuarioTrabajador extends Usuario
 
     /**
      * @var string DPI del trabajador
-     * @ORM\Column(name="dpi",type="string",length=20, unique=true)
+     * @ORM\Column(name="dpi",type="string",length=20, unique=true, nullable=true)
      *  
      * @Assert\Length(
      *      min = 13,
@@ -57,7 +57,7 @@ class UsuarioTrabajador extends Usuario
      * Número de identificación tributaria.
      *
      * @var string
-     * @ORM\Column(name="nit", type="string",length=20,unique=true)
+     * @ORM\Column(name="nit", type="string",length=20,unique=true, nullable=true)
      */
     private $nit;
 

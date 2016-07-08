@@ -12,6 +12,7 @@
                 <th>Horas Invertidas</th>
                 <th>Cliente </th>
                 <th>Realizadas por </th>
+                <th>Aprobadas </th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -24,6 +25,13 @@
                 <td>{{ entity.cliente }} </td>
                 <td>{{ entity.ingresadoPor }} </td>
                 <td>
+                    {% if entity.aprobado %}
+                        <a class="btn btn-sm btn-primary">Sí</a>
+                    {% else %}
+                        <a class="btn btn-sm btn-danger">No</a>
+                    {% endif %}
+                </td>
+                <td>
                     <ul>
                         <li>
                             <a class="btn btn-xs btn-info" href="{{ path('registrohoras_show', { 'id': entity.id }) }}">Mostrar</a>
@@ -35,6 +43,7 @@
                         {% endif %}
                     </ul>
                 </td>
+           
             </tr>
         {% endfor %}
         </tbody>

@@ -75,7 +75,7 @@ class ConsultaSocioController extends Controller
 
         foreach ($registros as $registro) {
             $cliente = $registro->getCliente();
-            $horas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
+            $horas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
             $usuario = $registro->getIngresadoPor();
             $costo = $this->getDoctrine()
                 ->getManager()
@@ -195,7 +195,7 @@ class ConsultaSocioController extends Controller
                 continue;
             }
             if ($usuario == $registroUsuario) {
-                $cantidadHorasPorUsuario += $registro->getHorasInvertidas($horasExtraordinarias);
+                $cantidadHorasPorUsuario += $registro->getHorasAprobadas($horasExtraordinarias);
             }
         }
 
@@ -255,7 +255,7 @@ class ConsultaSocioController extends Controller
         //los registros ya están filtrados
         foreach ($registros as $registro) {
             $cliente = $registro->getCliente();
-            $horas = $registro->getHorasInvertidas($data['horas_extraordinarias']);
+            $horas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
             $usuario = $registro->getIngresadoPor();
             $costo = $this->getDoctrine()
                 ->getManager()
