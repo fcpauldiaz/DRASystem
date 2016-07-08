@@ -128,6 +128,25 @@ class DatosPrestaciones
     private $usuario;
 
     /**
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\Descuento", mappedBy="prestaciones")
+     * 
+     * @var [type]
+     */
+    private $descuentos;
+
+    /**
+     * Fecha de creacion
+     * @ORM\Column(name="fecha_creacion", type="datetime")
+     */
+    private $fecha;
+
+    public function __construct() 
+    {
+        $this->descuentos = new Doctrine\Common\Collections\ArrayCollection();
+        $this->fecha = new \DateTime();
+    }
+
+    /**
      * Get id.
      *
      * @return int
@@ -513,5 +532,63 @@ class DatosPrestaciones
         $this->bono14 = $calculoGeneral;
         $this->igss = $cuotaPatronal;
        
+    }
+
+    /**
+     * Add descuento
+     *
+     * @param \UserBundle\Entity\Descuento $descuento
+     *
+     * @return DatosPrestaciones
+     */
+    public function addDescuento(\UserBundle\Entity\Descuento $descuento)
+    {
+        $this->descuentos[] = $descuento;
+
+        return $this;
+    }
+
+    /**
+     * Remove descuento
+     *
+     * @param \UserBundle\Entity\Descuento $descuento
+     */
+    public function removeDescuento(\UserBundle\Entity\Descuento $descuento)
+    {
+        $this->descuentos->removeElement($descuento);
+    }
+
+    /**
+     * Get descuentos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDescuentos()
+    {
+        return $this->descuentos;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     *
+     * @return DatosPrestaciones
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 }
