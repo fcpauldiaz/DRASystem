@@ -102,7 +102,7 @@ class ClienteController extends Controller
      *
      * @Route("/new", name="cliente_new")
      * @Method("GET")
-     * @Security("is_granted('ROLE_CREAR_CLIENTES')")
+     * 
      * @Template("AppBundle:Cliente:newCliente.html.twig")
      */
     public function newAction()
