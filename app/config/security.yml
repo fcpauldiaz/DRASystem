@@ -21,9 +21,9 @@ security:
             logout:       true
             anonymous:    true
             access_denied_url: /
-            guard:
-                authenticators:
-                    - app.token_authenticator
+            #guard:
+            #    authenticators:
+            #        - app.token_authenticator
             #access_denied_handler: kernel.listener.accessDenied
             #entry_point: kernel.listener.accessDenied
     access_control:
