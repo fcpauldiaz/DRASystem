@@ -121,7 +121,7 @@ class TipoPuesto
     public function addPermiso(\UserBundle\Entity\Permiso $permiso)
     {
         $this->permisos[] = $permiso;
-
+        $permiso->addTipoPuesto($this);
         return $this;
     }
 

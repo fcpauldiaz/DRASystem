@@ -29,7 +29,7 @@ class TipoPuestoController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-    
+
         $entities = $em->getRepository('UserBundle:TipoPuesto')->findAll();
 
         return array(
@@ -192,7 +192,7 @@ class TipoPuestoController extends Controller
     /**
      * Edits an existing TipoPuesto entity.
      *
-     * @Route("/{id}", name="tipopuesto_update")
+     * @Route("/{id}/update", name="tipopuesto_update")
      * @Method("PUT")
      * @Security("is_granted('ROLE_EDITAR_TIPO_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
@@ -212,6 +212,7 @@ class TipoPuestoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('tipopuesto_edit', array('id' => $id)));
