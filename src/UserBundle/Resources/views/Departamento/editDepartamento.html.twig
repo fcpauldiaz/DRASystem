@@ -39,29 +39,29 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        $(document).ready(function (){
-            $("#simple-confirm").click(function (event) {
-            event.stopPropagation();
-            var message = `
-            ¿Seguro que desea eliminar las horas registradas?
-            La información relacionada puede verse afectada.
-            <b>Esta acción no se puede deshacer</b>
-            `
-            options = {
-              ok: "Sí, deseo eliminar la información",
-              cancel: "Cancelar"
-            }
-            $.dialog.confirm(message, options).onClose(function (response) {
-              if (response) {
-                $.dialog.alert("Se ha eliminado el registro").autoClose(2000);
-                document.form.submit();
-              } else {
-                $.dialog.alert("Se ha cancelado la operación").autoClose(2000);
-              }
-            });
-          });
-
+   $(document).ready(function (){
+          $("#simple-confirm").click(function (event) {
+          swal({   
+                title: "¿Seguro que lo desea eliminar?",   
+                text: "Esta acción no se puede deshacer y afectará la información relacionada",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Sí, eliminar registro!",   
+                cancelButtonText: "Cancelar",   
+                closeOnConfirm: false,   
+                closeOnCancel: false 
+              }, 
+                function(isConfirm){   
+                  if (isConfirm) {     
+                    $('form[name="form"]').submit();
+                    swal("Eliminando", "Se eliminará el archivo", "success");   
+                  } else {     
+                    swal("Cancelado", "Se ha cancelado la operación", "error");   
+                  } 
+              });
         });
+      });
        
     </script>
 

@@ -33,6 +33,7 @@ class Puesto
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Departamento")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $departamento;
 

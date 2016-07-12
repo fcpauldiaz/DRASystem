@@ -2,27 +2,27 @@
 {% block javascripts %}
     <script>
          $(document).ready(function (){
-            $("#simple-confirm").click(function (event) {
-            event.stopPropagation();
-            var message = `
-            ¿Seguro que desea eliminar el proyecto de presupuesto?
-            La información relacionada puede verse afectada.
-            <b>Esta acción no se puede deshacer</b>
-            `
-            options = {
-              ok: "Sí, deseo eliminar la información",
-              cancel: "Cancelar"
-            }
-            $.dialog.confirm(message, options).onClose(function (response) {
-              if (response) {
-                $.dialog.alert("Se ha eliminado el registro").autoClose(2000);
-                document.form.submit();
-              } else {
-                $.dialog.alert("Se ha cancelado la operación").autoClose(2000);
-              }
-            });
-          });
-
+          $("#simple-confirm").click(function (event) {
+          swal({   
+                title: "¿Seguro que lo desea eliminar?",   
+                text: "Esta acción no se puede deshacer y afectará la información relacionada",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Sí, eliminar registro!",   
+                cancelButtonText: "Cancelar",   
+                closeOnConfirm: false,   
+                closeOnCancel: false 
+              }, 
+                function(isConfirm){   
+                  if (isConfirm) {     
+                    $('form[name="form"]').submit();
+                    swal("Eliminando", "Se eliminará el registro", "success");   
+                  } else {     
+                    swal("Cancelado", "Se ha cancelado la operación", "error");   
+                  } 
+              });
+        });
         });
     </script>
 {% endblock %}
@@ -42,21 +42,6 @@
     {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
     <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button></li>
     <div class="modal">
-      <div class="dialog confirm">
-      <h1>Confirmación de eliminación</h1>
-      <div class="msg"></div>
-      <div class="form-group toolbar">
-        <button class="btn btn-default cancel" type="button" data-default="Cancel">Cancelar</button>
-        <button class="btn btn-danger ok" type="submit" data-default="OK">Eliminar</button>
-      </div>
-    </div>
-    <div class="dialog alert">
-    <h1>Alerta</h1>
-      <div class="msg"></div>
-      <div class="form-group toolbar">
-        <button class="btn btn-primary cancel" type="submit">OK</button>
-      </div>
-    </div>
    {{ form(delete_form) }}
     {% endif %}
 </ul>
