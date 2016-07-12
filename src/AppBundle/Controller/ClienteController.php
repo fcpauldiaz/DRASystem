@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Cliente controller.
- *
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/cliente")
  */
 class ClienteController extends Controller
@@ -225,7 +225,7 @@ class ClienteController extends Controller
      *
      * @Route("/{id}", name="cliente_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_ELIMINAR_ACTIVIDAD')")
      */
     public function deleteAction(Request $request, $id)
     {
