@@ -132,6 +132,5 @@ class DatosPrestacionesType extends AbstractType
     {
         $datosPrestaciones = $event->getData();
         $datosPrestaciones->calcularPrestaciones();
-       
     }
 }

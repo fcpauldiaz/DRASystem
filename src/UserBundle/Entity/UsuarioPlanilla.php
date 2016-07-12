@@ -2,151 +2,125 @@
 
 namespace UserBundle\Entity;
 
-
 /**
- * UsuarioPlanilla
- *
+ * UsuarioPlanilla.
  */
 class UsuarioPlanilla
 {
-   
     /**
      * @var string
-     *
      */
     private $codigo;
 
     /**
      * @var string
-     *
      */
     private $departamento;
 
     /**
      * @var string
-     *
      */
     private $apellido;
 
     /**
      * @var string
-     *
      */
     private $nombre;
 
     /**
      * @var string
-     *
      */
     private $base;
 
     /**
      * @var string
-     *
      */
     private $dias;
 
     /**
      * @var string
-     *
      */
     private $bonificacion;
 
     /**
      * @var string
-     *
      */
     private $otraBonificacion;
 
     /**
      * @var string
-     *
      */
     private $depreciacion;
 
     /**
      * @var string
-     *
      */
     private $gasolina;
 
     /**
      * @var string
-     *
      */
     private $ingresos;
 
     /**
      * @var string
-     *
      */
     private $igss;
 
     /**
      * @var string
-     *
      */
     private $aguinaldo;
 
     /**
      * @var string
-     *
      */
     private $corporacion;
 
     /**
      * @var string
-     *
      */
     private $comcel;
 
     /**
      * @var string
-     *
      */
     private $isr;
 
     /**
      * @var string
-     *
      */
     private $otrosDescuentos;
 
     /**
      * @var string
-     *
      */
     private $prestaciones;
 
     /**
      * @var string
-     *
      */
     private $valens1;
 
     /**
      * @var string
-     *
      */
     private $valens2;
 
     /**
      * @var string
-     *
      */
     private $valens3;
 
     /**
      * @var string
-     *
      */
     private $liquido;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -154,7 +128,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set codigo
+     * Set codigo.
      *
      * @param string $codigo
      *
@@ -168,7 +142,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get codigo
+     * Get codigo.
      *
      * @return string
      */
@@ -178,7 +152,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set departamento
+     * Set departamento.
      *
      * @param string $departamento
      *
@@ -192,7 +166,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get departamento
+     * Get departamento.
      *
      * @return string
      */
@@ -202,7 +176,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set apellido
+     * Set apellido.
      *
      * @param string $apellido
      *
@@ -216,7 +190,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get apellido
+     * Get apellido.
      *
      * @return string
      */
@@ -226,7 +200,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set nombre
+     * Set nombre.
      *
      * @param string $nombre
      *
@@ -240,7 +214,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get nombre
+     * Get nombre.
      *
      * @return string
      */
@@ -250,7 +224,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set base
+     * Set base.
      *
      * @param string $base
      *
@@ -264,7 +238,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get base
+     * Get base.
      *
      * @return string
      */
@@ -274,7 +248,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set dias
+     * Set dias.
      *
      * @param string $dias
      *
@@ -288,7 +262,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get dias
+     * Get dias.
      *
      * @return string
      */
@@ -298,7 +272,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set bonificacion
+     * Set bonificacion.
      *
      * @param string $bonificacion
      *
@@ -312,7 +286,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get bonificacion
+     * Get bonificacion.
      *
      * @return string
      */
@@ -322,7 +296,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set otraBonificacion
+     * Set otraBonificacion.
      *
      * @param string $otraBonificacion
      *
@@ -336,7 +310,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get otraBonificacion
+     * Get otraBonificacion.
      *
      * @return string
      */
@@ -346,7 +320,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set depreciacion
+     * Set depreciacion.
      *
      * @param string $depreciacion
      *
@@ -360,7 +334,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get depreciacion
+     * Get depreciacion.
      *
      * @return string
      */
@@ -370,7 +344,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set gasolina
+     * Set gasolina.
      *
      * @param string $gasolina
      *
@@ -384,7 +358,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get gasolina
+     * Get gasolina.
      *
      * @return string
      */
@@ -394,7 +368,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set ingresos
+     * Set ingresos.
      *
      * @param string $ingresos
      *
@@ -408,7 +382,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get ingresos
+     * Get ingresos.
      *
      * @return string
      */
@@ -418,7 +392,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set igss
+     * Set igss.
      *
      * @param string $igss
      *
@@ -432,7 +406,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get igss
+     * Get igss.
      *
      * @return string
      */
@@ -442,7 +416,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set aguinaldo
+     * Set aguinaldo.
      *
      * @param string $aguinaldo
      *
@@ -456,7 +430,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get aguinaldo
+     * Get aguinaldo.
      *
      * @return string
      */
@@ -466,7 +440,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set corporacion
+     * Set corporacion.
      *
      * @param string $corporacion
      *
@@ -480,7 +454,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get corporacion
+     * Get corporacion.
      *
      * @return string
      */
@@ -490,7 +464,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set comcel
+     * Set comcel.
      *
      * @param string $comcel
      *
@@ -504,7 +478,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get comcel
+     * Get comcel.
      *
      * @return string
      */
@@ -514,7 +488,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set isr
+     * Set isr.
      *
      * @param string $isr
      *
@@ -528,7 +502,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get isr
+     * Get isr.
      *
      * @return string
      */
@@ -538,7 +512,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set otrosDescuentos
+     * Set otrosDescuentos.
      *
      * @param string $otrosDescuentos
      *
@@ -552,7 +526,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get otrosDescuentos
+     * Get otrosDescuentos.
      *
      * @return string
      */
@@ -562,7 +536,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set prestaciones
+     * Set prestaciones.
      *
      * @param string $prestaciones
      *
@@ -576,7 +550,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get prestaciones
+     * Get prestaciones.
      *
      * @return string
      */
@@ -586,7 +560,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set valens
+     * Set valens.
      *
      * @param string $valens
      *
@@ -600,7 +574,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get valens
+     * Get valens.
      *
      * @return string
      */
@@ -610,7 +584,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set valens2
+     * Set valens2.
      *
      * @param string $valens2
      *
@@ -624,7 +598,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get valens2
+     * Get valens2.
      *
      * @return string
      */
@@ -634,7 +608,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set valens3
+     * Set valens3.
      *
      * @param string $valens3
      *
@@ -648,7 +622,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get valens3
+     * Get valens3.
      *
      * @return string
      */
@@ -658,7 +632,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Set liquido
+     * Set liquido.
      *
      * @param string $liquido
      *
@@ -672,7 +646,7 @@ class UsuarioPlanilla
     }
 
     /**
-     * Get liquido
+     * Get liquido.
      *
      * @return string
      */
@@ -681,4 +655,3 @@ class UsuarioPlanilla
         return $this->liquido;
     }
 }
-

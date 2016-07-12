@@ -5,7 +5,7 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Descuento
+ * Descuento.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Descuento
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,15 +38,14 @@ class Descuento
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\DatosPrestaciones", inversedBy="descuentos")
      * 
-     * 
      * @var [type]
      */
     private $prestaciones;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -54,7 +53,7 @@ class Descuento
     }
 
     /**
-     * Set nombreDescuento
+     * Set nombreDescuento.
      *
      * @param string $nombreDescuento
      *
@@ -68,7 +67,7 @@ class Descuento
     }
 
     /**
-     * Get nombreDescuento
+     * Get nombreDescuento.
      *
      * @return string
      */
@@ -78,7 +77,7 @@ class Descuento
     }
 
     /**
-     * Set cantidad
+     * Set cantidad.
      *
      * @param float $cantidad
      *
@@ -92,7 +91,7 @@ class Descuento
     }
 
     /**
-     * Get cantidad
+     * Get cantidad.
      *
      * @return float
      */
@@ -102,7 +101,7 @@ class Descuento
     }
 
     /**
-     * Set prestaciones
+     * Set prestaciones.
      *
      * @param \UserBundle\Entity\DatosPrestaciones $prestaciones
      *
@@ -116,7 +115,7 @@ class Descuento
     }
 
     /**
-     * Get prestaciones
+     * Get prestaciones.
      *
      * @return \UserBundle\Entity\DatosPrestaciones
      */

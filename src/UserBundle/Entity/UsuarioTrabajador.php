@@ -68,7 +68,8 @@ class UsuarioTrabajador extends Usuario
     private $telefono;
 
     /**
-     * Número de afiliación del igss
+     * Número de afiliación del igss.
+     *
      * @var string
      * @ORM\Column(name="numero_afiliacion_igss", type="string", length=15, nullable=true)
      * @Assert\Length(
@@ -339,7 +340,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Set numeroIgss
+     * Set numeroIgss.
      *
      * @param string $numeroIgss
      *
@@ -353,7 +354,7 @@ class UsuarioTrabajador extends Usuario
     }
 
     /**
-     * Get numeroIgss
+     * Get numeroIgss.
      *
      * @return string
      */

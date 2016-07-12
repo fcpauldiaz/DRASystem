@@ -135,12 +135,13 @@ class DatosPrestaciones
     private $descuentos;
 
     /**
-     * Fecha de creacion
+     * Fecha de creacion.
+     *
      * @ORM\Column(name="fecha_creacion", type="datetime")
      */
     private $fecha;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->descuentos = new Doctrine\Common\Collections\ArrayCollection();
         $this->fecha = new \DateTime();
@@ -203,7 +204,6 @@ class DatosPrestaciones
     {
         return $this->bonificacionIncentivo;
     }
-
 
     /**
      * Set gasolina.
@@ -497,7 +497,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set otraBonificacion
+     * Set otraBonificacion.
      *
      * @param float $otraBonificacion
      *
@@ -511,7 +511,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get otraBonificacion
+     * Get otraBonificacion.
      *
      * @return float
      */
@@ -520,7 +520,7 @@ class DatosPrestaciones
         return $this->otraBonificacion;
     }
 
-    public function calcularPrestaciones() 
+    public function calcularPrestaciones()
     {
         $sueldo = $this->sueldo;
         $prestacionesSobreSueldo = $sueldo * 0.42;
@@ -531,11 +531,10 @@ class DatosPrestaciones
         $this->aguinaldo = $calculoGeneral;
         $this->bono14 = $calculoGeneral;
         $this->igss = $cuotaPatronal;
-       
     }
 
     /**
-     * Add descuento
+     * Add descuento.
      *
      * @param \UserBundle\Entity\Descuento $descuento
      *
@@ -549,7 +548,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Remove descuento
+     * Remove descuento.
      *
      * @param \UserBundle\Entity\Descuento $descuento
      */
@@ -559,7 +558,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get descuentos
+     * Get descuentos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -569,7 +568,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set fecha
+     * Set fecha.
      *
      * @param \DateTime $fecha
      *
@@ -583,7 +582,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get fecha
+     * Get fecha.
      *
      * @return \DateTime
      */

@@ -17,21 +17,21 @@ class PlanillaType extends AbstractType
         $builder
             ->add('planilla', 'file')
             ->add('hoja', 'choice', [
-                'choices'  => [
+                'choices' => [
                     1 => 1,
                     2 => 2,
-                    3 => 3, 
+                    3 => 3,
                     4 => 4,
                     5 => 5,
                     6 => 6,
                     7 => 7,
                     8 => 8,
-                    9 => 9, 
-                    10 => 10
+                    9 => 9,
+                    10 => 10,
                 ],
                 // *this line is important*
                 'choices_as_values' => true,
-                'label' => 'Escoja en que hoja de excel se encuentra la planilla'
+                'label' => 'Escoja en que hoja de excel se encuentra la planilla',
             ])
             ->add('submit', 'submit')
 
