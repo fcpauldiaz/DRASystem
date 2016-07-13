@@ -11,18 +11,20 @@
                 confirmButtonColor: "#DD6B55",   
                 confirmButtonText: "Sí, eliminar registro!",   
                 cancelButtonText: "Cancelar",   
-                closeOnConfirm: false,   
-                closeOnCancel: false 
-              }, 
-                function(isConfirm){   
-                  if (isConfirm) {     
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                closeOnCancel: false,
+                reverseButtons: true,
+                showCloseButton: true 
+              }).then(function() {   
                     $('form[name="form"]').submit();
                     swal("Eliminando", "Se eliminará el archivo", "success");   
-                  } else {     
-                    swal("Cancelado", "Se ha cancelado la operación", "error");   
-                  } 
-              });
-        });
+                }, function(dismiss) {
+                    if (dismiss === 'cancel') {
+                        swal("Cancelado", "Se ha cancelado la operación", "error");   
+                    }
+                }); 
+            });
         });
 
         $(document).ready(function() { 

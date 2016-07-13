@@ -24,6 +24,9 @@ class RegistoHorasEditType extends AbstractType
                 'class' => 'AppBundle:ProyectoPresupuesto',
                 'required' => true,
                 'empty_value' => 'Seleccione el presupuesto asignado',
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
              ->add('fechaHoras', 'date', [
@@ -44,12 +47,18 @@ class RegistoHorasEditType extends AbstractType
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
                 'empty_value' => 'Seleccione el cliente',
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
              ->add('actividad', 'entity', [
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
                 'empty_value' => 'Seleccione la actividad',
+                'attr' => [
+                    'class' => 'select2'
+                ],
             ])
             ->add('horasInvertidas', null, [
                 'label' => 'Horas invertidas',
@@ -61,6 +70,7 @@ class RegistoHorasEditType extends AbstractType
                 'data' => $this->usuario,
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
+                    'class' => 'select2'
                 ],
 
             ])

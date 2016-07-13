@@ -38,8 +38,11 @@ class ConsultaPresupuestoType extends AbstractType
                     'placeholder' => 'Seleccionar Tipo de filtro',
                     'label' => 'Escoja el método de filtro',
                     'required' => true,
+                    'attr' => [
+                    'class' => 'select2'
+                ],
 
-                ])
+            ])
             ->add('costo_monetario', 'choice', [
                 'mapped' => false,
                  'choices' => [

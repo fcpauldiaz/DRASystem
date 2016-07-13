@@ -47,6 +47,9 @@ class ProyectoPresupuestoType extends AbstractType
                 'label' => 'Socio/s asignados',
                 'class' => 'UserBundle:UsuarioSocio',
                 'multiple' => true,
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
             ->add('gerentes', 'entity', [
@@ -61,6 +64,9 @@ class ProyectoPresupuestoType extends AbstractType
                         ->where('tipopuesto.nombrePuesto LIKE :nombre')
                         ->setParameter('nombre', '%Gerente%');
                 },
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
             ->add('presupuestoIndividual', 'bootstrap_collection', [
@@ -77,7 +83,7 @@ class ProyectoPresupuestoType extends AbstractType
                     'attr' => [
                             'class' => 'select2',
                         ],
-
+                    
                 ])
         ;
     }

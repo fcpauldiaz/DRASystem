@@ -67,6 +67,9 @@ class ConsultaSocioType extends AbstractType
                 'required' => false,
                 'label' => 'Socio/s asignados',
                 'class' => 'UserBundle:UsuarioSocio',
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
           ->add('horas_extraordinarias', 'choice', [

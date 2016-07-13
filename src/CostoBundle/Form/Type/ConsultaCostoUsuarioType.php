@@ -66,6 +66,9 @@ class ConsultaCostoUsuarioType extends AbstractType
             ->add('usuario', 'entity', [
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'empty_value' => 'Escoja el usuario',
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
         ->add('horas_extraordinarias', 'choice', [

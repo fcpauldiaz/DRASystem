@@ -20,6 +20,9 @@ class RegistroHorasActividadHorasType extends AbstractType
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
                 'empty_value' => 'Seleccione la actividad',
+                'attr' => [
+                    'class' => 'select2'
+                ],
             ])
             ->add('horasInvertidas', 'number', [
                 'label' => 'Horas invertidas',

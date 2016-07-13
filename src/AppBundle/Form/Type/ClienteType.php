@@ -54,9 +54,11 @@ class ClienteType extends AbstractType
                 'required' => false,
             ])
             ->add('contactos', null, [
-
                 'label' => 'Información de Contacto',
                 'required' => false,
+                'attr' => [
+                    'class' => 'select2'
+                ],
             ])
         ;
     }

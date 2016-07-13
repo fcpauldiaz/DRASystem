@@ -23,11 +23,17 @@ class RegistroHorasPresupuestoType extends AbstractType
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
              ->add('actividad', 'entity', [
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
              ->add('usuario', 'entity', [

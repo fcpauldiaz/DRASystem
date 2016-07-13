@@ -66,6 +66,9 @@ class ConsultaCostoClienteType extends AbstractType
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
                 'empty_value' => 'Escoja el cliente',
+                'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
         ->add('horas_extraordinarias', 'choice', [

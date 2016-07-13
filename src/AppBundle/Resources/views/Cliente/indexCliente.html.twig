@@ -40,7 +40,7 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_CREAR_CLIENTE') %}
+    {% if is_granted('ROLE_CREAR_CLIENTES') %}
         <a class="btn btn-primary btn-block" href="{{ path('cliente_new') }}">
             Crear nuevo cliente
         </a>

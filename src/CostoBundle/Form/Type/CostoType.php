@@ -65,7 +65,10 @@ class CostoType extends AbstractType
             ])
             ->add('usuario', null, [
                 'required' => true,
-                ])
+                'attr' => [
+                    'class' => 'select2'
+                ],
+            ])
         ;
     }
 

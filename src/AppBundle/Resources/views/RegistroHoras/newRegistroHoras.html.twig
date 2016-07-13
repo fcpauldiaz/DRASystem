@@ -7,12 +7,52 @@
             $("#appbundle_registrohoras_fechaHoras_month").select2({ width: '8%' }); 
             $("#appbundle_registrohoras_fechaHoras_year").select2({ width: '10%' });           
         });
+          
     </script>
+    
+    <script>
+         $(document).ready(function (){
+            $("#simple-confirm").click(function (event) {
+    swal({
+  title: 'Select Ukraine',
+  input: 'select',
+  inputOptions: {
+    'SRB': 'Serbia',
+    'UKR': 'Ukraine',
+    'HRV': 'Croatia'
+  },
+  inputPlaceholder: 'Select country',
+  showCancelButton: true,
+  inputValidator: function(value) {
+    return new Promise(function(resolve, reject) {
+      if (value === 'UKR') {
+        resolve();
+      } else {
+        reject('You need to select Ukraine :)');
+      }
+    });
+  }
+}).then(function(result) {
+  swal({
+    type: 'success',
+    html: 'You selected: ' + result
+  });
+})
+          });
+
+        });
+    </script>
+    <script src="{{asset('js/live-counter.js')}}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/animation.css')}}">
 {% endblock %}
 
 {% block body -%}
     <h1>Nuevo Registro de horas invertidas</h1>
 
+   <button id="simple-confirm" class="btn btn-danger">Eliminar</button> 
     {{ form_start(form) }}
 
      

@@ -25,6 +25,9 @@ class RegistroHorasType extends AbstractType
                 'class' => 'AppBundle:ProyectoPresupuesto',
                 'required' => true,
                 'empty_value' => 'Seleccione el presupuesto asignado',
+                'attr' => [
+                    'class' => 'select2'
+                ]
 
             ])
              ->add('fechaHoras', 'date', [
@@ -45,6 +48,9 @@ class RegistroHorasType extends AbstractType
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
                 'empty_value' => 'Seleccione el cliente',
+                 'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
             ->add('horasActividad', 'bootstrap_collection', [
@@ -71,6 +77,9 @@ class RegistroHorasType extends AbstractType
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],
                 'label' => 'Horas realizadas por',
+                 'attr' => [
+                    'class' => 'select2'
+                ],
 
             ])
              ->add('horasExtraordinarias', null, [
