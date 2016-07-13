@@ -1,32 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block javascripts %}
+    <script src="{{asset('js/confirm-dialog.js')}}"></script>
     <script>
-        $(document).ready(function (){
-          $("#simple-confirm").click(function (event) {
-          swal({   
-                title: "¿Seguro que lo desea eliminar?",   
-                text: "Esta acción no se puede deshacer",   
-                type: "warning",   
-                showCancelButton: true,   
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: "Sí, eliminar registro!",   
-                cancelButtonText: "Cancelar",   
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true,
-                closeOnCancel: false,
-                reverseButtons: true,
-                showCloseButton: true 
-              }).then(function() {   
-                    $('form[name="form"]').submit();
-                    swal("Eliminando", "Se eliminará el archivo", "success");   
-                }, function(dismiss) {
-                    if (dismiss === 'cancel') {
-                        swal("Cancelado", "Se ha cancelado la operación", "error");   
-                    }
-                }); 
-            });
-        });
-
         $(document).ready(function() { 
             $("#appbundle_registrohoras_fechaHoras_day").select2({ width: '8%' }); 
             $("#appbundle_registrohoras_fechaHoras_month").select2({ width: '8%' }); 

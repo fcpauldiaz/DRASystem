@@ -102,7 +102,7 @@ class ClienteController extends Controller
      *
      * @Route("/new", name="cliente_new")
      * @Method("GET")
-     * 
+     * @Security("is_granted('ROLE_CREAR_CLIENTES')")
      * @Template("AppBundle:Cliente:newCliente.html.twig")
      */
     public function newAction()
@@ -148,6 +148,7 @@ class ClienteController extends Controller
      * @Route("/{id}/edit", name="cliente_edit")
      * @Method("GET")
      * @Template("AppBundle:Cliente:editCliente.html.twig")
+     * @Security("is_granted('ROLE_EDITAR_CLIENTES')")
      */
     public function editAction($id)
     {
@@ -193,6 +194,7 @@ class ClienteController extends Controller
      * @Route("/{id}", name="cliente_update")
      * @Method("PUT")
      * @Template("AppBundle:Cliente:editCliente.html.twig")
+     * @Security("is_granted('ROLE_EDITAR_CLIENTES')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -225,7 +227,7 @@ class ClienteController extends Controller
      *
      * @Route("/{id}", name="cliente_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_ELIMINAR_ACTIVIDAD')")
+     * @Security("is_granted('ROLE_ELIMINAR_CLIENTES')")
      */
     public function deleteAction(Request $request, $id)
     {

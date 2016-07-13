@@ -16,21 +16,6 @@
          <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button> </li>
    
    <div class="modal">
-      <div class="dialog confirm">
-          <h1>Confirmación de eliminación</h1>
-          <div class="msg"></div>
-          <div class="form-group toolbar">
-            <button class="btn btn-default cancel" type="button" data-default="Cancel">Cancelar</button>
-            <button class="btn btn-danger ok" type="submit" data-default="OK">Eliminar</button>
-          </div>
-        </div>
-        <div class="dialog alert">
-        <h1>Alerta</h1>
-          <div class="msg"></div>
-          <div class="form-group toolbar">
-            <button class="btn btn-primary cancel" type="submit">OK</button>
-          </div>
-        </div>
         {{form(delete_form)}}
     </div>
     
@@ -38,32 +23,5 @@
 </ul>
 {% endblock %}
 {% block javascripts %}
-    <script>
-   $(document).ready(function (){
-          $("#simple-confirm").click(function (event) {
-          swal({   
-                title: "¿Seguro que lo desea eliminar?",   
-                text: "Esta acción no se puede deshacer y afectará la información relacionada",   
-                type: "warning",   
-                showCancelButton: true,   
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: "Sí, eliminar registro!",   
-                cancelButtonText: "Cancelar",   
-                showLoaderOnConfirm: true, 
-                closeOnConfirm: false,   
-                closeOnCancel: false 
-              }, 
-                function(isConfirm){   
-                  if (isConfirm) {     
-                    $('form[name="form"]').submit();
-                    swal("Eliminando", "Se eliminará el archivo", "success");   
-                  } else {     
-                    swal("Cancelado", "Se ha cancelado la operación", "error");   
-                  } 
-              });
-        });
-      });
-       
-    </script>
-
+    <script src="{{asset('js/confirm-dialog.js')}}"></script>
 {% endblock %}

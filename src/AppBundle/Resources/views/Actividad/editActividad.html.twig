@@ -21,30 +21,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-         $(document).ready(function (){
-          $("#simple-confirm").click(function (event) {
-          swal({   
-                title: "¿Seguro que lo desea eliminar?",   
-                text: "Esta acción no se puede deshacer y la información relacionada se puede ver afectada",   
-                type: "warning",   
-                showCancelButton: true,   
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: "Sí, eliminar registro!",   
-                cancelButtonText: "Cancelar",   
-                showLoaderOnConfirm: true, 
-                closeOnConfirm: false,   
-                closeOnCancel: false 
-              }, 
-                function(isConfirm){   
-                  if (isConfirm) {     
-                    $('form[name="form"]').submit();
-                    swal("Eliminando", "Se eliminará el archivo", "success");   
-                  } else {     
-                    swal("Cancelado", "Se ha cancelado la operación", "error");   
-                  } 
-              });
-        });
-        });
-    </script>
+   <script src="{{asset('js/confirm-dialog.js')}}"></script>
 {% endblock %}

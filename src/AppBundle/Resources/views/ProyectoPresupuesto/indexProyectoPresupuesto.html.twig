@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>Nombre Proyecto Presupuesto</th>
-                <th>Cantidad registros </th>
+                <th>Cantidad registros de presupuesto </th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{entity.nombrePresupuesto}}</td>
-                <td>{{ entity.presupuestoIndividual|length}}
+                <td>{{ entity.presupuestoIndividual | length}}
                 <td>
                 <ul>
                     <li>

@@ -60,12 +60,8 @@
 {% block javascripts %}
   <script src="{{asset('js/tipo_puesto_management.js')}}"></script>
 <script>
-
-/*
- * When ready add click behavior to the buttons.
- */
- $(document).ready(function (){
-          $("#simple-confirm").click(function (event) {
+    $(document).ready(function (){
+        $("#simple-confirm").click(function (event) {
           swal({   
                 title: "¿Seguro que lo desea eliminar?",   
                 text: "Esta acción no se puede deshacer y eliminará en cascada los puestos relacionados",   
@@ -73,21 +69,21 @@
                 showCancelButton: true,   
                 confirmButtonColor: "#DD6B55",   
                 confirmButtonText: "Sí, eliminar registro!",   
-                cancelButtonText: "Cancelar", 
-                showLoaderOnConfirm: true,   
-                closeOnConfirm: false,   
-                closeOnCancel: false 
-              }, 
-                function(isConfirm){   
-                  if (isConfirm) {     
+                cancelButtonText: "Cancelar",   
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                closeOnCancel: false,
+                reverseButtons: true,
+                showCloseButton: true 
+               }).then(function() {   
                     $('form[name="form"]').submit();
-                    swal("Eliminando", "Se eliminará el archivo", "success");   
-                  } else {     
-                    swal("Cancelado", "Se ha cancelado la operación", "error");   
-                  } 
-              });
+                    swal("Eliminando", "Se eliminará el registro", "success");   
+                }, function(dismiss) {
+                    if (dismiss === 'cancel') {
+                        swal("Cancelado", "Se ha cancelado la operación", "error");   
+                    }
+                }); 
         });
-      });
-
+    });
 </script>
 {% endblock %}
