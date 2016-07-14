@@ -1,67 +1,128 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
         <h1><i class="fa fa-clock-o fa-2x"></i> Smart Time</h1>
         <p>Sistema web de Díaz Reyes &amp; Asociados interna para el control de las horas.</p>
-          
-      </div>
     </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        {% if is_granted('ROLE_CREAR_USUARIOS') %}
-        <div class="col-lg-4">
-          <h2>Creación de usuarios</h2>
-          <p>El primer paso es crear los usuarios.</p>
-          <p><div class="btn-group dropup">
-          <a href="{{ path('trabajador_registration') }}" class="btn btn-primary btn-lg">Crear Usuario</a>
-          <a href="#" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{{ path('socio_registration')}}">Crear Usuario tipo Socio</a></li>
-           
-          </ul>
+</div>
+<!--row begin-->
+<div class="row">
+    <!--empieza row para usuarios -->
+     {% if is_granted('ROLE_CREAR_USUARIOS') %}
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-besh">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-users fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{cantidadUsuarios}}</div>
+                        <div>Usuarios</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('trabajador_registration') }}">
+                <div class="panel-footer">
+                    <span class="pull-left">Crear Usuarios</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
-        </p>
-      </div>
-      {% endif %}
-      {% if is_granted('ROLE_CREAR_HORAS') %}
-        <div class="col-lg-4">
-          <h2>Ingreso de horas</h2>
-          <p>El segundo paso es ingresar las horas horas invertidas.</p>
-          <div class="dropup">
-              <a  class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Ingreso horas  <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ path('proyectopresupuesto_new')}}">Proyecto presupuesto</a></li>
-                <li><a href="{{ path('registrohoras_new')}}">Ingresar horas invertidas</a></li>
-              </ul>
-        </div>
-        </div>
-        {% endif %}
-        {% if is_granted('ROLE_VER_CONSULTAS') %}
-        <div class="col-lg-4">
-          <h2>Consultas</h2>
-          <p>Una vez ingresada toda la información necesaria, se pueden hacer las consultas de diferentes formas.</p>
-          <div class="dropup">
-              <a  class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Consultas  <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ path('presupuesto_horas')}}">Costos por presupuesto</a></li>
-                <li><a href="{{ path('consulta_cliente')}}">Costos por Cliente</a></li>
-                <li><a href="{{ path('consulta_usuario')}}">Costos por Usuario</a></li>
-                <li><a href="{{ path('consulta_socio')}}">Costos por Socio</a></li>
-                
-            </ul>
-        </div>
-        </div>
-        {% endif %}
     </div>
-  </div>
-
-      
+    {% endif %}
+    <!--termina row usuarios y empieza horas -->
+    {% if is_granted('ROLE_CREAR_HORAS') %}
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-clock-o fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{cantidadHoras}}</div>
+                        <div>Horas ingresadas</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('registrohoras_new')}}">
+                <div class="panel-footer">
+                    <span class="pull-left">Ingresar</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    <!-- termina horas y empieza presupuestos -->
+    {% if is_granted('ROLE_CREAR_PRESUPUESTOS') %}
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-briefcase fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{cantidadHorasPresupuestadas}}</div>
+                        <div>Cantidad de horas presupuestadas</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('proyectopresupuesto')}}">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver detalles</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    <!--termina presupuestos y empieza consultas -->
+    {% if is_granted('ROLE_VER_CONSULTAS') %}
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-database fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{cantidadCostos}}</div>
+                        <div>Costos guardados</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropup">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                <div class="panel-footer">
+                    <span class="pull-left">Realizar consultas</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-up"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+             </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('presupuesto_horas')}}">Costos por presupuesto</a></li>
+                    <li><a href="{{ path('consulta_cliente')}}">Costos por Cliente</a></li>
+                    <li><a href="{{ path('consulta_usuario')}}">Costos por Usuario</a></li>
+                    <li><a href="{{ path('consulta_socio')}}">Costos por Socio</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!--termina consultas -->
+</div>
+<!-- /.row -->
+<br>
+<br>
+<br>
+<br>
 
 {% endblock %}

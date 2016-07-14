@@ -280,8 +280,78 @@ footer {
     width: 8%;
     background-color: #1a242f;
 }
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
+
+/* Custom Colored Panels */
+
+.huge {
+    font-size: 40px;
+}
+.panel .panel-footer {
+    color: #2c3e50;
+}
+.panel-green {
+    border-color: #7765CA;
+}
+
+.panel-green > .panel-heading {
+    border-color: #7765CA;
+    color: #fff;
+    background-color: #7765CA;
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #544B7E;
+}
+
+.panel-red > .panel-heading {
+    border-color: #544B7E;
+    color: #fff;
+    background-color: #544B7E;
+}
+
+.panel-red > a {
+    color: #d9534f;
+}
+.panel-red .panel-footer {
+    cursor: pointer;
+}
+
+.panel-red > a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #054B05;
+}
+
+.panel-yellow > .panel-heading {
+    border-color: #054B05;
+    color: #fff;
+    background-color: #054B05;
+}
+
+.panel-yellow > a {
+    color: #f0ad4e;
+}
+
+.panel-yellow > a:hover {
+    color: yellow;
+}
+.panel-besh {
+    border-color: #8B684D;
+}
+.panel-besh > .panel-heading {
+    border-color: #8B684D;
+    color: #fff;
+    background-color: #8B684D;
+}
 
 

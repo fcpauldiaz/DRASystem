@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+             new JMS\SerializerBundle\JMSSerializerBundle(),
            
         );
 
