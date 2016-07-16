@@ -40,7 +40,7 @@ class DefaultController extends Controller
         $cantidadHoras = $queryHoras->getQuery()->getSingleScalarResult();
         $cantidadHorasPresupuestadas = $queryPresupuestos->getQuery()->getSingleScalarResult();
         $cantidadCostos = $queryCosto->getQuery()->getSingleScalarResult();
-        return $this->render('default/index.html.twig', array(
+        return $this->render('subindex.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             'cantidadUsuarios' => $cantidadUsuarios,
             'cantidadHoras' => $cantidadHoras,
