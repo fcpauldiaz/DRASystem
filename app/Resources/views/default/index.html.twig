@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '::base.html.twig' %}
 {% block body %}
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
@@ -37,7 +37,7 @@
     <!--termina row usuarios y empieza horas -->
     {% if is_granted('ROLE_CREAR_HORAS') %}
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
+        <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -62,7 +62,7 @@
     <!-- termina horas y empieza presupuestos -->
     {% if is_granted('ROLE_CREAR_PRESUPUESTOS') %}
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-yellow">
+        <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">

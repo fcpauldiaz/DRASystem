@@ -35,7 +35,7 @@
         "liuggio/excelbundle": "^2.0",
         "aws/aws-sdk-php": "~3.0",
         "knplabs/knp-gaufrette-bundle": "^0.3.0",
-        "vich/uploader-bundle": "^1.2",
+        "vich/uploader-bundle": "dev-master",
         "zendframework/zend-code": "3.0.1",
         "jms/serializer": "^1.1",
         "jms/serializer-bundle": "^1.1",

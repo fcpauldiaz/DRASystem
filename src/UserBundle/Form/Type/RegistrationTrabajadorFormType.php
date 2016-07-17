@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class RegistrationTrabajadorFormType extends AbstractType
 {
@@ -155,6 +157,12 @@ class RegistrationTrabajadorFormType extends AbstractType
             ])
 
             ;
+
+
+            $builder->addEventListener(
+                FormEvents::POST_SUBMIT,
+                [$this, 'onPostData']
+            );
     }
 
     /**
@@ -203,5 +211,18 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ->atPath('trabajador_registration')
                 ->addViolation();
         }
+    }
+
+     /**
+     * Forma de setear imagen default
+     *
+     * @param FormEvent $event Evento después de mandar la información del formulario
+     */
+    public function onPostData(FormEvent $event)
+    {
+        $usuario = $event->getData();
+        $form = $event->getForm();
+        $usuario->setUserImage("578ae8d025164_default-user-icon-profile.png");
+        
     }
 }

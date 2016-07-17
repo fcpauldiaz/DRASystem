@@ -16,7 +16,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"usuario_trabajador" = "UsuarioTrabajador", "usuario_socio" = "UsuarioSocio"})
- *
+ * @Vich\Uploadable
+ * 
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 abstract class Usuario extends BaseUser
@@ -72,7 +73,8 @@ abstract class Usuario extends BaseUser
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="user_images", fileNameProperty="userImage")
+     * @Vich\UploadableField(mapping="user_imager
+     * ", fileNameProperty="userImage")
      * 
      * @var File
      */

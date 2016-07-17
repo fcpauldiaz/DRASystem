@@ -8,7 +8,7 @@ knp_gaufrette:
         foo:
             aws_s3:
                 service_id: 'acme.aws_s3.client'
-                bucket_name: 'smart-udv'
+                bucket_name: 'smart-time'
                 options:
                     directory: 'user-images'
 

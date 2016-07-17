@@ -16,5 +16,6 @@ parameters:
     mailer_password:   ~
     api_email_key:     ~
     aws_key:           ~
+    aws_secret_key:    ~
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
