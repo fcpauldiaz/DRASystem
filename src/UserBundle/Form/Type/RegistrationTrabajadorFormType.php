@@ -123,9 +123,6 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'class' => 'UserBundle:Codigo',
                 'label' => false,
                 'property' => 'codigoCompleto',
-                'attr' => [
-                    'class' => 'select2',
-                ],
                 'required' => true,
 
             ])
@@ -133,9 +130,6 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'class' => 'UserBundle:Usuario',
                 'property' => 'codigoString',
                 'label' => false,
-                 'attr' => [
-                    'class' => 'select2',
-                 ],
                  'multiple' => true,
                  'required' => false,
                  'query_builder' => function (EntityRepository $er) {
