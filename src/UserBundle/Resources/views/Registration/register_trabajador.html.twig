@@ -5,8 +5,9 @@
 {% endblock stylesheets %}
 
 {% block javascripts %}
-	<script src="{{asset('js/register.js')}}"></script>
-	<script src="{{asset('js/tab_register.js')}}"></script>
+	<script src="{{asset('js/register.min.js')}}"></script>
+	<script src="{{asset('js/tab_register.min.js')}}"></script>
+	<script src="{{asset('js/jquery.bsAlerts.min.js')}}"></script>
 	   {{ form_javascript(form) }}
 {% endblock %}
 

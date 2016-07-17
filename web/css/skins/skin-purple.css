@@ -141,6 +141,15 @@
 /** Blockquote font size*/
 /** Blockquote border color*/
 /** Page header border color*/
+/** Deprecated `@screen-xs` as of v3.0.1*/
+/** Deprecated `@screen-xs-min` as of v3.2.0*/
+/** Deprecated `@screen-phone` as of v3.0.1*/
+/** Deprecated `@screen-sm` as of v3.0.1*/
+/** Deprecated `@screen-tablet` as of v3.0.1*/
+/** Deprecated `@screen-md` as of v3.0.1*/
+/** Deprecated `@screen-desktop` as of v3.0.1*/
+/** Deprecated `@screen-lg` as of v3.0.1*/
+/** Deprecated `@screen-lg-desktop` as of v3.0.1*/
 .skin-purple .main-header .navbar {
   background-color: #605ca8;
 }

@@ -6,8 +6,14 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
       // If any .less file changes in directory "build/less/" run the "less"-task.
-      files: ["build/less/*.less", "build/less/skins/*.less", "dist/js/app.js"],
-      tasks: ["less", "uglify"]
+      files: [
+            "build/less/*.less",
+            "build/less/skins/*.less",
+            "web/js/app.js",
+            "web/js/*.js",
+            "web/css/*.css"
+        ],
+      tasks: ["less", "uglify", "concat", "concat_css"]
     },
     // "less"-task configuration
     // This task will compile all less files upon saving to create both AdminLTE.css and AdminLTE.min.css
@@ -85,7 +91,9 @@ module.exports = function (grunt) {
           'web/js/ajaxContacto.min.js': ['web/js/ajaxContacto.js'],
           'web/js/ajaxPuesto.min.js':['web/js/ajaxPuesto.js'],
           'web/js/bc-bootstrap-collection.min.js': ['web/js/bc-bootstrap-collection.js'],
-          'web/js/jquery.initialize.min.js': ['web/js/jquery.initialize.js']
+          'web/js/jquery.initialize.min.js': ['web/js/jquery.initialize.js'],
+          'web/js/register.min.js': ['web/js/register.js']
+
         }
       }
     },

@@ -141,8 +141,17 @@
 /** Blockquote font size*/
 /** Blockquote border color*/
 /** Page header border color*/
+/** Deprecated `@screen-xs` as of v3.0.1*/
+/** Deprecated `@screen-xs-min` as of v3.2.0*/
+/** Deprecated `@screen-phone` as of v3.0.1*/
+/** Deprecated `@screen-sm` as of v3.0.1*/
+/** Deprecated `@screen-tablet` as of v3.0.1*/
+/** Deprecated `@screen-md` as of v3.0.1*/
+/** Deprecated `@screen-desktop` as of v3.0.1*/
+/** Deprecated `@screen-lg` as of v3.0.1*/
+/** Deprecated `@screen-lg-desktop` as of v3.0.1*/
 .skin-yellow .main-header .navbar {
-  background-color: #ffd166;
+  background-color: #f26419;
 }
 .skin-yellow .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -168,7 +177,7 @@
   color: #fff;
 }
 .skin-yellow .main-header .navbar .sidebar-toggle:hover {
-  background-color: #ffc94c;
+  background-color: #e5570d;
 }
 @media (max-width: 767px) {
   .skin-yellow .main-header .navbar .dropdown-menu li.divider {
@@ -178,19 +187,19 @@
     color: #fff;
   }
   .skin-yellow .main-header .navbar .dropdown-menu li a:hover {
-    background: #ffc94c;
+    background: #e5570d;
   }
 }
 .skin-yellow .main-header .logo {
-  background-color: #ffc94c;
+  background-color: #e5570d;
   color: #ffffff;
   border-bottom: 0 solid transparent;
 }
 .skin-yellow .main-header .logo:hover {
-  background-color: #ffc847;
+  background-color: #e0560d;
 }
 .skin-yellow .main-header li.user-header {
-  background-color: #ffd166;
+  background-color: #f26419;
 }
 .skin-yellow .content-header {
   background: transparent;
@@ -215,7 +224,7 @@
 .skin-yellow .sidebar-menu > li.active > a {
   color: #ffffff;
   background: #1e282c;
-  border-left-color: #ffd166;
+  border-left-color: #f26419;
 }
 .skin-yellow .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
