@@ -119,7 +119,6 @@ $(document).ready(function(){
 		disableCheckBox('23');
     });
 	$('#userbundle_tipopuesto_permisos_30').on('ifClicked', function(event){
-		console.log('entra');
 		disableCheckBox('1');
 		disableCheckBox('2');
 		disableCheckBox('3');

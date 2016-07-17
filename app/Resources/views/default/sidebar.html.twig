@@ -141,6 +141,9 @@
             {% if is_granted('ROLE_VER_TIPO_PUESTO')%}
               <li><a href="{{path('tipopuesto')}}">Tipo Puesto</a></li>
             {% endif %}
+             {% if is_granted('ROLE_CREAR_TIPO_PUESTO')%}
+              <li><a href="{{path('tipopuesto_new_post')}}">Crear Puesto</a></li>
+            {% endif %}
           </ul>
         </li>
        

@@ -61,7 +61,7 @@ module.exports = function (grunt) {
           "web/css/skins/skin-red-light.min.css": "build/less/skins/skin-red-light.less",
           "web/css/skins/skin-purple-light.min.css": "build/less/skins/skin-purple-light.less",
           "web/css/skins/_all-skins.min.css": "build/less/skins/_all-skins.less",
-          "web/css/main.min.css": "build/less/main.less",
+          "web/css/main.min.css": "build/less/main.less"
         }
       }
     },
@@ -73,7 +73,19 @@ module.exports = function (grunt) {
       },
       my_target: {
         files: {
-          'web/js/app.min.js': ['web/js/app.js']
+          'web/js/app.min.js': ['web/js/app.js'],
+          'web/js/tipo_puesto_click.min.js': ['web/js/tipo_puesto_click.js'],
+          'web/js/live-counter.min.js': ['web/js/live-counter.js'],
+          'web/js/tab_register.min.js': ['web/js/tab_register.js'],
+          'web/js/alertify.min.js': ['web/js/alertify.js'],
+          'web/js/ajaxAprobacionHoras.min.js': ['web/js/ajaxAprobacionHoras.js'],
+          'web/js/ajaxCodigo.min.js': ['web/js/ajaxCodigo.js'],
+          'web/js/dateModifier.min.js': ['web/js/dateModifier.js'],
+          'web/js/showHideElements.min.js': ['web/js/showHideElements.js'],
+          'web/js/ajaxContacto.min.js': ['web/js/ajaxContacto.js'],
+          'web/js/ajaxPuesto.min.js':['web/js/ajaxPuesto.js'],
+          'web/js/bc-bootstrap-collection.min.js': ['web/js/bc-bootstrap-collection.js'],
+          'web/js/jquery.initialize.min.js': ['web/js/jquery.initialize.js']
         }
       }
     },
@@ -109,13 +121,16 @@ module.exports = function (grunt) {
         jshintrc: '.jshintrc'
       },
       core: {
-        src: 'dist/js/app.js'
+        src: 'web/js/app.js'
       },
       demo: {
-        src: 'dist/js/demo.js'
+        src: 'web/js/demo.js'
       },
       pages: {
-        src: 'dist/js/pages/*.js'
+        src: 'web/js/pages/*.js'
+      },
+      rest: {
+        src: 'web/js/*.js'
       }
     },
 
@@ -142,7 +157,59 @@ module.exports = function (grunt) {
     // for them
     clean: {
       build: ["build/img/*"]
-    }
+    },
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'web/css',
+          src: [
+            'sweetalert.css',
+            'animation.css',
+            ],
+          dest: 'web/css',
+          ext: '.min.css'
+        }]
+      }
+    },
+    concat: {
+        options: {
+          separator: ';',
+        },
+        dist: {
+          src: [
+              'web/js/app.min.js', 
+              'web/js/sweetalert.min.js',
+              'web/js/bootstrap.min.js',
+              'web/js/tab_register.min.js',
+              'web/js/alertify.min.js',
+              'web/js/bc-bootstrap-collection.min.js',
+              'web/js/select2.min.js',
+              'web/js/jquery.initialize.min.js'
+
+          ],
+          dest: 'web/js/built.js',
+        },
+    },
+    concat_css: {
+        options: {
+          // Task-specific options go here. 
+        },
+        all: {
+            src: [
+                "web/css/bootstrap.min.css",
+                "web/css/AdminLTE.min.css",
+                "web/css/main.min.css",
+                "web/css/select2-bootstrap.min.css",
+                "web/css/animation.min.css",
+                "web/css/sweetalert.min.css",
+                "web/css/select2.min.css",
+                "web/css/skins/_all-skins.min.css"
+            ],
+           dest: "web/css/main-styles.css"
+                
+        },
+    },
   });
 
   // Load all grunt tasks
@@ -165,8 +232,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-csslint');
   // Lint Bootstrap
   grunt.loadNpmTasks('grunt-bootlint');
+  //minify CSS
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   //concat CSS files
   grunt.loadNpmTasks('grunt-concat-css');
+  //concat JS files
+  grunt.loadNpmTasks('grunt-contrib-concat');
   // Linting task
   grunt.registerTask('lint', ['jshint', 'csslint', 'bootlint']);
 
