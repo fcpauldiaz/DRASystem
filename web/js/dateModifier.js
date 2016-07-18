@@ -7,10 +7,10 @@ $('.fecha-inicial')
     }
     else {
        
-        var firstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+        var firstDay = new Date(date.getFullYear(), date.getMonth() + 2, 1);
     }
     var day = firstDay.getDate();
-    var month = firstDay.getMonth()+1 ;
+    var month = firstDay.getMonth();
     var year = firstDay.getFullYear();
    
     if (day < 10) {
@@ -28,7 +28,7 @@ $('.fecha-final')
     .on('changeMonth', function(ev){
     date = ev.date;
      if (this.value == '' || verifier == true ){
-       var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     }
     else {
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
