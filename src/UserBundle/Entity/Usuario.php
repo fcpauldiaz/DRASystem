@@ -73,8 +73,7 @@ abstract class Usuario extends BaseUser
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="user_imager
-     * ", fileNameProperty="userImage")
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="userImage")
      * 
      * @var File
      */

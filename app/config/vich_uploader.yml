@@ -2,7 +2,7 @@ vich_uploader:
     db_driver: orm
     storage:   gaufrette
     mappings:
-        user_imager:
+        user_image:
             uri_prefix:         https://s3.amazonaws.com/smart-time/user-images
             upload_destination: archivos
             namer:              vich_uploader.namer_origname
