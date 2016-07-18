@@ -165,16 +165,22 @@
               <!-- The user image in the navbar-->
               {#<img src="{{ vich_uploader_asset(app.user.userImage, 'userImage') }}" class="user-image" alt="User Image">#}
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              {% if app.user %}
               <span class="hidden-xs">{{ app.user.nombre}} {{app.user.apellidos}}</span>
+              {% endif %}
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" class="img-circle" alt="User Image">
+                {% if app.user %}
+                  <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" class="img-circle" alt="User Image">
+                {% endif %}
 
                 <p>
-                 {{ app.user.nombre}} {{app.user.apellidos}} - {{app.user.username}}
-                  <small>{{app.user.email}}</small>
+                  {% if app.user %}
+                   {{ app.user.nombre}} {{app.user.apellidos}} - {{app.user.username}}
+                    <small>{{app.user.email}}</small>
+                  {% endif %}
                 </p>
               </li>
               <!-- Menu Body -->
