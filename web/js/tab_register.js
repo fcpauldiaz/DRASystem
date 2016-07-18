@@ -1,4 +1,15 @@
 $(document).ready(function () {
+
+    //función para sugerir nombre de usuario
+    $( "#fos_user_registration_form_apellidos" ).change(function() {
+     
+        var nombres = $('#fos_user_registration_form_nombre').val();
+        var apellido = $(this).val().split(" ")[0];
+        var usuario = nombres.slice(0,1) + apellido;
+        $("#fos_user_registration_form_username").attr("placeholder", usuario);
+        console.log(usuario);
+    });
+
     //función para verificar si un string es un número
       function isNumeric(num){
         return !isNaN(num);
@@ -208,27 +219,29 @@ $(document).ready(function () {
             }
 
         }
-        if (!isNumeric(igss)) {
-          valido = false;
-            $(document).trigger("add-alerts", [
-            {
-              'message': "El campo del IGSS no es un número",
-              'priority': 'danger'
-            }
-          ]);
-        }
-        if (igss.length < 9 || igss.length > 13 ) {
+        if (igss != "" && igss != null) {
+          if (!isNumeric(igss)) {
             valido = false;
               $(document).trigger("add-alerts", [
-            {
-              'message': "El número de afiliación debe ser entre 9 y 13 dígitos.",
-              'priority': 'danger'
-            }
-          ]);
+              {
+                'message': "El campo del IGSS no es un número",
+                'priority': 'danger'
+              }
+            ]);
+          }
+          if (igss.length < 9 || igss.length > 13 ) {
+              valido = false;
+                $(document).trigger("add-alerts", [
+              {
+                'message': "El número de afiliación debe ser entre 9 y 13 dígitos.",
+                'priority': 'danger'
+              }
+            ]);
+          }
         }
 
 
-        if (valido == true){
+        if (valido === true){
             var $active = $('.wizard .nav-tabs li.active');
             $active.next().removeClass('disabled');
             nextTab($active);

@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfileTrabajadorFormType extends AbstractType
 {
@@ -105,7 +106,12 @@ class ProfileTrabajadorFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-             ->add('puestos')
+            ->add('imageFile', VichImageType::class, [
+                    'required'      => false,
+                    'allow_delete'  => true, // not mandatory, default is true
+                    'download_link' => true, // not mandatory, default is true
+            ])
+            ->add('puestos')
             ->add('submit', 'submit', [
                 'label' => 'Guardar',
                 'attr' => [

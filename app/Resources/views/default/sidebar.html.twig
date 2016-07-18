@@ -1,0 +1,154 @@
+<!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" class="img-circle" alt="User Image">
+
+        </div>
+        <div class="pull-left info">
+          <p>  {{ app.user.username}} </p>
+
+          <!-- Status -->
+        </div>
+      </div>
+
+      <!-- search form (Optional) -->
+      {#<form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      #}
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">Menú Principal</li>
+        <!-- Optionally, you can add icons to the links -->
+        <!--Horas -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-clock-o"></i> <span>Horas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          
+                <li><a href="{{ path('registrohoras_new')}}">Ingresar horas</a></li>
+           
+            {% if is_granted('ROLE_VER_LISTADO_GENERAL')%}
+                <li><a href="{{ path('registrohoras')}}">Ver registro de horas</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <!--Presupuestos -->
+          <li class="treeview">
+          <a href="#"><i class="fa fa-money"></i> <span>Presupuestos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+             {% if is_granted('ROLE_CREAR_PRESUPUESTOS')%}
+                <li><a href="{{ path('proyectopresupuesto_new')}}">Crear proyecto presupuesto</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_CREAR_PRESUPUESTOS')%}
+                <li><a href="{{ path('proyectopresupuesto')}}">Ver proyectos presupuesto</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <!--Acitividades -->
+          <li class="treeview">
+          <a href="#"><i class="fa fa-tasks"></i> <span>Actividades</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+             {% if is_granted('ROLE_CREAR_ACTIVIDADES') %}
+               <li><a href="{{ path('actividad_new')}}">Crear Nueva Actividad</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_VER_ACTIVIDADES') %}
+               <li><a href="{{ path('actividad')}}">Ver Actividades</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <!--Consultas-->
+         {% if is_granted('ROLE_VER_CONSULTAS') %}
+          <li class="treeview">
+          <a href="#"><i class="fa fa-database"></i> <span>Consultas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+             <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
+            <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
+            <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
+            <li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
+            <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
+          </ul>
+        </li>
+        {% endif %}
+        <!--Departamento-->
+          <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Departamento</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+                {% if is_granted('ROLE_CREAR_DEPARTAMENTO')%}
+                  <li><a href="{{path('departamento_new')}}">Crear Departamento</a></li>
+                {% endif %}
+             {% if is_granted('ROLE_VER_DEPARTAMENTO')%}
+              <li><a href="{{path('departamento')}}">Ver Departamentos</a></li>
+            {% endif %}
+          </ul>
+        </li>
+         <!--Clientes -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-users"></i> <span>Clientes</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+              {% if is_granted('ROLE_CREAR_CLIENTES') %}
+                <li><a href="{{ path('cliente_new')}}">Crear clinte</a></li>
+            {% endif %}
+              {% if is_granted('ROLE_VER_CLIENTES') %}
+                <li><a href="{{ path('cliente')}}">Ver clientes</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        <!--Tipo Puesto-->
+         <li class="treeview">
+          <a href="#"><i class="ion-clipboard"></i> <span>Tipo de Puestos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            {% if is_granted('ROLE_VER_TIPO_PUESTO')%}
+              <li><a href="{{path('tipopuesto')}}">Tipo Puesto</a></li>
+            {% endif %}
+             {% if is_granted('ROLE_CREAR_TIPO_PUESTO')%}
+              <li><a href="{{path('tipopuesto_new_post')}}">Crear Puesto</a></li>
+            {% endif %}
+          </ul>
+        </li>
+       
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
