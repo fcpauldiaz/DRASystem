@@ -92,7 +92,8 @@ module.exports = function (grunt) {
           'web/js/ajaxPuesto.min.js':['web/js/ajaxPuesto.js'],
           'web/js/bc-bootstrap-collection.min.js': ['web/js/bc-bootstrap-collection.js'],
           'web/js/jquery.initialize.min.js': ['web/js/jquery.initialize.js'],
-          'web/js/register.min.js': ['web/js/register.js']
+          'web/js/register.min.js': ['web/js/register.js'],
+          'web/js/dashboard.min.js': ['web/js/dashboard.js']
 
         }
       }
@@ -193,7 +194,8 @@ module.exports = function (grunt) {
               'web/js/alertify.min.js',
               'web/js/bc-bootstrap-collection.min.js',
               'web/js/select2.min.js',
-              'web/js/jquery.initialize.min.js'
+              'web/js/jquery.initialize.min.js',
+              'web/js/dashboard.min.js'
 
           ],
           dest: 'web/js/built.js',
