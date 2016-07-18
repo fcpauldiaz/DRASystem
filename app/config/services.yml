@@ -1,5 +1,8 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
+imports:
+    - { resource: amazon.php }
+
 parameters:
 #    parameter_name: value
 
@@ -23,3 +26,14 @@ services:
         class: CostoBundle\Controller\QueryController
         calls:
         - [setContainer, ["@service_container"]]
+    acme.aws_s3.client:
+        class: Aws\S3\S3Client
+        factory_class: Aws\S3\S3Client
+        factory_method: 'factory'
+        arguments:
+            -
+                credentials: 
+                    key:      "%aws_key%"
+                    secret:   "%aws_secret_key%"                
+                region:   "us-east-1"
+                version:  "latest"

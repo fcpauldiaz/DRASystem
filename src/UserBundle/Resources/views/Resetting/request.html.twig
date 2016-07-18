@@ -1,10 +1,7 @@
-{% extends "::base.html.twig" %}
+{% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block body %}
-	
 {% block fos_user_content %}
-<div style="padding: 45px;" id="form-olvidado">
 {% include "FOSUserBundle:Resetting:request_content.html.twig" %}
-</div>
-{% endblock fos_user_content %}
 {% endblock %}
+
+

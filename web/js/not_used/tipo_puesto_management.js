@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+	$('#userbundle_tipopuesto_permisos_30').on('ifChecked', function(event){
+	  alert(event.type + ' callback');
+	});
+
 	function checkBoxFunc(param, component) {
 		console.log('Entra al evento');
 		var checkboxSelected = $('#userbundle_tipopuesto_permisos_'+param);

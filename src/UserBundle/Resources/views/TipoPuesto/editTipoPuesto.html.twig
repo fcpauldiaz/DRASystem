@@ -57,9 +57,22 @@
 
 
 {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/square/square.css')}}">
+{% endblock %}
 {% block javascripts %}
-  <script src="{{asset('js/tipo_puesto_management.js')}}"></script>
-<script>
+  <script src="{{asset('js/icheck.min.js')}}"></script>
+  <script>
+  $(document).ready(function(){
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square',
+      disabledClass: 'disabled',
+      increaseArea: '20%' // optional
+    });
+  });
+  </script>
+  <script src="{{asset('js/tipo_puesto_click.min.js')}}"></script>
+  <script>
     $(document).ready(function (){
         $("#simple-confirm").click(function (event) {
           swal({   

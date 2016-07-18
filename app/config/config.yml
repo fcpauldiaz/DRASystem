@@ -3,6 +3,8 @@ imports:
     - { resource: services.yml }
     - { resource: fos_user.yml }
     - { resource: easy_admin.yml }
+    - { resource: vich_uploader.yml }
+    - { resource: knp_gaufrette.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -38,6 +40,9 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources: ['bootstrap_3_layout.html.twig']
+    form_themes:
+        # other form themes
+        - 'VichUploaderBundle:Form:fields.html.twig'
 
 
 

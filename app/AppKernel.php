@@ -33,7 +33,8 @@ class AppKernel extends Kernel
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
              new JMS\SerializerBundle\JMSSerializerBundle(),
-           
+             new Vich\UploaderBundle\VichUploaderBundle(),               //upload engine
+              new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
