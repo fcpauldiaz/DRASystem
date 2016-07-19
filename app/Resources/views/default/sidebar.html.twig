@@ -123,7 +123,7 @@
           </a>
           <ul class="treeview-menu">
               {% if is_granted('ROLE_CREAR_CLIENTES') %}
-                <li><a href="{{ path('cliente_new')}}">Crear clinte</a></li>
+                <li><a href="{{ path('cliente_new')}}">Crear cliente</a></li>
             {% endif %}
               {% if is_granted('ROLE_VER_CLIENTES') %}
                 <li><a href="{{ path('cliente')}}">Ver clientes</a></li>

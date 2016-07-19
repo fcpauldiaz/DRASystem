@@ -72,7 +72,7 @@
                      <td>{{registro.horasInvertidas}}</td>
                     {% if registro.aprobado == false %}
                     <td>
-                            <a class="btn btn-info btn-sm aprobarHoras" href="{{           path('aprobar_horas', {'idRegistro' : registro.id })}}">Aprobar horas</a> 
+                            <a class="btn btn-primary btn-sm aprobarHoras" href="{{           path('aprobar_horas', {'idRegistro' : registro.id })}}">Aprobar horas</a> 
                     </td>
                     {% endif %}
 

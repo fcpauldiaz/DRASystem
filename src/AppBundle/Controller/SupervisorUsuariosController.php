@@ -46,30 +46,13 @@ class SupervisorUsuariosController extends Controller
           }
 
         $usuarioActual = $this->getUser();
-
-        $arrayPuestos = $usuarioActual->getPuestos();
-        //se utiliza solamente el último puesto porque es se toma como el más reciente
-        $puestoActual = $arrayPuestos->last();
-        //array
-        $tipoPuestosJerarquia = $puestoActual->getTipoPuesto()->getPuestos();
-
-        $returnArray = [];
-        foreach ($tipoPuestosJerarquia as $tipoPuesto) {
-            $puesto = $em->getRepository('UserBundle:Puesto')->findOneBy(['tipoPuesto' => $tipoPuesto]);
-
-            $usuarios = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
-            foreach ($usuarios as $usuario) {
-                $puestosUsuario = $usuario->getPuestos();
-                $lastPuesto = $puestosUsuario->last();
-                if ($lastPuesto == $puesto && $lastPuesto != null) {
-                    $returnArray[] = $usuario;
-                }
-            }
-        }
+       
+        $usuarios = $usuarioActual->getMisUsuariosRelacionados();
+        
 
         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [
-                'usuarios' => $returnArray,
+                'usuarios' => $usuarios,
             ]
         );
     }
@@ -92,7 +75,7 @@ class SupervisorUsuariosController extends Controller
     }
 
     /**
-     * @Security("is_granted('ROLE_GERENTE')") 
+     * @Security("is_granted('ROLE_APROBACION_HORAS')") 
      * @Route("/revisar/horas/{usuario_id}", name="revisar_horas")
      *
      * @param Request $request
