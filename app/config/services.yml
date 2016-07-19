@@ -26,6 +26,14 @@ services:
         class: CostoBundle\Controller\QueryController
         calls:
         - [setContainer, ["@service_container"]]
+    appstate:
+        class: AppBundle\Extensions\HorasPendientes
+        arguments: [@security.token_storage, @doctrine.orm.entity_manager]
+    twig.extension.appstate:
+        class: AppBundle\Extensions\HorasPendientesExtension
+        arguments: [@appstate]
+        tags:
+            - { name: twig.extension }
     acme.aws_s3.client:
         class: Aws\S3\S3Client
         factory_class: Aws\S3\S3Client

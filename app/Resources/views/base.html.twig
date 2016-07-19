@@ -99,30 +99,36 @@
             </ul>
           </li>
           <!-- /.messages-menu -->
-
+          #}
+          <!-- solo los usuarios con permiso pueden utilizar esta opción -->
+          {% if is_granted('ROLE_APROBACION_HORAS') %}
           <!-- Notifications Menu -->
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning">{{appstate.horas.cantidadUsuarios}}</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header">Hay {{appstate.horas.cantidadUsuarios}} usuario/s con horas no aprobadas</li>
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
+                  {% for  usuario in appstate.horas.usuariosAndHoras %}
                   <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    <a href="{{ path('revisar_horas', {'usuario_id': usuario[0].id })}}">
+                      <i class="fa fa-users text-aqua"></i> {{usuario[0].username | capitalize}} tiene {{usuario[1]}} horas no aprobadas
                     </a>
                   </li>
+                {% endfor %}
                   <!-- end notification -->
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="{{path('mostrar_usuarios')}}">Ver todo</a></li>
             </ul>
           </li>
+          {% endif %}
+          {#
           <!-- Tasks Menu -->
           <li class="dropdown tasks-menu">
             <!-- Menu Toggle Button -->
