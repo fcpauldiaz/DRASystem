@@ -48,6 +48,8 @@ security:
     role_hierarchy:
         #permiso para aprobar automáticamente las horas
         ROLE_APROBACION_HORAS_AUTOMATICO: ROLE_USER
+        #permiso para que otros usuarios se asignen en un presupuesto
+        ROLE_ASIGNACION: ROLE_USER
         #Permiso para ver el listado general de horas
         ROLE_VER_LISTADO_GENERAL: ROLE_USER
         #permiso para ver listado general de actividades
@@ -73,9 +75,9 @@ security:
         #permiso para crear preseupuesto
         ROLE_CREAR_PRESUPUESTOS: ROLE_VER_PRESUPUESTOS
         #permiso para crear usuarios
-        ROLE_CREAR_USUARIOS: ROLE_USER
+        ROLE_GESTIONAR_USUARIOS: ROLE_USER
         #permiso para crear tipo puesto
-        ROLE_CREAR_TIPO_PUESTO: ROLE_VER_TIPO_PUESTO
+        ROLE_CREAR_PUESTO: ROLE_VER_TIPO_PUESTO
         #permiso para crear departamentos
         ROLE_CREAR_DEPARTAMENTO: ROLE_VER_DEPARTAMENTO
         #permiso para editar horas
@@ -87,25 +89,33 @@ security:
         #permiso para editar clientes
         ROLE_EDITAR_CLIENTES: ROLE_CREAR_CLIENTES
         #permiso para editar tipo puesto
-        ROLE_EDITAR_TIPO_PUESTO: ROLE_CREAR_TIPO_PUESTO
+        ROLE_EDITAR_PUESTO: ROLE_CREAR_PUESTO
         #permiso para editar departamentos
         ROLE_EDITAR_DEPARTAMENTO: ROLE_CREAR_DEPARTAMENTO
-        #permiso para editar usuarios
-        ROLE_EDITAR_USUARIOS: ROLE_CREAR_USUARIOS
         #permiso para eliminar horas
         ROLE_ELIMINAR_HORAS: ROLE_EDITAR_HORAS
         #permiso para eliminar presupuestos
         ROLE_ELIMINAR_PRESUPUESTOS: ROLE_EDITAR_PRESUPUESTO
         #permiso para eliminar actividades
         ROLE_ELIMINAR_ACTIVIDADES: ROLE_EDITAR_ACTIVIDADES
-        #permiso para eliminar usuarios
-        ROLE_ELIMINAR_USUARIOS: ROLE_EDITAR_USUARIOS
         #permisio para eliminear clientes
         ROLE_ELIMINAR_CLIENTES: ROLE_EDITAR_CLIENTES
         #permiso para eliminar tipo puestos
-        ROLE_ELIMINAR_TIPO_PUESTO: ROLE_EDITAR_TIPO_PUESTO
+        ROLE_ELIMINAR_PUESTO: ROLE_EDITAR_PUESTO
         #permiso para eliminar departamentos
         ROLE_ELIMINAR_DEPARTAMENTO: ROLE_EDITAR_DEPARTAMENTO
         #permiso para tener acceso al panel de control.
-        ROLE_ADMIN:             [ROLE_ELIMINAR_CLIENTES, ROLE_ELIMINAR_USUARIOS, ROLE_ELIMINAR_ACTIVIDADES, ROLE_ELIMINAR_HORAS, ROLE_ELIMINAR_PRESUPUESTOS, ROLE_VER_CONSULTAS, ROLE_APROBACION_HORAS, ROLE_ELIMINAR_TIPO_PUESTO, ROLE_ELIMINAR_DEPARTAMENTO,ROLE_APROBACION_HORAS_AUTOMATICO]
+        ROLE_ADMIN:             
+            - ROLE_ELIMINAR_CLIENTES
+            - ROLE_ELIMINAR_USUARIOS
+            - ROLE_ELIMINAR_ACTIVIDADES
+            - ROLE_ELIMINAR_HORAS
+            - ROLE_ELIMINAR_PRESUPUESTOS
+            - ROLE_VER_CONSULTAS
+            - ROLE_APROBACION_HORAS
+            - ROLE_ELIMINAR_PUESTO
+            - ROLE_ELIMINAR_DEPARTAMENTO
+            - ROLE_APROBACION_HORAS_AUTOMATICO
+            - ROLE_ASIGNACION
+            - ROLE_GESTIONAR_USUARIOS
         ROLE_SUPER_ADMIN:       ROLE_ADMIN
