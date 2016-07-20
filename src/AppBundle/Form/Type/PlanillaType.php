@@ -33,7 +33,9 @@ class PlanillaType extends AbstractType
                 'choices_as_values' => true,
                 'label' => 'Escoja en que hoja de excel se encuentra la planilla',
             ])
-            ->add('submit', 'submit')
+            ->add('submit', 'submit', [
+                'label' => 'Guardar'
+            ])
 
         ;
     }

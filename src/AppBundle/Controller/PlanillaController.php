@@ -24,10 +24,10 @@ class PlanillaController extends Controller
 {
     /**
      * @Route("/excel", name ="planilla_excel")
+     * Método que valida planilla en formato excel
+     * @param Request $request 
      *
-     * @param Request $request [description]
-     *
-     * @return [type] [description]
+     * @return Response
      */
     public function recibirExcel(Request $request)
     {
@@ -64,138 +64,61 @@ class PlanillaController extends Controller
             foreach ($cellIterator as $cell) {
                 // $worksheet->setCellValueByColumnAndRow($column, $row + 1, $data);
                 $data = $cell->getValue();
-
-                if (strtolower($data) == 'codigo') {
-                    $etiquetas = true;
-                }
-                if (strtolower($data) == 'liquido') {
-                    $etiquetas = false;
-                }
-                  //validar etiquetas
-                if ($etiquetas === true && $data !== null) {
-                    if ($this->validarEtiquetas($data) === false) {
-                        $this->addFlash('error', 'Excel subido con formato inválido');
-                        $this->addFlash('error', 'La siguiente etiqueta no es válida');
-                        $this->addFlash('error', $data);
-
-                        return $this->render(
-                                'AppBundle:Planilla:newPlanilla.html.twig',
-                                [
-                                    'form' => $form->createView(),
-                                ]
-                            );
-                    }
-                }
-                //lógica
-                if ($etiquetas === false && $data !== null) {
-                    //codigo
-                    switch ($columna) {
-                        case 0:
-                            $usuario->setCodigo($data);
-                            break;
-                        case 1:
-                            $usuario->setDepartamento($data);
-                            break;
-                        case 2:
-                            $usuario->setApellido($data);
-                            break;
-                        case 3:
-                            $usuario->setApellido($usuario->getApellido().' '.$data);
-                            break;
-                        case 4:
-                            $usuario->setNombre();
-                            break;
-                        case 5:
-                            $usuario->setNombre($usuario->getNombre().' '.$data);
-                            break;
-                        case 6:
-                            $usuario->setBase($data);
-                            break;
-                        case 7:
-                            $usuario->setDias($data);
-                            break;
-                        case 8:
-                            $usuario->setBonificacion($data);
-                            break;
-                        case 9:
-                            $usuario->setOtraBonificacion($data);
-                            break;
-                        case 10:
-                            $usuario->setDepreciacion($data);
-                            break;
-                        case 11:
-                            $usuario->setGasolina($data);
-                            break;
-                        case 12:
-                            $usuario->setIngresos($data);
-                            break;
-                        case 13:
-                            $usuario->setIgss($data);
-                            break;
-                        case 14:
-                            $usuario->setAguinaldo($data);
-                            break;
-                        case 15:
-                            $usuario->setCorporacion($data);
-                            break;
-                        case 16:
-                            $usuario->setComcel($data);
-                            break;
-                        case 17:
-                            $usuario->setIsr($data);
-                            break;
-                        case 18:
-                            $usuario->setOtrosDescuentos($data);
-                            break;
-                        case 19:
-                            $usuario->setPrestaciones($data);
-                            break;
-                        case 20:
-                            $usuario->setValens1($data);
-                            break;
-                        case 21:
-                            $usuario->setValens2($data);
-                            break;
-                        case 22:
-                            $usuario->setValens3($data);
-                            break;
-                        case 23:
-                            $usuario->setLiquido($data);
-                            break;
-                    }
-                }
-                ++$columna;
+                $returnArray = $this->validarExcel($data, $usuario, $columna, $etiquetas);
+                $usuario = $returnArray[0];
+                $columna = $returnArray[1];
+               
             }
-            $usuarios[] = $usuario;
+            if ($usuario->getCodigo() !== null) {
+                $usuarios[] = $usuario;
+            }
         }
+        //Crear usuarios que no existen
         $this->crearUsuarios($usuarios);
     }
-
+    /**
+     * Método para crear los usuarios que no existen 
+     * o ingresar nuevos datos de prestaciones.
+     * @param  $usuarios ya pre-validados
+     * @return $usuarios con los valores
+     */
     private function crearUsuarios($usuarios)
     {
         foreach ($usuarios as $usuario) {
             $em = $this->getDoctrine()->getManager();
             //buscar usuario por código.
-            $usuarioTrabajador = $em->getRepository('UserBundle:UsuarioTrabajador')->findBy([
-                'codigo' => $usuario->getCodigo(),
-            ]);
+            $dbUsuario = $this->queryCodigoUsuario($usuario->getCodigo());
+            
+            //Si no existe el usuario
             if (is_null($dbUsuario)) {
+               
                 //hay que crear el usuario;
                 $usuarioTrabajador = new UsuarioTrabajador();
                 $usuarioTrabajador->setNombre($usuario->getNombre());
-                $usuarioTrabajador->setApellido($usuario->getApellido());
+                $usuarioTrabajador->setApellidos($usuario->getApellido());
                 $codigo = $em->getRepository('UserBundle:Codigo')->findBy([
                     'codigo' => $usuario->getCodigo(),
                 ]);
+                $codigo = $codigo[0];
                 if (is_null($codigo)) {
                     $codigo = new Codigo();
                     $codigo->setCodigo($usuario->getCodigo());
                     $codigo->setNombres($usuario->getNombre());
-                    $codigo->setApellidos($usuario->getApellido());
+                    $codigo->setApellido($usuario->getApellido());
                     $em->persist($codigo);
                     $em->flush();
                 }
+
                 $usuarioTrabajador->setCodigo($codigo);
+                $encoder = $this->container->get('security.password_encoder');
+                //encriptar contraseña.
+                $encoded = $encoder->encodePassword($usuarioTrabajador, 'smart-time');
+                $usuarioTrabajador->setPassword($encoded);
+                $username = str_replace(' ', '', strtolower($usuario->getApellido()));
+                $usuarioTrabajador->setUsername($username);
+                //puede generar probelmas de email unique
+                $usuarioTrabajador->setEmail($username.'@diazreyes.com');
+                $usuarioTrabajador->setUserImage('578ae8d025164_default-user-icon-profile.png'); 
                 $em->persist($usuarioTrabajador);
                 $em->flush();
             }
@@ -239,6 +162,137 @@ class PlanillaController extends Controller
         ];
 
         return $this->revisar_substring($primeraFila, strtolower($data));
+    }
+
+    /**
+     * Método para validar etiquetas del excel
+     * Y guardar los usuarios no existentes.
+     * @param   $data    valor de la celda.
+     * @param   $usuario 
+     * @param   $columna 
+     * @return  $usuario pre-creado     
+     */
+    private function validarExcel($data, $usuario, $columna, $etiquetas)
+    {
+        if (strtolower($data) == 'codigo') {
+            $etiquetas = true;
+        }
+        if (strtolower($data) == 'liquido') {
+            $etiquetas = false;
+        }
+          //validar etiquetas
+        if ($etiquetas === true && $data !== null) {
+            if ($this->validarEtiquetas($data) === false) {
+                $this->addFlash('error', 'Excel subido con formato inválido');
+                $this->addFlash('error', 'La siguiente etiqueta no es válida');
+                $this->addFlash('error', $data);
+
+                return $this->render(
+                        'AppBundle:Planilla:newPlanilla.html.twig',
+                        [
+                            'form' => $form->createView(),
+                        ]
+                    );
+            }
+        }
+        //lógica
+        if ($etiquetas === false && $data !== null) {
+            //codigo
+            
+            switch ($columna) {
+                case 0:
+                    $usuario->setCodigo($data);
+                    break;
+                case 1:
+                    $usuario->setDepartamento($data);
+                    break;
+                case 2:
+                    $usuario->setApellido($data);
+                    break;
+                case 3:
+                    $usuario->setApellido($usuario->getApellido().' '.$data);
+                    break;
+                case 4:
+                    $usuario->setNombre($data);
+                    break;
+                case 5:
+                    $usuario->setNombre($usuario->getNombre().' '.$data);
+                    break;
+                case 6:
+                    $usuario->setBase($data);
+                    break;
+                case 7:
+                    $usuario->setDias($data);
+                    break;
+                case 8:
+                    $usuario->setBonificacion($data);
+                    break;
+                case 9:
+                    $usuario->setOtraBonificacion($data);
+                    break;
+                case 10:
+                    $usuario->setDepreciacion($data);
+                    break;
+                case 11:
+                    $usuario->setGasolina($data);
+                    break;
+                case 12:
+                    $usuario->setIngresos($data);
+                    break;
+                case 13:
+                    $usuario->setIgss($data);
+                    break;
+                case 14:
+                    $usuario->setAguinaldo($data);
+                    break;
+                case 15:
+                    $usuario->setCorporacion($data);
+                    break;
+                case 16:
+                    $usuario->setComcel($data);
+                    break;
+                case 17:
+                    $usuario->setIsr($data);
+                    break;
+                case 18:
+                    $usuario->setOtrosDescuentos($data);
+                    break;
+                case 19:
+                    $usuario->setPrestaciones($data);
+                    break;
+                case 20:
+                    $usuario->setValens1($data);
+                    break;
+                case 21:
+                    $usuario->setValens2($data);
+                    break;
+                case 22:
+                    $usuario->setValens3($data);
+                    break;
+                case 23:
+                    $usuario->setLiquido($data);
+                    break;
+            }
+        }
+        ++$columna;
+
+        return [$usuario, $columna];
+    }
+
+    /**
+     * Query para retornar el usuario relacionado a un código
+     * @param  $codigo 
+     * @return $usuario
+     */
+    private function queryCodigoUsuario($codigo) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repositoryUsuario = $em->getRepository('UserBundle:UsuarioTrabajador');
+        $qb = $repositoryUsuario->createQueryBuilder('usuario')
+            ->leftJoin('usuario.codigo', 'code')
+            ->where('code.codigo = :codigoUsuario')
+            ->setParameter('codigoUsuario', $codigo);
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     private function revisar_substring($needle, $haystack)
