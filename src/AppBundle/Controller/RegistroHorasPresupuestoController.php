@@ -248,7 +248,7 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Deletes a RegistroHorasPresupuesto entity.
      *
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_ELIMINAR_HORAS')")
      * @Route("/{id}", name="horaspresupuesto_delete")
      * @Method("DELETE")
      */

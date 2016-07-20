@@ -37,7 +37,7 @@
             </tr>
         </tbody>
     </table>
-    {% if is_granted('ROLE_GERENTE') %}
+   
         <ul class="record_actions">
             {% if is_granted('ROLE_EDITAR_HORAS') %}
             <li>
@@ -51,5 +51,5 @@
             {% endif %}
 
         </ul>
-    {% endif %}
+ 
 {% endblock %}

@@ -23,7 +23,7 @@ class TipoPuestoController extends Controller
      * Lists all TipoPuesto entities.
      *
      * @Route("/", name="tipopuesto")
-     * @Security("is_granted('ROLE_VER_TIPO_PUESTO')") 
+     * @Security("is_granted('ROLE_VER_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:indexTipoPuesto.html.twig")
      */
     public function indexAction()
@@ -113,7 +113,7 @@ class TipoPuestoController extends Controller
      * Finds and displays a TipoPuesto entity.
      *
      * @Route("/{id}", name="tipopuesto_show")
-     * @Security("is_granted('ROLE_VER_TIPO_PUESTO')") 
+     * @Security("is_granted('ROLE_VER_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:showTipoPuesto.html.twig")
      */
     public function showAction($id)
@@ -138,7 +138,7 @@ class TipoPuestoController extends Controller
      * Displays a form to edit an existing TipoPuesto entity.
      *
      * @Route("/{id}/edit", name="tipopuesto_edit")
-     * @Security("is_granted('ROLE_EDITAR_TIPO_PUESTO')") 
+     * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
      *@Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function editAction($id)
@@ -194,7 +194,7 @@ class TipoPuestoController extends Controller
      *
      * @Route("/{id}/update", name="tipopuesto_update")
      * @Method("PUT")
-     * @Security("is_granted('ROLE_EDITAR_TIPO_PUESTO')") 
+     * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
      * @Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -229,7 +229,7 @@ class TipoPuestoController extends Controller
      *
      * @Route("/{id}/delete", name="tipopuesto_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_ELIMINAR_TIPO_PUESTO')") 
+     * @Security("is_granted('ROLE_ELIMINAR_PUESTO')") 
      */
     public function deleteAction(Request $request, $id)
     {
