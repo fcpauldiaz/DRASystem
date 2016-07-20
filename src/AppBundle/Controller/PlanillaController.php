@@ -25,7 +25,8 @@ class PlanillaController extends Controller
     /**
      * @Route("/excel", name ="planilla_excel")
      * Método que valida planilla en formato excel
-     * @param Request $request 
+     *
+     * @param Request $request
      *
      * @return Response
      */
@@ -67,7 +68,6 @@ class PlanillaController extends Controller
                 $returnArray = $this->validarExcel($data, $usuario, $columna, $etiquetas);
                 $usuario = $returnArray[0];
                 $columna = $returnArray[1];
-               
             }
             if ($usuario->getCodigo() !== null) {
                 $usuarios[] = $usuario;
@@ -79,7 +79,9 @@ class PlanillaController extends Controller
     /**
      * Método para crear los usuarios que no existen 
      * o ingresar nuevos datos de prestaciones.
+     *
      * @param  $usuarios ya pre-validados
+     *
      * @return $usuarios con los valores
      */
     private function crearUsuarios($usuarios)
@@ -88,10 +90,10 @@ class PlanillaController extends Controller
             $em = $this->getDoctrine()->getManager();
             //buscar usuario por código.
             $dbUsuario = $this->queryCodigoUsuario($usuario->getCodigo());
-            
+
             //Si no existe el usuario
             if (is_null($dbUsuario)) {
-               
+
                 //hay que crear el usuario;
                 $usuarioTrabajador = new UsuarioTrabajador();
                 $usuarioTrabajador->setNombre($usuario->getNombre());
@@ -118,7 +120,7 @@ class PlanillaController extends Controller
                 $usuarioTrabajador->setUsername($username);
                 //puede generar probelmas de email unique
                 $usuarioTrabajador->setEmail($username.'@diazreyes.com');
-                $usuarioTrabajador->setUserImage('578ae8d025164_default-user-icon-profile.png'); 
+                $usuarioTrabajador->setUserImage('578ae8d025164_default-user-icon-profile.png');
                 $em->persist($usuarioTrabajador);
                 $em->flush();
             }
@@ -167,10 +169,12 @@ class PlanillaController extends Controller
     /**
      * Método para validar etiquetas del excel
      * Y guardar los usuarios no existentes.
+     *
      * @param   $data    valor de la celda.
-     * @param   $usuario 
-     * @param   $columna 
-     * @return  $usuario pre-creado     
+     * @param   $usuario
+     * @param   $columna
+     *
+     * @return $usuario pre-creado     
      */
     private function validarExcel($data, $usuario, $columna, $etiquetas)
     {
@@ -198,7 +202,7 @@ class PlanillaController extends Controller
         //lógica
         if ($etiquetas === false && $data !== null) {
             //codigo
-            
+
             switch ($columna) {
                 case 0:
                     $usuario->setCodigo($data);
@@ -280,11 +284,13 @@ class PlanillaController extends Controller
     }
 
     /**
-     * Query para retornar el usuario relacionado a un código
+     * Query para retornar el usuario relacionado a un código.
+     *
      * @param  $codigo 
+     *
      * @return $usuario
      */
-    private function queryCodigoUsuario($codigo) 
+    private function queryCodigoUsuario($codigo)
     {
         $em = $this->getDoctrine()->getManager();
         $repositoryUsuario = $em->getRepository('UserBundle:UsuarioTrabajador');
@@ -292,6 +298,7 @@ class PlanillaController extends Controller
             ->leftJoin('usuario.codigo', 'code')
             ->where('code.codigo = :codigoUsuario')
             ->setParameter('codigoUsuario', $codigo);
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 

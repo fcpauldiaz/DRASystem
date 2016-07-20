@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use UserBundle\Entity\TipoPuesto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ConsultaAprobacionHorasType;
@@ -46,9 +45,8 @@ class SupervisorUsuariosController extends Controller
           }
 
         $usuarioActual = $this->getUser();
-       
+
         $usuarios = $usuarioActual->getMisUsuariosRelacionados();
-        
 
         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [

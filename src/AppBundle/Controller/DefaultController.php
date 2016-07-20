@@ -29,17 +29,17 @@ class DefaultController extends Controller
             ->select('COUNT(presupuesto.id)')
             ->innerJoin('presupuesto.usuario', 'usuario')
             ->where('usuario = :user')
-            ->setParameter('user',$usuarioActual);
+            ->setParameter('user', $usuarioActual);
 
         $repositoryCosto = $em->getRepository('CostoBundle:Costo');
         $queryCosto = $repositoryCosto->createQueryBuilder('costo')
             ->select('COUNT(costo.id)');
 
-
         $cantidadUsuarios = $queryUsuarios->getQuery()->getSingleScalarResult();
         $cantidadHoras = $queryHoras->getQuery()->getSingleScalarResult();
         $cantidadHorasPresupuestadas = $queryPresupuestos->getQuery()->getSingleScalarResult();
         $cantidadCostos = $queryCosto->getQuery()->getSingleScalarResult();
+
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             'cantidadUsuarios' => $cantidadUsuarios,

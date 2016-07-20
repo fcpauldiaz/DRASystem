@@ -130,7 +130,7 @@ class RegistrationSocioFormType extends AbstractType
         $usuario = $event->getData();
 
         $usuario->addRole('ROLE_ADMIN');
-        $usuario->setUserImage("578ae8d025164_default-user-icon-profile.png");
+        $usuario->setUserImage('578ae8d025164_default-user-icon-profile.png');
     }
 
     /**
@@ -164,4 +164,5 @@ class RegistrationSocioFormType extends AbstractType
                 ->atPath('socio_registration')
                 ->addViolation();
         }
-    }}
+    }
+}

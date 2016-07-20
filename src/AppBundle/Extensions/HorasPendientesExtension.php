@@ -1,19 +1,20 @@
 <?php
-namespace AppBundle\Extensions;
 
-use AppBundle\Extensions\HorasPendientes;
+namespace AppBundle\Extensions;
 
 class HorasPendientesExtension extends \Twig_Extension
 {
     protected $horasPendientes;
 
-    function __construct(HorasPendientes $horas) {
+    public function __construct(HorasPendientes $horas)
+    {
         $this->horasPendientes = $horas;
     }
 
-    public function getGlobals() {
+    public function getGlobals()
+    {
         return array(
-            'appstate' => $this->horasPendientes
+            'appstate' => $this->horasPendientes,
         );
     }
 
@@ -21,5 +22,4 @@ class HorasPendientesExtension extends \Twig_Extension
     {
         return 'appstate';
     }
-
 }

@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 class RegistoHorasEditType extends AbstractType
 {
     private $usuario;
@@ -25,7 +26,7 @@ class RegistoHorasEditType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccione el presupuesto asignado',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
@@ -48,7 +49,7 @@ class RegistoHorasEditType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccione el cliente',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
@@ -57,7 +58,7 @@ class RegistoHorasEditType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccione la actividad',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
             ])
             ->add('horasInvertidas', null, [
@@ -70,7 +71,7 @@ class RegistoHorasEditType extends AbstractType
                 'data' => $this->usuario,
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])

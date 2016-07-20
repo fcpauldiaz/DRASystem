@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Cliente controller.
+ *
  * @Security("is_granted('ROLE_USER')")
  * @Route("/cliente")
  */

@@ -21,7 +21,7 @@ class RegistroHorasActividadHorasType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccione la actividad',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
             ])
             ->add('horasInvertidas', 'number', [

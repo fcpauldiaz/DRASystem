@@ -107,8 +107,8 @@ class ProfileTrabajadorFormType extends AbstractType
                 'required' => false,
             ])
             ->add('imageFile', VichImageType::class, [
-                    'required'      => false,
-                    'allow_delete'  => true, // not mandatory, default is true
+                    'required' => false,
+                    'allow_delete' => true, // not mandatory, default is true
                     'download_link' => true, // not mandatory, default is true
             ])
             ->add('puestos')

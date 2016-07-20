@@ -48,7 +48,7 @@ class ProyectoPresupuestoType extends AbstractType
                 'class' => 'UserBundle:UsuarioSocio',
                 'multiple' => true,
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
@@ -63,7 +63,7 @@ class ProyectoPresupuestoType extends AbstractType
                         ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
                 },
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
@@ -81,7 +81,7 @@ class ProyectoPresupuestoType extends AbstractType
                     'attr' => [
                             'class' => 'select2',
                         ],
-                    
+
                 ])
         ;
     }

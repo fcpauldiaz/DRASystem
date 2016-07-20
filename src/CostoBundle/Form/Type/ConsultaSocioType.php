@@ -68,7 +68,7 @@ class ConsultaSocioType extends AbstractType
                 'label' => 'Socio/s asignados',
                 'class' => 'UserBundle:UsuarioSocio',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])

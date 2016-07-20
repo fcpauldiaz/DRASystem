@@ -39,7 +39,7 @@ class ConsultaPresupuestoType extends AbstractType
                     'label' => 'Escoja el método de filtro',
                     'required' => true,
                     'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])

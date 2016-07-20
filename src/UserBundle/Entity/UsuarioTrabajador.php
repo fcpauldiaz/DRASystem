@@ -377,7 +377,7 @@ class UsuarioTrabajador extends Usuario
                 .' '.
                 $this->getCodigo().' : '.$this->__toString();
         }
+
         return $this->getCodigo().' : '.$this->__toString();
-        
     }
 }

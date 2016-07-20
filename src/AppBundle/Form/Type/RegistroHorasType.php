@@ -26,8 +26,8 @@ class RegistroHorasType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccione el presupuesto asignado',
                 'attr' => [
-                    'class' => 'select2'
-                ]
+                    'class' => 'select2',
+                ],
 
             ])
              ->add('fechaHoras', 'date', [
@@ -49,7 +49,7 @@ class RegistroHorasType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccione el cliente',
                  'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
@@ -78,7 +78,7 @@ class RegistroHorasType extends AbstractType
                 ],
                 'label' => 'Horas realizadas por',
                  'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])

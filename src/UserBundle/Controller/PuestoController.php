@@ -166,7 +166,6 @@ class PuestoController extends Controller
      * @Route("/{id}", name="puesto_show_plain")
      * @Method("GET")
      * @Template("UserBundle:Puesto:showPuestoPlain.html.twig")
-     * 
      */
     public function showPlainAction($id)
     {
@@ -190,7 +189,6 @@ class PuestoController extends Controller
      * @Method("GET")
      * @Template("UserBundle:Puesto:editPuesto.html.twig")
      * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
-     * 
      */
     public function editAction($id)
     {

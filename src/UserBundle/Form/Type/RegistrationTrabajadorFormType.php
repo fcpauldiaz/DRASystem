@@ -152,8 +152,7 @@ class RegistrationTrabajadorFormType extends AbstractType
 
             ;
 
-
-            $builder->addEventListener(
+        $builder->addEventListener(
                 FormEvents::POST_SUBMIT,
                 [$this, 'onPostData']
             );
@@ -207,8 +206,8 @@ class RegistrationTrabajadorFormType extends AbstractType
         }
     }
 
-     /**
-     * Forma de setear imagen default
+    /**
+     * Forma de setear imagen default.
      *
      * @param FormEvent $event Evento después de mandar la información del formulario
      */
@@ -216,7 +215,6 @@ class RegistrationTrabajadorFormType extends AbstractType
     {
         $usuario = $event->getData();
         $form = $event->getForm();
-        $usuario->setUserImage("578ae8d025164_default-user-icon-profile.png");
-        
+        $usuario->setUserImage('578ae8d025164_default-user-icon-profile.png');
     }
 }

@@ -27,7 +27,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
@@ -35,7 +35,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])

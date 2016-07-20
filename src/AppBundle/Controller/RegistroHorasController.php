@@ -8,16 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\RegistroHoras;
-use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\Type\RegistroHorasType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Form\Type\RegistroHorasEditType;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * RegistroHoras controller.
@@ -147,10 +142,9 @@ class RegistroHorasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $actividades = $em->getRepository('AppBundle:Actividad')->findAll();
         $returnArray = [];
-        foreach($actividades as $actividad) {
+        foreach ($actividades as $actividad) {
             $returnArray[] = $actividad->__toString();
         }
-      
 
         return array(
             'entity' => $entity,

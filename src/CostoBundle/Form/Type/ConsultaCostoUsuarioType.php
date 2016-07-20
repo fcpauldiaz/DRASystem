@@ -67,7 +67,7 @@ class ConsultaCostoUsuarioType extends AbstractType
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'empty_value' => 'Escoja el usuario',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])

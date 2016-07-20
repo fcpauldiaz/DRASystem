@@ -39,10 +39,11 @@ class TipoPuesto
 
     /**
      * @ORM\Column(name="abreviatura", type="string", nullable=true)
+     *
      * @var [type]
      */
     private $abreviatura;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Permiso", inversedBy="tipoPuestos")
      * @ORM\JoinTable(name="permisos_por_tipo_puesto")
@@ -128,6 +129,7 @@ class TipoPuesto
     {
         $this->permisos[] = $permiso;
         $permiso->addTipoPuesto($this);
+
         return $this;
     }
 
@@ -153,7 +155,7 @@ class TipoPuesto
     }
 
     /**
-     * Set abreviatura
+     * Set abreviatura.
      *
      * @param string $abreviatura
      *
@@ -167,15 +169,16 @@ class TipoPuesto
     }
 
     /**
-     * Get abreviatura
+     * Get abreviatura.
      *
      * @return string
      */
     public function getAbreviatura()
     {
-        if ($this->abreviatura !== null ) {
+        if ($this->abreviatura !== null) {
             return $this->abreviatura;
         }
+
         return '';
     }
 }

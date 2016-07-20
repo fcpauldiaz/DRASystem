@@ -67,7 +67,7 @@ class ConsultaCostoClienteType extends AbstractType
                 'class' => 'AppBundle:Cliente',
                 'empty_value' => 'Escoja el cliente',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
 
             ])
