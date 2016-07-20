@@ -58,11 +58,9 @@ class ProyectoPresupuestoType extends AbstractType
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'multiple' => true,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('usuario')
-                        ->leftJoin('usuario.puestos', 'puesto')
-                        ->leftJoin('puesto.tipoPuesto', 'tipopuesto')
-                        ->where('tipopuesto.nombrePuesto LIKE :nombre')
-                        ->setParameter('nombre', '%Gerente%');
+                    return $er->createQueryBuilder('u')
+                        ->where('u.roles LIKE :roles')
+                        ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
                 },
                 'attr' => [
                     'class' => 'select2'

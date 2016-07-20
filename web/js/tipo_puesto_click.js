@@ -12,7 +12,7 @@ $(document).ready(function(){
 			checkboxSelected.iCheck('disable');
 		}
 	}
-		//se tiene que manejar un chedkbox para cada permiso
+	//se tiene que manejar un chedkbox para cada permiso
 	//permiso para crear clientes
 	$('#userbundle_tipopuesto_permisos_10').on('ifClicked', function(event){
 		disableCheckBox('8',$(this));

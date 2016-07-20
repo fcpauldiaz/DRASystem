@@ -37,7 +37,7 @@
                 {% for type, messages in app.session.flashbag.all() %}
                     {% for message in messages %}
                     <div class="flash-{{ type }}">
-                        <p style="border-bottom: 1px solid #ffffff; color: #ffffff ">{{ message }}</p>
+                        <p style="border-bottom: 1px solid #000; color: #000 ">{{ message }}</p>
                     </div>
                     {% endfor %}
                 {% endfor %}

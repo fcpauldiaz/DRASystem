@@ -205,27 +205,6 @@ abstract class Usuario extends BaseUser
         return $this->apiKey;
     }
 
-    public function getCodigoString()
-    {
-        if ($this->hasRole('ROLE_ASISTENTE')) {
-            return 'AS'.' '.$this->getCodigo().' : '.$this->__toString();
-        }
-        if ($this->hasRole('ROLE_ENCARGADO')) {
-            return 'EN'.' '.$this->getCodigo().' : '.$this->__toString();
-        }
-        if ($this->hasRole('ROLE_SUPERVISOR')) {
-            return 'SU'.' '.$this->getCodigo().' : '.$this->__toString();
-        }
-        if ($this->hasRole('ROLE_GERENTE')) {
-            return 'GE'.' '.$this->getCodigo().' : '.$this->__toString();
-        }
-        if ($this->hasRole('ROLE_SOCIO')) {
-            return 'SC'.' '.$this->getCodigo().' : '.$this->__toString();
-        }
-
-        return $this->__toString();
-    }
-
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;

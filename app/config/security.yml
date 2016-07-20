@@ -63,7 +63,7 @@ security:
         #permiso para ver consultas de costos
         ROLE_VER_CONSULTAS: ROLE_USER
         #permiso para ver los tipos de puestos
-        ROLE_VER_TIPO_PUESTO: ROLE_USER
+        ROLE_VER_PUESTO: ROLE_USER
         #permiso para ver los departamentos
         ROLE_VER_DEPARTAMENTO: ROLE_USER
         #permiso para crear clientes
@@ -77,7 +77,7 @@ security:
         #permiso para crear usuarios
         ROLE_GESTIONAR_USUARIOS: ROLE_USER
         #permiso para crear tipo puesto
-        ROLE_CREAR_PUESTO: ROLE_VER_TIPO_PUESTO
+        ROLE_CREAR_PUESTO: ROLE_VER_PUESTO
         #permiso para crear departamentos
         ROLE_CREAR_DEPARTAMENTO: ROLE_VER_DEPARTAMENTO
         #permiso para editar horas

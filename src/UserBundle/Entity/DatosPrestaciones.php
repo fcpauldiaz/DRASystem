@@ -143,7 +143,7 @@ class DatosPrestaciones
 
     public function __construct()
     {
-        $this->descuentos = new Doctrine\Common\Collections\ArrayCollection();
+        $this->descuentos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fecha = new \DateTime();
     }
 

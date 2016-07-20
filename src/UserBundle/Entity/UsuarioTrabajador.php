@@ -367,4 +367,17 @@ class UsuarioTrabajador extends Usuario
     {
         return $this->nombre.' '.$this->apellidos;
     }
+
+    public function getCodigoString()
+    {
+        if (!empty($this->getPuestoActual())) {
+            return $this->getPuestoActual()
+                ->getTipoPuesto()
+                ->getAbreviatura()
+                .' '.
+                $this->getCodigo().' : '.$this->__toString();
+        }
+        return $this->getCodigo().' : '.$this->__toString();
+        
+    }
 }

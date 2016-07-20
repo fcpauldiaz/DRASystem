@@ -236,7 +236,7 @@ class DatosPrestacionesController extends Controller
      *
      * @Route("/{id}", name="datosprestaciones_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_GERENTE')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {

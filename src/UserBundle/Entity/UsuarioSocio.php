@@ -73,4 +73,10 @@ class UsuarioSocio extends Usuario
     {
         return $this->nombre.' '.$this->apellidos;
     }
+    
+    public function getCodigoString()
+    {    
+        return $this->getCodigo().' : '.$this->__toString();
+        
+    }
 }
