@@ -116,6 +116,7 @@ class UsuarioPlanilla
      * @var string
      */
     private $liquido;
+    
 
     /**
      * Get id.

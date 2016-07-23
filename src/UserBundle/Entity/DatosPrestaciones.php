@@ -59,9 +59,9 @@ class DatosPrestaciones
     /**
      * @var float
      *
-     * @ORM\Column(name="cargos_indirectos", type="float", nullable=true)
+     * @ORM\Column(name="otras_prestaciones", type="float", nullable=true)
      */
-    private $cargosIndirectos;
+    private $otrasPrestaciones;
 
     /**
      * @var float
@@ -432,7 +432,7 @@ class DatosPrestaciones
                  $this->getBonificacionLey() +
                  $this->getGasolina() +
                  $this->getPrestacionesSobreSueldo() +
-                 $this->getCargosIndirectos() +
+                 $this->getOtrasPrestaciones() +
                  $this->getViaticos() +
                  $this->getOtros() +
                  $this->getIndemnizacion() +
@@ -589,5 +589,29 @@ class DatosPrestaciones
     public function getFecha()
     {
         return $this->fecha;
+    }
+
+    /**
+     * Set otrasPrestaciones
+     *
+     * @param float $otrasPrestaciones
+     *
+     * @return DatosPrestaciones
+     */
+    public function setOtrasPrestaciones($otrasPrestaciones)
+    {
+        $this->otrasPrestaciones = $otrasPrestaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get otrasPrestaciones
+     *
+     * @return float
+     */
+    public function getOtrasPrestaciones()
+    {
+        return $this->otrasPrestaciones;
     }
 }

@@ -13,32 +13,12 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $usuarioActual = $this->getUser();
-        $repositoryUsuarios = $em->getRepository('UserBundle:Usuario');
-        $queryUsuarios = $repositoryUsuarios->createQueryBuilder('usuario')
-            ->select('COUNT(usuario.id)');
-        $repositoryHoras = $em->getRepository('AppBundle:RegistroHoras');
-        $queryHoras = $repositoryHoras->createQueryBuilder('horas')
-            ->select('COUNT(horas.id)')
-            ->innerJoin('horas.ingresadoPor', 'autor')
-            ->where('autor = :usuario')
-            ->setParameter('usuario', $usuarioActual);
-        $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
-        $queryPresupuestos = $repositoryPresupuesto->createQueryBuilder('presupuesto')
-            ->select('COUNT(presupuesto.id)')
-            ->innerJoin('presupuesto.usuario', 'usuario')
-            ->where('usuario = :user')
-            ->setParameter('user', $usuarioActual);
-
-        $repositoryCosto = $em->getRepository('CostoBundle:Costo');
-        $queryCosto = $repositoryCosto->createQueryBuilder('costo')
-            ->select('COUNT(costo.id)');
-
-        $cantidadUsuarios = $queryUsuarios->getQuery()->getSingleScalarResult();
-        $cantidadHoras = $queryHoras->getQuery()->getSingleScalarResult();
-        $cantidadHorasPresupuestadas = $queryPresupuestos->getQuery()->getSingleScalarResult();
-        $cantidadCostos = $queryCosto->getQuery()->getSingleScalarResult();
+       
+       
+        $cantidadUsuarios = $this->queryUsuarios();
+        $cantidadHoras = $this->queryHorasIngresadas();
+        $cantidadHorasPresupuestadas = $this->queryHorasPresupuesto();
+        $cantidadCostos = $this->queryCosto();
 
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
@@ -48,4 +28,69 @@ class DefaultController extends Controller
             'cantidadCostos' => $cantidadCostos,
         ));
     }
+    /**
+     * Query que devuelve la cantidad de costos guardados del usuairo actual
+     * @return 
+     */
+    private function queryCosto()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuarioActual = $this->getUser();
+        $repositoryCosto = $em->getRepository('CostoBundle:Costo');
+        $queryCosto = $repositoryCosto->createQueryBuilder('costo')
+            ->select('COUNT(costo.id)')
+            ->where('costo.usuario = :usuarioActual')
+            ->setParameter('usuarioActual', $usuarioActual);
+        return $queryCosto->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Query que devuelve las horas del presupuesto.
+     * @return float or null.
+     */
+    private function queryHorasPresupuesto() 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuarioActual = $this->getUser();
+         $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
+        $queryPresupuestos = $repositoryPresupuesto->createQueryBuilder('presupuesto')
+            ->select('COUNT(presupuesto.id)')
+            ->innerJoin('presupuesto.usuario', 'usuario')
+            ->where('usuario = :user')
+            ->setParameter('user', $usuarioActual);
+        return $queryPresupuestos->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Query que devuelve la cantidad de hoas ingresadas por el usuario logueado.
+     * @return float or null
+     */
+    private function queryHorasIngresadas()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuarioActual = $this->getUser();
+        $repositoryHoras = $em->getRepository('AppBundle:RegistroHoras');
+        $queryHoras = $repositoryHoras->createQueryBuilder('horas')
+            ->select('COUNT(horas.id)')
+            ->innerJoin('horas.ingresadoPor', 'autor')
+            ->where('autor = :usuario')
+            ->setParameter('usuario', $usuarioActual);
+
+        return $queryHoras->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Query que devuelve la cantidad de usuarios actuales en el sistema
+     * @return Integer or NULL.
+     */
+    private function queryUsuarios()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repositoryUsuarios = $em->getRepository('UserBundle:Usuario');
+        $queryUsuarios = $repositoryUsuarios->createQueryBuilder('usuario')
+            ->select('COUNT(usuario.id)');
+
+        return $queryUsuarios->getQuery()->getSingleScalarResult();
+    }
+
 }
