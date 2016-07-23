@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d6c068d85a25ee7f430ad1ef3c25f10e",
-    "content-hash": "7eaa299f0f2f21de389802530b03d536",
+    "hash": "b4e51bfcf626bd62d414a8a401a37f95",
+    "content-hash": "d03f16fc45d11d4320d711b0edcada0c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2461,16 +2461,16 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "7e9aa662b8405d6ee09844f66d7f32596902b538"
+                "reference": "510c1e5065c45e4318ddf86faafeda9f69e33014"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/7e9aa662b8405d6ee09844f66d7f32596902b538",
-                "reference": "7e9aa662b8405d6ee09844f66d7f32596902b538",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/510c1e5065c45e4318ddf86faafeda9f69e33014",
+                "reference": "510c1e5065c45e4318ddf86faafeda9f69e33014",
                 "shasum": ""
             },
             "require": {
@@ -2478,8 +2478,8 @@
                 "php": "~7.0"
             },
             "require-dev": {
-                "composer/composer": "^1.0.0-ALPHA11@ALPHA",
-                "phpunit/phpunit": "^5.2.8"
+                "composer/composer": "^1.2.0",
+                "phpunit/phpunit": "^5.4.7"
             },
             "type": "composer-plugin",
             "extra": {
@@ -2491,7 +2491,10 @@
             "autoload": {
                 "psr-4": {
                     "PackageVersions\\": "src/PackageVersions"
-                }
+                },
+                "files": [
+                    "src/PackageVersions/Versions.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2504,7 +2507,7 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2016-04-23 17:52:40"
+            "time": "2016-07-22 14:47:43"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -6369,7 +6372,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.0, <7.0.7"
+        "php": ">=5.5.0"
     },
     "platform-dev": []
 }
