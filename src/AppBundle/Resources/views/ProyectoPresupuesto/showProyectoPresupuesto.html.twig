@@ -1,7 +1,21 @@
 {% extends '::base.html.twig' %}
 
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+       <li><a href="{{path('proyectopresupuesto')}}"><i class="fa fa-link"></i>Listado Presupuestos</a></li>
+    <li class="active"></i>Mostrar presupuesto</li>
+{% endblock %}
+
+{% block title %}
+    Mostrar Presupuesto
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('js/confirm-dialog.js')}}"></script>
+{% endblock %}
+
 {% block body %}
-    <h1>ProyectoPresupuesto</h1>
+    <h1>Proyecto Presupuesto</h1>
 
     <table class="table table-striped table-hover">
         <tbody>
@@ -49,7 +63,8 @@
             </li>
             {% endif %}
             {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
-                <li>{{ form(delete_form) }}</li>
+                <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button> </li>
+                {{ form(delete_form) }}
             {% endif %}
         </ul>
    

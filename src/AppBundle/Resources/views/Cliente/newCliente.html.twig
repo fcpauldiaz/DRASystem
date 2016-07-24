@@ -1,6 +1,14 @@
 {% extends '::base.html.twig' %}
 
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+     <li><a href="{{path('cliente')}}"><i class="fa fa-link"></i>Listado clientes</a></li>
+    <li class="active"></i>Nuevo cliente</li>
+{% endblock %}
 
+{% block title %}
+    Nuevo Cliente
+{% endblock %}
 
 {% block body -%}
 

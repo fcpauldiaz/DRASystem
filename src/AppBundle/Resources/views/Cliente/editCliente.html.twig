@@ -1,7 +1,19 @@
 {% extends '::base.html.twig' %}
+
 {% block javascripts %}
    <script src="{{asset('js/confirm-dialog.js')}}"></script>
 {% endblock %}
+
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+       <li><a href="{{path('cliente')}}"><i class="fa fa-link"></i>Lista clientes</a></li>
+    <li class="active">Editar Cliente</li>
+{% endblock %}
+
+{% block title %}
+    Editar Cliente
+{% endblock %}
+
 {% block body -%}
     <h1>Editar Cliente</h1>
 

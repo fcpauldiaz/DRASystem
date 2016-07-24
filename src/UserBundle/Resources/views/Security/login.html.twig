@@ -15,7 +15,7 @@
 
     <form  action="{{ path("fos_user_security_check") }}"  method="post">
       {% if error %}
-            <div style="color: #ffffff">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div style="color: #000">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
       {% endif %}
        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
       <div class="form-group has-feedback">

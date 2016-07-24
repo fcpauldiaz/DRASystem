@@ -1,4 +1,11 @@
 {% extends '::base.html.twig' %}
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+    <li class="active">Aquí</li>
+{% endblock %}
 {% block body %}
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
@@ -7,101 +14,94 @@
         <p>Sistema web de Díaz Reyes &amp; Asociados interna para el control de las horas.</p>
     </div>
 </div>
-<!--row begin-->
-<div class="row">
+   <div class="row">
     <!--empieza row para usuarios -->
-     {% if is_granted('ROLE_GESTIONAR_USUARIOS') %}
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-besh">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-users fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{cantidadUsuarios}}</div>
-                        <div>Usuarios</div>
-                    </div>
-                </div>
-            </div>
-            <a href="{{ path('trabajador_registration') }}">
-                <div class="panel-footer">
+    {% if is_granted('ROLE_GESTIONAR_USUARIOS') %}
+        <a href="{{ path('trabajador_registration') }}">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Usuarios sistema</span>
+                  <span class="info-box-number">{{cantidadUsuarios}}</span>
+                <div>
                     <span class="pull-left">Crear Usuarios</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
-            </a>
-        </div>
-    </div>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+        </a>
     {% endif %}
     <!--termina row usuarios y empieza horas -->
-    {% if is_granted('ROLE_CREAR_HORAS') %}
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-yellow">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-clock-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{cantidadHoras}}</div>
-                        <div>Horas ingresadas</div>
-                    </div>
-                </div>
-            </div>
-            <a href="{{ path('registrohoras_new')}}">
-                <div class="panel-footer">
-                    <span class="pull-left">Ingresar</span>
+        <!-- /.col -->
+     {% if is_granted('ROLE_CREAR_HORAS') %}
+         <a href="{{ path('registrohoras_new')}}">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-clock-o"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Horas Ingresadas</span>
+                  <span class="info-box-number">{{cantidadHoras}}</span>
+                <div>
+                    <span class="pull-left">Ingresar horas</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
-            </a>
-        </div>
-    </div>
-    {% endif %}
-    <!-- termina horas y empieza presupuestos -->
-    {% if is_granted('ROLE_CREAR_PRESUPUESTOS') %}
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-briefcase fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{cantidadHorasPresupuestadas}}</div>
-                        <div>Cantidad de horas presupuestadas</div>
-                    </div>
                 </div>
+               
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
             </div>
-            <a href="{{ path('proyectopresupuesto')}}">
-                <div class="panel-footer">
+        </a>
+        <!-- /.col -->
+    {% endif %}
+        <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+     <!-- termina horas y empieza presupuestos -->
+    {% if is_granted('ROLE_CREAR_PRESUPUESTOS') %}
+        <a href="{{ path('proyectopresupuesto')}}">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-briefcase"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Horas presupuestadas</span>
+                  <span class="info-box-number">{{cantidadHorasPresupuestadas}}</span>
+
+                <div>
                     <span class="pull-left">Ver detalles</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
-            </a>
-        </div>
-    </div>
+                </div>
+                <!-- /.info-box-content -->
+               
+              </div>
+              <!-- /.info-box -->
+            </div>
+        </a>
+
+    <!-- /.col -->
     {% endif %}
     <!--termina presupuestos y empieza consultas -->
     {% if is_granted('ROLE_VER_CONSULTAS') %}
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-red">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-database fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">{{cantidadCostos}}</div>
-                        <div>Costos guardados</div>
-                    </div>
-                </div>
-            </div>
-            <div class="dropup">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-database"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Costos guardados</span>
+              <span class="info-box-number">{{cantidadCostos}}</span>
+                <div class="dropup">
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                <div class="panel-footer">
+                <div class="">
                     <span class="pull-left">Realizar consultas</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-up"></i></span>
                     <div class="clearfix"></div>
@@ -114,15 +114,18 @@
                     <li><a href="{{ path('consulta_socio')}}">Costos por Socio</a></li>
                 </ul>
             </div>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
         </div>
-    </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
     {% endif %}
-    <!--termina consultas -->
-</div>
-<!-- /.row -->
-<br>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 {% endblock %}

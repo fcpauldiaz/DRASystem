@@ -1,5 +1,9 @@
 {% extends '::base.html.twig' %}
-
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+     <li><a href="{{path('registrohoras')}}"><i class="fa fa-link"></i>Listado Registro Horas</a></li>
+    <li class="active"></i>Nuevo Registro</li>
+{% endblock %}
 {% block javascripts %}
       <script>
         $(document).ready(function() { 

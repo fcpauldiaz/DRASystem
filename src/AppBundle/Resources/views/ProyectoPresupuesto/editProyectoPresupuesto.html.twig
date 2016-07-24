@@ -1,6 +1,17 @@
 {% extends '::base.html.twig' %}
+
 {% block javascripts %}
     <script src="{{asset('js/confirm-dialog.js')}}"></script>
+{% endblock %}
+
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+     <li><a href="{{path('proyectopresupuesto')}}"><i class="fa fa-link"></i>Listado Presupuestos</a></li>
+    <li class="active"></i>Editar Presupuesto</li>
+{% endblock %}
+
+{% block title %}
+    Editar Presupuesto
 {% endblock %}
 
 {% block body -%}

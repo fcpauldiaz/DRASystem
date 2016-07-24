@@ -1,5 +1,15 @@
 {% extends '::base.html.twig' %}
 
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+     <li><a href="{{path('actividad')}}"><i class="fa fa-link"></i>Lista Actividades</a></li>
+    <li class="active">Editar Actividad</li>
+{% endblock %}
+
+{% block title %}
+    Editar Actividad
+{% endblock %}
+
 {% block body -%}
     <h1>Editar Actividad</h1>
 

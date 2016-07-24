@@ -193,8 +193,8 @@ module.exports = function (grunt) {
               'web/js/tab_register.min.js',
               'web/js/alertify.min.js',
               'web/js/bc-bootstrap-collection.min.js',
-              'web/js/select2.min.js',
               'web/js/jquery.initialize.min.js',
+              'web/js/select2.min.js',
               'web/js/dashboard.min.js'
 
           ],

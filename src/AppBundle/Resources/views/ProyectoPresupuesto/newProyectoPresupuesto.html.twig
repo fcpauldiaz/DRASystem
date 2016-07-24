@@ -1,5 +1,15 @@
 {% extends '::base.html.twig' %}
 
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+    <li><a href="{{path('proyectopresupuesto')}}"><i class="fa fa-link"></i>Listado presupuestos</a></li>
+    <li class="active"></i>Nuevo Presupuesto</li>
+{% endblock %}
+
+{% block title %}
+    Nuevo Presupuesto
+{% endblock %}
+
 {% block body -%}
     <h1>Crear nuevo Proyecto Presupuesto</h1>
 
