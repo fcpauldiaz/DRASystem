@@ -16,7 +16,6 @@
             <tr>
                 <th>Actividad</th>
                 <th>Usuario</th>
-                <th>Puesto</th>
                 <th>Cliente</th>
                 <th>Fecha de las horas invertidas</th>
                 <th>Fecha de ingreso</th>
@@ -34,7 +33,6 @@
             <tr>
                 <td>{{registro.actividad}}</td>
                 <td>{{registro.ingresadoPor}}</td>
-                <td>{{registro.ingresadoPor.getPuestoActual()}}</td>
                 <td>{{registro.cliente}}</td>
                 <td>{{registro.fechaHoras|date('d-m-Y')}}</td>
                 <td>{{registro.fechaCreacion|date('d-m-Y')}}</td>
@@ -59,12 +57,19 @@
                 <td> </td>
                 <td> </td>
                 <td> </td>
-                <td> </td>
+                {% set costo = sum_array(costoReal) %}
+
                 <td> 
                     <b>
-                        <font color="#000000"> 
+                        {% if costo < 0 %}
+                        <font color="#c0392b"> 
                             Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
                         </font>
+                        {% else %}
+                         <font color="#00000"> 
+                            Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                        </font>
+                        {% endif %}
                     </b>
                 </td>
                 
