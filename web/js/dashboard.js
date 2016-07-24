@@ -6,6 +6,19 @@ $(document).ready(function(){
 		$('#body').removeClass();
 		$('#body').addClass('hold-transition skin-'+color+' sidebar-mini');
 	}
+	var menuCollapsed = localStorage.getItem('estado-menu');
+	if (menuCollapsed !== null && menuCollapsed != "null" ) {
+		$('body').addClass('sidebar-collapse');
+	}
+
+	$('.sidebar-toggle').on('click', function() {
+		if ($('body').hasClass('sidebar-collapse')) {
+			localStorage.setItem('estado-menu', null)
+		}
+		else {
+			localStorage.setItem('estado-menu', true);
+		}
+	});
 
 	$('#dash-blue').on('click', function(){
 		$('#body').removeClass();

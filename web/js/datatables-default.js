@@ -10,6 +10,7 @@
     lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "Todo"]],
     colReorder: true,
     dom: 'Blfrtip',
+    responsive: true,
     buttons: [
     {
         extend: 'copy',
