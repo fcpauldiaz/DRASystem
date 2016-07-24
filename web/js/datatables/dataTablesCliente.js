@@ -1,5 +1,5 @@
  $(function(){
-  $("table").colResizable();
+  //$("table").colResizable();
   var table = $('table').dataTable( {
                     bDestroy : true,
                     columnDefs: [

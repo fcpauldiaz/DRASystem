@@ -39,6 +39,6 @@
     
     ],
     language: {
-        "url": "{{ asset('Json/Spanish.json')}}"
+        "url": "/Json/Spanish.json"
     }
 } );

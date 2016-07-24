@@ -125,7 +125,25 @@ class PlanillaController extends Controller
                 $em->flush();
             }
             //ahora los datos de las prestaciones
-            $datosPrestaciones = new DatosPrestaciones();
+            $prestaciones = new DatosPrestaciones();
+            $prestaciones->setSueldo(
+                $usuario->getBase()
+            )
+            ->setBonificacionIncentivo(
+                $usuario->getBonificacion()
+            )
+            ->setOtraBonificacion(
+                $usuario->getOtraBonificacion()
+            )
+            ->setGasolina(
+                $usuario->getGasolina()
+            )
+            ->setOtrasPrestaciones(
+                $usuario->getCorporacion()
+            )
+            //falta ver que se hace con 
+            //corporacion y comcel
+            ;
         }
     }
     /**
@@ -177,10 +195,12 @@ class PlanillaController extends Controller
      * @return $usuario pre-creado     
      */
     private function validarExcel($data, $usuario, $columna, $etiquetas)
-    {
+    {    
+        //condición para la primera columna
         if (strtolower($data) == 'codigo') {
             $etiquetas = true;
         }
+        //condición para la última columna
         if (strtolower($data) == 'liquido') {
             $etiquetas = false;
         }
