@@ -25,12 +25,14 @@
     	{{form_row(form.nombrePuesto) }}
     	{{form_row(form.descripcion) }}
     	
-
-      <div class="row">
+    {% set array_length = (form.permisos.vars.choices) | length %}
+    {% set middle = (array_length / 2) |round(0, 'ceil') %}
+    <h2>Permisos</h2>
+    <div class="row">
         <div class="col-sm-6 col-md-6">
           <div class="form-group">
-                <h2>Permisos</h2>
-                 {% for i in 1..15 %}
+                
+                  {% for i in 1..middle %}
                   {{ form_row(form.permisos[i]) }}
                 {% endfor %}
 
@@ -40,7 +42,7 @@
         <div class="col-sm-6 col-md-6">
           <div class="form-group">
               <h2>Permisos</h2>
-               {% for i in 15..30 %}
+              {% for i in middle..array_length %}
                   {{ form_row(form.permisos[i]) }}
                 {% endfor %}
           </div>

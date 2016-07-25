@@ -371,6 +371,8 @@
         {% endblock javascriptDataTables %}
         
         <script type="text/javascript">
+        var javaQuery = window.matchMedia( "(max-width: 450px)" );
+        if (!javaQuery.matches) {
             (function(){
                 $("select").initialize( function(){
                      $("select.select2").select2({
@@ -378,6 +380,7 @@
                      });
                 });          
             })();
+        }
         </script>
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
