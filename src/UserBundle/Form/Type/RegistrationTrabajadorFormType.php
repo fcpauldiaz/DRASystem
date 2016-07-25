@@ -133,14 +133,9 @@ class RegistrationTrabajadorFormType extends AbstractType
                  'multiple' => true,
                  'required' => false,
                  'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('user')
-                        ->select('usuario', 'socio')
-                        ->from('UserBundle:UsuarioTrabajador', 'usuario')
-                        ->from('UserBundle:UsuarioSocio', 'socio')
-                        ->leftJoin('usuario.puestos', 'puesto')
-                        ->leftJoin('puesto.tipoPuesto', 'tipopuesto')
-                        ->where('tipopuesto.nombrePuesto LIKE :nombre')
-                        ->setParameter('nombre', '%Gerente%');
+                    return $er->createQueryBuilder('u')
+                        ->where('u.roles LIKE :roles')
+                        ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
                 },
                 ])
             ->add('submit', 'submit', [

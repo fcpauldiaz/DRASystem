@@ -70,25 +70,23 @@ class PuestoController extends Controller
         $entity = new Puesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $entity->setUsuario($usuario);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+           
             $data = $form->getData();
             foreach ($usuario->getRoles() as $role) {
                 $usuario->removeRole($role);
             }
+           
             $tipoPuesto = $data->getTipoPuesto();
             $permisos = $tipoPuesto->getPermisos();
             foreach ($permisos as $permiso) {
                 $usuario->addRole($permiso->getPermiso());
             }
-
+            $em->persist($entity);
             $em->persist($usuario);
             $em->flush();
-
             //return new JsonResponse([$key,$value]);
 
             return $this->forward('UserBundle:DatosPrestaciones:new');
@@ -109,7 +107,7 @@ class PuestoController extends Controller
      */
     private function createCreateForm(Puesto $entity)
     {
-        $form = $this->createForm(new PuestoType(), $entity, array(
+        $form = $this->createForm(new PuestoType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('puesto_create'),
             'method' => 'POST',
         ));
@@ -217,7 +215,7 @@ class PuestoController extends Controller
      */
     private function createEditForm(Puesto $entity)
     {
-        $form = $this->createForm(new PuestoType(), $entity, array(
+        $form = $this->createForm(new PuestoType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('puesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
