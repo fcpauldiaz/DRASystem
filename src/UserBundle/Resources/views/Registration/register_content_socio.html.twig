@@ -1,68 +1,56 @@
 <div class="col-md-1"></div>
 <div class="container">
-  <div class="col-md-11">
-    <section>
-        <div class="wizard">
-           
-              {{ form_start(form, {'action' : path('socio_registration') } )}}
-            
-                         
-                          <h2>Registro Socio</h2>
-                          <hr class="colorgraph">
-                          {# mostrar errores del primer tab #}
-
-                          <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab1" data-fade="3000"></div>
-
-                          {# termina div para mostrar errores primer tab #}
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                      {{form_row(form.nombre)}}
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                  {{form_row(form.apellidos)}}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                                {{form_row(form.username)}}
-                          </div>
-                         <div class="row">
-                              <div class="form-group">
-                                      {{form_row(form.email)}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                    {{form_row(form.plainPassword.first)}}
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                  {{form_row(form.plainPassword.second)}}
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                              <div class="form-group">
-                                    {{form_row(form.codigo)}}
-                              </div>
-                            </div>
-                           
-                          </div>
-                          
-                          <hr class="colorgraph">
-                          
-                      
-                        {{ form_row(form.submit)}}
-                 
-            {{ form_end(form)}}
-        </div>
-    </section>
-   </div>
+    <div class="col-md-11">
+        <section>
+            <div class="wizard">
+                {{ form_start(form, {'action' : path('socio_registration') } )}}
+                <h2>Registro Socio</h2>
+                <hr class="colorgraph">
+                {# mostrar errores del primer tab #}
+                <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="tab1" data-fade="3000"></div>
+                {# termina div para mostrar errores primer tab #}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            {{form_row(form.nombre)}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            {{form_row(form.apellidos)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{form_row(form.username)}}
+                </div>
+                <div class="form-group">
+                    {{form_row(form.email)}}
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            {{form_row(form.plainPassword.first)}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            {{form_row(form.plainPassword.second)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            {{form_row(form.codigo)}}
+                        </div>
+                    </div>
+                </div>
+                <hr class="colorgraph">
+                {{ form_row(form.submit)}}
+                {{ form_end(form)}}
+            </div>
+        </section>
+    </div>
 </div>
 <div class="col-md-2"></div>

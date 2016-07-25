@@ -5,6 +5,9 @@ namespace UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class CodigoType extends AbstractType
 {
@@ -17,6 +20,9 @@ class CodigoType extends AbstractType
         $builder
             ->add('codigo', null, [
                 'label' => 'Código',
+                'constraints' => [
+                    new Callback([$this, 'validarCodigo'])
+                ]
             ])
             ->add('nombres')
             ->add('apellidos')
@@ -39,5 +45,18 @@ class CodigoType extends AbstractType
     public function getName()
     {
         return 'userbundle_codigo';
+    }
+
+    public function validarCodigo($codigo, ExecutionContextInterface $context)
+    {
+        if (strpos($codigo, 'ML') == false
+            && strpos($codigo, 'AUD') == false
+            && strpos($codigo, 'OD') == false
+            && strpos($codigo, 'DM') == false
+            ) {
+            $context->buildViolation('El código debe de tener AUD, OD, DM, o ML')
+                ->atPath('fos_user_register')
+                ->addViolation();
+        }
     }
 }

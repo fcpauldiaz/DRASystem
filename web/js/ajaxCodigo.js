@@ -37,7 +37,7 @@ function ajaxCodigo()
            
             $("#userbundle_codigo_codigo").val('');
             $("#userbundle_codigo_nombres").val('');
-             $("#userbundle_codigo_apellidos").val('');
+            $("#userbundle_codigo_apellidos").val('');
 
             $('#modalCodigo').modal('hide');
             
@@ -72,7 +72,7 @@ function ajaxCodigo()
            
             
              $(document).trigger("add-alerts", {
-              message: (jqXHR.responseJSON.error).substring(16),
+              message: (jqXHR.responseJSON.error),
               priority: "error"
             });
 

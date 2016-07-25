@@ -167,20 +167,20 @@
           </li>#}
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
+            {% if app.user %}
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              {#<img src="{{ vich_uploader_asset(app.user.userImage, 'userImage') }}" class="user-image" alt="User Image">#}
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              {% if app.user %}
+             <img src="{{ vich_uploader_asset(app.user, 'imageFile', 'UserBundle\\Entity\\Usuario') }}"  height="25" width="25" class="img-circle" alt="User Image">
+              <!-- hidden-xs hides the username on small devices so only the image appears. --> 
               <span class="hidden-xs">{{ app.user.nombre}} {{app.user.apellidos}}</span>
-              {% endif %}
             </a>
+            {% endif %}
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
                 {% if app.user %}
-                  <img src="{{ vich_uploader_asset(app.user, 'imageFile', 'UserBundle\\Entity\\Usuario') }}" class="img-circle" alt="User Image">
+                  <img src="{{ vich_uploader_asset(app.user, 'imageFile', 'UserBundle\\Entity\\Usuario') }}"  height="160" width="160" class="img-circle" alt="User Image">
                 {% endif %}
 
                 <p>
