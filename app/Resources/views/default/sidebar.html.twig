@@ -3,7 +3,7 @@
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
+    {% if app.user %}
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
@@ -16,7 +16,7 @@
           <!-- Status -->
         </div>
       </div>
-
+    {% endif %}
       <!-- search form (Optional) -->
       {#<form action="#" method="get" class="sidebar-form">
         <div class="input-group">
@@ -57,10 +57,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-             {% if is_granted('ROLE_CREAR_PRESUPUESTOS')%}
+             {% if is_granted('ROLE_CREAR_PRESUPUESTOS') and app.user %}
                 <li><a href="{{ path('proyectopresupuesto_new')}}">Crear proyecto presupuesto</a></li>
             {% endif %}
-            {% if is_granted('ROLE_CREAR_PRESUPUESTOS')%}
+            {% if is_granted('ROLE_CREAR_PRESUPUESTOS') and app.user %}
                 <li><a href="{{ path('proyectopresupuesto')}}">Ver proyectos presupuesto</a></li>
             {% endif %}
           </ul>
@@ -73,16 +73,16 @@
             </span>
           </a>
           <ul class="treeview-menu">
-             {% if is_granted('ROLE_CREAR_ACTIVIDADES') %}
+             {% if is_granted('ROLE_CREAR_ACTIVIDADES') and app.user %}
                <li><a href="{{ path('actividad_new')}}">Crear Nueva Actividad</a></li>
             {% endif %}
-            {% if is_granted('ROLE_VER_ACTIVIDADES') %}
+            {% if is_granted('ROLE_VER_ACTIVIDADES') and app.user %}
                <li><a href="{{ path('actividad')}}">Ver Actividades</a></li>
             {% endif %}
           </ul>
         </li>
         <!--Consultas-->
-         {% if is_granted('ROLE_VER_CONSULTAS') %}
+         {% if is_granted('ROLE_VER_CONSULTAS') app.user %}
           <li class="treeview">
           <a href="#"><i class="fa fa-database"></i> <span>Consultas</span>
             <span class="pull-right-container">
@@ -106,7 +106,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-                {% if is_granted('ROLE_CREAR_DEPARTAMENTO')%}
+                {% if is_granted('ROLE_CREAR_DEPARTAMENTO') app.user %}
                   <li><a href="{{path('departamento_new')}}">Crear Departamento</a></li>
                 {% endif %}
              {% if is_granted('ROLE_VER_DEPARTAMENTO')%}
@@ -122,10 +122,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-              {% if is_granted('ROLE_CREAR_CLIENTES') %}
+              {% if is_granted('ROLE_CREAR_CLIENTES') app.user %}
                 <li><a href="{{ path('cliente_new')}}">Crear cliente</a></li>
             {% endif %}
-              {% if is_granted('ROLE_VER_CLIENTES') %}
+              {% if is_granted('ROLE_VER_CLIENTES') app.user %}
                 <li><a href="{{ path('cliente')}}">Ver clientes</a></li>
             {% endif %}
           </ul>
@@ -138,11 +138,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            {% if is_granted('ROLE_VER_PUESTO') %}
+            {% if is_granted('ROLE_VER_PUESTO') app.user %}
               <li><a href="{{path('tipopuesto')}}">Tipo Puesto</a></li>
               <li><a href="{{path('puesto')}}">Puestos</a></li>
             {% endif %}
-             {% if is_granted('ROLE_CREAR_PUESTO') %}
+             {% if is_granted('ROLE_CREAR_PUESTO') app.user %}
               <li><a href="{{path('tipopuesto_new_post')}}">Crear Tipo Puesto</a></li>
               <li><a href="{{path('puesto_new')}}">Crear Puesto</a></li>
             {% endif %}

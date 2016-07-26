@@ -36,3 +36,6 @@ monolog:
             to_email:   'log@newtonlabs.com.gt'
             subject:    An Error Occurred On DRA!
             level:      debug
+            formatter:  monolog.formatter.html
+            content_type: text/html
+

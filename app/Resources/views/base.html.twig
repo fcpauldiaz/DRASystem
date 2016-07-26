@@ -101,7 +101,7 @@
           <!-- /.messages-menu -->
           #}
           <!-- solo los usuarios con permiso pueden utilizar esta opción -->
-          {% if is_granted('ROLE_APROBACION_HORAS') %}
+          {% if is_granted('ROLE_APROBACION_HORAS') and app.user %}
           <!-- Notifications Menu -->
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
