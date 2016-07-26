@@ -225,8 +225,9 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
+  {% if app.user %}
   {% include 'default/sidebar.html.twig' %}
-
+  {% endif %}
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->

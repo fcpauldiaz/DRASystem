@@ -82,7 +82,7 @@
           </ul>
         </li>
         <!--Consultas-->
-         {% if is_granted('ROLE_VER_CONSULTAS') app.user %}
+         {% if is_granted('ROLE_VER_CONSULTAS') and app.user %}
           <li class="treeview">
           <a href="#"><i class="fa fa-database"></i> <span>Consultas</span>
             <span class="pull-right-container">
@@ -106,7 +106,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-                {% if is_granted('ROLE_CREAR_DEPARTAMENTO') app.user %}
+                {% if is_granted('ROLE_CREAR_DEPARTAMENTO') and app.user %}
                   <li><a href="{{path('departamento_new')}}">Crear Departamento</a></li>
                 {% endif %}
              {% if is_granted('ROLE_VER_DEPARTAMENTO')%}
@@ -122,10 +122,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-              {% if is_granted('ROLE_CREAR_CLIENTES') app.user %}
+              {% if is_granted('ROLE_CREAR_CLIENTES') and app.user %}
                 <li><a href="{{ path('cliente_new')}}">Crear cliente</a></li>
             {% endif %}
-              {% if is_granted('ROLE_VER_CLIENTES') app.user %}
+              {% if is_granted('ROLE_VER_CLIENTES') and app.user %}
                 <li><a href="{{ path('cliente')}}">Ver clientes</a></li>
             {% endif %}
           </ul>
@@ -138,11 +138,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            {% if is_granted('ROLE_VER_PUESTO') app.user %}
+            {% if is_granted('ROLE_VER_PUESTO') and app.user %}
               <li><a href="{{path('tipopuesto')}}">Tipo Puesto</a></li>
               <li><a href="{{path('puesto')}}">Puestos</a></li>
             {% endif %}
-             {% if is_granted('ROLE_CREAR_PUESTO') app.user %}
+             {% if is_granted('ROLE_CREAR_PUESTO') and app.user %}
               <li><a href="{{path('tipopuesto_new_post')}}">Crear Tipo Puesto</a></li>
               <li><a href="{{path('puesto_new')}}">Crear Puesto</a></li>
             {% endif %}

@@ -1,4 +1,4 @@
-<section>
+<section class="col-md-8 col-md-offset-2">
     <div class="wizard">
         <div class="wizard-inner">
             <div class="connecting-line"></div>
@@ -143,51 +143,6 @@
 </section>
 
 {% include 'UserBundle:Registration:modal_codigos.html.twig' %}
-<script src="{{ asset('js/ajaxCodigo.min.js')}}"></script>
-<script src="{{asset('js/i18next.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/pwstrength-bootstrap.min.js')}}"></script>
-<script>
-	ajaxCodigo();
-	
-	$(document).ready(function() { 
-			$("#fos_user_registration_form_codigo").select2({ width: '50%' }); 
-			$("#fos_user_registration_form_misUsuariosRelacionados").select2({ width: '50%' });           
-	
-			
-			i18next.init({
-				lng: 'es',
-				resources: {
-					es: {
-						translation: {
-								"wordLength": "Tu contraseña es demasiado corta",
-								"wordNotEmail": "No uses tu email como tu contraseña",
-								"wordSimilarToUsername": "Tu contraseña no puede contener tu nombre de usuario",
-								"wordTwoCharacterClasses": "Mezcla diferentes clases de caracteres",
-								"wordRepetitions": "Demasiadas repeticiones",
-								"wordSequences": "Tu contraseña contiene secuencias",
-								"errorList": "Errores:",
-								"veryWeak": "Muy Débil",
-								"weak": "Débil",
-								"normal": "Normal",
-								"medium": "Media",
-								"strong": "Fuerte",
-								"veryStrong": "Muy Fuerte"
-	
-						}
-					}
-				}
-			}, function() {
-				// initialized and ready to go!
-				var options = {};
-				options.rules = {
-					activated: {
-							wordTwoCharacterClasses: true,
-							wordRepetitions: true
-					}
-				};
-				$(':password').pwstrength(options);
-			});
-		
-			
-			});
-</script>
+{% block javascripts %}
+    
+{% endblock %}

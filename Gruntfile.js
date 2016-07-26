@@ -200,6 +200,16 @@ module.exports = function (grunt) {
           ],
           dest: 'web/js/built.js',
         },
+        extras: {
+          src: [
+              'web/js/jquery-2.2.3.min.js',
+              'web/js/bootstrap.min.js',
+              'web/js/tab_register.min.js',
+              'web/js/jquery.initialize.min.js',
+              'web/js/select2.min.js'
+          ],
+          dest: 'web/js/built-init.js',
+        },
     },
     concat_css: {
         options: {

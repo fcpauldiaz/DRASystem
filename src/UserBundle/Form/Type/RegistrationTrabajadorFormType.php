@@ -23,6 +23,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'placeholder' => 'Nombre/s',
                     'class' => 'form-control input-lg',
                 ],
+                'required' => true,
 
             ])
             ->add('apellidos', null, [
@@ -31,6 +32,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'placeholder' => 'Apellidos',
                     'class' => 'form-control input-lg',
                 ],
+                'required' => true
             ])
             ->add('username', null, [
                 'label' => 'Usuario',
@@ -42,6 +44,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'constraints' => [
                     new Callback([$this, 'validarNombreUsuario']),
                 ],
+                'required' => true,
             ])
             ->add('email', 'email', [
                 'label' => 'Correo',
@@ -51,6 +54,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'class' => 'form-control input-lg',
                     'placeholder' => 'Correo electrónico @diazreyes.com',
                 ],
+                'required' => true,
             ])
 
             ->add('plainPassword', 'repeated', [

@@ -20,6 +20,8 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        {% block stylesheets %}
+        {% endblock %}
     </head>
     <!-- Custom Section -->
     <body class="hold-transition login-page">
@@ -48,5 +50,8 @@
         {% endblock fos_user_content %}
         <!-- jQuery 2.2.0 -->
         <!-- Bootstrap 3.3.6 -->
+        <script src="{{asset('js/built-init.js')}}"></script>
+        {% block javascripts %}
+        {% endblock javascripts %}
     </body>
 </html>
