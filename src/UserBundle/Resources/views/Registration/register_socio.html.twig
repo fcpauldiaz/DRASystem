@@ -4,11 +4,23 @@
 
 {% block javascripts %}
 	<script src="{{asset('js/register.js')}}"></script>
+	  <script type="text/javascript">
+        var javaQuery = window.matchMedia( "(max-width: 450px)" );
+        if (!javaQuery.matches) {
+            (function(){
+                $("select").initialize( function(){
+                     $("select.select2").select2({
+                      theme: "bootstrap"
+                     });
+                });          
+            })();
+        }
+        </script>
 {% endblock %}
 
-{% block body %}
+{% block fos_user_content %}
 
 	
 	{% include "FOSUserBundle:Registration:register_content_socio.html.twig" %}
 
-{% endblock body %}
+{% endblock fos_user_content %}
