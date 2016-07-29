@@ -128,8 +128,8 @@ class RegistrationSocioFormType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $usuario = $event->getData();
-
         $usuario->addRole('ROLE_ADMIN');
+        $usuario->addRole('ROLE_ASIGNACION');
         $usuario->setUserImage('578ae8d025164_default-user-icon-profile.png');
     }
 

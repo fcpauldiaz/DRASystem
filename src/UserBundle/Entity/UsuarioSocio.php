@@ -32,6 +32,7 @@ class UsuarioSocio extends Usuario
 
     public function __construct()
     {
+        parent::__construct();
         $this->presupuestos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
