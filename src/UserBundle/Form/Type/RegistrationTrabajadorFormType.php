@@ -128,6 +128,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'label' => false,
                 'property' => 'codigoCompleto',
                 'required' => true,
+                'empty_value' => 'Seleccionar Código',
 
             ])
             ->add('misUsuariosRelacionados', 'entity', [

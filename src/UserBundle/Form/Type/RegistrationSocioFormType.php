@@ -78,12 +78,13 @@ class RegistrationSocioFormType extends AbstractType
             ])
             ->add('codigo', 'entity', [
                 'class' => 'UserBundle:Codigo',
-                'label' => false,
+                'label' => 'Código Interno DRA',
                 'property' => 'codigoCompleto',
                 'attr' => [
                     'class' => 'select2',
                 ],
                 'required' => true,
+                'empty_value' => 'Seleccionar Código',
             ])
 
             ->add('submit', 'submit', [
