@@ -138,7 +138,7 @@ class TipoPuestoController extends Controller
      * Displays a form to edit an existing TipoPuesto entity.
      *
      * @Route("/{id}/edit", name="tipopuesto_edit")
-     * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
+     * @Security("is_granted('ROLE_EDITAR_PUESTO_Y_TIPO')") 
      *@Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function editAction($id)
@@ -194,7 +194,7 @@ class TipoPuestoController extends Controller
      *
      * @Route("/{id}/update", name="tipopuesto_update")
      * @Method("PUT")
-     * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
+     * @Security("is_granted('ROLE_EDITAR_PUESTO_Y_TIPO')") 
      * @Template("UserBundle:TipoPuesto:editTipoPuesto.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -229,7 +229,7 @@ class TipoPuestoController extends Controller
      *
      * @Route("/{id}/delete", name="tipopuesto_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_ELIMINAR_PUESTO')") 
+     * @Security("is_granted('ROLE_ELIMINAR_PUESTO_Y_PUESTO')") 
      */
     public function deleteAction(Request $request, $id)
     {

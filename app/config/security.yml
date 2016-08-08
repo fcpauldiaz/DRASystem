@@ -64,7 +64,7 @@ security:
         #permiso para ver consultas de costos
         ROLE_VER_CONSULTAS: ROLE_USER
         #permiso para ver los tipos de puestos
-        ROLE_VER_PUESTO: ROLE_USER
+        ROLE_VER_PUESTO_Y_TIPO: ROLE_USER
         #permiso para ver los departamentos
         ROLE_VER_DEPARTAMENTO: ROLE_USER
         #permiso para crear clientes
@@ -78,7 +78,7 @@ security:
         #permiso para crear usuarios
         ROLE_GESTIONAR_USUARIOS: ROLE_USER
         #permiso para crear tipo puesto
-        ROLE_CREAR_PUESTO: ROLE_USER
+        ROLE_CREAR_PUESTO_Y_TIPO: ROLE_USER
         #permiso para crear departamentos
         ROLE_CREAR_DEPARTAMENTO: ROLE_VER_DEPARTAMENTO
         #permiso para editar horas
@@ -90,7 +90,7 @@ security:
         #permiso para editar clientes
         ROLE_EDITAR_CLIENTES: ROLE_CREAR_CLIENTES
         #permiso para editar tipo puesto
-        ROLE_EDITAR_PUESTO: ROLE_CREAR_PUESTO
+        ROLE_EDITAR_PUESTO_Y_TIPO: ROLE_CREAR_PUESTO_Y_TIPO
         #permiso para editar departamentos
         ROLE_EDITAR_DEPARTAMENTO: ROLE_CREAR_DEPARTAMENTO
         #permiso para eliminar horas
@@ -102,7 +102,7 @@ security:
         #permisio para eliminear clientes
         ROLE_ELIMINAR_CLIENTES: ROLE_EDITAR_CLIENTES
         #permiso para eliminar tipo puestos
-        ROLE_ELIMINAR_PUESTO: ROLE_EDITAR_PUESTO
+        ROLE_ELIMINAR_PUESTO_Y_TIPO: ROLE_EDITAR_PUESTO_Y_TIPO
         #permiso para eliminar departamentos
         ROLE_ELIMINAR_DEPARTAMENTO: ROLE_EDITAR_DEPARTAMENTO
         #permiso para tener acceso al panel de control.
@@ -114,7 +114,7 @@ security:
             - ROLE_ELIMINAR_PRESUPUESTOS
             - ROLE_VER_CONSULTAS
             - ROLE_APROBACION_HORAS
-            - ROLE_ELIMINAR_PUESTO
+            - ROLE_ELIMINAR_PUESTO_Y_TIPO
             - ROLE_ELIMINAR_DEPARTAMENTO
             - ROLE_APROBACION_HORAS_AUTOMATICO
             - ROLE_ASIGNACION

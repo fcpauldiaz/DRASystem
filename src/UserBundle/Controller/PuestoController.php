@@ -270,7 +270,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_ELIMINAR_PUESTO')") 
+     * @Security("is_granted('ROLE_ELIMINAR_PUESTO_Y_TIPO')") 
      */
     public function deleteAction(Request $request, $id)
     {

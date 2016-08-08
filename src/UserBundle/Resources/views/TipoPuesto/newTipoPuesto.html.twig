@@ -41,7 +41,6 @@
        
         <div class="col-sm-6 col-md-6">
           <div class="form-group">
-              <h2>Permisos</h2>
               {% for i in middle..array_length %}
                   {{ form_row(form.permisos[i]) }}
                 {% endfor %}
@@ -63,11 +62,15 @@
       </div>
     	
     {{ form_end(form) }}
-        <ul class="record_actions">
+  {% if is_granted('ROLE_VER_TIPO_PUESTO') %}
+  <ul class="record_actions">
     <li>
+    
         <a class="btn btn-default" href="{{ path('tipopuesto') }}">
            Mostrar todos los tipos de puesto
         </a>
-    </li>
-</ul>
+           
+       </li>
+    </ul>
+   {% endif %}
 {% endblock %}
