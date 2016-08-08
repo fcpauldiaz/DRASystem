@@ -66,8 +66,7 @@ class PuestoType extends AbstractType
             ])
             ->add('usuario', 'entity', [
                 'class' => 'UserBundle:UsuarioTrabajador',
-                'data' => $this->usuario,
-                'disabled' => true,
+                'data' => $this->usuario
             ])
         ;
         $builder->addEventListener(
