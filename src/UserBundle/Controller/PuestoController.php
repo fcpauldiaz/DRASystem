@@ -27,7 +27,7 @@ class PuestoController extends Controller
      * @Route("/", name="puesto")
      * @Method("GET")
      * @Template("UserBundle:Puesto:indexPuesto.html.twig")
-     * @Security("is_granted('ROLE_VER_PUESTO')")
+     *
      */
     public function indexAction()
     {
@@ -58,7 +58,7 @@ class PuestoController extends Controller
      * @Route("/", name="puesto_create")
      * @Method("POST")
      * @Template("UserBundle:Puesto:newPuesto.html.twig")
-     * @Security("is_granted('ROLE_CREAR_PUESTO')")
+     *
      */
     public function createAction(Request $request)
     {
@@ -123,7 +123,7 @@ class PuestoController extends Controller
      * @Route("/new", name="puesto_new")
      * @Method("GET")
      * @Template("UserBundle:Puesto:newPuesto.html.twig")
-     * @Security("is_granted('ROLE_CREAR_PUESTO')")
+     *
      */
     public function newAction()
     {
@@ -142,7 +142,7 @@ class PuestoController extends Controller
      * @Route("/{id}", name="puesto_show")
      * @Method("GET")
      * @Template("UserBundle:Puesto:showPuesto.html.twig")
-     * @Security("is_granted('ROLE_VER_PUESTO')")
+     * 
      */
     public function showAction($id)
     {
@@ -186,7 +186,7 @@ class PuestoController extends Controller
      * @Route("/{id}/edit", name="puesto_edit")
      * @Method("GET")
      * @Template("UserBundle:Puesto:editPuesto.html.twig")
-     * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
+     *
      */
     public function editAction($id)
     {
@@ -229,8 +229,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_update")
      * @Method("PUT")
-     * @Template("UserBundle:Puesto:editPuesto.html.twig")
-     * @Security("is_granted('ROLE_EDITAR_PUESTO')") 
+     * @Template("UserBundle:Puesto:editPuesto.html.twig") 
      */
     public function updateAction(Request $request, $id)
     {
