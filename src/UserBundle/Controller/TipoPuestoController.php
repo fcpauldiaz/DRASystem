@@ -23,7 +23,7 @@ class TipoPuestoController extends Controller
      * Lists all TipoPuesto entities.
      *
      * @Route("/", name="tipopuesto")
-     * @Security("is_granted('ROLE_VER_PUESTO')") 
+     * 
      * @Template("UserBundle:TipoPuesto:indexTipoPuesto.html.twig")
      */
     public function indexAction()
@@ -40,7 +40,7 @@ class TipoPuestoController extends Controller
      * Creates a new TipoPuesto entity.
      *
      * @Route("/create", name="tipopuesto_create")
-     * @Security("is_granted('ROLE_CREAR_TIPO_PUESTO')") 
+     * 
      * @Template("UserBundle:TipoPuesto:newTipoPuesto.html.twig")
      */
     public function createAction(Request $request)
@@ -95,7 +95,7 @@ class TipoPuestoController extends Controller
      * Displays a form to create a new TipoPuesto entity.
      *
      * @Route("/new", name="tipopuesto_new_post")
-     * @Security("is_granted('ROLE_CREAR_TIPO_PUESTO')")
+     * 
      * @Template("UserBundle:TipoPuesto:newTipoPuesto.html.twig")
      */
     public function newAction()
@@ -113,7 +113,7 @@ class TipoPuestoController extends Controller
      * Finds and displays a TipoPuesto entity.
      *
      * @Route("/{id}", name="tipopuesto_show")
-     * @Security("is_granted('ROLE_VER_PUESTO')") 
+     *
      * @Template("UserBundle:TipoPuesto:showTipoPuesto.html.twig")
      */
     public function showAction($id)
