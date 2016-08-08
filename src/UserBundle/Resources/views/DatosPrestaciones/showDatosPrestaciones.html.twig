@@ -1,86 +1,88 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-     <div class="col-md-6">
-    <h1>Datos Prestaciones</h1>
-    <table class="table table-striped table-hover">
-        <tbody>
-            <tr>
-                <th>Sueldo</th>
-                <td>{{ entity.sueldo | number_format(2, '.', ',')}}</td>
-            </tr>
-            <tr>
-                <th>Bonificación Incentivo</th>
-                <td>{{ entity.bonificacionIncentivo | number_format(2, '.', ', ') }}</td>
-            </tr>
-            <tr>
-                <th>Otra Bonificación</th>
-                <td>{{ entity.otraBonificacion | number_format(2, '.', ', ')}}</td>
-            </tr>
-            <tr>
-                <th>Gasolina</th>
-                <td>{{ entity.gasolina | number_format(2, '.', ', ')}}</td>
-            </tr>
-            <tr>
-                <th>Prestaciones sobre sueldo</th>
-                <td>{{ entity.prestacionesSobreSueldo | number_format(2, '.', ', ')}}</td>
-            </tr>
-            <tr>
-                <th>Otras Prestaciones</th>
-                <td>{{ entity.otrasPrestaciones | number_format(2, '.', ', ')}}</td>
-            </tr>
-             <tr>
-                <th>Otras Prestaciones</th>
-                <td>{{ entity.viaticos | number_format(2, '.', ', ')}}</td>
-            </tr>
-            <tr>
-                <th>Otros</th>
-                <td>{{ entity.otros | number_format(2, '.', ', ')}}</td>
-            </tr>
-            <tr>
-                <th>Depreciación</th>
-                <td>{{ entity.depreciacion | number_format(2, '.', ', ')}}</td>
-            </tr>
-             <tr>
-                <th>Indemnización</th>
-                <td>{{ entity.indemnizacion | number_format(2, '.', ', ')}}</td>
-            </tr>
-             <tr>
-                <th>Aguinaldo</th>
-                <td>{{ entity.aguinaldo | number_format(2, '.', ', ')}}</td>
-            </tr>
-             <tr>
-                <th>Bono 14</th>
-                <td>{{ entity.bono14 | number_format(2, '.', ', ')}}</td>
-            </tr>
-             <tr>
-                <th>IGSS</th>
-                <td>{{ entity.igss | number_format(2, '.', ', ')}}</td>
-            </tr>
-             <tr>
-                <th>Usuario</th>
-                <td>{{ entity.usuario }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Datos Prestaciones</h1>
+            <table class="table table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th>Sueldo</th>
+                        <td>{{ entity.sueldo | number_format(2, '.', ',')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bonificación Incentivo</th>
+                        <td>{{ entity.bonificacionIncentivo | number_format(2, '.', ', ') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Otra Bonificación</th>
+                        <td>{{ entity.otraBonificacion | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Gasolina</th>
+                        <td>{{ entity.gasolina | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Prestaciones sobre sueldo</th>
+                        <td>{{ entity.prestacionesSobreSueldo | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Otras Prestaciones</th>
+                        <td>{{ entity.otrasPrestaciones | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th>Otras Prestaciones</th>
+                        <td>{{ entity.viaticos | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Otros</th>
+                        <td>{{ entity.otros | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Depreciación</th>
+                        <td>{{ entity.depreciacion | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th>Indemnización</th>
+                        <td>{{ entity.indemnizacion | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th>Aguinaldo</th>
+                        <td>{{ entity.aguinaldo | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th>Bono 14</th>
+                        <td>{{ entity.bono14 | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th>IGSS</th>
+                        <td>{{ entity.igss | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th>Usuario</th>
+                        <td>{{ entity.usuario }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <ul class="record_actions">
-    
-    <li>
-        <a class="btn btn-default" href="{{ path('datosprestaciones_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
-    <br>
-    
-</ul>
-</div>
-<div class="col-md-6">
-    
-     {{ render(controller(
-        'UserBundle:Puesto:showPlain',
-        {'id': app.user.puestos.last().id}
-    )) }}
-   
-</div>
+                <ul class="record_actions">
+            
+            <li>
+                <a class="btn btn-default" href="{{ path('datosprestaciones_edit', { 'id': entity.id }) }}">
+                    Editar
+                </a>
+            </li>
+            <br>
+            
+        </ul>
+    </div>
+    <div class="col-md-6">
+            
+             {{ render(controller(
+                'UserBundle:Puesto:showPlain',
+                {'id': app.user.puestos.last().id}
+            )) }}
+           
+        </div>
+    </div>
 {% endblock %}
