@@ -39,3 +39,5 @@ easy_admin:
             class: UserBundle\Entity\DatosPrestaciones
         Puesto:
             class: UserBundle\Entity\Puesto
+        Permiso:
+            class: UserBundle\Entity\Permiso
