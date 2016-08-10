@@ -138,13 +138,13 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            {% if is_granted('ROLE_VER_PUESTO') and app.user %}
+            {% if is_granted('ROLE_VER_PUESTO_Y_TIPO') and app.user %}
               <li><a href="{{path('tipopuesto')}}">Tipo Puesto</a></li>
 
             {% endif %}
               <li><a href="{{path('puesto_new')}}">Crear Puesto</a></li>
               <li><a href="{{path('tipopuesto_new_post')}}">Crear Tipo Puesto</a></li>
-             {% if is_granted('ROLE_VER_PUESTO') and app.user %}
+             {% if is_granted('ROLE_VER_PUESTO_Y_TIPO') and app.user %}
                <li><a href="{{path('puesto')}}">Ver Puestos</a></li>
             {% endif %}
           </ul>
