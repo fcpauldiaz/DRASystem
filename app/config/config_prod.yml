@@ -22,20 +22,18 @@ monolog:
             handler:      grouped
         grouped:
             type:    group
-            members: [streamed, deduplicated]
+            members: [streamed, buffered]
         streamed:
             type:  stream
             path:  '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
-        deduplicated:
-            type:    deduplication
+        buffered:
+            type:    buffer
             handler: swift
         swift:
             type:       swift_mailer
             from_email: 'soporte@newtonlabs.com.gt'
-            to_email:   'log@newtonlabs.com.gt'
+            to_email:   'soporte@newtonlabs.com.gt'
             subject:    An Error Occurred On DRA!
             level:      debug
-            formatter:  monolog.formatter.html
-            content_type: text/html
 
