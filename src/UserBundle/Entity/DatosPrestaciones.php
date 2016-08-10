@@ -444,30 +444,6 @@ class DatosPrestaciones
     }
 
     /**
-     * Set cargosIndirectos.
-     *
-     * @param float $cargosIndirectos
-     *
-     * @return DatosPrestaciones
-     */
-    public function setCargosIndirectos($cargosIndirectos)
-    {
-        $this->cargosIndirectos = $cargosIndirectos;
-
-        return $this;
-    }
-
-    /**
-     * Get cargosIndirectos.
-     *
-     * @return float
-     */
-    public function getCargosIndirectos()
-    {
-        return $this->cargosIndirectos;
-    }
-
-    /**
      * Set viaticos.
      *
      * @param float $viaticos

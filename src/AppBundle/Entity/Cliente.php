@@ -40,7 +40,7 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\Column(name="razonSocial", type="string", length=255)
+     * @ORM\Column(name="razon_social", type="string", length=255)
      */
     private $razonSocial;
 
