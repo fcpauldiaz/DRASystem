@@ -66,7 +66,7 @@ class DatosPrestacionesController extends Controller
         }
 
         $entity = new DatosPrestaciones();
-        $entity->setUsuario($usuario);
+       
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 

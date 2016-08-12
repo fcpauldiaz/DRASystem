@@ -108,11 +108,11 @@ class PuestoType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $puesto = $event->getData();
-        $puesto->setUsuario($this->usuario);
+        $usuario = $puesto->getUsuario();
         $permisos = $puesto->getTipoPuesto()->getPermisos();
         foreach($permisos as $permiso ) {
             if ($permiso->getPermiso() == 'ROLE_ADMIN') {
-                $this->usuario->addRole('ROLE_ASIGNACION');
+                $usuario->addRole('ROLE_ASIGNACION');
             }
         }
 
