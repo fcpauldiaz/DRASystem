@@ -78,7 +78,7 @@ security:
         #permiso para crear usuarios
         ROLE_GESTIONAR_USUARIOS: ROLE_USER
         #permiso para crear tipo puesto
-        ROLE_CREAR_PUESTO_Y_TIPO: ROLE_USER
+        ROLE_CREAR_PUESTO_Y_TIPO: ROLE_VER_PUESTO_Y_TIPO
         #permiso para crear departamentos
         ROLE_CREAR_DEPARTAMENTO: ROLE_VER_DEPARTAMENTO
         #permiso para editar horas
