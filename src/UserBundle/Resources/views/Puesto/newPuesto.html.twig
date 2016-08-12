@@ -32,14 +32,17 @@ $(document).ready(function() {
       
       <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="myid" data-fade="3000"></div>
       {{ form_row(form.tipoPuesto)}}
+      {% if is_granted('ROLE_CREAR_PUESTO_Y_TIPO') %}
       <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#modalTipoPuesto">
            Crear nuevo tipo puesto
           </button>
+      {% endif %}
       {{ form_row(form.departamento)}}
+      {% if is_granted('ROLE_CREAR_DEPARTAMENTO') %}
       <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#modalDepartamento">
            Crear nuevo departamento
           </button>
-
+      {% endif %}
        {% form_theme form _self %}
 
     {% block _userbundle_puesto_date %}
@@ -55,7 +58,11 @@ $(document).ready(function() {
      <hr class="colorgraph">
    
     {{ form_end(form)}}
+{% if is_granted('ROLE_CREAR_PUESTO_Y_TIPO') %}
+  {% include 'UserBundle:TipoPuesto:modal_tipoPuesto.html.twig' %}
+{% endif %}
+{% if is_granted('ROLE_CREAR_DEPARTAMENTO') %}
+  {% include 'UserBundle:Departamento:modal_departamento.html.twig' %}
+{% endif %}
 
-{% include 'UserBundle:TipoPuesto:modal_tipoPuesto.html.twig' %}
-{% include 'UserBundle:Departamento:modal_departamento.html.twig' %}
 {% endblock %}
