@@ -14,39 +14,6 @@
           
     </script>
     
-    <script>
-        let array = {{actividades |serialize | raw }}
-         $(document).ready(function (){
-            $("#simple-confirm").click(function (event) {
-    swal({
-    title: 'Select Ukraine',
-    input: 'select',
-    inputOptions: {
-      'SRB': array[0],
-      'UKR': 'Ukraine',
-      'HRV': 'Croatia'
-    },
-    inputPlaceholder: 'Select country',
-    showCancelButton: true,
-    inputValidator: function(value) {
-      return new Promise(function(resolve, reject) {
-        if (value === 'UKR') {
-          resolve();
-        } else {
-          reject('You need to select Ukraine :)');
-        }
-      });
-    }
-  }).then(function(result) {
-    swal({
-      type: 'success',
-      html: 'You selected: ' + result
-    });
-  })
-          });
-
-        });
-    </script>
     <script src="{{asset('js/live-counter.js')}}"></script>
 {% endblock %}
 
@@ -57,7 +24,6 @@
 {% block body -%}
     <h1>Nuevo Registro de horas invertidas</h1>
 
-   <button id="simple-confirm" class="btn btn-danger">Eliminar</button> 
     {{ form_start(form) }}
 
      
