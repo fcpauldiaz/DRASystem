@@ -20,7 +20,7 @@
                     <li>
                         <a class="btn btn-xs btn-info" href="{{ path('tipopuesto_show', { 'id': entity.id }) }}">Mostrar</a>
                     </li>
-                    {% if is_granted('ROLE_EDITAR_PUESTO') %}
+                    {% if is_granted('ROLE_EDITAR_PUESTO_Y_TIPO') %}
                     <li>
                         <a class="btn btn-xs btn-warning" href="{{ path('tipopuesto_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>

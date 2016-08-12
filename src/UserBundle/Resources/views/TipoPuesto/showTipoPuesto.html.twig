@@ -3,6 +3,13 @@
 {% block title %}
     Mostrar Tipo Puesto
 {% endblock %}
+
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+     <li><a href="{{path('tipopuesto')}}"><i class="fa fa-link"></i>Lista de Tipo Puestos</a></li>
+    <li class="active">Mostrar Puesto</li>
+{% endblock %}
+
 {% block body -%}
     <h1>Tipo Puesto</h1>
 
@@ -30,11 +37,20 @@
             Mostrar todos
         </a>
     </li>
+    {% if is_granted('ROLE_EDITAR_PUESTO_Y_TIPO') %}
     <li>
         <a class="btn btn-warning" href="{{ path('tipopuesto_edit', { 'id': entity.id }) }}">
             Editar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    {% endif %}
+    {% if is_granted('ROLE_ELIMINAR_PUESTO_Y_TIPO') %}
+        <div class="modal">
+          {{ form(delete_form) }}
+        </div>
+    {% endif %}
 </ul>
+{% endblock %}
+{% block javascripts %}
+   <script src="{{asset('js/confirm-dialog.js')}}"></script>
 {% endblock %}
