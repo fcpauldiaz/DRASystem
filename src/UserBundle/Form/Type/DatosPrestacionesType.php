@@ -10,6 +10,17 @@ use Symfony\Component\Form\FormEvents;
 
 class DatosPrestacionesType extends AbstractType
 {
+
+    private $usuario;
+
+    /**
+     * Constructor para cargar valor iniciales con el usuario logueado
+     * @param UsuarioTrabajador $usuario 
+     */
+    public function __construct($usuario) {
+        $this->usuario = $usuario;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -96,6 +107,13 @@ class DatosPrestacionesType extends AbstractType
                 ],
                 'required' => false,
                 'grouping' => true,
+            ])
+           ->add('usuario', 'entity', [
+                'class' => 'UserBundle:UsuarioTrabajador',
+                'data' => $this->usuario,
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
 

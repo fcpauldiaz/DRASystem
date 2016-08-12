@@ -96,7 +96,7 @@ class DatosPrestacionesController extends Controller
      */
     private function createCreateForm(DatosPrestaciones $entity)
     {
-        $form = $this->createForm(new DatosPrestacionesType(), $entity, array(
+        $form = $this->createForm(new DatosPrestacionesType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('datosprestaciones_create'),
             'method' => 'POST',
         ));
@@ -189,7 +189,7 @@ class DatosPrestacionesController extends Controller
      */
     private function createEditForm(DatosPrestaciones $entity)
     {
-        $form = $this->createForm(new DatosPrestacionesType(), $entity, array(
+        $form = $this->createForm(new DatosPrestacionesType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('datosprestaciones_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
