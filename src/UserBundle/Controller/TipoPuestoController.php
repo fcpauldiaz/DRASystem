@@ -158,6 +158,7 @@ class TipoPuestoController extends Controller
 
         //se coloca en un string los puestos
         //para mostrarlos en un modal en la UI.
+        //en el caso de eliminarlo.
         $puestoString = '<br>';
         foreach ($puestos as $puesto) {
             $puestoString .= $puesto->__toString().'<br> ';
@@ -212,6 +213,22 @@ class TipoPuestoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            //obtener usuarios con el tipo de puesto.
+            $usuarios = $this->getUsuariosPorTipoPuesto($entity);
+            //actualizar todos los permisos
+            //de todos los usuarios con este tipo de puesto.
+       
+            foreach($usuarios as $usuario) {
+                 foreach ($usuario->getRoles() as $role){
+                $usuario->removeRole($role);
+                }
+                $permisos = $entity->getPermisos();
+                foreach ($permisos as $permiso) {
+                    $usuario->addRole($permiso->getPermiso());
+                }
+                $em->persist($usuario);
+            }
             $em->persist($entity);
             $em->flush();
 
@@ -269,5 +286,20 @@ class TipoPuestoController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete', 'attr' => ['class' => 'btn btn-danger']))
             ->getForm()
         ;
+    }
+
+    private function getUsuariosPorTipoPuesto($tipoPuesto)
+    {
+            $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
+            $qb = $repositoryUsuarios->createQueryBuilder('usuario');
+               
+            $qb
+                ->select('usuario')
+                ->innerJoin('usuario.puestos', 'puesto')
+                ->innerJoin('puesto.tipoPuesto', 'tipopuesto')
+                ->where('tipopuesto = :paramTipoPuesto')
+                ->setParameter('paramTipoPuesto', $tipoPuesto);
+
+        return $qb->getQuery()->getResult();
     }
 }
