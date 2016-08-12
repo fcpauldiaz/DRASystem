@@ -62,19 +62,17 @@ class PuestoController extends Controller
      */
     public function createAction(Request $request)
     {
-        $usuario = $this->getUser();
-        if (!is_object($usuario) || !$usuario instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
+       
         $entity = new Puesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
            
             $data = $form->getData();
+            $usuario = $data->getUsuario();
             foreach ($usuario->getRoles() as $role) {
                 $usuario->removeRole($role);
             }
