@@ -40,9 +40,9 @@ class DatosPrestacionesType extends AbstractType
             ])
             ->add('bonificacionIncentivo', 'money', [
                 'currency' => 'GTQ',
-                'label' => 'Otra Bonificación*',
+                'label' => 'Bonificación Ley*',
                 'attr' => [
-                    'placeholder' => 'Otra Bonificación',
+                    'placeholder' => 'Benificación Ley',
                     'class' => 'form-control input-lg',
                 ],
                 'required' => true,
@@ -51,9 +51,9 @@ class DatosPrestacionesType extends AbstractType
             ])
             ->add('otraBonificacion', 'money', [
                 'currency' => 'GTQ',
-                'label' => 'Bonificación Ley',
+                'label' => 'Otra bonificación',
                 'attr' => [
-                    'placeholder' => 'Bonificación Ley',
+                    'placeholder' => 'Otra bonificación',
                     'class' => 'form-control input-lg',
                 ],
                 'required' => false,
