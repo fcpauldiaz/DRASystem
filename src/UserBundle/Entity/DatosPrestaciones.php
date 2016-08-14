@@ -30,7 +30,7 @@ class DatosPrestaciones
 
     /**
      * @var float
-     *
+     * Bonificación Ley
      * @ORM\Column(name="bonificacion_incentivo", type="float")
      */
     private $bonificacionIncentivo;
@@ -116,9 +116,9 @@ class DatosPrestaciones
      *
      * @var float
      *
-     * @ORM\Column(name="igss",type="float", nullable=true)
+     * @ORM\Column(name="cuota_patronal",type="float", nullable=true)
      */
-    private $igss;
+    private $cuotaPatronal;
 
     /**
      * @var Usuario
@@ -386,29 +386,28 @@ class DatosPrestaciones
 
         return $this;
     }
-
     /**
-     * Get igss.
+     * Set cuotaPatronal
      *
-     * @return float
-     */
-    public function getIgss()
-    {
-        return $this->igss;
-    }
-
-    /**
-     * Set igss.
-     *
-     * @param float $igss
+     * @param float $cuotaPatronal
      *
      * @return DatosPrestaciones
      */
-    public function setIgss($igss)
+    public function setCuotaPatronal($cuotaPatronal)
     {
-        $this->igss = $igss;
+        $this->cuotaPatronal = $cuotaPatronal;
 
         return $this;
+    }
+
+    /**
+     * Get cuotaPatronal
+     *
+     * @return float
+     */
+    public function getCuotaPatronal()
+    {
+        return $this->cuotaPatronal;
     }
 
     /**
@@ -429,7 +428,7 @@ class DatosPrestaciones
     {
         $total = $this->getSueldo() +
                  $this->getBonificacionIncentivo() +
-                 $this->getBonificacionLey() +
+                 $this->getOtraBonificacion() +
                  $this->getGasolina() +
                  $this->getPrestacionesSobreSueldo() +
                  $this->getOtrasPrestaciones() +
@@ -438,7 +437,7 @@ class DatosPrestaciones
                  $this->getIndemnizacion() +
                  $this->getAguinaldo() +
                  $this->getBono14() +
-                 $this->getIgss();
+                 $this->getCuotaPatronal();
 
         return $total;
     }
@@ -477,6 +476,7 @@ class DatosPrestaciones
      *
      * @param float $otraBonificacion
      *
+     * 
      * @return DatosPrestaciones
      */
     public function setOtraBonificacion($otraBonificacion)
@@ -499,14 +499,14 @@ class DatosPrestaciones
     public function calcularPrestaciones()
     {
         $sueldo = $this->sueldo;
-        $prestacionesSobreSueldo = $sueldo * 0.42;
+        $prestacionesSobreSueldo = $sueldo * 0.4183 ;
         $calculoGeneral = $sueldo * 0.0833;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
         $cuotaPatronal = $sueldo * 0.1267;
         $this->prestacionesSobreSueldo = $prestacionesSobreSueldo;
         $this->indemnizacion = $calculoGeneral;
         $this->aguinaldo = $calculoGeneral;
         $this->bono14 = $calculoGeneral;
-        $this->igss = $cuotaPatronal;
+        $this->cuotaPatronal = $cuotaPatronal;
     }
 
     /**
@@ -590,4 +590,6 @@ class DatosPrestaciones
     {
         return $this->otrasPrestaciones;
     }
+
+
 }

@@ -6,7 +6,7 @@
                 <tr>
                     <th>Sueldo</th>
                     <th>Bonificación Incentivo</th>
-                    <th>Bonificacion Ley</th>
+                    <th>Otra bonificación</th>
                     <th>Gasolina</th>
                     <th>Prestaciones sobre sueldo</th>
                     <th>Acciones</th>
@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ entity.sueldo | number_format(2, '.', ', ')}}</td>
                     <td>{{ entity.bonificacionIncentivo| number_format(2, '.', ', ') }}</td>
-                    <td>{{ entity.bonificacionLey | number_format(2, '.', ', ')}}</td>
+                    <td>{{ entity.otraBonificacion | number_format(2, '.', ', ')}}</td>
                     <td>{{ entity.gasolina | number_format(2, '.', ', ')}}</td>
                     <td>{{ entity.prestacionesSobreSueldo | number_format(2, '.', ', ') }}</td>
                     <td>
