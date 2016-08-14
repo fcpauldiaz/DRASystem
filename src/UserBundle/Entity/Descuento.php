@@ -31,9 +31,9 @@ class Descuento
     /**
      * @var float
      *
-     * @ORM\Column(name="cantidad", type="float")
+     * @ORM\Column(name="monto", type="float")
      */
-    private $cantidad;
+    private $monto;
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\DatosPrestaciones", inversedBy="descuentos")
@@ -42,6 +42,12 @@ class Descuento
      */
     private $prestaciones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\TipoDescuento")
+     * @var [type]
+     */
+    private $tipoDescuento;
+    
     /**
      * Get id.
      *
@@ -77,30 +83,6 @@ class Descuento
     }
 
     /**
-     * Set cantidad.
-     *
-     * @param float $cantidad
-     *
-     * @return Descuento
-     */
-    public function setCantidad($cantidad)
-    {
-        $this->cantidad = $cantidad;
-
-        return $this;
-    }
-
-    /**
-     * Get cantidad.
-     *
-     * @return float
-     */
-    public function getCantidad()
-    {
-        return $this->cantidad;
-    }
-
-    /**
      * Set prestaciones.
      *
      * @param \UserBundle\Entity\DatosPrestaciones $prestaciones
@@ -122,5 +104,53 @@ class Descuento
     public function getPrestaciones()
     {
         return $this->prestaciones;
+    }
+
+    /**
+     * Set tipoDescuento
+     *
+     * @param \UserBundle\Entity\TipoDescuento $tipoDescuento
+     *
+     * @return Descuento
+     */
+    public function setTipoDescuento(\UserBundle\Entity\TipoDescuento $tipoDescuento = null)
+    {
+        $this->tipoDescuento = $tipoDescuento;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoDescuento
+     *
+     * @return \UserBundle\Entity\TipoDescuento
+     */
+    public function getTipoDescuento()
+    {
+        return $this->tipoDescuento;
+    }
+
+    /**
+     * Set monto
+     *
+     * @param float $monto
+     *
+     * @return Descuento
+     */
+    public function setMonto($monto)
+    {
+        $this->monto = $monto;
+
+        return $this;
+    }
+
+    /**
+     * Get monto
+     *
+     * @return float
+     */
+    public function getMonto()
+    {
+        return $this->monto;
     }
 }

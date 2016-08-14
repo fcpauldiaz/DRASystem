@@ -34,6 +34,10 @@ combinar_puesto:
    resource: "@UserBundle/Controller/CombinarPuestoController.php"
    type: annotation
 
+descuento:
+  resource: "@UserBundle/Controller/DescuentoController.php"
+  type: annotation
+
 user_profile:
     path:  /edit/usuario
     defaults: { _controller: UserBundle:Profile:edit }
