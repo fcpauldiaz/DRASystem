@@ -16,8 +16,9 @@ class DescuentoType extends AbstractType
     {
         $builder
             ->add('nombreDescuento')
-            ->add('cantidad')
+            ->add('monto')
             ->add('prestaciones')
+            ->add('tipoDescuento')
         ;
     }
 
