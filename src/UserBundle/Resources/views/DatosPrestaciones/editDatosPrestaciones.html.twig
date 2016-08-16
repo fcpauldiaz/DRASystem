@@ -1,11 +1,25 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    Editar Prestaciones
+{% endblock %}
+
+{% block javascripts %}
+   <script src="{{asset('js/confirm-dialog.js')}}"></script>
+{% endblock %}
+
 {% block body -%}
     <h1>Editar Datos de Prestaciones</h1>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
+     <ul class="record_actions">
+     
+        <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button> </li>
+    	<div class="modal">
+      		{{ form(delete_form) }}
+    	</div>
+	
     <li>
         <a href="{{ path('datosprestaciones') }}">
             Regresar
