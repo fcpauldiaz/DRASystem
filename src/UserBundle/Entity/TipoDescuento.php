@@ -12,6 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TipoDescuento
 {
+
+    //constante de permisos default
+    const tipos = [
+        'Corporación de Inversiones',
+        'Comcel',
+        'Otros descuentos',
+        'Valens1',
+        'Valens2',
+        'Valens3'
+    ];
+
     /**
      * @var integer
      *
@@ -37,8 +48,9 @@ class TipoDescuento
 
    
 
-    public function __construct()
+    public function __construct($nombre)
     {
+        $this->nombreTipoDescuento = $nombre;
         $this->fechaCreacion = new \DateTime();
     }
 
