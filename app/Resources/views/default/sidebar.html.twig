@@ -155,9 +155,9 @@
         </li>
         <!--Datos Prestaciones-->
         <li class="treeview">
-          <a href="#"><i class="ion-clipboard"></i> <span>Prestaciones</span>
+          <a href="#"><i class="fa fa-briefcase"></i> <span>Prestaciones</span>
             <span class="pull-right-container">
-              <i class="glyphicon glyphicon-briefcase pull-right"></i>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
@@ -169,6 +169,7 @@
         
       </ul>
        <!-- Sidebar Menu -->
+       {% if is_granted('ROLE_ADMIN') %}
         <ul class="sidebar-menu">
             <li class="header">Administración</li>
             <!-- Optionally, you can add icons to the links -->
@@ -181,6 +182,7 @@
               </a>
             </li>
         </ul>
+      {% endif %}
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
