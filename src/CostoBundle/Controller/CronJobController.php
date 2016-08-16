@@ -74,7 +74,7 @@ class CronJobController extends Controller
             $totalHorasPorPeriodo = $repository->createQueryBuilder('registro')
                 ->select('SUM(registro.horasInvertidas)')
                 ->Where('registro.fechaHoras >= :fechaInicio')
-                ->andWhere('registro.fechaHoras < :fechaFin')
+                ->andWhere('registro.fechaHoras <= :fechaFin')
                 ->andWhere('registro.ingresadoPor = :usuario')
                 ->setParameter('fechaInicio', $fechaInicio)
                 ->setParameter('fechaFin', $fechaFin)

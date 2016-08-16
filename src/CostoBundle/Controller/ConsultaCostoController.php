@@ -772,7 +772,7 @@ class ConsultaCostoController extends Controller
     private function getQueryUsuariosPorTipoPuesto($arrayTipoPuestos)
     {
         $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
-        $qb = $repositoryUsuarios->createQueryBuilder('usuarios');
+        $qb = $repositoryUsuarios->createQueryBuilder('usuario');
         $qb
             ->select('usuario')
             ->leftjoin('usuario.puestos', 'puesto')

@@ -433,11 +433,12 @@ class DatosPrestaciones
                  $this->getPrestacionesSobreSueldo() +
                  $this->getOtrasPrestaciones() +
                  $this->getViaticos() +
-                 $this->getOtros() +
-                 $this->getIndemnizacion() +
+                 $this->getOtros();
+                //Esto ya está integrado en el costo
+               /*  $this->getIndemnizacion() +
                  $this->getAguinaldo() +
                  $this->getBono14() +
-                 $this->getCuotaPatronal();
+                 $this->getCuotaPatronal();*/
 
         return $total;
     }
@@ -466,10 +467,6 @@ class DatosPrestaciones
         return $this->viaticos;
     }
 
-    public function __toString()
-    {
-        return $this->sueldo.' '.$this->getUsuario();
-    }
 
     /**
      * Set otraBonificacion.
@@ -591,5 +588,9 @@ class DatosPrestaciones
         return $this->otrasPrestaciones;
     }
 
+    public function __toString()
+    {
+        return $this->sueldo.' '.$this->getUsuario();
+    }
 
 }
