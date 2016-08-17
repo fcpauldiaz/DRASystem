@@ -5,7 +5,7 @@ $(document).ready(function () {
      
         var nombres = $('#fos_user_registration_form_nombre').val();
         var apellido = $(this).val().split(" ")[0];
-        var usuario = nombres.slice(0,1) + apellido;
+        var usuario = 'Usuario sugerido: ' + nombres.slice(0,1) + apellido;
         $("#fos_user_registration_form_username").attr("placeholder", usuario);
         console.log(usuario);
     });

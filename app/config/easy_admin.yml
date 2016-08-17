@@ -35,10 +35,6 @@ easy_admin:
             class: UserBundle\Entity\Departamento
         TipoPuesto:
             class: UserBundle\Entity\TipoPuesto
-        DatosPrestaciones:
-            class: UserBundle\Entity\DatosPrestaciones
-            list:
-                fields: ['sueldo','bonificacionIncentivo','otraBonificacion','prestacionesSobreSueldo', 'otros','usuario','fecha']
         Puesto:
             class: UserBundle\Entity\Puesto
         Permiso:

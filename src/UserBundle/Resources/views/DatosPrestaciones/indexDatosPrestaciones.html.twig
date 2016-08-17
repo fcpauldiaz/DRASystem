@@ -1,4 +1,9 @@
 {% extends '::base.html.twig' %}
+    
+    {% block title %}
+        Listado Prestaciones
+    {% endblock %}
+
     {% block body -%}
         <h1>Datos Prestaciones de {{app.user.nombre}} {{app.user.apellidos }}</h1>
         <table class="table table-striped table-hover">
@@ -9,6 +14,8 @@
                     <th>Otra bonificación</th>
                     <th>Gasolina</th>
                     <th>Prestaciones sobre sueldo</th>
+                    <th>Usuario</th>
+                    <th>Fecha Creación</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -20,6 +27,8 @@
                     <td>{{ entity.otraBonificacion | number_format(2, '.', ', ')}}</td>
                     <td>{{ entity.gasolina | number_format(2, '.', ', ')}}</td>
                     <td>{{ entity.prestacionesSobreSueldo | number_format(2, '.', ', ') }}</td>
+                    <td>{{entity.usuario}}</td>
+                    <td>{{entity.fecha | date('d-m-Y')}}</td>
                     <td>
                         <ul>
                             <li>
