@@ -131,7 +131,13 @@ class RegistrationSocioFormType extends AbstractType
         $usuario = $event->getData();
         $usuario->addRole('ROLE_ADMIN');
         $usuario->addRole('ROLE_ASIGNACION');
-        $usuario->setUserImage('578ae8d025164_default-user-icon-profile.png');
+        //split name and substring to first letter.
+        //explode params(delimiter, string, limit)
+        //returns array of strings
+        $first = substr(explode(" ", $usuario->getNombre(), 2)[0], 0,1);
+        $last = substr(explode(" ", $usuario->getApellidos(), 2)[0], 0,1);
+        $usuario->setInitials($first.$last);
+       
     }
 
     /**
