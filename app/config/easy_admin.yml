@@ -23,8 +23,6 @@ easy_admin:
             class: AppBundle\Entity\RegistroHoras
         RegistroHorasPresupuesto:
             class: AppBundle\Entity\RegistroHorasPresupuesto
-        ContactoCliente:
-            class: AppBundle\Entity\ContactoCliente
         ProyectoPresupuesto:
             class: AppBundle\Entity\ProyectoPresupuesto
         Costo:

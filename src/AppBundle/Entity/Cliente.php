@@ -72,15 +72,11 @@ class Cliente
      */
     private $codigoSAT;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ContactoCliente", inversedBy="clientes")
-     * @ORM\JoinTable(name="cliente_contactos")
-     */
-    private $contactos;
+   
 
     public function __construct()
     {
-        $this->contactos = new \Doctrine\Common\Collections\ArrayCollection();
+      
     }
 
     /**
@@ -261,39 +257,6 @@ class Cliente
         return $this->codigoSAT;
     }
 
-    /**
-     * Add contacto.
-     *
-     * @param \AppBundle\Entity\ContactoCliente $contacto
-     *
-     * @return Cliente
-     */
-    public function addContacto(\AppBundle\Entity\ContactoCliente $contacto)
-    {
-        $this->contactos[] = $contacto;
-
-        return $this;
-    }
-
-    /**
-     * Remove contacto.
-     *
-     * @param \AppBundle\Entity\ContactoCliente $contacto
-     */
-    public function removeContacto(\AppBundle\Entity\ContactoCliente $contacto)
-    {
-        $this->contactos->removeElement($contacto);
-    }
-
-    /**
-     * Get contactos.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContactos()
-    {
-        return $this->contactos;
-    }
 
     public function __toString()
     {
