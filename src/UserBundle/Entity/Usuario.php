@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 //sirve para extender de friendofsymfony
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-//sirve para validar los campos del formulario
 
 /**
  * @ORM\Entity
@@ -16,7 +14,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"usuario_trabajador" = "UsuarioTrabajador", "usuario_socio" = "UsuarioSocio"})
- * @Vich\Uploadable
  * 
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
@@ -48,12 +45,12 @@ abstract class Usuario extends BaseUser
     protected $apiKey;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="misUsuariosRelacionados", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", mappedBy="misUsuariosRelacionados", cascade={"persist"})
      */
     private $usuarioRelacionado;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Usuario", inversedBy="usuarioRelacionado")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="usuarioRelacionado")
      * @ORM\JoinTable(name="usuario_relacionado",
      *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
      *      joinColumns={@ORM\JoinColumn(name="usuario_pertenece_id", referencedColumnName="id")}
@@ -70,21 +67,14 @@ abstract class Usuario extends BaseUser
      */
     private $codigo;
 
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
-     * @Vich\UploadableField(mapping="user_image", fileNameProperty="userImage")
-     * 
-     * @var File
-     */
-    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
      * @var string
      */
-    private $userImage;
+    private $initials;
+
     /**
      * Constructor.
      */
@@ -220,11 +210,6 @@ abstract class Usuario extends BaseUser
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->nombre.' '.$this->apellidos;
-    }
-
     /**
      * Add usuarioRelacionado.
      *
@@ -319,54 +304,33 @@ abstract class Usuario extends BaseUser
         return $this->codigo;
     }
 
-     /* If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
+        /**
+     * Set initials
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     * @param string $initials
      *
-     * @return Product
+     * @return Usuario
      */
-    public function setImageFile(File $image = null)
+    public function setInitials($initials)
     {
-        $this->imageFile = $image;
-
-        if ($image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
-        }
+        $this->initials = $initials;
 
         return $this;
     }
 
     /**
-     * @return File
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param string $userImage
+     * Get initials
      *
-     * @return Product
-     */
-    public function setUserImage($userImage)
-    {
-        $this->userImage = $userImage;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getUserImage()
+    public function getInitials()
     {
-        return $this->userImage;
+        return $this->initials;
     }
+
+    public function __toString()
+    {
+        return $this->nombre.' '.$this->apellidos;
+    }
+
 }
