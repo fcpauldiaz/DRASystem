@@ -1,11 +1,28 @@
 @import "variables.less";
+@import "../bootstrap-less/mixins.less";
+@import "../bootstrap-less/variables.less";
 
 /*
  * Sirve para quitar el redondeo de las esquinas de todos los botones
 .btn {
     border-radius: 1px;
+}*/
+
+.avatar-circle {  
+	.avatar(100px, @avatar-color, 25px);
+	display: inline-block;
 }
-*/
+.avatar-circle-xs { 
+	.avatar(25px, @avatar-color, 2px); 
+}
+.avatar-circle-sm { 
+	.avatar(50px, @avatar-color, 10px); 
+}
+.avatar-circle-lg { 
+	.avatar(250px, @avatar-color, 100px); 
+}
+
+
 /* empieza CSS para radio buttons */
 /* Termina CSS para radio buttons */
 /*

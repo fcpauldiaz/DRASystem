@@ -7,6 +7,7 @@ module.exports = function (grunt) {
     watch: {
       // If any .less file changes in directory "build/less/" run the "less"-task.
       files: [
+            "build/bootstrap-less/*.less",
             "build/less/*.less",
             "build/less/skins/*.less",
             "web/js/app.js",
@@ -41,7 +42,7 @@ module.exports = function (grunt) {
           "web/css/skins/skin-red-light.css": "build/less/skins/skin-red-light.less",
           "web/css/skins/skin-purple-light.css": "build/less/skins/skin-purple-light.less",
           "web/css/skins/_all-skins.css": "build/less/skins/_all-skins.less",
-          "web/css/main.css": "build/less/main.less",
+          "web/css/main.css": "build/less/main.less"
         }
       },
       // Production compresses version
