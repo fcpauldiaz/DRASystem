@@ -172,7 +172,7 @@ class SupervisorUsuariosController extends Controller
      * @param Request   $request
      * @param Array int $array_ids Array de los ids de los registros no aprobados
      */
-    public function showRegistrosNoAprobados(Request $request, $array_ids)
+    public function showRegistrosNoAprobadosAction(Request $request, $array_ids)
     {
         $serializer = $this->get('serializer');
         $idRegistros = $serializer->deserialize($array_ids, '[]', 'json');

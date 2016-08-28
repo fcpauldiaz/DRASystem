@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TipoDescuento
 {
     //constante de permisos default
-    const tipos = [
+    const TIPOS = [
         'Corporación de Inversiones',
         'Comcel',
         'Otros descuentos',

@@ -14,7 +14,7 @@ class Permiso
 {
     //se realizan dos constantes de permisos para poder
     //poder mostrarlos en dos columnas en la interfaz del usuarios
-    const permisosActuales = [
+    const PERMISOS_ACTUALES = [
 
         'Aprobar automáticamente las horas ingresadas' => 'ROLE_APROBACION_HORAS_AUTOMATICO',
         'Ver listado de horas ingresadas ' => 'ROLE_VER_LISTADO_GENERAL',
