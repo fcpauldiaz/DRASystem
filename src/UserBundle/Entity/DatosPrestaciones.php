@@ -443,6 +443,16 @@ class DatosPrestaciones
         return $total;
     }
 
+    public function getTotalDesglose() 
+    {
+        $desglose = $this->getCuotaPatronal() +
+                    $this->getBono14() +
+                    $this->getAguinaldo() +
+                    $this->getIndemnizacion() +
+                    $this->getSueldo() * 0.0417;
+        return $desglose;
+    }
+
     /**
      * Set viaticos.
      *

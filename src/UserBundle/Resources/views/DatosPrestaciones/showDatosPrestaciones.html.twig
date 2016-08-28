@@ -42,21 +42,32 @@
                         <th>Depreciación</th>
                         <td>{{ entity.depreciacion | number_format(2, '.', ', ')}}</td>
                     </tr>
+                    <tr>
+                        <th>Desglose Prestaciones sobre sueldo</th>
+                    </tr>
                      <tr>
-                        <th>Indemnización</th>
+                        <th class="table-padding">Indemnización</th>
                         <td>{{ entity.indemnizacion | number_format(2, '.', ', ')}}</td>
                     </tr>
                      <tr>
-                        <th>Aguinaldo</th>
+                        <th class="table-padding">Aguinaldo</th>
                         <td>{{ entity.aguinaldo | number_format(2, '.', ', ')}}</td>
                     </tr>
                      <tr>
-                        <th>Bono 14</th>
+                        <th class="table-padding">Vacaciones</th>
+                        <td>{{ entity.sueldo * 0.0417 | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th class="table-padding">Bono 14</th>
                         <td>{{ entity.bono14 | number_format(2, '.', ', ')}}</td>
                     </tr>
                      <tr>
-                        <th>Cuota Patronal</th>
+                        <th class="table-padding">Cuota Patronal</th>
                         <td>{{ entity.cuotaPatronal | number_format(2, '.', ', ')}}</td>
+                    </tr>
+                     <tr>
+                        <th class="table-padding">Total</th>
+                        <td>{{ (entity.totalDesglose )| number_format(2, '.', ', ')}}</td>
                     </tr>
                      <tr>
                         <th>Usuario</th>
@@ -77,12 +88,12 @@
         </ul>
     </div>
     <div class="col-md-6">
-            
+        {% if entity.usuario.puestos.last() != false %}
              {{ render(controller(
                 'UserBundle:Puesto:showPlain',
-                {'id': app.user.puestos.last().id}
+                {'id': entity.usuario.puestos.last().id}
             )) }}
-           
+        {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -226,6 +226,9 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
+.table-padding {
+  padding-left: 80px !important;
+}
 /* empieza CSS para radio buttons */
 /* Termina CSS para radio buttons */
 /*
