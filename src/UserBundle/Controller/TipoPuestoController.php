@@ -218,10 +218,10 @@ class TipoPuestoController extends Controller
             $usuarios = $this->getUsuariosPorTipoPuesto($entity);
             //actualizar todos los permisos
             //de todos los usuarios con este tipo de puesto.
-       
-            foreach($usuarios as $usuario) {
-                 foreach ($usuario->getRoles() as $role){
-                $usuario->removeRole($role);
+
+            foreach ($usuarios as $usuario) {
+                foreach ($usuario->getRoles() as $role) {
+                    $usuario->removeRole($role);
                 }
                 $permisos = $entity->getPermisos();
                 foreach ($permisos as $permiso) {
@@ -290,10 +290,10 @@ class TipoPuestoController extends Controller
 
     private function getUsuariosPorTipoPuesto($tipoPuesto)
     {
-            $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
-            $qb = $repositoryUsuarios->createQueryBuilder('usuario');
-               
-            $qb
+        $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
+        $qb = $repositoryUsuarios->createQueryBuilder('usuario');
+
+        $qb
                 ->select('usuario')
                 ->innerJoin('usuario.puestos', 'puesto')
                 ->innerJoin('puesto.tipoPuesto', 'tipopuesto')

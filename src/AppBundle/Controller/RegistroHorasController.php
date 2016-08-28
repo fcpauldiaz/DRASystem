@@ -80,9 +80,10 @@ class RegistroHorasController extends Controller
                 $entity->setAprobado($data->getAprobado());
                 $entity->setHorasExtraordinarias($data->getHorasExtraordinarias());
                 $em->persist($entity);
-                $em->flush();
+
                 $entities[] = $entity;
             }
+            $em->flush();
             if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('registrohoras_new');
             }

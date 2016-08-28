@@ -63,7 +63,7 @@ class SupervisorUsuariosController extends Controller
         $usuario = $this->getUser();
         $usuarios = $this
             ->get('consulta.query_controller')
-            ->buscarUsuariosPorSocio($usuario);
+            ->buscarUsuariosPorSocioAction($usuario);
 
         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [
@@ -124,7 +124,7 @@ class SupervisorUsuariosController extends Controller
     /**
      * @Route("/aprobar/{idRegistro}", name="aprobar_horas")
      */
-    public function aprobarHoras(Request $request, $idRegistro)
+    public function aprobarHorasAction(Request $request, $idRegistro)
     {
         $em = $this->getDoctrine()->getManager();
         $registro = $em->getRepository('AppBundle:RegistroHoras')->findOneById($idRegistro);
@@ -146,7 +146,7 @@ class SupervisorUsuariosController extends Controller
     /**
      * @Route("/enviar/aviso/horas/{usuario_id}", name="avisar_horas_no_aprobadas")
      */
-    public function enviarAvisoHorasNoAprobadas(Request $request, $usuario_id)
+    public function enviarAvisoHorasNoAprobadasAction(Request $request, $usuario_id)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('UserBundle:UsuarioTrabajador')->findOneById($usuario_id);
@@ -195,11 +195,6 @@ class SupervisorUsuariosController extends Controller
      */
     private function sendEmail($enviado_a, $registros)
     {
-
-        //new instance
-         $context = [
-
-        ];
         $fromEmail = 'no-responder@newtonlabs.com.gt';
 
         $message = \Swift_Message::newInstance();

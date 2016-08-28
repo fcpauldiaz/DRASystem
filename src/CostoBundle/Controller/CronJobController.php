@@ -38,8 +38,8 @@ class CronJobController extends Controller
             $entidadCosto->setCosto($costo);
             $entidadCosto->setUsuario($usuario);
             $em->persist($entidadCosto);
-            $em->flush();
         }
+        $em->flush();
 
         return $this->redirect($this->generateUrl('cron_job_view'));
     }

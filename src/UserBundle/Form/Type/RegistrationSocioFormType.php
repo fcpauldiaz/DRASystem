@@ -134,10 +134,9 @@ class RegistrationSocioFormType extends AbstractType
         //split name and substring to first letter.
         //explode params(delimiter, string, limit)
         //returns array of strings
-        $first = substr(explode(" ", $usuario->getNombre(), 2)[0], 0,1);
-        $last = substr(explode(" ", $usuario->getApellidos(), 2)[0], 0,1);
+        $first = substr(explode(' ', $usuario->getNombre(), 2)[0], 0, 1);
+        $last = substr(explode(' ', $usuario->getApellidos(), 2)[0], 0, 1);
         $usuario->setInitials($first.$last);
-       
     }
 
     /**

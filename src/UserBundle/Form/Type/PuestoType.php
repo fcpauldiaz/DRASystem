@@ -6,20 +6,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Form\FormEvents;
 use UserBundle\Entity\Permiso;
-use Doctrine\ORM\EntityManager;
 
 class PuestoType extends AbstractType
 {
-
     private $usuario;
 
-    public function __construct($usuario) {
+    public function __construct($usuario)
+    {
         $this->usuario = $usuario;
     }
-
 
     /**
      * @param FormBuilderInterface $builder
@@ -68,8 +65,8 @@ class PuestoType extends AbstractType
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'data' => $this->usuario,
                 'attr' => [
-                    'class' => 'select2'
-                ]
+                    'class' => 'select2',
+                ],
             ])
         ;
         $builder->addEventListener(
@@ -96,12 +93,12 @@ class PuestoType extends AbstractType
         return 'userbundle_puesto';
     }
 
-      /**
+    /**
      * Forma de agregar el permiso en caso de control total
      *  se crea un permiso temporal para agregar el segundo ROLE
      * Esto se hace para poder mostrar usuarios con los queries 
      * Ya que no se puede utilizar la jerarquía en sql
-     * Esto puede ocasionar un BC si hay cambios
+     * Esto puede ocasionar un BC si hay cambios.
      *
      * @param FormEvent $event Evento después de mandar la información del formulario
      */
@@ -110,11 +107,10 @@ class PuestoType extends AbstractType
         $puesto = $event->getData();
         $usuario = $puesto->getUsuario();
         $permisos = $puesto->getTipoPuesto()->getPermisos();
-        foreach($permisos as $permiso ) {
+        foreach ($permisos as $permiso) {
             if ($permiso->getPermiso() == 'ROLE_ADMIN') {
                 $usuario->addRole('ROLE_ASIGNACION');
             }
         }
-
     }
 }

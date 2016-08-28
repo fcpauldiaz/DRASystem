@@ -30,7 +30,7 @@ class PlanillaController extends Controller
      *
      * @return Response
      */
-    public function recibirExcel(Request $request)
+    public function recibirExcelAction(Request $request)
     {
         $usuario = $this->get('security.token_storage')->getToken()->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
@@ -108,9 +108,8 @@ class PlanillaController extends Controller
                     $codigo->setNombres($usuario->getNombre());
                     $codigo->setApellido($usuario->getApellido());
                     $em->persist($codigo);
-                    $em->flush();
                 }
-
+                $em->flush();
                 $usuarioTrabajador->setCodigo($codigo);
                 $encoder = $this->container->get('security.password_encoder');
                 //encriptar contraseña.
@@ -122,8 +121,8 @@ class PlanillaController extends Controller
                 $usuarioTrabajador->setEmail($username.'@diazreyes.com');
                 $usuarioTrabajador->setUserImage('578ae8d025164_default-user-icon-profile.png');
                 $em->persist($usuarioTrabajador);
-                $em->flush();
             }
+            $em->flush();
             //ahora los datos de las prestaciones
             $prestaciones = new DatosPrestaciones();
             $prestaciones->setSueldo(
@@ -181,7 +180,7 @@ class PlanillaController extends Controller
             '',
         ];
 
-        return $this->revisar_substring($primeraFila, strtolower($data));
+        return $this->revisarSubstring($primeraFila, strtolower($data));
     }
 
     /**
@@ -195,7 +194,7 @@ class PlanillaController extends Controller
      * @return $usuario pre-creado     
      */
     private function validarExcel($data, $usuario, $columna, $etiquetas)
-    {    
+    {
         //condición para la primera columna
         if (strtolower($data) == 'codigo') {
             $etiquetas = true;
@@ -322,7 +321,7 @@ class PlanillaController extends Controller
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    private function revisar_substring($needle, $haystack)
+    private function revisarSubstring($needle, $haystack)
     {
         foreach ($needle as $name) {
             if (stripos($haystack, $name) !== false) {

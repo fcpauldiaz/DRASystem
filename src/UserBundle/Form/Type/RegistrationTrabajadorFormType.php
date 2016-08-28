@@ -32,7 +32,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                     'placeholder' => 'Apellidos',
                     'class' => 'form-control input-lg',
                 ],
-                'required' => true
+                'required' => true,
             ])
             ->add('username', null, [
                 'label' => 'Usuario',
@@ -214,12 +214,12 @@ class RegistrationTrabajadorFormType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $usuario = $event->getData();
-        $form = $event->getForm();
+
         //split name and substring to first letter.
         //explode params(delimiter, string, limit)
         //returns array of strings
-        $first = substr(explode(" ", $usuario->getNombre(), 2)[0], 0,1);
-        $last = substr(explode(" ", $usuario->getApellidos(), 2)[0], 0,1);
+        $first = substr(explode(' ', $usuario->getNombre(), 2)[0], 0, 1);
+        $last = substr(explode(' ', $usuario->getApellidos(), 2)[0], 0, 1);
         $usuario->setInitials($first.$last);
     }
 }

@@ -129,7 +129,6 @@ class ProyectoPresupuestoType extends AbstractType
 
     public function checkArray($array, $id1, $id2)
     {
-        $i = 0;
         foreach ($array as $innerArray) {
             if ($innerArray[0] == $id1 && $innerArray[1] == $id2) {
                 return true;

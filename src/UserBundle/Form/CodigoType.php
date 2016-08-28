@@ -21,8 +21,8 @@ class CodigoType extends AbstractType
             ->add('codigo', null, [
                 'label' => 'Código',
                 'constraints' => [
-                    new Callback([$this, 'validarCodigo'])
-                ]
+                    new Callback([$this, 'validarCodigo']),
+                ],
             ])
             ->add('nombres')
             ->add('apellidos')
@@ -49,10 +49,10 @@ class CodigoType extends AbstractType
 
     public function validarCodigo($codigo, ExecutionContextInterface $context)
     {
-        if (strpos($codigo, 'ML') == false
-            && strpos($codigo, 'AUD') == false
-            && strpos($codigo, 'OD') == false
-            && strpos($codigo, 'DM') == false
+        if (strpos($codigo, 'ML') === false
+            && strpos($codigo, 'AUD') === false
+            && strpos($codigo, 'OD') === false
+            && strpos($codigo, 'DM') === false
             ) {
             $context->buildViolation('El código debe de tener AUD, OD, DM, o ML')
                 ->atPath('fos_user_register')

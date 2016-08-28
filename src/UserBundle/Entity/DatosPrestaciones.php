@@ -30,7 +30,7 @@ class DatosPrestaciones
 
     /**
      * @var float
-     * Bonificación Ley
+     *            Bonificación Ley
      * @ORM\Column(name="bonificacion_incentivo", type="float")
      */
     private $bonificacionIncentivo;
@@ -387,7 +387,7 @@ class DatosPrestaciones
         return $this;
     }
     /**
-     * Set cuotaPatronal
+     * Set cuotaPatronal.
      *
      * @param float $cuotaPatronal
      *
@@ -401,7 +401,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get cuotaPatronal
+     * Get cuotaPatronal.
      *
      * @return float
      */
@@ -443,13 +443,14 @@ class DatosPrestaciones
         return $total;
     }
 
-    public function getTotalDesglose() 
+    public function getTotalDesglose()
     {
         $desglose = $this->getCuotaPatronal() +
                     $this->getBono14() +
                     $this->getAguinaldo() +
                     $this->getIndemnizacion() +
                     $this->getSueldo() * 0.0417;
+
         return $desglose;
     }
 
@@ -477,12 +478,10 @@ class DatosPrestaciones
         return $this->viaticos;
     }
 
-
     /**
      * Set otraBonificacion.
      *
      * @param float $otraBonificacion
-     *
      * 
      * @return DatosPrestaciones
      */
@@ -506,7 +505,7 @@ class DatosPrestaciones
     public function calcularPrestaciones()
     {
         $sueldo = $this->sueldo;
-        $prestacionesSobreSueldo = $sueldo * 0.4183 ;
+        $prestacionesSobreSueldo = $sueldo * 0.4183;
         $calculoGeneral = $sueldo * 0.0833;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
         $cuotaPatronal = $sueldo * 0.1267;
         $this->prestacionesSobreSueldo = $prestacionesSobreSueldo;
@@ -575,7 +574,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set otrasPrestaciones
+     * Set otrasPrestaciones.
      *
      * @param float $otrasPrestaciones
      *
@@ -589,7 +588,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Get otrasPrestaciones
+     * Get otrasPrestaciones.
      *
      * @return float
      */
@@ -602,5 +601,4 @@ class DatosPrestaciones
     {
         return $this->sueldo.' '.$this->getUsuario();
     }
-
 }

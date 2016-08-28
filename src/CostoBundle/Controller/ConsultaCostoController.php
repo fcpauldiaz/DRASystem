@@ -332,7 +332,6 @@ class ConsultaCostoController extends Controller
     private function calcularHorasTotales($proyecto, $form)
     {
         $returnArray = [];
-        $data = $form->getData();
         //registro horas por proyecto
         $registros = $this
             ->getDoctrine()
@@ -502,7 +501,6 @@ class ConsultaCostoController extends Controller
 
         $usuariosAsignadosPorProyecto = new \Doctrine\Common\Collections\ArrayCollection();
 
-        $returnArray = [];
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin usuarios repetidos
             $usuariosAsignadosPorProyecto = $this->get('consulta.query_controller')->addArrayCollectionAction(
@@ -527,7 +525,6 @@ class ConsultaCostoController extends Controller
     {
         $clientesPorProyecto = new \Doctrine\Common\Collections\ArrayCollection();
 
-        $returnArray = [];
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin clientes repetidos
             //
@@ -555,8 +552,6 @@ class ConsultaCostoController extends Controller
     private function calcularHorasPorActividad($registros, $actividad, $form)
     {
         $data = $form->getData();
-        $returnArray = [];
-
         $cantidadHorasPorActividad = 0;
         $costoAcumulado = 0;
         $costoAcumuladoPresupuesto = [];

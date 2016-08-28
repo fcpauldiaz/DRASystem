@@ -41,7 +41,7 @@ class QueryController extends Controller
         return $array1;
     }
 
-    public function calcularHonorariosTotales($registros)
+    public function calcularHonorariosTotalesAction($registros)
     {
         $honorarios = 0;
         //se utilizará este array collection para no usar los honorarios
@@ -62,7 +62,7 @@ class QueryController extends Controller
         return $honorarios;
     }
 
-    public function calcularHorasPresupuesto($registrosPresupuesto, $actividad)
+    public function calcularHorasPresupuestoAction($registrosPresupuesto, $actividad)
     {
         $horasPresupuesto = 0;
         foreach ($registrosPresupuesto as $presupuesto) {
@@ -80,7 +80,7 @@ class QueryController extends Controller
      *
      * @return Array de UserBundle:Usuario
      */
-    public function buscarUsuariosPorSocio($usuario)
+    public function buscarUsuariosPorSocioAction($usuario)
     {
         $sql = ' 
             SELECT u1.id 

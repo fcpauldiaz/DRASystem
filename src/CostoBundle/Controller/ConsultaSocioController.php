@@ -86,7 +86,7 @@ class ConsultaSocioController extends Controller
 
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
-                ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+                ->calcularHorasPresupuestoAction($registrosPresupuesto, $actividad);
 
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
@@ -108,7 +108,7 @@ class ConsultaSocioController extends Controller
         }
         $honorarios = $this
             ->get('consulta.query_controller')
-            ->calcularHonorariosTotales($registros);
+            ->calcularHonorariosTotalesAction($registros);
 
         return $this->render(
             'CostoBundle:ConsultaSocio:consultaPorSocio.html.twig',
@@ -126,7 +126,7 @@ class ConsultaSocioController extends Controller
         $data = $form->getData();
         $usuarios = $this
             ->get('consulta.query_controller')
-            ->buscarUsuariosPorSocio($socio);
+            ->buscarUsuariosPorSocioAction($socio);
 
         $registros = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras')->findAll();
         $presupuestosIndividuales = $this->getDoctrine()
@@ -159,7 +159,7 @@ class ConsultaSocioController extends Controller
         }
         $honorarios = $this
             ->get('consulta.query_controller')
-            ->calcularHonorariosTotales($registros);
+            ->calcularHonorariosTotalesAction($registros);
 
         return $this->render(
             'CostoBundle:ConsultaSocio:consultaUsuarios'.$tipo.'.html.twig',
@@ -266,7 +266,7 @@ class ConsultaSocioController extends Controller
 
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
-                ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+                ->calcularHorasPresupuestoAction($registrosPresupuesto, $actividad);
 
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
@@ -288,7 +288,7 @@ class ConsultaSocioController extends Controller
         }
         $honorarios = $this
             ->get('consulta.query_controller')
-            ->calcularHonorariosTotales($registros);
+            ->calcularHonorariosTotalesAction($registros);
 
         return $this->render(
             'CostoBundle:ConsultaSocio:consultaPorGerente.html.twig',

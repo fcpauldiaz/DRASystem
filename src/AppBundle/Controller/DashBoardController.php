@@ -13,8 +13,6 @@ class DashBoardController extends Controller
      */
     public function indexAction(Request $request)
     {
-       
-       
         $cantidadUsuarios = $this->queryUsuarios();
         $cantidadHoras = $this->queryHorasIngresadas();
         $cantidadHorasPresupuestadas = $this->queryHorasPresupuesto();
@@ -29,7 +27,8 @@ class DashBoardController extends Controller
         ));
     }
     /**
-     * Query que devuelve la cantidad de costos guardados del usuairo actual
+     * Query que devuelve la cantidad de costos guardados del usuairo actual.
+     *
      * @return 
      */
     private function queryCosto()
@@ -41,28 +40,32 @@ class DashBoardController extends Controller
             ->select('COUNT(costo.id)')
             ->where('costo.usuario = :usuarioActual')
             ->setParameter('usuarioActual', $usuarioActual);
+
         return $queryCosto->getQuery()->getSingleScalarResult();
     }
 
     /**
      * Query que devuelve las horas del presupuesto.
+     *
      * @return float or null.
      */
-    private function queryHorasPresupuesto() 
+    private function queryHorasPresupuesto()
     {
         $em = $this->getDoctrine()->getManager();
         $usuarioActual = $this->getUser();
-         $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
+        $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
         $queryPresupuestos = $repositoryPresupuesto->createQueryBuilder('presupuesto')
             ->select('COUNT(presupuesto.id)')
             ->innerJoin('presupuesto.usuario', 'usuario')
             ->where('usuario = :user')
             ->setParameter('user', $usuarioActual);
+
         return $queryPresupuestos->getQuery()->getSingleScalarResult();
     }
 
     /**
      * Query que devuelve la cantidad de hoas ingresadas por el usuario logueado.
+     *
      * @return float or null
      */
     private function queryHorasIngresadas()
@@ -80,7 +83,8 @@ class DashBoardController extends Controller
     }
 
     /**
-     * Query que devuelve la cantidad de usuarios actuales en el sistema
+     * Query que devuelve la cantidad de usuarios actuales en el sistema.
+     *
      * @return Integer or NULL.
      */
     private function queryUsuarios()
@@ -92,5 +96,4 @@ class DashBoardController extends Controller
 
         return $queryUsuarios->getQuery()->getSingleScalarResult();
     }
-
 }

@@ -196,7 +196,8 @@ module.exports = function (grunt) {
               'web/js/bc-bootstrap-collection.min.js',
               'web/js/jquery.initialize.min.js',
               'web/js/select2.min.js',
-              'web/js/dashboard.min.js'
+              'web/js/dashboard.min.js',
+              'web/js/analytics.js'
 
           ],
           dest: 'web/js/built.js',
@@ -207,7 +208,8 @@ module.exports = function (grunt) {
               'web/js/bootstrap.min.js',
               'web/js/tab_register.min.js',
               'web/js/jquery.initialize.min.js',
-              'web/js/select2.min.js'
+              'web/js/select2.min.js',
+              'web/js/analytics.js'
           ],
           dest: 'web/js/built-init.js',
         },

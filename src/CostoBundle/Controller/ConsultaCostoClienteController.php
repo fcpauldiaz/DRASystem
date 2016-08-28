@@ -63,7 +63,7 @@ class ConsultaCostoClienteController extends Controller
 
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
-                ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+                ->calcularHorasPresupuestoAction($registrosPresupuesto, $actividad);
 
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
@@ -84,7 +84,7 @@ class ConsultaCostoClienteController extends Controller
         }
         $honorarios = $this
             ->get('consulta.query_controller')
-            ->calcularHonorariosTotales($registros);
+            ->calcularHonorariosTotalesAction($registros);
 
         //buscar presupesto en estas fechas
         //buscar registro horas en estas fechas

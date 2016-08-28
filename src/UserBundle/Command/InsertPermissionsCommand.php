@@ -40,12 +40,12 @@ class InsertPermissionsCommand extends ContainerAwareCommand
         foreach (Permiso::permisosActuales as $etiqueta => $permiso) {
             $permiso = new Permiso($etiqueta, $permiso);
             $em->persist($permiso);
-            $em->flush();
             //aumentar la cantidad de permisos creados
             ++$cantidadPermisos;
 
             $progress->advance();
         }
+        $em->flush();
         //terminar barra de progreso
         $progress->finish();
 

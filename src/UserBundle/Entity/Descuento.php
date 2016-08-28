@@ -44,10 +44,11 @@ class Descuento
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\TipoDescuento")
+     *
      * @var [type]
      */
     private $tipoDescuento;
-    
+
     /**
      * Get id.
      *
@@ -107,7 +108,7 @@ class Descuento
     }
 
     /**
-     * Set tipoDescuento
+     * Set tipoDescuento.
      *
      * @param \UserBundle\Entity\TipoDescuento $tipoDescuento
      *
@@ -121,7 +122,7 @@ class Descuento
     }
 
     /**
-     * Get tipoDescuento
+     * Get tipoDescuento.
      *
      * @return \UserBundle\Entity\TipoDescuento
      */
@@ -131,7 +132,7 @@ class Descuento
     }
 
     /**
-     * Set monto
+     * Set monto.
      *
      * @param float $monto
      *
@@ -145,7 +146,7 @@ class Descuento
     }
 
     /**
-     * Get monto
+     * Get monto.
      *
      * @return float
      */

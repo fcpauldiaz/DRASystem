@@ -27,7 +27,6 @@ class PuestoController extends Controller
      * @Route("/", name="puesto")
      * @Method("GET")
      * @Template("UserBundle:Puesto:indexPuesto.html.twig")
-     *
      */
     public function indexAction()
     {
@@ -58,25 +57,22 @@ class PuestoController extends Controller
      * @Route("/", name="puesto_create")
      * @Method("POST")
      * @Template("UserBundle:Puesto:newPuesto.html.twig")
-     *
      */
     public function createAction(Request $request)
     {
-       
         $entity = new Puesto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-           
+
             $data = $form->getData();
             $usuario = $data->getUsuario();
             foreach ($usuario->getRoles() as $role) {
                 $usuario->removeRole($role);
             }
-           
+
             $tipoPuesto = $data->getTipoPuesto();
             $permisos = $tipoPuesto->getPermisos();
             foreach ($permisos as $permiso) {
@@ -121,7 +117,6 @@ class PuestoController extends Controller
      * @Route("/new", name="puesto_new")
      * @Method("GET")
      * @Template("UserBundle:Puesto:newPuesto.html.twig")
-     *
      */
     public function newAction()
     {
@@ -140,7 +135,6 @@ class PuestoController extends Controller
      * @Route("/{id}", name="puesto_show")
      * @Method("GET")
      * @Template("UserBundle:Puesto:showPuesto.html.twig")
-     * 
      */
     public function showAction($id)
     {
@@ -184,7 +178,6 @@ class PuestoController extends Controller
      * @Route("/{id}/edit", name="puesto_edit")
      * @Method("GET")
      * @Template("UserBundle:Puesto:editPuesto.html.twig")
-     *
      */
     public function editAction($id)
     {

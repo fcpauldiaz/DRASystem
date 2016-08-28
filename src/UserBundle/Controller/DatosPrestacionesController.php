@@ -41,19 +41,16 @@ class DatosPrestacionesController extends Controller
         //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
         if ($claseActual == "UserBundle\Entity\UsuarioTrabajador" && !$this->isGranted('ROLE_ADMIN')) {
             $entities = $usuario->getDatosPrestaciones();
-
-        }
-        else if ($claseActual == "UserBundle\Entity\UsuarioTrabajador" && $this->isGranted('ROLE_ADMIN')) {
+        } elseif ($claseActual == "UserBundle\Entity\UsuarioTrabajador" && $this->isGranted('ROLE_ADMIN')) {
             //Si es admin muestra sus datos y sus asignados.
             $em = $this->getDoctrine()->getManager();
-            $conn = $em->getConnection();
-            $sql = 
+            $sql =
             'Select d.id
             from datos_prestaciones d 
             inner join usuario_relacionado r on r.usuario_pertenece_id = d.usuario_id
             where r.usuario_id = ?
             ';
-          
+
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->bindValue(1, 6);
             $stmt->execute();
@@ -63,7 +60,7 @@ class DatosPrestacionesController extends Controller
                 $ids[] = $innerRes['id'];
             }
 
-            $entities =  $this
+            $entities = $this
                 ->getDoctrine()
                 ->getRepository('UserBundle:DatosPrestaciones')
                 ->findById($ids)
@@ -72,8 +69,7 @@ class DatosPrestacionesController extends Controller
             if (isset($datos)) {
                 $entities[] = $datos;
             }
-        }
-        else {
+        } else {
             $em = $this->getDoctrine()->getManager();
 
             $entities = $em->getRepository('UserBundle:DatosPrestaciones')->findAll();
@@ -98,7 +94,7 @@ class DatosPrestacionesController extends Controller
         }
 
         $entity = new DatosPrestaciones();
-       
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -209,7 +205,7 @@ class DatosPrestacionesController extends Controller
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView()
+            'delete_form' => $deleteForm->createView(),
         );
     }
 

@@ -41,12 +41,12 @@ class InsertTipoDescuentosCommand extends ContainerAwareCommand
         foreach (TipoDescuento::tipos as $nombre) {
             $tipoDescuento = new TipoDescuento($nombre);
             $em->persist($tipoDescuento);
-            $em->flush();
             //aumentar la cantidad de permisos creados
             ++$cantidadDescuentos;
 
             $progress->advance();
         }
+        $em->flush();
         //terminar barra de progreso
         $progress->finish();
 

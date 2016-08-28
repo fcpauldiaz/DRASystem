@@ -72,11 +72,8 @@ class Cliente
      */
     private $codigoSAT;
 
-   
-
     public function __construct()
     {
-      
     }
 
     /**
@@ -257,10 +254,9 @@ class Cliente
         return $this->codigoSAT;
     }
 
-
     public function __toString()
     {
-        if ($this->nombreComercial != null) {
+        if ($this->nombreComercial !== null) {
             return $this->nombreComercial;
         }
 

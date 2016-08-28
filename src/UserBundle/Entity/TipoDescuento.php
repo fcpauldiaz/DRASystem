@@ -5,14 +5,13 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TipoDescuento
+ * TipoDescuento.
  *
  * @ORM\Table()
  * @ORM\Entity
  */
 class TipoDescuento
 {
-
     //constante de permisos default
     const tipos = [
         'Corporación de Inversiones',
@@ -20,11 +19,11 @@ class TipoDescuento
         'Otros descuentos',
         'Valens1',
         'Valens2',
-        'Valens3'
+        'Valens3',
     ];
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -46,8 +45,6 @@ class TipoDescuento
      */
     private $fechaCreacion;
 
-   
-
     public function __construct($nombre)
     {
         $this->nombreTipoDescuento = $nombre;
@@ -55,9 +52,9 @@ class TipoDescuento
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -65,7 +62,7 @@ class TipoDescuento
     }
 
     /**
-     * Set nombreTipoDescuento
+     * Set nombreTipoDescuento.
      *
      * @param string $nombreTipoDescuento
      *
@@ -79,7 +76,7 @@ class TipoDescuento
     }
 
     /**
-     * Get nombreTipoDescuento
+     * Get nombreTipoDescuento.
      *
      * @return string
      */
@@ -89,7 +86,7 @@ class TipoDescuento
     }
 
     /**
-     * Set fechaReacion
+     * Set fechaReacion.
      *
      * @param \DateTime $fechaReacion
      *
@@ -103,7 +100,7 @@ class TipoDescuento
     }
 
     /**
-     * Get fechaReacion
+     * Get fechaReacion.
      *
      * @return \DateTime
      */
@@ -117,4 +114,3 @@ class TipoDescuento
         return $this->nombreTipoDescuento;
     }
 }
-

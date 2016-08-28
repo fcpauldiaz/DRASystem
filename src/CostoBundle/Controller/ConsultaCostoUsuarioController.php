@@ -61,7 +61,7 @@ class ConsultaCostoUsuarioController extends Controller
 
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
-                ->calcularHorasPresupuesto($registrosPresupuesto, $actividad);
+                ->calcularHorasPresupuestoAction($registrosPresupuesto, $actividad);
 
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
             if ($actividad->getActividadNoCargable() === true) {
@@ -83,7 +83,7 @@ class ConsultaCostoUsuarioController extends Controller
         }
         $honorarios = $this
             ->get('consulta.query_controller')
-            ->calcularHonorariosTotales($registros);
+            ->calcularHonorariosTotalesAction($registros);
 
         return $this->render(
             'CostoBundle:ConsultaUsuario:consultaUsuario.html.twig',

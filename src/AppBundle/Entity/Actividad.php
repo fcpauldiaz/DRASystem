@@ -141,7 +141,7 @@ class Actividad
     public function __toString()
     {
         $abreviatura = $this->abreviatura;
-        if ($abreviatura != null) {
+        if ($abreviatura !== null) {
             return $this->abreviatura.': '.$this->nombre;
         }
 

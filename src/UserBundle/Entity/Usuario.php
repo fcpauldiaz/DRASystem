@@ -5,8 +5,6 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 //sirve para extender de friendofsymfony
 use FOS\UserBundle\Model\User as BaseUser;
-use Symfony\Component\HttpFoundation\File\File;
-
 
 /**
  * @ORM\Entity
@@ -66,7 +64,6 @@ abstract class Usuario extends BaseUser
      * @var Entity
      */
     private $codigo;
-
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -195,7 +192,6 @@ abstract class Usuario extends BaseUser
         return $this->apiKey;
     }
 
-
     public function removeRole($role)
     {
         if ($role == 'ROLE_ASIGNACION') {
@@ -205,7 +201,6 @@ abstract class Usuario extends BaseUser
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);
         }
-
 
         return $this;
     }
@@ -304,8 +299,8 @@ abstract class Usuario extends BaseUser
         return $this->codigo;
     }
 
-        /**
-     * Set initials
+    /**
+     * Set initials.
      *
      * @param string $initials
      *
@@ -319,7 +314,7 @@ abstract class Usuario extends BaseUser
     }
 
     /**
-     * Get initials
+     * Get initials.
      *
      * @return string
      */
@@ -332,5 +327,4 @@ abstract class Usuario extends BaseUser
     {
         return $this->nombre.' '.$this->apellidos;
     }
-
 }

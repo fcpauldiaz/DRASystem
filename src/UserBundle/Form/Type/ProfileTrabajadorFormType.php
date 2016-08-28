@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfileTrabajadorFormType extends AbstractType
 {
