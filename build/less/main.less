@@ -9,14 +9,24 @@
 }*/
 
 .avatar-circle {  
-	.avatar(100px, @avatar-color, 25px);
+	
+	.avatar(90px, @avatar-color, 20px);
 	display: inline-block;
+	border: 3px solid;
+	border-color: rgba(255,255,255,0.1);
+	
 }
 .avatar-circle-xs { 
 	.avatar(25px, @avatar-color, 2px); 
 }
 .avatar-circle-sm { 
-	.avatar(50px, @avatar-color, 10px); 
+	@media (min-width: @screen-md) {
+		.avatar(50px, @avatar-color, 10px); 
+	}
+	@media (max-width: @screen-md) {
+		.avatar(25px, @avatar-color, 10px); 
+	}
+	
 }
 .avatar-circle-lg { 
 	.avatar(250px, @avatar-color, 100px); 

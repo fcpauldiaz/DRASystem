@@ -320,8 +320,11 @@ function _init() {
         //Enable sidebar push menu
         if ($(window).width() > (screenSizes.sm - 1)) {
           if ($("body").hasClass('sidebar-collapse')) {
+            $("#circle-sidebar").addClass("avatar-circle-sm");
             $("body").removeClass('sidebar-collapse').trigger('expanded.pushMenu');
           } else {
+            $("#circle-sidebar").removeClass("avatar-circle-sm");
+            $("#circle-sidebar").addClass("avatar-circle-xs");
             $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
           }
         }
