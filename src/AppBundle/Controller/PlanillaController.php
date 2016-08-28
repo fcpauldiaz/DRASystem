@@ -109,7 +109,6 @@ class PlanillaController extends Controller
                     $codigo->setApellido($usuario->getApellido());
                     $em->persist($codigo);
                 }
-                $em->flush();
                 $usuarioTrabajador->setCodigo($codigo);
                 $encoder = $this->container->get('security.password_encoder');
                 //encriptar contraseña.
@@ -122,7 +121,6 @@ class PlanillaController extends Controller
                 $usuarioTrabajador->setUserImage('578ae8d025164_default-user-icon-profile.png');
                 $em->persist($usuarioTrabajador);
             }
-            $em->flush();
             //ahora los datos de las prestaciones
             $prestaciones = new DatosPrestaciones();
             $prestaciones->setSueldo(
@@ -144,6 +142,7 @@ class PlanillaController extends Controller
             //corporacion y comcel
             ;
         }
+        $em->flush();
     }
     /**
      * Método para validar las etiquetas de las columnas.
