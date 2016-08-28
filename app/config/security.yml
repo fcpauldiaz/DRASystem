@@ -19,8 +19,7 @@ security:
                 login_path: /login
                 check_path: /check
             remember_me:
-                secret: "%secret%"
-                lifetime: 604800 # 1 week in seconds
+                key: "%secret%"
                 path:     /
                 always_remember_me: true
             logout:       true
