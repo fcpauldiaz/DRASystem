@@ -7,9 +7,13 @@
 {% block javascripts %}
       <script>
         $(document).ready(function() { 
-            $("#appbundle_registrohoras_fechaHoras_day").select2({ width: '8%' }); 
+         var javaQuery = window.matchMedia( "(max-width: 450px)" );
+        if (!javaQuery.matches) {
+           $("#appbundle_registrohoras_fechaHoras_day").select2({ width: '8%' }); 
             $("#appbundle_registrohoras_fechaHoras_month").select2({ width: '8%' }); 
-            $("#appbundle_registrohoras_fechaHoras_year").select2({ width: '10%' });           
+            $("#appbundle_registrohoras_fechaHoras_year").select2({ width: '10%' }); 
+        }
+                     
         });
           
     </script>
