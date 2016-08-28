@@ -305,6 +305,14 @@ class UsuarioTrabajador extends Usuario
         return $this->puestos->last();
     }
 
+    public function getDatosPrestacionesActuales() {
+        $datos = $this->getDatosPrestaciones()->last();
+        if ($datos !== false) {
+            return $datos;
+        }
+        return ;
+    }
+
     /**
      * Add presupuesto.
      *

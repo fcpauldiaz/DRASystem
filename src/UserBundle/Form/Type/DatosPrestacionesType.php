@@ -42,7 +42,7 @@ class DatosPrestacionesType extends AbstractType
                 'currency' => 'GTQ',
                 'label' => 'Bonificación Ley*',
                 'attr' => [
-                    'placeholder' => 'Benificación Ley',
+                    'placeholder' => 'Bonificación Ley',
                     'class' => 'form-control input-lg',
                 ],
                 'required' => true,

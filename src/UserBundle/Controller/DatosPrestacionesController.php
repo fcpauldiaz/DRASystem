@@ -39,9 +39,41 @@ class DatosPrestacionesController extends Controller
         $claseActual = $discriminator->getClass();
 
         //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
-        if ($claseActual == "UserBundle\Entity\UsuarioTrabajador") {
+        if ($claseActual == "UserBundle\Entity\UsuarioTrabajador" && !$this->isGranted('ROLE_ADMIN')) {
             $entities = $usuario->getDatosPrestaciones();
-        } else {
+
+        }
+        else if ($claseActual == "UserBundle\Entity\UsuarioTrabajador" && $this->isGranted('ROLE_ADMIN')) {
+            //Si es admin muestra sus datos y sus asignados.
+            $em = $this->getDoctrine()->getManager();
+            $conn = $em->getConnection();
+            $sql = 
+            'Select d.id
+            from datos_prestaciones d 
+            inner join usuario_relacionado r on r.usuario_pertenece_id = d.usuario_id
+            where r.usuario_id = ?
+            ';
+          
+            $stmt = $em->getConnection()->prepare($sql);
+            $stmt->bindValue(1, 6);
+            $stmt->execute();
+            $res = $stmt->fetchAll();
+            $ids = [];
+            foreach ($res as $innerRes) {
+                $ids[] = $innerRes['id'];
+            }
+
+            $entities =  $this
+                ->getDoctrine()
+                ->getRepository('UserBundle:DatosPrestaciones')
+                ->findById($ids)
+            ;
+            $datos = $usuario->getDatosPrestacionesActuales();
+            if (isset($datos)) {
+                $entities[] = $datos;
+            }
+        }
+        else {
             $em = $this->getDoctrine()->getManager();
 
             $entities = $em->getRepository('UserBundle:DatosPrestaciones')->findAll();
