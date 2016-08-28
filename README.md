@@ -6,7 +6,7 @@ DRASystem
 [![Symfony](http://img.shields.io/badge/PHP-7.0.9-yellow.svg)](http://php.net)
 ![PHP](http://img.shields.io/badge/Buildpack-PHP-lightgrey.svg)
 [![NodeJS](http://img.shields.io/badge/Buildpack-NodeJS-lightgrey.svg)](http://nodejs.com)
-
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c8504c3e-77f3-4d27-9a5c-e31f657c0880/small.png)](https://insight.sensiolabs.com/projects/c8504c3e-77f3-4d27-9a5c-e31f657c0880)
 
 
 A Symfony project created on January 3, 2016, 12:26 pm.
