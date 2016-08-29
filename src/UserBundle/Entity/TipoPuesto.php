@@ -2,6 +2,7 @@
 
 namespace UserBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -49,6 +50,40 @@ class TipoPuesto
      * @ORM\JoinTable(name="permisos_por_tipo_puesto")
      */
     private $permisos;
+
+    /**
+     * Fecha de creacion.
+     *
+     * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $creadoPor;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $actualizadoPor;
 
     public function __construct()
     {
@@ -113,11 +148,6 @@ class TipoPuesto
         return $this->descripcion;
     }
 
-    public function __toString()
-    {
-        return $this->nombrePuesto;
-    }
-
     /**
      * Add permiso.
      *
@@ -180,5 +210,110 @@ class TipoPuesto
         }
 
         return '';
+    }
+
+    /**
+     * Set fechaCreacion.
+     *
+     * @param \DateTime $fechaCreacion
+     *
+     * @return TipoPuesto
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set fechaActualizacion.
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return TipoPuesto
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * Set creadoPor.
+     *
+     * @param \UserBundle\Entity\Usuario $creadoPor
+     *
+     * @return TipoPuesto
+     */
+    public function setCreadoPor(\UserBundle\Entity\Usuario $creadoPor = null)
+    {
+        $this->creadoPor = $creadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get creadoPor.
+     *
+     * @return \UserBundle\Entity\Usuario
+     */
+    public function getCreadoPor()
+    {
+        return $this->creadoPor;
+    }
+
+    /**
+     * Set actualizadoPor.
+     *
+     * @param \UserBundle\Entity\Usuario $actualizadoPor
+     *
+     * @return TipoPuesto
+     */
+    public function setActualizadoPor(\UserBundle\Entity\Usuario $actualizadoPor = null)
+    {
+        $this->actualizadoPor = $actualizadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizadoPor.
+     *
+     * @return \UserBundle\Entity\Usuario
+     */
+    public function getActualizadoPor()
+    {
+        return $this->actualizadoPor;
+    }
+    /**
+     * Return significant identifier of class.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->nombrePuesto;
     }
 }

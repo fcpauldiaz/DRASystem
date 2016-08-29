@@ -3,6 +3,7 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Permiso.
@@ -76,6 +77,38 @@ class Permiso
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $tipoPuestos;
+
+    /**
+     * Fecha de creacion.
+     *
+     * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\Column(name="creado_por")
+     */
+    private $creadoPor;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\Column(name="actualizado_por")
+     */
+    private $actualizadoPor;
 
     public function __construct($etiqueta, $permiso)
     {
@@ -174,6 +207,102 @@ class Permiso
     public function getTipoPuestos()
     {
         return $this->tipoPuestos;
+    }
+
+    /**
+     * Set fechaCreacion.
+     *
+     * @param \DateTime $fechaCreacion
+     *
+     * @return Permiso
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set fechaActualizacion.
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return Permiso
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * Set creadoPor.
+     *
+     * @param string $creadoPor
+     *
+     * @return Permiso
+     */
+    public function setCreadoPor($creadoPor)
+    {
+        $this->creadoPor = $creadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get creadoPor.
+     *
+     * @return string
+     */
+    public function getCreadoPor()
+    {
+        return $this->creadoPor;
+    }
+
+    /**
+     * Set actualizadoPor.
+     *
+     * @param string $actualizadoPor
+     *
+     * @return Permiso
+     */
+    public function setActualizadoPor($actualizadoPor)
+    {
+        $this->actualizadoPor = $actualizadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizadoPor.
+     *
+     * @return string
+     */
+    public function getActualizadoPor()
+    {
+        return $this->actualizadoPor;
     }
 
     public function __toString()

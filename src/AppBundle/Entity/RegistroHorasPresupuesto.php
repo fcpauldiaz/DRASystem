@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * RegistroHorasPresupuesto.
@@ -56,11 +57,38 @@ class RegistroHorasPresupuesto
     private $proyecto;
 
     /**
-     * @var date
+     * Fecha de creacion.
      *
      * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $creadoPor;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $actualizadoPor;
 
     public function __construct()
     {
@@ -196,11 +224,6 @@ class RegistroHorasPresupuesto
         return $this->proyecto;
     }
 
-    public function __toString()
-    {
-        return 'P'.$this->getId();
-    }
-
     /**
      * Set usuario.
      *
@@ -223,5 +246,82 @@ class RegistroHorasPresupuesto
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set fechaActualizacion.
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return RegistroHorasPresupuesto
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * Set creadoPor.
+     *
+     * @param string $creadoPor
+     *
+     * @return RegistroHorasPresupuesto
+     */
+    public function setCreadoPor($creadoPor)
+    {
+        $this->creadoPor = $creadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get creadoPor.
+     *
+     * @return string
+     */
+    public function getCreadoPor()
+    {
+        return $this->creadoPor;
+    }
+
+    /**
+     * Set actualizadoPor.
+     *
+     * @param string $actualizadoPor
+     *
+     * @return RegistroHorasPresupuesto
+     */
+    public function setActualizadoPor($actualizadoPor)
+    {
+        $this->actualizadoPor = $actualizadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizadoPor.
+     *
+     * @return string
+     */
+    public function getActualizadoPor()
+    {
+        return $this->actualizadoPor;
+    }
+
+    public function __toString()
+    {
+        return 'P'.$this->getId();
     }
 }

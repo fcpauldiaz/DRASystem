@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Actividad.
@@ -51,6 +52,40 @@ class Actividad
      * @ORM\Column(name="actividad_no_cargable", type="boolean")
      */
     private $actividadNoCargable;
+
+    /**
+     * Fecha de creacion.
+     *
+     * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $creadoPor;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $actualizadoPor;
 
     public function __construct()
     {
@@ -138,16 +173,6 @@ class Actividad
         return $this->abreviatura;
     }
 
-    public function __toString()
-    {
-        $abreviatura = $this->abreviatura;
-        if ($abreviatura !== null) {
-            return $this->abreviatura.': '.$this->nombre;
-        }
-
-        return $this->nombre;
-    }
-
     /**
      * Set actividadNoCargable.
      *
@@ -170,5 +195,111 @@ class Actividad
     public function getActividadNoCargable()
     {
         return $this->actividadNoCargable;
+    }
+
+    /**
+     * Set fechaCreacion.
+     *
+     * @param \DateTime $fechaCreacion
+     *
+     * @return Actividad
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set fechaActualizacion.
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return Actividad
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * Set creadoPor.
+     *
+     * @param string $creadoPor
+     *
+     * @return Actividad
+     */
+    public function setCreadoPor($creadoPor)
+    {
+        $this->creadoPor = $creadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get creadoPor.
+     *
+     * @return string
+     */
+    public function getCreadoPor()
+    {
+        return $this->creadoPor;
+    }
+
+    /**
+     * Set actualizadoPor.
+     *
+     * @param string $actualizadoPor
+     *
+     * @return Actividad
+     */
+    public function setActualizadoPor($actualizadoPor)
+    {
+        $this->actualizadoPor = $actualizadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizadoPor.
+     *
+     * @return string
+     */
+    public function getActualizadoPor()
+    {
+        return $this->actualizadoPor;
+    }
+
+    public function __toString()
+    {
+        $abreviatura = $this->abreviatura;
+        if ($abreviatura !== null) {
+            return $this->abreviatura.': '.$this->nombre;
+        }
+
+        return $this->nombre;
     }
 }

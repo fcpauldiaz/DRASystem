@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * RegistroHoras.
@@ -57,11 +58,38 @@ class RegistroHoras
     private $ingresadoPor;
 
     /**
-     * @var date
+     * Fecha de creacion.
      *
      * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $creadoPor;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $actualizadoPor;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ProyectoPresupuesto")
@@ -283,11 +311,6 @@ class RegistroHoras
         return $this->proyectoPresupuesto;
     }
 
-    public function __toString()
-    {
-        return $this->getActividad()->__toString();
-    }
-
     /**
      * Set aprobado.
      *
@@ -353,5 +376,82 @@ class RegistroHoras
     public function getHorasExtraordinarias()
     {
         return $this->horasExtraordinarias;
+    }
+
+    /**
+     * Set fechaActualizacion.
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return RegistroHoras
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * Set creadoPor.
+     *
+     * @param string $creadoPor
+     *
+     * @return RegistroHoras
+     */
+    public function setCreadoPor($creadoPor)
+    {
+        $this->creadoPor = $creadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get creadoPor.
+     *
+     * @return string
+     */
+    public function getCreadoPor()
+    {
+        return $this->creadoPor;
+    }
+
+    /**
+     * Set actualizadoPor.
+     *
+     * @param string $actualizadoPor
+     *
+     * @return RegistroHoras
+     */
+    public function setActualizadoPor($actualizadoPor)
+    {
+        $this->actualizadoPor = $actualizadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizadoPor.
+     *
+     * @return string
+     */
+    public function getActualizadoPor()
+    {
+        return $this->actualizadoPor;
+    }
+
+    public function __toString()
+    {
+        return $this->getActividad()->__toString();
     }
 }

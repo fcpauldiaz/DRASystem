@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Cliente.
@@ -71,6 +72,40 @@ class Cliente
      * @ORM\Column(name="codigo_sat", type="string", length=255, nullable = true)
      */
     private $codigoSAT;
+
+    /**
+     * Fecha de creacion.
+     *
+     * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $creadoPor;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $actualizadoPor;
 
     public function __construct()
     {
@@ -252,6 +287,102 @@ class Cliente
     public function getCodigoSAT()
     {
         return $this->codigoSAT;
+    }
+
+    /**
+     * Set fechaCreacion.
+     *
+     * @param \DateTime $fechaCreacion
+     *
+     * @return Cliente
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set fechaActualizacion.
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return Cliente
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion.
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
+    }
+
+    /**
+     * Set creadoPor.
+     *
+     * @param string $creadoPor
+     *
+     * @return Cliente
+     */
+    public function setCreadoPor($creadoPor)
+    {
+        $this->creadoPor = $creadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get creadoPor.
+     *
+     * @return string
+     */
+    public function getCreadoPor()
+    {
+        return $this->creadoPor;
+    }
+
+    /**
+     * Set actualizadoPor.
+     *
+     * @param string $actualizadoPor
+     *
+     * @return Cliente
+     */
+    public function setActualizadoPor($actualizadoPor)
+    {
+        $this->actualizadoPor = $actualizadoPor;
+
+        return $this;
+    }
+
+    /**
+     * Get actualizadoPor.
+     *
+     * @return string
+     */
+    public function getActualizadoPor()
+    {
+        return $this->actualizadoPor;
     }
 
     public function __toString()

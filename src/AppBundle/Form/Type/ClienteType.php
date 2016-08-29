@@ -53,13 +53,6 @@ class ClienteType extends AbstractType
                 'label' => 'Código SAT (opcional)',
                 'required' => false,
             ])
-            ->add('contactos', null, [
-                'label' => 'Información de Contacto',
-                'required' => false,
-                'attr' => [
-                    'class' => 'select2',
-                ],
-            ])
         ;
     }
 
