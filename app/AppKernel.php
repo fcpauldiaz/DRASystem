@@ -32,9 +32,10 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
-             new JMS\SerializerBundle\JMSSerializerBundle(),
-             new Vich\UploaderBundle\VichUploaderBundle(),               //upload engine
-              new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),               //upload engine
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Hackzilla\Bundle\TicketBundle\HackzillaTicketBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

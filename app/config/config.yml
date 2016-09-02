@@ -108,4 +108,5 @@ stof_doctrine_extensions:
             loggable: true
             timestampable:  true
             blameable:  true
-
+hackzilla_ticket:
+    user_class:             UserBundle\Entity\Usuario

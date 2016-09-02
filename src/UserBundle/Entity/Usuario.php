@@ -15,7 +15,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * 
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
-abstract class Usuario extends BaseUser
+abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\UserInterface
 {
     /**
      * @var int
