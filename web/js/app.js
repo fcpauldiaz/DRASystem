@@ -242,6 +242,7 @@ function _init() {
       var _this = this;
       _this.fix();
       _this.fixSidebar();
+      _this.menuPush();
       $(window, ".wrapper").resize(function () {
         _this.fix();
         _this.fixSidebar();
@@ -298,6 +299,18 @@ function _init() {
           });
         }
       }
+    },
+    menuPush: function() {
+         //Enable sidebar push menu
+        var screenSizes = $.AdminLTE.options.screenSizes;
+        if ($(window).width() > (screenSizes.sm - 1)) {
+          if ($("body").hasClass('sidebar-collapse')) {
+            $("#circle-sidebar").addClass("avatar-circle-sm");
+          } else {
+            $("#circle-sidebar").removeClass("avatar-circle-sm");
+            $("#circle-sidebar").addClass("avatar-circle-xs");
+          }
+        }
     }
   };
 
