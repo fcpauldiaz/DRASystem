@@ -583,7 +583,7 @@ class DatosPrestaciones
      */
     public function setFecha($fecha)
     {
-        $this->fecha = $fecha;
+        $this->fechaCreacion = $fecha;
 
         return $this;
     }
@@ -595,7 +595,7 @@ class DatosPrestaciones
      */
     public function getFecha()
     {
-        return $this->fecha;
+        return $this->fechaCreacion;
     }
 
     /**
