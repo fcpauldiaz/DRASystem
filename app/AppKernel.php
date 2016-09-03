@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),               //upload engine
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Hackzilla\Bundle\TicketBundle\HackzillaTicketBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
