@@ -35,13 +35,13 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register/trabajador, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/puesto/, roles: ROLE_USER }
-        - { path: ^/actividad/, roles: ROLE_USER }
-        - { path: ^/registrohoras/, roles: ROLE_USER }
-        - { path: ^/cliente/, roles: ROLE_USER }
-        - { path: ^/datosprestaciones/, roles: ROLE_USER }
+        - { path: ^/puesto/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/actividad/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/registrohoras/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/cliente/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/datosprestaciones/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/admin/, roles: [ROLE_ADMIN] }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
 
 
 
