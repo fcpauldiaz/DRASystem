@@ -4,7 +4,6 @@ imports:
     - { resource: fos_user.yml }
     - { resource: easy_admin.yml }
     - { resource: vich_uploader.yml }
-    - { resource: memcached.yml }
     - { resource: knp_gaufrette.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
