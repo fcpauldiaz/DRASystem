@@ -9,7 +9,7 @@
         }
     },
     "require": {
-        "php": ">=5.5.0, <7.0",
+        "php": ">=5.5.0",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
@@ -41,9 +41,7 @@
         "php-http/guzzle6-adapter": "^1.1",
         "ocramius/proxy-manager": "^2.0.3",
         "hackzilla/ticket-bundle": "^2.0",
-        "knplabs/knp-paginator-bundle": "^2.5",
-        "emagister/memcached-bundle": "^0.1.4",
-        "ext-memcached": "*"
+        "knplabs/knp-paginator-bundle": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8",
