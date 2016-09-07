@@ -1,0 +1,14 @@
+emagister_memcached:
+    session_support:
+        enabled: true
+        instance_id: instance1
+        options:
+            prefix: "cache"
+            expiretime: 172800
+
+    instances:
+        instance1:
+            type: memcached
+            persistent_id: instance1
+            hosts:
+                - { dsn: host1, port: 11211, weight: 15 }
