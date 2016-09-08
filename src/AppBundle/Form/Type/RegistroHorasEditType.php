@@ -66,7 +66,7 @@ class RegistroHorasEditType extends AbstractType
                 'required' => true,
             ])
             ->add('ingresadoPor', 'entity', [
-                'class' => 'UserBundle:Usuario',
+                'class' => 'UserBundle:UsuarioTrabajador',
                 'property' => 'codigoString',
                 'data' => $this->usuario,
                 'attr' => [

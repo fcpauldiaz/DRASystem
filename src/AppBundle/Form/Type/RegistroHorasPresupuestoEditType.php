@@ -29,9 +29,9 @@ class RegistroHorasPresupuestoEditType extends AbstractType
 
             ])
               ->add('usuario', 'entity', [
-                    'class' => 'UserBundle:Usuario',
+                    'class' => 'UserBundle:UsuarioTrabajador',
                     'required' => true,
-                    'label' => 'Asignar Usuario',
+                    'label' => 'Asignar UsuarioTrabajador',
                     'property' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',

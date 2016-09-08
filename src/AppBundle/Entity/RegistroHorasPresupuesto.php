@@ -44,7 +44,7 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
      */
     private $usuario;
 

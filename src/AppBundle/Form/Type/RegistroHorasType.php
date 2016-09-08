@@ -70,7 +70,7 @@ class RegistroHorasType extends AbstractType
 
                 ])
             ->add('ingresadoPor', 'entity', [
-                'class' => 'UserBundle:Usuario',
+                'class' => 'UserBundle:UsuarioTrabajador',
                 'property' => 'codigoString',
                 'data' => $this->usuario,
                 'attr' => [
