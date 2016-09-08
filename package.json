@@ -1,5 +1,6 @@
 {
-  "name": "Smart-Time app",
+  "name": "Smart-Time",
+  "description": "manager time",
   "version": "2.0.2",
   "main": "dist/js/app.min.js",
   "engines": {
