@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0dfe304728bd8a7b9029599ed097a7ad",
-    "content-hash": "8b18f86d281b5ebd032766b739179c0e",
+    "hash": "6b48aa37950ce9ce8a6e245cd09d3407",
+    "content-hash": "0f69770bdf6c5ed6f0ab22f13b7d3d93",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1059,48 +1059,6 @@
                 "orm"
             ],
             "time": "2016-01-05 21:34:58"
-        },
-        {
-            "name": "emagister/memcached-bundle",
-            "version": "v0.1.4",
-            "target-dir": "Emagister/Bundle/MemcachedBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Emagister/MemcachedBundle.git",
-                "reference": "604c774b13f89a6a8f135514f98fc1b0a79488b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Emagister/MemcachedBundle/zipball/604c774b13f89a6a8f135514f98fc1b0a79488b8",
-                "reference": "604c774b13f89a6a8f135514f98fc1b0a79488b8",
-                "shasum": ""
-            },
-            "require-dev": {
-                "mockery/mockery": "dev-master",
-                "phpunit/phpunit": "3.7.x-dev",
-                "symfony/symfony": "2.1.x-dev"
-            },
-            "suggest": {
-                "ext-igbinary": "Use high performant serialization to save data to memcache"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Emagister\\Bundle\\MemcachedBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Soronellas",
-                    "email": "csoronellas@emagister.com"
-                }
-            ],
-            "description": "A Symfony2 bundle to handle memcached connections",
-            "time": "2014-10-27 10:02:53"
         },
         {
             "name": "fcpauldiaz/multi-user-bundle",
@@ -6606,14 +6564,12 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
-        "fcpauldiaz/multi-user-bundle": 20,
-        "ext-memcached": 10
+        "fcpauldiaz/multi-user-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.0",
-        "ext-memcached": "*"
+        "php": ">=5.5.0"
     },
     "platform-dev": []
 }
