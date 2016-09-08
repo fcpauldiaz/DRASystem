@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UserBundle\Entity\Codigo;
-use UserBundle\Form\CodigoType;
+use UserBundle\Form\Type\CodigoType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**

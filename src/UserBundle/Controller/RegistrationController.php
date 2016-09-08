@@ -21,13 +21,13 @@ class RegistrationController extends BaseController
         $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
         $claseActual = $discriminator->getClass();
 
-      //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
-      if ($claseActual == "UserBundle\Entity\UsuarioTrabajador") {
+        //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
+        if ($claseActual == "UserBundle\Entity\UsuarioTrabajador") {
 
-       //$response = $this->forward('UserBundle:DatosPrestaciones:new');
+      
         $response = $this->forward('UserBundle:Puesto:new');
 
-          return $response;
+        return $response;
       }
       //entonces es una clase tipo Socio UserBundle\Entity\UsuarioSocio
       else {

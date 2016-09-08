@@ -81,7 +81,6 @@ class PuestoController extends Controller
             $em->persist($entity);
             $em->persist($usuario);
             $em->flush();
-            //return new JsonResponse([$key,$value]);
 
             return $this->forward('UserBundle:DatosPrestaciones:new');
         }

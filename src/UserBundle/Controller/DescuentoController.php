@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UserBundle\Entity\Descuento;
-use UserBundle\Form\DescuentoType;
+use UserBundle\Form\Type\DescuentoType;
 
 /**
  * Descuento controller.
