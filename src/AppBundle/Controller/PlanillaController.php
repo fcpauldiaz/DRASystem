@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Form\Type\PlanillaType;
+use AppBundle\Form\Type\ExcelType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 use UserBundle\Entity\UsuarioPlanilla;
@@ -38,19 +38,19 @@ class PlanillaController extends Controller
         }
 
         $form = $this->createForm(
-            PlanillaType::class);
+            ExcelType::class);
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
-                'AppBundle:Planilla:newPlanilla.html.twig',
+                'AppBundle:Excel:newPlanilla.html.twig',
                 [
                     'form' => $form->createView(),
                 ]
             );
         }
         $data = $form->getData();
-        $planilla = $data['planilla'];
+        $planilla = $data['excel'];
         $hoja = $data['hoja'];
         $hoja = $hoja - 1;//arreglar index.
         $archivo = $planilla;
