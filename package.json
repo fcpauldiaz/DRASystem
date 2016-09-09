@@ -30,6 +30,7 @@
     "grunt-includes": "^0.4.5"
   },
   "scripts": {
+    "preinstall": "npm install",
     "postinstall": "grunt less uglify concat concat_css"
   }
 }
