@@ -63,7 +63,6 @@ class PlanillaController extends Controller
             $columna = 0;
             $usuario = new UsuarioPlanilla();
             foreach ($cellIterator as $cell) {
-                // $worksheet->setCellValueByColumnAndRow($column, $row + 1, $data);
                 $data = $cell->getValue();
                 $returnArray = $this->validarExcel($data, $usuario, $columna, $etiquetas);
                 $usuario = $returnArray[0];
