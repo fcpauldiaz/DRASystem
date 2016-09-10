@@ -45,26 +45,24 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a class="btn btn-primary" href="{{ path('registrohoras_new') }}">
-           Ingresar nuevo registro
-        </a>
-    </li>
-    <br>
-    <li>
-        <a class="btn btn-default" href="{{ path('registrohoras') }}">
-            Ver todos los ingresos
-        </a>
-    </li>
-    <br>
-    <li>
-        <a class="btn btn-warning" href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">
+    
+    <div class="row">
+       <div class="col-xs-12 col-sm-12 col-md-4">
+            <a class="btn btn-warning btn-block" href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">
             Editar
-        </a>
-    </li>
-   
-</ul>
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <a class="btn btn-primary btn-block " href="{{ path('registrohoras_new') }}">
+                Ingresar nuevo registro
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <a class="btn btn-default btn-block" href="{{ path('registrohoras') }}">
+            Ver todos los ingresos
+            </a>
+        </div>
+    </div>
 <br>
 <br>
 {% endblock %}
