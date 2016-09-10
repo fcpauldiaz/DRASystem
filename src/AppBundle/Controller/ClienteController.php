@@ -77,7 +77,7 @@ class ClienteController extends Controller
      */
     private function createCreateForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType(), $entity, array(
+        $form = $this->createForm(new ClienteType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('cliente_create'),
             'method' => 'POST',
         ));
@@ -180,7 +180,7 @@ class ClienteController extends Controller
      */
     private function createEditForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType(), $entity, array(
+        $form = $this->createForm(new ClienteType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

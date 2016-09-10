@@ -31,12 +31,6 @@ class Cliente
      */
     private $nit;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="numero_contrato", type="string", length=100, nullable = true)
-     */
-    private $numeroContrato;
 
     /**
      * @var string
@@ -52,12 +46,6 @@ class Cliente
      */
     private $nombreComercial;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_corto", type="string", length=255, nullable = true)
-     */
-    private $nombreCorto;
 
     /**
      * @var string
@@ -69,9 +57,9 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_sat", type="string", length=255, nullable = true)
+     * @ORM\Column(name="usuario_asignado", type="string")
      */
-    private $codigoSAT;
+    private $usuarioAsignado;
 
     /**
      * Fecha de creacion.
@@ -146,30 +134,6 @@ class Cliente
     }
 
     /**
-     * Set numeroContrato.
-     *
-     * @param string $numeroContrato
-     *
-     * @return Cliente
-     */
-    public function setNumeroContrato($numeroContrato)
-    {
-        $this->numeroContrato = $numeroContrato;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroContrato.
-     *
-     * @return string
-     */
-    public function getNumeroContrato()
-    {
-        return $this->numeroContrato;
-    }
-
-    /**
      * Set razonSocial.
      *
      * @param string $razonSocial
@@ -218,30 +182,6 @@ class Cliente
     }
 
     /**
-     * Set nombreCorto.
-     *
-     * @param string $nombreCorto
-     *
-     * @return Cliente
-     */
-    public function setNombreCorto($nombreCorto)
-    {
-        $this->nombreCorto = $nombreCorto;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreCorto.
-     *
-     * @return string
-     */
-    public function getNombreCorto()
-    {
-        return $this->nombreCorto;
-    }
-
-    /**
      * Set serviciosPrestados.
      *
      * @param string $serviciosPrestados
@@ -264,31 +204,7 @@ class Cliente
     {
         return $this->serviciosPrestados;
     }
-
-    /**
-     * Set codigoSAT.
-     *
-     * @param string $codigoSAT
-     *
-     * @return Cliente
-     */
-    public function setCodigoSAT($codigoSAT)
-    {
-        $this->codigoSAT = $codigoSAT;
-
-        return $this;
-    }
-
-    /**
-     * Get codigoSAT.
-     *
-     * @return string
-     */
-    public function getCodigoSAT()
-    {
-        return $this->codigoSAT;
-    }
-
+    
     /**
      * Set fechaCreacion.
      *
@@ -385,7 +301,31 @@ class Cliente
         return $this->actualizadoPor;
     }
 
-    public function __toString()
+    /**
+     * Set usuarioAsignado
+     *
+     * @param string $usuarioAsignado
+     *
+     * @return Cliente
+     */
+    public function setUsuarioAsignado($usuarioAsignado)
+    {
+        $this->usuarioAsignado = $usuarioAsignado;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioAsignado
+     *
+     * @return string
+     */
+    public function getUsuarioAsignado()
+    {
+        return $this->usuarioAsignado;
+    }
+
+     public function __toString()
     {
         if ($this->nombreComercial !== null) {
             return $this->nombreComercial;

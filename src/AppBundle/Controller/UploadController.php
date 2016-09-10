@@ -84,12 +84,11 @@ class UploadController extends Controller
    						case 2:
    							$cliente->setServiciosPrestados($data);
    							break;
-   						case 3:
-   							//set gerente.
-   						case 4:
-   							//set socio.
+              case 3;
+                $cliente->setUsuarioAsignado($data);
+                break;
    					}
-   				
+   			
    				}
    				$columna++;
    				
@@ -98,6 +97,7 @@ class UploadController extends Controller
    			if ($cliente->getNit() !== null) {
    				$em->persist($cliente);
    			}
+
    		}
    		$em->flush();
    	}

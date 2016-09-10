@@ -8,9 +8,24 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
+use Doctrine\ORM\EntityManager;
 
 class ClienteType extends AbstractType
 {
+    private $em;
+    private $trabajadores;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+        $entityTrabajadores = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
+        $trabajadores = [];
+        foreach($entityTrabajadores as $trabajador) {
+            $trabajadores[$trabajador->__toString()] = $trabajador->__toString();
+        }
+        $this->trabajadores = $trabajadores;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -29,10 +44,6 @@ class ClienteType extends AbstractType
                 ],
 
             ])
-            ->add('numeroContrato', null, [
-                'label' => 'Número de Contrato (opcional)',
-                'required' => false,
-            ])
             ->add('razonSocial', null, [
                 'label' => 'Razón Social *',
                 'required' => true,
@@ -40,18 +51,20 @@ class ClienteType extends AbstractType
             ->add('nombreComercial', null, [
                 'required' => false,
                 'label' => 'Nombre Comercial (opcional)',
-            ])
-            ->add('nombreCorto', null, [
-                'required' => false,
-                'label' => 'Nombre Corto (opcional)',
-                ])
+            ])       
             ->add('serviciosPrestados', 'textarea', [
                 'label' => 'Servicios Prestados*',
                 'required' => true,
             ])
-            ->add('codigoSAT', null, [
-                'label' => 'Código SAT (opcional)',
-                'required' => false,
+            ->add('usuarioAsignado', 'choice', [
+                'label' => 'Usuario Asignado al cliente *',
+                'required' => true,
+                'choices_as_values' => false,
+                'choices' => $this->trabajadores,
+                'attr' => [
+                    'class' => 'select2',
+                ],
+
             ])
         ;
     }
