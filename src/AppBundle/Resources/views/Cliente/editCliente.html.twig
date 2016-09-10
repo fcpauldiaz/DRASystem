@@ -19,19 +19,20 @@
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a class="btn btn-default" href="{{ path('cliente') }}">
-           Ver todos
-        </a>
-    </li>
-    {% if is_granted('ROLE_ELIMINAR_CLIENTES') %}
-    <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button>
-    </li>
-    <div class="modal">
-     {{ form(delete_form) }}
+<div class="row">
+   {% if is_granted('ROLE_ELIMINAR_CLIENTES') %}
+     <div class="col-xs-12 col-sm-12 col-md-6">
+        <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button>
+        
+        <div class="modal">
+         {{ form(delete_form) }}
+        </div>
     </div>
     {% endif %}
-   
-</ul>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <a class="btn btn-default btn-block" href="{{ path('cliente') }}">
+            Ver todos
+        </a>
+    </div>
+</div>
 {% endblock %}

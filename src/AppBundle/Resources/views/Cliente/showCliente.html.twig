@@ -20,10 +20,6 @@
                 <td>{{ entity.nit }}</td>
             </tr>
             <tr>
-                <th>Número Contrato</th>
-                <td>{{ entity.numeroContrato }}</td>
-            </tr>
-            <tr>
                 <th>Razón Social</th>
                 <td>{{ entity.razonSocial }}</td>
             </tr>
@@ -32,41 +28,37 @@
                 <td>{{ entity.nombreComercial }}</td>
             </tr>
             <tr>
-                <th>Nombre Corto</th>
-                <td>{{ entity.nombreCorto }}</td>
-            </tr>
-            <tr>
                 <th>Servicios Prestados</th>
                 <td>{{ entity.serviciosPrestados }}</td>
             </tr>
             <tr>
-                <th>Código SAT</th>
-                <td>{{ entity.codigoSAT }}</td>
+                <th>Usuario Asignado</th>
+                <td>{{ entity.usuarioAsignado }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul class="record_actions">
-    {% if is_granted('ROLE_CREAR_CLIENTE') %}
-    <li>
-        <a class="btn btn-primary btn-block" href="{{ path('cliente_new')}}">
-            Ingresar Nuevo cliente
-        </a>
-    </li>
-    {% endif %}
-    <br>
-
-    <li>
-        <a class="btn btn-default" href="{{ path('cliente') }}">
-           Ver todos los clientes
-        </a>
-    </li>
-    {% if is_granted('ROLE_EDITAR_CLIENTE') %}
-        <li>
-            <a class="btn btn-warning" href="{{ path('cliente_edit', { 'id': entity.id }) }}">
-                Editar
+    <div class="row">
+         {% if is_granted('ROLE_EDITAR_CLIENTES') %}
+       <div class="col-xs-12 col-sm-12 col-md-4">
+            <a class="btn btn-warning btn-block" href="{{ path('cliente_edit', {'id': entity.id}) }}">  
+                Editar Cliente
             </a>
-            </li>
-    {% endif %}
-</ul>
+        </div>
+        {% endif %}
+        {% if is_granted('ROLE_CREAR_CLIENTES') %}
+        <div class="col-xs-12 col-sm-12 col-md-4">
+        
+            <a class="btn btn-primary btn-block" href="{{ path('cliente_new')}}">
+                Ingresar Nuevo cliente
+            </a>
+        </div>
+        {% endif %}
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <a class="btn btn-default btn-block" href="{{ path('cliente') }}">
+               Ver todos los clientes
+            </a>
+        </div>
+    </div>
+  
 {% endblock %}

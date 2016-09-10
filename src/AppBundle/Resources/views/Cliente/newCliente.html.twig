@@ -30,65 +30,46 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6">
       <div class="form-group">
-          {{ form_row(form.numeroContrato)}}
+          {{ form_row(form.razonSocial)}}
       </div>
     </div>
   </div>
-    <div class="row">
+  <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6">
       <div class="form-group">
-              {{ form_row(form.razonSocial)}}
+              {{ form_row(form.nombreComercial)}}
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
       <div class="form-group">
-        {{ form_row(form.nombreComercial)}}
-      </div>
-    </div>
-  </div>
-	 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
-      <div class="form-group">
-             {{ form_row(form.nombreCorto)}}
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-      <div class="form-group">
-       {{ form_row(form.serviciosPrestados)}}
+        {{ form_row(form.serviciosPrestados)}}
       </div>
     </div>
   </div>
    <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6">
       <div class="form-group">
-            {{ form_row(form.codigoSAT)}}
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-      <div class="form-group">
-      	  <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="myid" data-fade="3000"></div>
-                            
-
+          {{ form_row(form.usuarioAsignado)}}
       </div>
     </div>
   </div>
 	 <div class="row">
-        <div class="col-sm-5 col-md-5">
+        <div class="col-xs-12 col-sm-12 col-md-4">
             <div class="form-group">
                {{form_row(form.submitAndSave)}}
             </div>
         </div>
-       <div class="col-sm-4 col-md-4">
+       <div class="col-xs-12 col-sm-12 col-md-4">
             <div class="form-group">
                 {{form_row(form.submit)}}
             </div>
         </div>
-        <div class="col-sm-3 col-md-3">
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ path('cliente') }}">
-                  Ver todos los clientes
-              </a>
-            </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+          <div class="form-group">
+            <a class="btn btn-default btn-block" href="{{ path('cliente') }}">
+              Ver todos los clientes
+            </a>
+          </div>
         </div>
     </div>
 
