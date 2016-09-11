@@ -26,7 +26,7 @@ class RegistroHorasPresupuestoController extends Controller
      * Lists all RegistroHorasPresupuesto entities.
      *
      * @Route("/", name="horaspresupuesto")
-     * @Security("is_granted('ROLE_VER_PRESUPUEPSTOS')")
+     * @Security("is_granted('ROLE_VER_PRESUPUESTOS')")
      * @Method("GET")
      * @Template("AppBundle:RegistroHorasPresupuesto:indexRegistroHorasPresupuesto.html.twig")
      */
@@ -168,7 +168,7 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Displays a form to edit an existing RegistroHorasPresupuesto entity.
      *
-     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTOS')")
+     * @Security("is_granted('ROLE_EDITAR_PRESUPUESTO')")
      * @Route("/{id}/edit", name="horaspresupuesto_edit")
      * @Method("GET")
      *@Template("AppBundle:RegistroHorasPresupuesto:editRegistroHorasPresupuesto.html.twig")
@@ -281,7 +281,7 @@ class RegistroHorasPresupuestoController extends Controller
      */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder()
+        return $this->createFormBuilder(NULL, array ('attr' => array ('id' => 'delete-form' ) ) )
             ->setAction($this->generateUrl('horaspresupuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))

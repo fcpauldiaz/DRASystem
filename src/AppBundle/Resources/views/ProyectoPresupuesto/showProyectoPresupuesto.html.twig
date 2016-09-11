@@ -53,20 +53,21 @@
         </tbody>
     </table>
    
-        <ul class="record_actions">
-             {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
-            <li>
-                <a class="btn btn-default" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">
-                    Editar
-                </a>
-                 
-            </li>
-            {% endif %}
-            {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
-                <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button> </li>
+    <div class="row">
+         {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <a class="btn btn-warning btn-block" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">
+                Editar
+            </a>
+        </div>
+         {% endif %}
+        {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
+        <div class="cols-xs-12 col-sm-12 col-md-6">
+            <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button> </li>
                 {{ form(delete_form) }}
-            {% endif %}
-        </ul>
+        </div>
+        {% endif %}
+    </div>
    
 {% set contador = 0 %}
 {% for presupuesto in entity.presupuestoIndividual %}

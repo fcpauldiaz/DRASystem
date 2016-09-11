@@ -1,5 +1,5 @@
 {% block javascripts %}
-    <script src="{{asset('js/confirm-dialog.js')}}"></script>
+    <script src="{{asset('js/confirm-inside-dialog.js')}}"></script>
 {% endblock %}
     <h1>Registro Horas Presupuestadas</h1>
 
@@ -25,8 +25,6 @@
                 <th>Cliente</th>
                 <td>{{ entity.cliente }}</td>
             </tr>
-
-           
              <tr>
                 <th>Usuarios asignado</th>
                 <td>{{ entity.usuario }}</td>
@@ -40,19 +38,21 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    
-    <li>
-        <a class="btn btn-default" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
-    {% if is_granted('ROLE_ELIMINAR_HORAS') %}
-        <li>
-            <button id="simple-confirm" class="btn btn-danger">Eliminar</button> 
-        </li>
-        <div class="modal">
-        {{form(delete_form)}}  
+     <div class="row">
+        {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <a class="btn btn-warning btn-block" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
+                 Editar
+            </a>
         </div>
-    {% endif %}
-</ul>
+         {% endif %}
+       {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
+        <div class="cols-xs-12 col-sm-12 col-md-6">
+            <button id="inside-confirm" class="btn btn-danger btn-block">Eliminar</button>
+       
+           <div class="modal">
+                {{form(delete_form, {'name':'time'})}}  
+            </div>
+        </div>
+        {% endif %}
+    </div>

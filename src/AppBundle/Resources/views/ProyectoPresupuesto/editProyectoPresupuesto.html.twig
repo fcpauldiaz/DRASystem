@@ -20,16 +20,19 @@
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a class = "btn btn-primary" href="{{ path('proyectopresupuesto') }}">
+    <div class="row">
+        {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button>
+            <div class="modal">
+                {{ form(delete_form) }}
+            </div>
+        </div>
+        {% endif %}
+        <div class="cols-xs-12 col-sm-12 col-md-6">
+               <a class = "btn btn-default btn-block" href="{{ path('proyectopresupuesto') }}">
             Ver todos
-        </a>
-    </li>
-    {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
-    <li><button id="simple-confirm" class="btn btn-danger">Eliminar</button></li>
-    <div class="modal">
-   {{ form(delete_form) }}
-    {% endif %}
-</ul>
+            </a>
+        </div>
+    </div>
 {% endblock %}

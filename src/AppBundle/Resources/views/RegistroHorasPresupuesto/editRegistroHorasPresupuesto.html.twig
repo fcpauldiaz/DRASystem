@@ -1,19 +1,28 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    <script src="{{asset('js/confirm-dialog.js')}}"></script>
+{% endblock %}
+
 {% block body -%}
 	<br>
-    <h1>RegistroHorasPresupuesto edit</h1>
+    <h1>Editar Horas Presupuestadas</h1>
 
     {{ form(edit_form) }}
 
-    <ul class="record_actions">
-    <li>
-        <a href="{{ path('horaspresupuesto') }}">
-            Ver todos los registros de presupuesto
-        </a>
-    </li>
-    {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
-        <li>{{ form(delete_form) }}</li>
+    <div class="row">
+    {% if is_granted('ROLE_ELIMINAR_HORAS') %}
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button>
+       
+       <div class="modal">
+            {{form(delete_form)}}  
+        </div>
+    </div>
     {% endif %}
-</ul>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <a class="btn btn-default btn-block" href="{{ path('horaspresupuesto') }}">
+           Ver todos los registros
+        </a>
+    </div>
 {% endblock %}

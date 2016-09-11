@@ -38,18 +38,22 @@
         </tbody>
     </table>
    
-        <ul class="record_actions">
-            {% if is_granted('ROLE_EDITAR_HORAS') %}
-            <li>
-                <a class="btn btn-default" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
+     <div class="row">
+        {% if is_granted('ROLE_EDITAR_HORAS') %}
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <a class="btn btn-warning btn-block" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
+                 Editar
+            </a>
+        </div>
+         {% endif %}
+       {% if is_granted('ROLE_ELIMINAR_HORAS') %}
+        <div class="cols-xs-12 col-sm-12 col-md-6">
+              <a class="btn btn-danger btn-block" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
                     Editar
                 </a>
-            </li>
-            {% endif %}
-            {% if is_granted('ROLE_ELIMINAR_HORAS') %}
-                    <li>{{ form(delete_form) }}</li>
-            {% endif %}
-
-        </ul>
+                {{ form(delete_form) }}
+        </div>
+        {% endif %}
+    </div>
  
 {% endblock %}
