@@ -37,7 +37,7 @@ class BlameableListener extends TimestampableListener
                 return;
             }
 
-            return $user;
+            return $user->getCodigo();
         }
 
         // ok so its not an association, then it is a string
@@ -61,6 +61,7 @@ class BlameableListener extends TimestampableListener
      */
     public function setUserValue($user)
     {
+       
         $this->user = $user;
     }
 

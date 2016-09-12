@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * Codigo.
@@ -14,6 +15,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Codigo
 {
+
+    /**
+     * Hook blameable behavior
+     * updates createdBy, updatedBy fields
+     */
+    use BlameableEntity;
+    
     /**
      * @var int
      *

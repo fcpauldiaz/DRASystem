@@ -81,7 +81,7 @@ class Cliente
      * @var string
      *
      * @Gedmo\Blameable(on="create")
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $creadoPor;
@@ -90,7 +90,7 @@ class Cliente
      * @var string
      *
      * @Gedmo\Blameable(on="update")
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $actualizadoPor;

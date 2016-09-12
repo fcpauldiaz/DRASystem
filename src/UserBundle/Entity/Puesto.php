@@ -66,7 +66,8 @@ class Puesto
      * @var string
      *
      * @Gedmo\Blameable(on="create")
-     * @ORM\Column(name="creado_por")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $creadoPor;
 
@@ -74,7 +75,8 @@ class Puesto
      * @var string
      *
      * @Gedmo\Blameable(on="update")
-     * @ORM\Column(name="actualizado_por")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $actualizadoPor;
 

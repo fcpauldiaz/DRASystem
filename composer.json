@@ -26,8 +26,7 @@
         "twbs/bootstrap": "3.*",
         "oyejorge/less.php": "~1.5",
         "stephanecollot/datetimepicker-bundle": "^1.0",
-        "stof/doctrine-extensions-bundle": "^1.2",
-        "ibrows/loggable-bundle": "^2.2",
+        "fcpauldiaz/doctrine-extensions-bundle": "^1.2",
         "leafo/scssphp": "^0.6.3",
         "patchwork/jsqueeze": "~1.0",
         "cspoo/swiftmailer-mailgun-bundle": "^0.3.1",
@@ -41,7 +40,9 @@
         "php-http/guzzle6-adapter": "^1.1",
         "ocramius/proxy-manager": "^2.0.3",
         "hackzilla/ticket-bundle": "^2.0",
-        "knplabs/knp-paginator-bundle": "^2.5"
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "emagister/memcached-bundle": "^0.1.4",
+        "ext-memcached": "^3.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8",
