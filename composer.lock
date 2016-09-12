@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7f039ede53435f6f266cb9962fe808d2",
-    "content-hash": "92ba39697a23c9ac88be7a28cc10e90f",
+    "hash": "05469e7e9e13e22bd02c06b70519ff38",
+    "content-hash": "daad3a6c227ff232e9f44e2c9dc7332a",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1061,48 +1061,6 @@
             "time": "2016-09-10 18:51:13"
         },
         {
-            "name": "emagister/memcached-bundle",
-            "version": "v0.1.4",
-            "target-dir": "Emagister/Bundle/MemcachedBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Emagister/MemcachedBundle.git",
-                "reference": "604c774b13f89a6a8f135514f98fc1b0a79488b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Emagister/MemcachedBundle/zipball/604c774b13f89a6a8f135514f98fc1b0a79488b8",
-                "reference": "604c774b13f89a6a8f135514f98fc1b0a79488b8",
-                "shasum": ""
-            },
-            "require-dev": {
-                "mockery/mockery": "dev-master",
-                "phpunit/phpunit": "3.7.x-dev",
-                "symfony/symfony": "2.1.x-dev"
-            },
-            "suggest": {
-                "ext-igbinary": "Use high performant serialization to save data to memcache"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Emagister\\Bundle\\MemcachedBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Soronellas",
-                    "email": "csoronellas@emagister.com"
-                }
-            ],
-            "description": "A Symfony2 bundle to handle memcached connections",
-            "time": "2014-10-27 10:02:53"
-        },
-        {
             "name": "fcpauldiaz/doctrine-extensions",
             "version": "v2.4.23",
             "source": {
@@ -1307,12 +1265,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "528f0a93aebb641a0bc6471cc24562fbd01432cb"
+                "reference": "4cb7a29869e4a9bef4f51986d48b1a3af76d3f48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/528f0a93aebb641a0bc6471cc24562fbd01432cb",
-                "reference": "528f0a93aebb641a0bc6471cc24562fbd01432cb",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4cb7a29869e4a9bef4f51986d48b1a3af76d3f48",
+                "reference": "4cb7a29869e4a9bef4f51986d48b1a3af76d3f48",
                 "shasum": ""
             },
             "require": {
@@ -1371,7 +1329,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-09-09 10:00:40"
+            "time": "2016-09-12 15:04:02"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -6561,8 +6519,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.0",
-        "ext-memcached": "^3.0.0"
+        "php": ">=5.5.0"
     },
     "platform-dev": []
 }

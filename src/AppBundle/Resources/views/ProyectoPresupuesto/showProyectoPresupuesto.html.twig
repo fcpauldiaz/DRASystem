@@ -27,8 +27,8 @@
                 <th>Honorarios</th>
                 <td>{{ entity.honorarios }}</td>
             </tr>
-            {%for socio in entity.socios %}
-             <tr>
+            {% for socio in entity.socios %}
+            <tr>
                 <th>Socio</th>
                 <td>{{ socio }}</td>
             </tr>
@@ -63,7 +63,7 @@
          {% endif %}
         {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
         <div class="cols-xs-12 col-sm-12 col-md-6">
-            <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button> </li>
+            <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button>
                 {{ form(delete_form) }}
         </div>
         {% endif %}
