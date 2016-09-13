@@ -26,6 +26,7 @@ class RegistroHorasPresupuestoType extends AbstractType
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
+                'property' => 'showSearchParams',
                 'attr' => [
                     'class' => 'select2',
                 ],

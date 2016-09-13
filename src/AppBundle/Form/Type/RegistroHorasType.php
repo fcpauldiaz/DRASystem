@@ -47,6 +47,7 @@ class RegistroHorasType extends AbstractType
             ->add('cliente', 'entity', [
                 'class' => 'AppBundle:Cliente',
                 'required' => true,
+                'property' => 'showSearchParams',
                 'empty_value' => 'Seleccione el cliente',
                  'attr' => [
                     'class' => 'select2',

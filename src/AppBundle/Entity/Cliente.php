@@ -325,6 +325,15 @@ class Cliente
         return $this->usuarioAsignado;
     }
 
+    /**
+     * Método para buscar en select2
+     * @return String
+     */
+    public function showSearchParams()
+    {
+        return $this->nit.' : '.$this->razonSocial;
+    }
+
      public function __toString()
     {
         if ($this->nombreComercial !== null) {
