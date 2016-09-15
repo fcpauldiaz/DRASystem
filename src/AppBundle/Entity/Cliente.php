@@ -27,7 +27,7 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\Column(name="nit", type="string", length=20)
+     * @ORM\Column(name="nit", type="string", length=20, unique = true)
      */
     private $nit;
 
