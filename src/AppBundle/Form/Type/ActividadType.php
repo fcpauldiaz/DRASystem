@@ -19,8 +19,8 @@ class ActividadType extends AbstractType
                 'required' => true,
                 'label' => 'Nombre de la actividad *',
             ])
-            ->add('descripcion', 'textarea', [
-                'label' => 'Descripción *',
+            ->add('area', 'textarea', [
+                'label' => 'Área *',
             ])
             ->add('abreviatura', null, [
                 'label' => 'Abreviatura (opcional)',

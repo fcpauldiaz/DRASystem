@@ -35,9 +35,9 @@ class Actividad
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255)
+     * @ORM\Column(name="area", type="string", length=255)
      */
-    private $descripcion;
+    private $area;
 
     /**
      * @var string
@@ -123,30 +123,6 @@ class Actividad
     public function getNombre()
     {
         return $this->nombre;
-    }
-
-    /**
-     * Set descripcion.
-     *
-     * @param string $descripcion
-     *
-     * @return Actividad
-     */
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcion.
-     *
-     * @return string
-     */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
     }
 
     /**
@@ -293,6 +269,30 @@ class Actividad
         return $this->actualizadoPor;
     }
 
+    /**
+     * Set area
+     *
+     * @param string $area
+     *
+     * @return Actividad
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return string
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
     public function __toString()
     {
         $abreviatura = $this->abreviatura;
@@ -302,4 +302,5 @@ class Actividad
 
         return $this->nombre;
     }
+
 }
