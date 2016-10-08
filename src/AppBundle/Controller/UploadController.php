@@ -82,7 +82,7 @@ class UploadController extends Controller
 
     }
 
-    return $this->render('AppBundle:Excel:newClientes.html.twig', 
+    return $this->render('AppBundle:Excel:newActividadExcel.html.twig', 
     [
       'form' => $form->createView()
     ]);
