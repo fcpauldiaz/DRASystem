@@ -12,8 +12,12 @@
                     <td>{{ entity.departamento }}</td>
                 </tr>
                 <tr>
-                    <th>Fecha del puesto</th>
-                    <td>{{ entity.date|date('d-m-Y') }}</td>
+                    <th>Fecha del creación puesto</th>
+                    <td>{{ entity.fechaCreacion|date('d-m-Y') }}</td>
+                </tr>
+                  <tr>
+                    <th>Usuario</th>
+                    <td>{{ entity.usuario}}</td>
                 </tr>
             </tbody>
         </table>
