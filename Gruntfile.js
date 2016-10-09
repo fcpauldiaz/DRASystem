@@ -207,7 +207,8 @@ module.exports = function (grunt) {
               'web/js/tab_register.min.js',
               'web/js/jquery.initialize.min.js',
               'web/js/select2.min.js',
-              'web/js/analytics.js'
+              'web/js/analytics.js',
+              'web/js/notie.min.js'
           ],
           dest: 'web/js/built-init.js',
         },

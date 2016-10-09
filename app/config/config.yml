@@ -121,3 +121,11 @@ knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+troopers_alertify:
+    contexts:
+        front:
+            engine: "notie"
+            timeout: 10                    #Could be noty, modal, toastr or your own
+            layout: "bottomLeft"           #Is relative according to the selected engine
+            translationDomain: "messages"  #Where do you want to store the translation strings

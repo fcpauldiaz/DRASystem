@@ -37,6 +37,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Hackzilla\Bundle\TicketBundle\HackzillaTicketBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Troopers\AlertifyBundle\TroopersAlertifyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
