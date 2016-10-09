@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="{{asset('css/notie.css')}}">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -41,15 +42,6 @@
                 {% else %}
                 {% endif %}
             </div>
-            {% if app.request.hasPreviousSession %}
-                {% for type, messages in app.session.flashbag.all() %}
-                    {% for message in messages %}
-                    <div class="flash-{{ type }}">
-                        <p style="border-bottom: 1px solid #000; color: #000 ">{{ message }}</p>
-                    </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endif %}
         </div>
         
         <!-- Start Login Section -->
@@ -58,6 +50,10 @@
         <!-- jQuery 2.2.0 -->
         <!-- Bootstrap 3.3.6 -->
         <script src="{{asset('js/built-init.js')}}"></script>
+        {% block alertify %}
+            {{ app.session|alertify|raw }}
+        {% endblock %}
+              
         {% block javascripts %}
         {% endblock javascripts %}
     </body>

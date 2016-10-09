@@ -8,6 +8,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DashBoardController extends Controller
 {
+
+    /**
+     * @Route("/forbidden")
+     */
+    public function forbiddenAction()
+    {
+        $this->render('default/error403.html');
+    }
+
     /**
      * @Route("/", name="homepage")
      */
