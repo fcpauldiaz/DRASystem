@@ -22,9 +22,11 @@ security:
                 key: "%secret%"
                 path:     /
                 always_remember_me: true
-            logout:       true
+            logout:
+                path: /logout
+                invalidate_session: false
             anonymous:    true
-            access_denied_url: /
+            access_denied_url: /forbidden
             #guard:
             #    authenticators:
             #        - app.token_authenticator

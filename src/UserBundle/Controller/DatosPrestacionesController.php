@@ -88,6 +88,11 @@ class DatosPrestacionesController extends Controller
      */
     public function createAction(Request $request)
     {
+        $referer = $request->headers->get('referer');
+        $redirect = false;
+        if (stripos($referer, "puesto") !== false) {
+            $redirect = true;
+        }
         $usuario = $this->getUser();
         if (!is_object($usuario) || !$usuario instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -100,12 +105,16 @@ class DatosPrestacionesController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $usuarioActual = $data->getUsuario();
             $em->persist($entity);
             $em->flush();
-            $usuario->addDatosPrestacione($entity);
-            $em->persist($usuario);
-            $em->flush();
 
+            if ($redirect === true && $usuarioActual === $usuario) {
+              
+            $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+                return $this->redirect($this->generateUrl('fos_user_security_logout'));
+            }
             return $this->redirect($this->generateUrl('datosprestaciones_show', array('id' => $entity->getId())));
         }
 
@@ -114,7 +123,6 @@ class DatosPrestacionesController extends Controller
             'form' => $form->createView(),
         );
     }
-
     /**
      * Creates a form to create a DatosPrestaciones entity.
      *

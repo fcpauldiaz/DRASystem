@@ -64,6 +64,12 @@ class PuestoController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+       $referer = $request->headers->get('referer');
+        $redirect = false;
+        if (stripos($referer, "confirmed") !== false) {
+            $redirect = true;
+        }
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
@@ -82,7 +88,14 @@ class PuestoController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            return $this->forward('UserBundle:DatosPrestaciones:new');
+            if ($redirect === true) {
+                return $this->forward('UserBundle:DatosPrestaciones:new');
+            }
+            if ($usuario === $this->getUser()) {
+                $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+                return $this->redirectToRoute('fos_user_security_logout');
+                }
+                return $this->redirectToRoute('puesto_show', ['id' => $entity->getId() ]);
         }
 
         return array(
