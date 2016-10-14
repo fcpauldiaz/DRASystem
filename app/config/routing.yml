@@ -50,3 +50,10 @@ easy_admin_bundle:
 hackzilla_ticket:
     resource: "@HackzillaTicketBundle/Resources/config/routing.yml"
     prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+sg_datatables_bundle:
+    resource: "@SgDatatablesBundle/Controller/"
+    type:     annotation
