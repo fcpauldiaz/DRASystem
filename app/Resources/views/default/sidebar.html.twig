@@ -51,6 +51,7 @@
             {% endif %}
           </ul>
         </li>
+        {% if is_granted('ROLE_CREAR_PRESUPUESTOS') %}
         <!--Presupuestos -->
           <li class="treeview">
           <a href="#"><i class="fa fa-money"></i> <span>Presupuestos</span>
@@ -67,6 +68,8 @@
             {% endif %}
           </ul>
         </li>
+        {% endif %}
+        {%  if is_granted('ROLE_CREAR_ACTIVIDADES') or is_granted('ROLE_VER_ACTIVIDADES') %}
         <!--Acitividades -->
           <li class="treeview">
           <a href="#"><i class="fa fa-tasks"></i> <span>Actividades</span>
@@ -83,6 +86,7 @@
             {% endif %}
           </ul>
         </li>
+        {% endif %}
         <!--Consultas-->
          {% if is_granted('ROLE_VER_CONSULTAS') and app.user %}
           <li class="treeview">
@@ -92,7 +96,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-             <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
+            <li><a href="{{ path('cron_job_view')}}">Re calcular costos</a></li>
+            <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
             <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
             <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
             <li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
@@ -100,6 +105,7 @@
           </ul>
         </li>
         {% endif %}
+        {% if is_granted('ROLE_CREAR_DEPARTAMENTO') or is_granted('ROLE_VER_DEPARTAMENTO') %}
         <!--Departamento-->
           <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Departamento</span>
@@ -116,7 +122,10 @@
             {% endif %}
           </ul>
         </li>
+        {% endif %}
          <!--Clientes -->
+        }
+        {% if is_granted('ROLE_CREAR_CLIENTES') or is_granted('ROLE_VER_CLIENTES') %}
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Clientes</span>
             <span class="pull-right-container">
@@ -132,7 +141,9 @@
             {% endif %}
           </ul>
         </li>
+        {% endif %}
         <!--Tipo Puesto-->
+        {% if is_granted('ROLE_VER_PUESTO_Y_TIPO') or  is_granted ('ROLE_CREAR_PUESTO_Y_TIPO') %}
          <li class="treeview">
           <a href="#"><i class="ion-clipboard"></i> <span>Puestos</span>
             <span class="pull-right-container">
@@ -155,17 +166,18 @@
             {% endif %}
           </ul>
         </li>
+        {% endif %}
         <!--Datos Prestaciones-->
         <li class="treeview">
-          <a href="#"><i class="fa fa-briefcase"></i> <span>Prestaciones</span>
+          <a href="#"><i class="fa fa-briefcase"></i> <span>Sueldos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
           
-              <li><a href="{{path('datosprestaciones')}}">Ver Prestaciones</a></li>
-              <li><a href="{{path('datosprestaciones_new')}}">Actualizar Prestaciones</a></li>
+              <li><a href="{{path('datosprestaciones')}}">Ver Sueldos</a></li>
+              <li><a href="{{path('datosprestaciones_new')}}">Actualizar Sueldos</a></li>
           </ul>
         </li>
         
