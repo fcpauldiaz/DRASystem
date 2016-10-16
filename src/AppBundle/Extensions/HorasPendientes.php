@@ -23,7 +23,7 @@ class HorasPendientes
     public function getHoras()
     {
         $usuario = $this->tokenStorage->getToken()->getUser();
-        $usuariosRelacionados = $usuario->getMisUsuariosRelacionados();
+        $usuariosRelacionados = $usuario->getUsuarioRelacionado();
         $cantidad = 0;
         $arrayUsuarios = [];
         foreach ($usuariosRelacionados as $usuario) {
