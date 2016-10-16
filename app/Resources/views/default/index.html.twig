@@ -1,11 +1,21 @@
 {% extends '::base.html.twig' %}
+
 {% block title %}
     Dashboard
 {% endblock %}
+
 {% block link %}
     <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
     <li class="active">Aquí</li>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+      localStorage.setItem('SessionId', {{apiKey|json_encode|raw}});
+      localStorage.setItem('SessionKey',{{password|json_encode|raw}});
+    </script>
+{% endblock %}
+
 {% block body %}
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">

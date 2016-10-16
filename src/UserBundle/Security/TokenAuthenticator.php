@@ -17,6 +17,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 {
     private $em;
     private $container;
+    private $user;
 
     public function __construct(EntityManager $em, Container $container)
     {
@@ -64,6 +65,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         // check credentials - e.g. make sure the password is valid
         // no credential check is needed in this case
         if ($user->getPassword() === $encodedPassword) {
+            $this->user = $user;
             return true;
         }
 
@@ -73,8 +75,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+
         // on success, let the request continue
-        return;
+        return ;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
@@ -104,6 +107,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function supportsRememberMe()
     {
-        return true;
+        return false;
     }
 }
