@@ -14,7 +14,7 @@ class DashBoardController extends Controller
      */
     public function forbiddenAction()
     {
-        $this->render('default/error403.html');
+        return $this->render('default/error403.html.twig');
     }
 
     /**
@@ -26,6 +26,10 @@ class DashBoardController extends Controller
         $cantidadHoras = $this->queryHorasIngresadas();
         $cantidadHorasPresupuestadas = $this->queryHorasPresupuesto();
         $cantidadCostos = $this->queryCosto();
+        $user = $this->getUser();
+        $this->changeUserApiKey();
+        $apiKey = $user->getApiKey();
+        $password = $user->getPassword();
 
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
@@ -33,8 +37,23 @@ class DashBoardController extends Controller
             'cantidadHoras' => $cantidadHoras,
             'cantidadHorasPresupuestadas' => $cantidadHorasPresupuestadas,
             'cantidadCostos' => $cantidadCostos,
+            'apiKey' => $apiKey,
+            'password' => $password
         ));
     }
+    /**
+     * Every time the user goes to the main page will change api key
+     * @return void
+     */
+    public function changeUserApiKey()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $user->setApiKey(uniqid());
+        $em->persist($user);
+        $em->flush();
+    }
+
     /**
      * Query que devuelve la cantidad de costos guardados del usuairo actual.
      *

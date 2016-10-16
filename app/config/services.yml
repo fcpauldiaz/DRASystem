@@ -52,3 +52,6 @@ services:
       calls:
         - [ setAnnotationReader, [ "@annotation_reader" ] ]
         - [ setUserValue, [ @security.token_storage ] ]
+    app.datatable.registrohoras:
+        class: AppBundle\Datatables\RegistroHorasDatatable
+        parent: sg_datatables.datatable.abstract

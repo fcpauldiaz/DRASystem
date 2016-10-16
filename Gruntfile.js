@@ -195,7 +195,8 @@ module.exports = function (grunt) {
               'web/js/bc-bootstrap-collection.min.js',
               'web/js/jquery.initialize.min.js',
               'web/js/select2.min.js',
-              'web/js/analytics.js'
+              'web/js/analytics.js',
+              'web/js/notie.min.js'
 
           ],
           dest: 'web/js/built.js',
@@ -226,7 +227,8 @@ module.exports = function (grunt) {
                 "web/css/animation.min.css",
                 "web/css/sweetalert.min.css",
                 "web/css/select2.min.css",
-                "web/css/skins/_all-skins.min.css"
+                "web/css/skins/_all-skins.min.css",
+                "web/css/notie.css"
             ],
            dest: "web/css/main-styles.css"
                 

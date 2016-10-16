@@ -4,7 +4,7 @@ namespace CostoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Costo.
  *
@@ -40,12 +40,21 @@ class Costo
      */
     private $fechaFinal;
 
+        /**
+     * Fecha de creacion.
+     *
+     * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $fechaCreacion;
+
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_creacion", type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="fecha_actualizacion", type="datetime")
      */
-    private $fechaCreacion;
+    private $fechaActualizacion;
 
     /**
      * @var float
@@ -60,11 +69,6 @@ class Costo
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
      */
     private $usuario;
-
-    public function __construct()
-    {
-        $this->fechaCreacion = new \DateTime();
-    }
 
     /**
      * Get id.
@@ -199,5 +203,29 @@ class Costo
     public function __toString()
     {
         $this->id;
+    }
+
+    /**
+     * Set fechaActualizacion
+     *
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return Costo
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaActualizacion
+     *
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
     }
 }

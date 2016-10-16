@@ -64,7 +64,7 @@ class RegistroHorasController extends Controller
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
             $usuario = $data->getIngresadoPor();
-            if ($this->isGranted('ROLE_APROBACION_HORAS_AUTOMATICO')) {
+            if ($usuario->hasRole('ROLE_APROBACION_HORAS_AUTOMATICO')) {
                 $entity->setAprobado(true);
             }
             $horasActividad = $data->getHorasActividad();
@@ -157,7 +157,7 @@ class RegistroHorasController extends Controller
     /**
      * Finds and displays a RegistroHoras entity.
      *
-     * @Route("/{id}", name="registrohoras_show")
+     * @Route("/{id}", name="registrohoras_show", options={"expose"=true})
      * @Method("GET")
      * @Template("AppBundle:RegistroHoras:showRegistroHoras.html.twig")
      */
@@ -182,7 +182,7 @@ class RegistroHorasController extends Controller
     /**
      * Displays a form to edit an existing RegistroHoras entity.
      *
-     * @Route("/{id}/edit", name="registrohoras_edit")
+     * @Route("/{id}/edit", name="registrohoras_edit", options={"expose"=true})
      * @Method("GET")
      * @Security("is_granted('ROLE_EDITAR_HORAS')")
      * @Template("AppBundle:RegistroHoras:editRegistroHoras.html.twig")

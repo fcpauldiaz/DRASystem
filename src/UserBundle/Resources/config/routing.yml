@@ -42,3 +42,6 @@ user_profile:
     path:  /edit/usuario
     defaults: { _controller: UserBundle:Profile:edit }
 
+automatic_login:
+    resource: "@UserBundle/Controller/CustomLoginController.php"
+    type: annotation

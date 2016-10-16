@@ -24,16 +24,21 @@ security:
                 always_remember_me: true
             logout:
                 path: /logout
+                target: /api/logout
                 invalidate_session: false
             anonymous:    true
             access_denied_url: /forbidden
-            #guard:
-            #    authenticators:
-            #        - app.token_authenticator
+            # guard:
+            #     authenticators:
+            #         - app.token_authenticator
             #access_denied_handler: kernel.listener.accessDenied
             #entry_point: kernel.listener.accessDenied
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/forbidden, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register/trabajador, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -44,7 +49,6 @@ security:
         - { path: ^/registrohoras/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/cliente/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/datosprestaciones/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
-        - { path: ^/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/admin/, roles: [ROLE_ADMIN] }
         
 

@@ -122,6 +122,15 @@ class DatosPrestaciones
     private $cuotaPatronal;
 
     /**
+     *  Gastos fijos de oficina 480
+     *
+     * @var float
+     *
+     * @ORM\Column(name="gastos_fijos",type="float", nullable=true)
+     */
+    private $gastosFijos;
+
+    /**
      * @var Usuario
      * @ORM\ManyToOne(targetEntity="UsuarioTrabajador",inversedBy = "datosPrestaciones")
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -460,7 +469,8 @@ class DatosPrestaciones
                  $this->getPrestacionesSobreSueldo() +
                  $this->getOtrasPrestaciones() +
                  $this->getViaticos() +
-                 $this->getOtros();
+                 $this->getOtros()+
+                 $this->getGastosFijos();
                 //Esto ya está integrado en el costo
                 //La indemnizacion, aguinaldo, bono14,cuota patronal
                 //ya está integrado en el costo
@@ -716,6 +726,30 @@ class DatosPrestaciones
     public function getActualizadoPor()
     {
         return $this->actualizadoPor;
+    }
+
+        /**
+     * Set gastosFijos
+     *
+     * @param float $gastosFijos
+     *
+     * @return DatosPrestaciones
+     */
+    public function setGastosFijos($gastosFijos)
+    {
+        $this->gastosFijos = $gastosFijos;
+
+        return $this;
+    }
+
+    /**
+     * Get gastosFijos
+     *
+     * @return float
+     */
+    public function getGastosFijos()
+    {
+        return $this->gastosFijos;
     }
 
     public function __toString()

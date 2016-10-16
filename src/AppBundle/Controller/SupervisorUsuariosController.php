@@ -46,7 +46,7 @@ class SupervisorUsuariosController extends Controller
 
         $usuarioActual = $this->getUser();
 
-        $usuarios = $usuarioActual->getMisUsuariosRelacionados();
+        $usuarios = $usuarioActual->getUsuarioRelacionado();
 
         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [
@@ -82,23 +82,24 @@ class SupervisorUsuariosController extends Controller
      */
     public function revisarHorasUsuarioAction(Request $request, $usuario_id)
     {
+        $datatable = $this->get('app.datatable.registrohoras');
+        $datatable->buildDatatable([$usuario_id]);
+        $datatable->updateAjax([$usuario_id]);
+
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('UserBundle:UsuarioTrabajador')->findOneById($usuario_id);
-        $registros = $em->getRepository('AppBundle:RegistroHoras')
-                  ->findBy(['ingresadoPor' => $usuario]);
-
+        
         $form = $this->createForm(
             ConsultaAprobacionHorasType::class);
-
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
                 'AppBundle:AprobacionHoras:revisarHoras.html.twig',
                 [
                     'verificador' => true,
-                    'registros' => $registros,
                     'usuario' => $usuario,
                     'form' => $form->createView(),
+                    'datatable' => $datatable
                 ]
 
             );
@@ -106,19 +107,52 @@ class SupervisorUsuariosController extends Controller
         $data = $form->getData();
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
-
-        $registrosFiltrados = $em->getRepository('AppBundle:RegistroHoras')
-                                ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
-
+        $options = [$usuario_id, $fechaInicio, $fechaFinal];
+        $datatable->updateAjax($options);
         return $this->render(
                 'AppBundle:AprobacionHoras:revisarHoras.html.twig',
                 [
-                    'registros' => $registrosFiltrados,
                     'usuario' => $usuario,
                     'form' => $form->createView(),
+                    'datatable' => $datatable
                 ]
 
             );
+    }
+
+    /**
+     * @Route("results_registrohoras", name="registrohoras_results")
+     */
+    public function indexResultsAction(Request $request)
+    {
+        $user_id = $request->get('user_id');
+        $fechaInit = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFinal');
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $em->getRepository('UserBundle:UsuarioTrabajador')->findOneById($user_id);
+        $datatable = $this->get('app.datatable.registrohoras');
+        $datatable->buildDatatable([$user_id]);
+        $query = $this->get('sg_datatables.query')->getQueryFrom($datatable);
+        $query->buildQuery();
+
+
+        $qb = $query->getQuery();
+        $qb->andWhere("registro_horas.ingresadoPor = :user");
+        $qb->andWhere("registro_horas.aprobado = false");
+        $qb->setParameter('user', $usuario);
+
+
+        if ($fechaInit !== '' && $fechaFin !== '') {
+          $qb->andWhere('registro_horas.id = 1');
+          $qb->andWhere('registro_horas.fechaHoras >= :fechaInicial');
+          $qb->andWhere('registro_horas.fechaHoras <= :fechaFinal');
+          $qb->setParameter('fechaInicial', $fechaInit['date']);
+          $qb->setParameter('fechaFinal', $fechaFin['date']);
+        }
+
+        $query->setQuery($qb);
+
+        return $query->getResponse(false); 
     }
 
     /**

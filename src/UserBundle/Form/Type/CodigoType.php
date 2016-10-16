@@ -58,8 +58,9 @@ class CodigoType extends AbstractType
             && strpos($codigo, 'AUD') === false
             && strpos($codigo, 'OD') === false
             && strpos($codigo, 'DM') === false
+             && strpos($codigo, 'CONTA') === false
             ) {
-            $context->buildViolation('El código debe de tener AUD, OD, DM, o ML')
+            $context->buildViolation('El código debe de tener CONTA, AUD, OD, DM, o ML')
                 ->atPath('fos_user_register')
                 ->addViolation();
         }

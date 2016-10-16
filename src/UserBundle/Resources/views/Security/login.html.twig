@@ -2,6 +2,19 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block javascripts %}
+  <script>
+  {% if logout is defined %}
+    var out = {{logout|json_encode|raw}}
+    if (out === true) {
+      localStorage.removeItem('SessionId', null);
+      localStorage.removeItem('SessionKey', null);
+    }
+  {% endif %}
+  </script>
+  <script src="{{asset('js/secure.js')}}"></script>
+{% endblock %}
+
 
 {% block fos_user_content %}
 <div class="login-box">
