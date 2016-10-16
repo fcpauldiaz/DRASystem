@@ -55,6 +55,3 @@ services:
     app.datatable.registrohoras:
         class: AppBundle\Datatables\RegistroHorasDatatable
         parent: sg_datatables.datatable.abstract
-    app.datatable.actividad:
-        class: AppBundle\Datatables\ActividadDatatable
-        parent: sg_datatables.datatable.abstract

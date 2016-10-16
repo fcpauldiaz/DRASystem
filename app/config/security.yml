@@ -28,9 +28,9 @@ security:
                 invalidate_session: false
             anonymous:    true
             access_denied_url: /forbidden
-            guard:
-                authenticators:
-                    - app.token_authenticator
+            # guard:
+            #     authenticators:
+            #         - app.token_authenticator
             #access_denied_handler: kernel.listener.accessDenied
             #entry_point: kernel.listener.accessDenied
     access_control:
