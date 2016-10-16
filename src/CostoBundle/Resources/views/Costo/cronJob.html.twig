@@ -1,9 +1,29 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-	<br>
-    <h1>Costo</h1>
+{% block title %}
+    Re calcular Costos    
+{% endblock %}
 
+{% block stylesheets %}
+   
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ form_javascript(form) }}
+   <script src="{{asset('js/showHideElements.js')}}"></script>
+   <script>
+        //forma de arreglar bug cuando se recarga javascript
+        //en campo de date.
+        var verifier = {{verificador|json_encode|raw}};
+
+    </script>
+   <script src="{{asset('js/dateModifier.js')}}"></script>
+{% endblock %}
+
+{% block body -%}
+    <h1>Calcular costos mensuales</h1>
+    <p>Si deja en blanco los campos el sistema utilizará el mes actual y todos los usuarios.</p>
     {{ form(form) }}
 
    
