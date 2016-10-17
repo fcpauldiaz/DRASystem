@@ -10,9 +10,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
+use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class CustomLoginController extends Controller
 {
+    const COOKIE_DELIMITER = ':';
     /**
      * @Route("/api/login", name="apiLogin")
      * @Method({"POST", "GET"})
@@ -35,12 +40,103 @@ class CustomLoginController extends Controller
                 'main', 
                 $user->getRoles()
             );
-            $this->get('security.context')->setToken($token);
-          
+           
+           $userProvider = new EntityUserProvider($this->getDoctrine(), 'UserBundle\Entity\Usuario', $user->getUsername());
+           $options = array(
+                'path' => '/',
+                'name' => 'REMEMBERME',
+                'domain' => null,
+                'secure' => false,
+                'httponly' => true,
+                'lifetime' => 31557600, // 1 year
+                'always_remember_me' => true,
+                'remember_me_parameter' => '_remember_me',
+                'secret' => $this->container->getParameter('secret')
+            );
+            $response = new Response();
+            $expires = time() + $options['lifetime'];
+            $value = $this->generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword(), $options['secret']);
+
+            $response->headers->setCookie(
+                new Cookie(
+                    $options['name'],
+                    $value,
+                    $expires,
+                    $options['path'],
+                    $options['domain'],
+                    $options['secure'],
+                    $options['httponly']
+                )
+            );
+           
+            $response->send();
+            $this->get("security.token_storage")->setToken($token);
+            //Real automatic login
+            $event = new InteractiveLoginEvent($this->getRequest(), $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
             return new JsonResponse(['valid'=> true]);
         }
         return new JsonResponse(['valid'=> false, 'message' => 'Wrong key']);
+    }
+
+
+
+        /**
+     * Generates the cookie value.
+     *
+     * @param string $class
+     * @param string $username The username
+     * @param int    $expires  The Unix timestamp when the cookie expires
+     * @param string $password The encoded password
+     *
+     * @return string
+     */
+    protected function generateCookieValue($class, $username, $expires, $password, $secret)
+    {
+        // $username is encoded because it might contain COOKIE_DELIMITER,
+        // we assume other values don't
+        return $this->encodeCookie(array(
+            $class,
+            base64_encode($username),
+            $expires,
+            $this->generateCookieHash($class, $username, $expires, $password, $secret),
+        ));
+    }
+
+      /**
+     * Generates a hash for the cookie to ensure it is not being tempered with.
+     *
+     * @param string $class
+     * @param string $username The username
+     * @param int    $expires  The Unix timestamp when the cookie expires
+     * @param string $password The encoded password
+     *
+     * @return string
+     */
+    protected function generateCookieHash($class, $username, $expires, $password, $secret)
+    {
+        return hash_hmac('sha256', $class.$username.$expires.$password, $secret);
+    }
+
+        /**
+     * Encodes the cookie parts.
+     *
+     * @param array $cookieParts
+     *
+     * @return string
+     *
+     * @throws \InvalidArgumentException When $cookieParts contain the cookie delimiter. Extending class should either remove or escape it.
+     */
+    protected function encodeCookie(array $cookieParts)
+    {
+        foreach ($cookieParts as $cookiePart) {
+            if (false !== strpos($cookiePart, self::COOKIE_DELIMITER)) {
+                throw new \InvalidArgumentException(sprintf('$cookieParts should not contain the cookie delimiter "%s"', self::COOKIE_DELIMITER));
+            }
+        }
+
+        return base64_encode(implode(self::COOKIE_DELIMITER, $cookieParts));
     }
 
     /**

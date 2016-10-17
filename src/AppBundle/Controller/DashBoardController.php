@@ -49,7 +49,7 @@ class DashBoardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $user->setApiKey(uniqid());
+        $user->setApiKey(uniqid().uniqid());
         $em->persist($user);
         $em->flush();
     }
