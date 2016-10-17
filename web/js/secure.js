@@ -13,7 +13,11 @@
               if (data.valid === true){
                 notie.alert(1, 'Usuario recordado: iniciando sesión automáticamente');
                 setTimeout(function(){ }, 3000);
+                console.log(window.location.origin);
                 window.location = window.location.origin;
+              }
+              else {
+                console.log(data);
               }
             }
         })
