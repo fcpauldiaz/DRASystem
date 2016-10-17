@@ -56,25 +56,25 @@ class CustomLoginController extends Controller
             $expires = time() + $options['lifetime'];
             $value = $this->generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword(), $options['secret']);
 
-            $response->headers->setCookie(
-                new Cookie(
-                    $options['name'],
-                    $value,
-                    $expires,
-                    $options['path'],
-                    $options['domain'],
-                    $options['secure'],
-                    $options['httponly']
-                )
+            $cookie = new Cookie(
+                $options['name'],
+                $value,
+                $expires,
+                $options['path'],
+                $options['domain'],
+                $options['secure'],
+                $options['httponly']
             );
-           
-            $response->send();
+            
             $this->get("security.token_storage")->setToken($token);
             //Real automatic login
             $event = new InteractiveLoginEvent($this->getRequest(), $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-
-            return new JsonResponse(['valid'=> true]);
+            $response = new JsonResponse();
+            $response->headers->setCookie($cookie);
+            $response->setData(['valid'=> true, 'message' => true]);
+            
+            return $response;
         }
         return new JsonResponse(['valid'=> false, 'message' => 'Wrong key']);
     }
