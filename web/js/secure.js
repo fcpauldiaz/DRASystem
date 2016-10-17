@@ -7,6 +7,8 @@
     if (key !== null && secret !== null) {
       console.log('sending ajax');
       var data = {'SessionId': key, 'SessionKey': secret};
+      console.log( window.location.origin+'/api/login')
+      console.log(data);
         $.ajax({
             url: window.location.origin+'/api/login',
             data: data,
