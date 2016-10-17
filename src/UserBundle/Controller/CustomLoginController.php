@@ -20,7 +20,6 @@ class CustomLoginController extends Controller
     const COOKIE_DELIMITER = ':';
     /**
      * @Route("/api/login", name="apiLogin")
-     * @Method({"POST", "GET"})
      */
     public function customLoginAction(Request $request)
     {
