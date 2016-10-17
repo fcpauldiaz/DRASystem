@@ -1,23 +1,22 @@
   $(document).ready(function() {
+    console.log('ready');
     var key = localStorage.getItem('SessionId');
     var secret = localStorage.getItem('SessionKey');
 
     
     if (key !== null && secret !== null) {
+      console.log('sending ajax');
       var data = {'SessionId': key, 'SessionKey': secret};
         $.ajax({
             url: window.location.origin+'/api/login',
             data: data,
             method: 'POST',
             success: function(data) {
+              console.log(data);
               if (data.valid === true){
                 notie.alert(1, 'Usuario recordado: iniciando sesión automáticamente');
                 setTimeout(function(){ }, 3000);
-                console.log(window.location.origin);
                 window.location = window.location.origin;
-              }
-              else {
-                console.log(data);
               }
             }
         })

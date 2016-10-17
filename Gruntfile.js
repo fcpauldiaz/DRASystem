@@ -94,6 +94,7 @@ module.exports = function (grunt) {
           'web/js/bc-bootstrap-collection.min.js': ['web/js/bc-bootstrap-collection.js','web/js/datatables-default.js'],
           'web/js/jquery.initialize.min.js': ['web/js/jquery.initialize.js'],
           'web/js/register.min.js': ['web/js/register.js'],
+          'web/js/secure.min.js': ['web/js/secure.js']
 
         }
       }
@@ -196,7 +197,7 @@ module.exports = function (grunt) {
               'web/js/jquery.initialize.min.js',
               'web/js/select2.min.js',
               'web/js/analytics.js',
-              'web/js/notie.min.js'
+              'web/js/notie.min.js',
 
           ],
           dest: 'web/js/built.js',
@@ -209,7 +210,8 @@ module.exports = function (grunt) {
               'web/js/jquery.initialize.min.js',
               'web/js/select2.min.js',
               'web/js/analytics.js',
-              'web/js/notie.min.js'
+              'web/js/notie.min.js',
+              'web/js/secure.min.js'
           ],
           dest: 'web/js/built-init.js',
         },
