@@ -43,16 +43,12 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
     protected $apiKey;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", mappedBy="misUsuariosRelacionados", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\UsuarioRelacionado", mappedBy="usuarioPertenece")
      */
     private $usuarioRelacionado;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\Usuario", inversedBy="usuarioRelacionado")
-     * @ORM\JoinTable(name="usuario_relacionado",
-     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")},
-     *      joinColumns={@ORM\JoinColumn(name="usuario_pertenece_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\UsuarioRelacionado", mappedBy="usr")
      */
     private $misUsuariosRelacionados;
 
