@@ -37,6 +37,10 @@
       "description": "ENV",
       "value": "prod"
     },
+    "TEMPORIZE_TOKEN": {
+      "description": "Token for auth",
+      "value": ""
+    }
 
   },
   "addons": [

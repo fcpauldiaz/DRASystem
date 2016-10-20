@@ -31,6 +31,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
+        if ($auth = $request->headers->get('Authorization')) {
+            
+            $auth = substr($auth, strrpos($auth, 'BASIC')+6, strlen($auth));
+            if ($auth === $this->container->getParameter('temporize_auth_key')) {
+                return [ 'auth' => $auth ];
+            }
+        }
+
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
             // no token? Return null and no other methods will be called
             return;
@@ -49,8 +57,15 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $username = $credentials['token'];
+        $validator = false;
+        if (array_key_exists('token', $credentials)) {
+            $username = $credentials['token'];
+            $validator = true;
+        }
+        if ($validator === false && array_key_exists('auth', $credentials) ) {
+            $username = $this->container->getParameter('api_user');
 
+        }
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
         return $this->em->getRepository('UserBundle:Usuario')
@@ -60,8 +75,18 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $factory = $this->container->get('security.encoder_factory');
+        $validator = false;
+        if (array_key_exists('password', $credentials)) {
+              $password = $credentials['password'];
+              $validator = true;
+        }
+      
+        if ($validator === false && array_key_exists('auth', $credentials)) {
+            $password = $this->container->getParameter('api_password');
+        }
         $encoder = $factory->getEncoder($user);
-        $encodedPassword = $encoder->encodePassword($credentials['password'], $user->getSalt());
+        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+
         // check credentials - e.g. make sure the password is valid
         // no credential check is needed in this case
         if ($user->getPassword() === $encodedPassword) {
