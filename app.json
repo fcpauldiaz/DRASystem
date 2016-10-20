@@ -4,50 +4,17 @@
   "repository": "https://github.com/fcpauldiaz/DRASystem",
   "success_url": "/",
   "env": {
-    "S3_BUCKET_NAME": {
-      "description": "AWS S3",
-      "value": ""
-    },
-    "CLEARDB_DATABASE_URL": {
-      "description": "Database URL for backups",
-      "value": ""
-    },
-    "MYSQL_HOST": {
-      "description": "Database URL host",
-      "value": ""
-    },
-    "MYSQL_NAME": {
-      "description": "Database name",
-      "value": ""
-    },
-    "MYSQL_PASSWORD": {
-      "description": "Database password",
-      "value": ""
-    },
-    "EMAIL_PASSWORD": {
-      "description": "Email password",
-      "value": ""
-    },
-    "EMAIL_TRANSPORT": {
-      "description": "Database transport",
-      "value": "smtp"
-    },
-    "SYMFONY_ENV": {
-      "description": "ENV",
-      "value": "prod"
-    },
-    "TEMPORIZE_TOKEN": {
-      "description": "Token for auth",
-      "value": ""
-    },
-    "API_USER": {
-      "description": "User to api requests",
-      "value": ""
-    },
-    "API_PASSWORD": {
-      "description": "Password to api requests",
-      "value": ""
-    }
+    "S3_BUCKET_NAME": "",
+    "CLEARDB_DATABASE_URL": "",
+    "MYSQL_HOST": "",
+    "MYSQL_NAME": "",
+    "MYSQL_PASSWORD": "",
+    "EMAIL_PASSWORD": "",
+    "EMAIL_TRANSPORT": "",
+    "SYMFONY_ENV": "",
+    "TEMPORIZE_TOKEN": "",
+    "API_USER": "",
+    "API_PASSWORD": ""
 
   },
   "image": "heroku/php",
