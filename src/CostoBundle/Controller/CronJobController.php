@@ -199,15 +199,7 @@ class CronJobController extends Controller
         $usuarios = $qb->getQuery()->getResult();
         foreach($usuarios as $usuario) {
             $horas = $this->queryHorasNoAprobadas($usuario);
-           /* $asignados = $usuario->getUsuarioRelacionado();
-            foreach($asignados as $asignado) {
-                $horas = $this->getHorasNoAprobadas($asignado);*/
-                dump($horas);
-                dump($usuario->getId());
-            
-
         }
-        die();
         return new JsonResponse('success');
     }
 

@@ -35,7 +35,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             
             $auth = substr($auth, strrpos($auth, 'BASIC')+6, strlen($auth));
 
-            if ($auth === getenv('temporize_auth_key')) {
+            if ($auth === getenv('temporize_token')) {
                 return [ 'auth' => $auth ];
             }
         }
@@ -83,7 +83,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         }
       
         if ($validator === false && array_key_exists('auth', $credentials)) {
-            $password = $this->container->getParameter('api_password');
+            $password = getenv('api_password');
         }
         $encoder = $factory->getEncoder($user);
         $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
