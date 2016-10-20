@@ -28,6 +28,10 @@ class RegistroHorasActividadHorasType extends AbstractType
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
+            ->add('horaspresupuestadas', 'number', [
+                'label' => 'Horas Presupuestadas',
+                'required' => true,
+            ])
         ;
     }
 

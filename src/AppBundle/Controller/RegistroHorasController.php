@@ -45,7 +45,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/", name="registrohoras_create")
      * @Method("POST")
-     * @Security("is_granted('ROLE_CREAR_HORAS')")
+     * 
      * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function createAction(Request $request)
@@ -78,7 +78,7 @@ class RegistroHorasController extends Controller
                 $entity->setIngresadoPor($data->getIngresadoPor());
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
-                $entity->setHorasExtraordinarias($data->getHorasExtraordinarias());
+                $entity->setHorasExtraordinarias($registro['horasExtraordinarias']);
                 $em->persist($entity);
 
                 $entities[] = $entity;
@@ -133,7 +133,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/new", name="registrohoras_new")
      * @Method("GET")
-     * @Security("is_granted('ROLE_CREAR_HORAS')")
+     * 
      * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function newAction()
