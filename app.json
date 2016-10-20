@@ -11,17 +11,18 @@
     "MYSQL_PASSWORD": "",
     "EMAIL_PASSWORD": "",
     "EMAIL_TRANSPORT": "",
-    "SYMFONY_ENV": "",
+    "SYMFONY_ENV": "prod",
     "TEMPORIZE_TOKEN": "",
     "API_USER": "",
-    "API_PASSWORD": ""
+    "API_PASSWORD": "",
+    "SECRET": ""
 
   },
   "image": "heroku/php",
   "addons": [
-    "autobus",
-    "logentries",
-    "temporizescheduler"
+    "autobus:trip",
+    "logentries:le_tryit",
+    "temporizescheduler:developer"
   ],
   "buildpacks": [
     {
