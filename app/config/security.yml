@@ -38,10 +38,10 @@ security:
         - { path: ^/forbidden, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }        
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register/trabajador, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/costo/calcular/todos, role: IS_AUTHENTICATED_ANONYMOUSLY } 
         - { path: ^/costo/calcular/view, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/puesto/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
