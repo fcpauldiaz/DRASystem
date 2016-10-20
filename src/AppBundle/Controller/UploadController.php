@@ -11,6 +11,9 @@ use FOS\UserBundle\Model\UserInterface;
 use AppBundle\Form\Type\ExcelType;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Actividad;
+use AppBundle\Entity\Area;
+use UserBundle\Entity\Departamento;
+
 /**
  * Upload controller.
  *
@@ -102,7 +105,25 @@ class UploadController extends Controller
         if ($count !== 0 && $data !== null) {
           switch($columna) {
             case 0: 
-              $actividad->setArea($data);
+               $dep = $worksheet->getCell('E'.$count)->getValue();
+              $departamento = $em->getRepository('UserBundle:Departamento')->findOneBy(['nombreDepartamento' => $dep]);
+              if ($departamento === null) {
+                $departamento = new Departamento($dep);
+                  $em->persist($departamento);
+              }
+              $area = $em
+                ->getRepository('AppBundle:Area')
+                ->findOneBy(['nombre' => $data]);
+              if ($area === null) {
+              
+
+                $area = new Area($data);
+                $area->setDepartamento($departamento);
+                $em->persist($area);
+                $em->flush();
+              }
+
+              $actividad->setArea($area);
               break;
             case 1: 
               $actividad->setNombre($data);
@@ -129,6 +150,7 @@ class UploadController extends Controller
       }
 
     }
+    
     $em->flush();
   }
  

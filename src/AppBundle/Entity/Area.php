@@ -64,7 +64,16 @@ class Area
      */
     private $actualizadoPor;
 
+    /**
+     * @var  ManyToOne
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Departamento")
+     */
+    private $departamento;
 
+    public function __construct($nombre)
+    {
+        $this->nombre = $nombre;
+    }
 
     /**
      * Get id
@@ -197,11 +206,35 @@ class Area
     }
 
     /**
+     * Set departamento
+     *
+     * @param \UserBundle\Entity\Departamento $departamento
+     *
+     * @return Area
+     */
+    public function setDepartamento(\UserBundle\Entity\Departamento $departamento = null)
+    {
+        $this->departamento = $departamento;
+
+        return $this;
+    }
+
+    /**
+     * Get departamento
+     *
+     * @return \UserBundle\Entity\Departamento
+     */
+    public function getDepartamento()
+    {
+        return $this->departamento;
+    }
+
+       /**
      * Object String representation
      * @return string 
      */
     public function __toString()
     {
-        return $this->nombre;
+        return $this->departamento.' : '.$this->nombre;
     }
 }

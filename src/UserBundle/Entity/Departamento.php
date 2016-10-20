@@ -72,6 +72,11 @@ class Departamento
      */
     private $actualizadoPor;
 
+    public function __construct($nombre = '')
+    {
+        $this->nombreDepartamento = $nombre;
+    }
+
     /**
      * Get id.
      *
