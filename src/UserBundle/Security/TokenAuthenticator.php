@@ -34,7 +34,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         if ($auth = $request->headers->get('Authorization')) {
             
             $auth = substr($auth, strrpos($auth, 'BASIC')+6, strlen($auth));
-            if ($auth === $this->container->getParameter('temporize_auth_key')) {
+
+            if ($auth === getenv('temporize_auth_key')) {
                 return [ 'auth' => $auth ];
             }
         }
@@ -63,7 +64,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             $validator = true;
         }
         if ($validator === false && array_key_exists('auth', $credentials) ) {
-            $username = $this->container->getParameter('api_user');
+            $username = getenv('api_user');
 
         }
         // if null, authentication will fail
