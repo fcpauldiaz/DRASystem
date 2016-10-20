@@ -40,6 +40,14 @@
     "TEMPORIZE_TOKEN": {
       "description": "Token for auth",
       "value": ""
+    },
+    "API_USER": {
+      "description": "User to api requests",
+      "value": ""
+    },
+    "API_PASSWORD": {
+      "description": "Password to api requests",
+      "value": ""
     }
 
   },
