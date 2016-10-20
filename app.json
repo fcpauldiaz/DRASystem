@@ -50,6 +50,7 @@
     }
 
   },
+  "image": "heroku/php",
   "addons": [
     "autobus",
     "logentries",
