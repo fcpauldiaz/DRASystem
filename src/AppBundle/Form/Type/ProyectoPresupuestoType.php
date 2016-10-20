@@ -42,31 +42,6 @@ class ProyectoPresupuestoType extends AbstractType
                 'grouping' => true,
 
             ])
-              ->add('socios', 'entity', [
-                'required' => false,
-                'label' => 'Socio/s asignados',
-                'class' => 'UserBundle:UsuarioSocio',
-                'multiple' => true,
-                'attr' => [
-                    'class' => 'select2',
-                ],
-
-            ])
-            ->add('gerentes', 'entity', [
-                'required' => false,
-                'label' => 'Gerentes/s asignados',
-                'class' => 'UserBundle:UsuarioTrabajador',
-                'multiple' => true,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->where('u.roles LIKE :roles')
-                        ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
-                },
-                'attr' => [
-                    'class' => 'select2',
-                ],
-
-            ])
             ->add('presupuestoIndividual', 'bootstrap_collection', [
                     'type' => new RegistroHorasPresupuestoType($this->usuario),
                     'label' => 'Registro Horas Presupuesto',
@@ -74,7 +49,7 @@ class ProyectoPresupuestoType extends AbstractType
                     'allow_delete' => true,
                     'add_button_text' => 'Agregar Registro',
                     'delete_button_text' => 'Eliminar Registro',
-                    'sub_widget_col' => 6,
+                    'sub_widget_col' => 10,
                     'button_col' => 12,
                     'by_reference' => false, //esta linea también es importante para que se guarde la ref
                     'cascade_validation' => true,
