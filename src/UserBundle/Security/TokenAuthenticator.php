@@ -35,9 +35,13 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             
             $auth = substr($auth, strrpos($auth, 'BASIC')+6, strlen($auth));
 
-            if ($auth === getenv('temporize_token')) {
-                return [ 'auth' => $auth ];
-            }
+            $decoded = base64_decode($auth);
+            
+            $token = substr($decoded, 0, strpos($decoded, ':'));
+            $password = substr($decoded, strpos($decoded, ':')+1, strlen($decoded));
+
+            return [ 'token' => $token, 'password' => $password ];
+            
         }
 
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
@@ -58,15 +62,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $validator = false;
-        if (array_key_exists('token', $credentials)) {
-            $username = $credentials['token'];
-            $validator = true;
-        }
-        if ($validator === false && array_key_exists('auth', $credentials) ) {
-            $username = getenv('api_user');
 
-        }
+        $username = $credentials['token'];
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
         return $this->em->getRepository('UserBundle:Usuario')
@@ -76,15 +73,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $factory = $this->container->get('security.encoder_factory');
-        $validator = false;
-        if (array_key_exists('password', $credentials)) {
-              $password = $credentials['password'];
-              $validator = true;
-        }
-      
-        if ($validator === false && array_key_exists('auth', $credentials)) {
-            $password = getenv('api_password');
-        }
+       
+        $password = $credentials['password'];
+       
         $encoder = $factory->getEncoder($user);
         $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
 

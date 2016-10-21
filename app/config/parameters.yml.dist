@@ -17,8 +17,5 @@ parameters:
     api_email_key:     ~
     aws_key:           ~
     aws_secret_key:    ~
-    temporize_auth_key: ~
-    api_user: ~
-    api_password: ~
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
