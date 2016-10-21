@@ -13,6 +13,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class DatosPrestaciones
 {
+
+    const GASTO_FIJO = 1920;
+
     /**
      * @var int
      *
@@ -126,9 +129,9 @@ class DatosPrestaciones
      *
      * @var float
      *
-     * @ORM\Column(name="gastos_fijos",type="float", nullable=true)
+     * @ORM\Column(name="gastos_indirectos",type="float", nullable=true)
      */
-    private $gastosFijos;
+    private $gastosIndirectos;
 
     /**
      * @var Usuario
@@ -470,7 +473,7 @@ class DatosPrestaciones
                  $this->getOtrasPrestaciones() +
                  $this->getViaticos() +
                  $this->getOtros()+
-                 $this->getGastosFijos();
+                 $this->getGastosIndirectos();
                 //Esto ya está integrado en el costo
                 //La indemnizacion, aguinaldo, bono14,cuota patronal
                 //ya está integrado en el costo
@@ -728,28 +731,32 @@ class DatosPrestaciones
         return $this->actualizadoPor;
     }
 
-        /**
-     * Set gastosFijos
+    /**
+     * Set gastosIndirectos
      *
-     * @param float $gastosFijos
+     * @param float $gastosIndirectos
      *
      * @return DatosPrestaciones
      */
-    public function setGastosFijos($gastosFijos)
+    public function setGastosIndirectos($gastosIndirectos)
     {
-        $this->gastosFijos = $gastosFijos;
+        $this->gastosIndirectos = $gastosIndirectos;
 
         return $this;
     }
 
+    public function setGastosDRA()
+    {
+        $this->gastosIndirectos = self::GASTO_FIJO;
+    }
     /**
-     * Get gastosFijos
+     * Get gastosIndirectos
      *
      * @return float
      */
-    public function getGastosFijos()
+    public function getGastosIndirectos()
     {
-        return $this->gastosFijos;
+        return $this->gastosIndirectos;
     }
 
     public function __toString()
