@@ -1,0 +1,13 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+	<div class="login-box">
+	    <div class="login-box-body">
+	        <h3 style="border-bottom: 1px solid #c5c5c5; color: #000000 ">
+	            {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime}, 'FOSUserBundle') }}
+	        </h3>
+	    </div>
+	</div>
+{% endblock %}

@@ -60,9 +60,9 @@ resetting:
     password_already_requested: La contraseña para este usuario ya ha sido solicitada dentro de las 24 horas.
     check_email: |
         Un email ha sido enviado. Contiene un enlace de activación que debes presionar para restablecer tu contraseña.
+        
         Nota: Solo se puede solicitar una nueva contraseña dentro %tokenLifetime% horas.
- 
-        Si no recibe un correo electrónico, comprueba tu carpeta de correo no deseado o inténtelo de nuevo.
+
     request:
         invalid_username: El usuario o dirección de correo "%username%" no existe.
         username: "Nombre de Servicio:"

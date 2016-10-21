@@ -35,9 +35,10 @@ class Actividad
     /**
      * @var string
      *
-     * @ORM\Column(name="area", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
      */
     private $area;
+
 
     /**
      * @var string
@@ -86,6 +87,7 @@ class Actividad
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $actualizadoPor;
+
 
     public function __construct()
     {
@@ -302,5 +304,5 @@ class Actividad
 
         return $this->nombre;
     }
-
+   
 }
