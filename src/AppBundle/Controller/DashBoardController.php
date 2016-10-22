@@ -34,8 +34,8 @@ class DashBoardController extends Controller
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             'cantidadUsuarios' => $cantidadUsuarios,
-            'cantidadHoras' => $cantidadHoras,
-            'cantidadHorasPresupuestadas' => $cantidadHorasPresupuestadas,
+            'cantidadHoras' => $cantidadHoras !== null  ? $cantidadHoras: 0 ,
+            'cantidadHorasPresupuestadas' => $cantidadHorasPresupuestadas !== null ? $cantidadHorasPresupuestadas:0,
             'cantidadCostos' => $cantidadCostos,
             'apiKey' => $apiKey,
             'password' => $password
@@ -83,11 +83,10 @@ class DashBoardController extends Controller
         $usuarioActual = $this->getUser();
         $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
         $queryPresupuestos = $repositoryPresupuesto->createQueryBuilder('presupuesto')
-            ->select('COUNT(presupuesto.id)')
+            ->select('SUM(presupuesto.horasPresupuestadas)')
             ->innerJoin('presupuesto.usuario', 'usuario')
-            ->where('usuario = :user')
-            ->setParameter('user', $usuarioActual);
-
+            ->where('usuario.id = :user')
+            ->setParameter('user', $usuarioActual->getId());
         return $queryPresupuestos->getQuery()->getSingleScalarResult();
     }
 
@@ -102,7 +101,7 @@ class DashBoardController extends Controller
         $usuarioActual = $this->getUser();
         $repositoryHoras = $em->getRepository('AppBundle:RegistroHoras');
         $queryHoras = $repositoryHoras->createQueryBuilder('horas')
-            ->select('COUNT(horas.id)')
+            ->select('SUM(horas.horasInvertidas)')
             ->innerJoin('horas.ingresadoPor', 'autor')
             ->where('autor = :usuario')
             ->setParameter('usuario', $usuarioActual);
