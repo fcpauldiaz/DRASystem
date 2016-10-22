@@ -31,6 +31,11 @@ class UsuarioRelacionado
     private $usuarioPertenece;
 
 
+    public function __construct($usuario, $usuarioPertenece)
+    {
+        $this->usr = $usuario;
+        $this->usuarioPertenece = $usuarioPertenece;
+    }
 
     /**
      * Get id

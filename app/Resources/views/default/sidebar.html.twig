@@ -177,6 +177,9 @@
           
               <li><a href="{{path('datosprestaciones')}}">Ver Sueldos</a></li>
               <li><a href="{{path('datosprestaciones_new')}}">Actualizar Sueldos</a></li>
+              {% if is_granted('ROLE_ASIGNACION') %}
+              <li><a href="{{path('asignar_usuarios')}}">Asignar Usuarios</a></li>
+              {% endif %}
           </ul>
         </li>
         
