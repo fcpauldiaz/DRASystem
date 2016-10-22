@@ -50,11 +50,10 @@ class RegistroHorasPresupuestoType extends AbstractType
                         'help_text' => 'Seleccione los usuarios que realizarán las horas',
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
-                    'required' => true,
                     'multiple' => true,
 
             ])
-
+            ->add('horasPresupuestadas')
 
         ;
     }

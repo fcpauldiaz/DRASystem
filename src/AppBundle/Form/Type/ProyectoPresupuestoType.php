@@ -87,7 +87,7 @@ class ProyectoPresupuestoType extends AbstractType
      */
     public function validarActividades($data, ExecutionContextInterface $context)
     {
-        $registrosPresupuesto = $data->getPresupuestoIndividual();
+       /* $registrosPresupuesto = $data->getPresupuestoIndividual();
         $actividades = [];
         foreach ($registrosPresupuesto as $registro) {
             $actividadActual = $registro->getActividad()->getId();
@@ -99,7 +99,7 @@ class ProyectoPresupuestoType extends AbstractType
                     ->addViolation();
             }
             $actividades[] = [$actividadActual, $usuario];
-        }
+        }*/
     }
 
     public function checkArray($array, $id1, $id2)

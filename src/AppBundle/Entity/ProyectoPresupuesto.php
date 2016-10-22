@@ -88,9 +88,7 @@ class ProyectoPresupuesto
 
     public function __construct()
     {
-        $this->clientes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
-       
     }
     /**
      * Get id.

@@ -44,7 +44,11 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioTrabajador")
+     * @ORM\JoinTable(name="presupuesto_horas_usuario",
+     *      joinColumns={@ORM\JoinColumn(name="presupuesto_horas_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
+     *      )
      */
     private $usuario;
 
@@ -93,6 +97,7 @@ class RegistroHorasPresupuesto
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
+        $this->usuario =  new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -200,29 +205,6 @@ class RegistroHorasPresupuesto
         return $this->proyecto;
     }
 
-    /**
-     * Set usuario.
-     *
-     * @param \UserBundle\Entity\Usuario $usuario
-     *
-     * @return RegistroHorasPresupuesto
-     */
-    public function setUsuario(\UserBundle\Entity\Usuario $usuario = null)
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Get usuario.
-     *
-     * @return \UserBundle\Entity\Usuario
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
 
     /**
      * Set fechaActualizacion.
@@ -323,5 +305,39 @@ class RegistroHorasPresupuesto
     public function getArea()
     {
         return $this->area;
+    }
+
+    /**
+     * Add usuario
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $usuario
+     *
+     * @return RegistroHorasPresupuesto
+     */
+    public function addUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario)
+    {
+        $this->usuario[] = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuario
+     *
+     * @param \UserBundle\Entity\UsuarioTrabajador $usuario
+     */
+    public function removeUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario)
+    {
+        $this->usuario->removeElement($usuario);
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }
