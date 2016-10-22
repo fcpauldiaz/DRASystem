@@ -152,12 +152,11 @@ class DatosPrestacionesType extends AbstractType
     {
         $form = $event->getForm();
         $gasto = $form->getData()->getGastosIndirectos();
-        
-       
+
         // Check whether the user has chosen to display his email or not.
         // If the data was submitted previously, the additional value that is
         // included in the request variables needs to be removed.
-        if (null === $gasto) {
+        if (null === $gasto || $gasto <= 0) {
 
             $form->add('gastos', 'checkbox', [
                 'label' => 'Aplica gastos indirectos de Q480 semanales',
@@ -179,7 +178,9 @@ class DatosPrestacionesType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $datosPrestaciones = $event->getData();
-        if (array_key_exists('gastos', $event->getForm())) {
+      
+        if (isset($event->getForm()['gastos'])) {
+
             if ($event->getForm()['gastos']->getData() === true) {
                 $datosPrestaciones->setGastosDRA();
             }
