@@ -199,8 +199,9 @@ class CronJobController extends Controller
         $usuarios = $qb->getQuery()->getResult();
         foreach($usuarios as $usuario) {
             $horas = $this->queryHorasNoAprobadas($usuario);
+            $this->sendEmail($horas, $usuario);
         }
-        return new JsonResponse('success');
+        return new JsonResponse(['success' => true], 200);
     }
 
     private function queryHorasNoAprobadas($usuario)
@@ -238,7 +239,7 @@ class CronJobController extends Controller
      * @param Usuario $enviado_a Nombre de la persona a la que se le envía el correo
      * @param Array usuarios que no tienen horas aprobadas. 
      */
-    private function sendEmail($enviado_a, $usuarios)
+    private function sendEmail($registros, $enviado_a)
     {
         $fromEmail = 'no-responder@newtonlabs.com.gt';
 
@@ -253,7 +254,7 @@ class CronJobController extends Controller
         $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif'));//attach image 4
         $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif'));//attach image 5
 
-        $subject = 'Aprobación de Horas';
+        $subject = 'Smart Time: Aprobación de Horas';
 
         $message
             ->setSubject($subject)

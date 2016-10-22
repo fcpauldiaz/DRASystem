@@ -31,12 +31,12 @@
 												<p>Hola {{enviado_a.nombre}} {{enviado_a.apellidos}}!</p>
 												<p>{{ mensaje }}</p>
 												<br>
-												<p>Por favor revisar cada registro.</p>
+												<p>Las siguientes horas de los usuarios están pendientes de aprobación/modificación.</p>
 												<ul>
 												{% for registro in registros %}
 													<li>
-														<a href="{{ absolute_url(path('registrohoras_edit', {'id': registro.id}))}}">
-															{{ absolute_url(path('registrohoras_edit', {'id': registro.id}))}}
+														<a href="{{ absolute_url(path('mostrar_usuarios'))}}">
+															{{registro}}
 														</a> 
 													</li>
 	
