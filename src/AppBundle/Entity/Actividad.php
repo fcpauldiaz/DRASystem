@@ -302,6 +302,10 @@ class Actividad
             return $this->abreviatura.': '.$this->nombre;
         }
 
+        if ($this->area !== null) {
+            return $this->area->getNombre().' : '.$this->nombre;
+        }
+
         return $this->nombre;
     }
    

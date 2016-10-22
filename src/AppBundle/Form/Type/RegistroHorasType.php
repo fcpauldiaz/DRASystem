@@ -56,7 +56,7 @@ class RegistroHorasType extends AbstractType
 
             ])
             ->add('horasActividad', 'bootstrap_collection', [
-                    'type' => new RegistroActividadHorasType(),
+                    'type' => new RegistroActividadHorasType($this->usuario),
                     'label' => 'Registro de Actividad y Horas',
                     'allow_add' => true,
                     'allow_delete' => true,

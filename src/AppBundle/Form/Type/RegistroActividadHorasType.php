@@ -8,6 +8,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistroActividadHorasType extends AbstractType
 {
+
+    private $usuario;
+
+    public function __construct($usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -23,6 +31,14 @@ class RegistroActividadHorasType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
+                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                    $departamento = $this->usuario->getPuestoActual()->getDepartamento();
+                    return $er->createQueryBuilder('actividad')
+                        ->innerJoin('actividad.area', 'a')
+                        ->innerJoin('UserBundle:Puesto', 'pd', 'with', 'pd.departamento = a.departamento')
+                        ->where('pd.departamento = :departamento_id')
+                        ->setParameter('departamento_id', $departamento);
+                },
             ])
             ->add('horasInvertidas', null, [
                 'label' => 'Horas invertidas',
