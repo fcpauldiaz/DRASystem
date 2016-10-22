@@ -31,7 +31,7 @@ class AsignacionUsuariosController extends Controller
       $usuarios = $data['usuarios'];
       $usuarioAsignar = $data['usuarioAsignar'];
       foreach($usuarios as $usuario) {
-        $relacion = new UsuarioRelacionado($usuario, $usuarioAsignar);
+        $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);
         $em->persist($relacion);
       }
       $em->flush();
