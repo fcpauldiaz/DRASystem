@@ -32,7 +32,12 @@ class RegistroActividadHorasType extends AbstractType
                     'class' => 'select2',
                 ],
                 'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
-                    $departamento = $this->usuario->getPuestoActual()->getDepartamento();
+                    if (method_exists($this->usuario, 'getPuestoActual')) {
+                        $departamento = $this->usuario->getPuestoActual()->getDepartamento();
+                    } else {
+                        return $er->createQueryBuilder('a');
+                    }
+                    
                     return $er->createQueryBuilder('actividad')
                         ->innerJoin('actividad.area', 'a')
                         ->innerJoin('UserBundle:Puesto', 'pd', 'with', 'pd.departamento = a.departamento')
