@@ -276,12 +276,12 @@ class RegistroHorasPresupuestoController extends Controller
      * Creates a form to delete a RegistroHorasPresupuesto entity by id.
      *
      * @param mixed $id The entity id
-     * 
+     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(NULL, array ('attr' => array ('id' => 'delete-form' ) ) )
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete-form')))
             ->setAction($this->generateUrl('horaspresupuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))

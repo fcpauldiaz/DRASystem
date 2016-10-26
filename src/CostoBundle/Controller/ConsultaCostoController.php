@@ -230,7 +230,7 @@ class ConsultaCostoController extends Controller
 
     /**
      * Muestra el detalle de una consulta por usuario.
-     * 
+     *
      * @Route("presupuesto/usuario/individual/{nombrePresupuesto}/{usuario_id}/{fechaInicio}/{fechaFinal}/{horasExtraordinarias}", name="presupuesto_individual_usuario")
      */
     public function consultaUsuarioIndividualAction($nombrePresupuesto, $usuario_id, $fechaInicio, $fechaFinal, $horasExtraordinarias)
@@ -258,7 +258,7 @@ class ConsultaCostoController extends Controller
 
     /**
      * Muestra el detalle de una consulta por cliente.
-     * 
+     *
      * @Route("presupuesto/cliente/individual/{nombrePresupuesto}/{cliente_id}/{fechaInicio}/{fechaFinal}/{horasExtraordinarias}", name="presupuesto_individual_cliente")
      */
     public function consultaClienteIndividualAction($nombrePresupuesto, $cliente_id, $fechaInicio, $fechaFinal, $horasExtraordinarias)
@@ -327,7 +327,7 @@ class ConsultaCostoController extends Controller
      * @param RegistroHorasPresupuesto $presupuestosIndividuales
      * @param ProyectoPresupuesto      $proyecto
      *
-     * @return Array con las horas invertidas de todas las actividades de un proyecto 
+     * @return array con las horas invertidas de todas las actividades de un proyecto
      */
     private function calcularHorasTotales($proyecto, $form)
     {
@@ -362,7 +362,7 @@ class ConsultaCostoController extends Controller
         foreach ($actividades as $actividad) {
             //calcular las horas de los registros de
             //horas invertidos en el proyecto
-            //
+
             //calcular las horas presupuestadas
             //busco en el proyecto los registros de
             //presupuesto y los filtro por actividad
@@ -400,7 +400,7 @@ class ConsultaCostoController extends Controller
      * @param RegistroHoraPresupuesto $presupuestosIndividuales
      * @param ProyectoPresupuesto     $proyecto
      *
-     * @return Symfony Response                          
+     * @return Symfony Response
      */
     private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form)
     {
@@ -452,7 +452,7 @@ class ConsultaCostoController extends Controller
      * @param RegistroHorasPresupuesto $presupuestosIndividuales ArrayCollection
      * @param ProyectoPresupuesto      $proyecto
      *
-     * @return Array of ConsultaCliente                        
+     * @return array of ConsultaCliente
      */
     private function calcularHorasTotalesCliente($presupuestosIndividuales, $proyecto, $form)
     {
@@ -493,7 +493,7 @@ class ConsultaCostoController extends Controller
      * @param RegistroHoraPresupuesto $presupuestosIndividuales
      * @param ProyectoPresupuesto     $proyecto
      *
-     * @return Array
+     * @return array
      */
     private function filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto)
     {
@@ -519,7 +519,7 @@ class ConsultaCostoController extends Controller
      * @param ArrayCollection of RegistroHorasPresupuesto $presupuestosIndividuales
      * @param ProyectoPresupuesto                         $proyecto
      *
-     * @return ArrayCollection de clientes                           
+     * @return ArrayCollection de clientes
      */
     private function filtrarClientesPorProyecto($presupuestosIndividuales, $proyecto)
     {
@@ -527,7 +527,7 @@ class ConsultaCostoController extends Controller
 
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin clientes repetidos
-            //
+
             $clientesPorProyecto = $this
             ->get('consulta.query_controller')
             ->addArrayCollectionAction($clientesPorProyecto, $presupuesto->getCliente());
@@ -547,7 +547,7 @@ class ConsultaCostoController extends Controller
      * @param ProyectoPresupuesto $presupuesto
      * @param RegistroHoras       $registros
      *
-     * @return Float
+     * @return float
      */
     private function calcularHorasPorActividad($registros, $actividad, $form)
     {
@@ -602,7 +602,7 @@ class ConsultaCostoController extends Controller
      * @param Usuario       $usuario   usuarios asignados al proyecto
      * @param RegistroHoras $registros del proyecto presupuesto
      *
-     * @return Float
+     * @return float
      */
     private function calcularHorasPorUsuario($usuario, $registros, $horasExtraordinarias)
     {
@@ -626,7 +626,7 @@ class ConsultaCostoController extends Controller
      * @param Usuario       $usuario   usuarios asignados al proyecto
      * @param RegistroHoras $registros del proyecto presupuesto
      *
-     * @return Float
+     * @return float
      */
     private function calcularCostoMonetarioPorUsuario($horas, $costoPorHora)
     {
@@ -639,7 +639,7 @@ class ConsultaCostoController extends Controller
      * @param Cliente       $cliente
      * @param RegistroHoras $registros
      *
-     * @return Float
+     * @return float
      */
     private function calcularHorasPorCliente($cliente, $registros, $form)
     {
@@ -687,7 +687,7 @@ class ConsultaCostoController extends Controller
      * @param Cliente       $cliente
      * @param RegistroHoras $registros
      *
-     * @return Float
+     * @return float
      */
     private function calcularHorasPorClientePresupuesto($cliente, $registros)
     {
@@ -726,10 +726,10 @@ class ConsultaCostoController extends Controller
      * Método para agregar las actividades que fueron ingresadas
      * como presupuesto pero no hay ingreso de horas todavía.
      *
-     * @param Array of Actividadees $verificadorActividades
-     * @param Array of actividades  $verificador
+     * @param array of Actividadees $verificadorActividades
+     * @param array of actividades  $verificador
      *
-     * @return Array de actividades cmpleto
+     * @return array de actividades cmpleto
      */
     private function completarActividades($verificadorActividades, $actividades)
     {
@@ -748,7 +748,7 @@ class ConsultaCostoController extends Controller
      * @param Usuario       $usuario   usuarios asignados al proyecto
      * @param RegistroHoras $registros del proyecto presupuesto
      *
-     * @return Float
+     * @return float
      */
     private function calcularHorasPorUsuarioPresupuesto($usuario, $registros)
     {
@@ -781,10 +781,10 @@ class ConsultaCostoController extends Controller
     /**
      * Obtiene los RegistroHoras por Actividad.
      *
-     * @param Array RegistroHras $registros
+     * @param array RegistroHras $registros
      * @param Actividad          $actividad
      *
-     * @return Array RegistroHoras           
+     * @return array RegistroHoras
      */
     private function filtarRegistrosPorActividad($registros, $actividad)
     {

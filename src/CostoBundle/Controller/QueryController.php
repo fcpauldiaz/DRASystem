@@ -23,7 +23,7 @@ class QueryController extends Controller
     }
 
     /**
-     * Unir dos ArrayCollection.     
+     * Unir dos ArrayCollection.
      *
      * @param ArrayCollection $array1
      * @param ArrayCollection $array2
@@ -78,7 +78,7 @@ class QueryController extends Controller
      *
      * @param UserBundle:Usuario $usuario
      *
-     * @return Array de UserBundle:Usuario
+     * @return array de UserBundle:Usuario
      */
     public function buscarUsuariosPorSocioAction($usuario)
     {

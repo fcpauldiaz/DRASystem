@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Asginar Usuarios
+{% endblock %}
+
+{% block body -%}
+    <h1>Asignar Usuarios</h1>
+
+    {{ form(form)}}
+    <br>
+    <br>   
+     <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usr in usuariosAsignados %}
+            <tr>
+                <td>{{ usr.usr }}</td>
+                <td><a href="{{path('remover_usuario', {
+                    'usuarioRemover':usr.usr.id, 'usuarioPertenece':usr.usuarioPertenece.id
+                })}}" class="btn btn-sm btn-danger">Remover</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>
+    <br>
+{% endblock %}

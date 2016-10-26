@@ -24,7 +24,7 @@ class InsertTipoDescuentosCommand extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return String con la cantidad de permisos creados
+     * @return string con la cantidad de permisos creados
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -36,7 +36,7 @@ class InsertTipoDescuentosCommand extends ContainerAwareCommand
         //Mostrar Progreso de todos los usuarios evaluados
         $progress = new ProgressBar($output, $cantidadDescuentos);
         $progress->start();
-        //initialize count  
+        //initialize count
         $cantidadDescuentos = 0;
         foreach (TipoDescuento::tipos as $nombre) {
             $tipoDescuento = new TipoDescuento($nombre);

@@ -37,7 +37,7 @@ class Descuento
 
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\DatosPrestaciones", inversedBy="descuentos")
-     * 
+     *
      * @var [type]
      */
     private $prestaciones;

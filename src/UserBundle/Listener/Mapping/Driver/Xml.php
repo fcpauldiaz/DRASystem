@@ -32,20 +32,20 @@ class Xml extends BaseXml
      */
     public function readExtendedMetadata($meta, array &$config)
     {
-        /**
+        /*
          * @var \SimpleXmlElement
          */
         $mapping = $this->_getMapping($meta->name);
 
         if (isset($mapping->field)) {
-            /**
+            /*
              * @var \SimpleXmlElement
              */
             foreach ($mapping->field as $fieldMapping) {
                 $fieldMappingDoctrine = $fieldMapping;
                 $fieldMapping = $fieldMapping->children(self::GEDMO_NAMESPACE_URI);
                 if (isset($fieldMapping->blameable)) {
-                    /**
+                    /*
                      * @var \SimpleXmlElement
                      */
                     $data = $fieldMapping->blameable;

@@ -116,6 +116,8 @@ class DatosPrestacionesType extends AbstractType
                     'class' => 'select2',
                 ],
             ])
+            ->addEventListener(FormEvents::POST_SET_DATA, [$this, 'onPreData'])
+
         ;
 
         $builder->addEventListener(
@@ -141,6 +143,32 @@ class DatosPrestacionesType extends AbstractType
     {
         return 'userbundle_datosprestaciones';
     }
+    /**
+     * Pre Set Data from depending the current status
+     * of gastos indirectos.
+     *
+     * @param FormEvent $event
+     */
+    public function onPreData(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $gasto = $form->getData()->getGastosIndirectos();
+
+        // Check whether the user has chosen to display his email or not.
+        // If the data was submitted previously, the additional value that is
+        // included in the request variables needs to be removed.
+        if (null === $gasto || $gasto <= 0) {
+            $form->add('gastos', 'checkbox', [
+                'label' => 'Aplica gastos indirectos de Q480 semanales',
+                'required' => false,
+                'mapped' => false,
+            ]);
+        } else {
+            $form->add('gastosIndirectos', 'number', [
+                'label' => 'Gastos Indirectos',
+            ]);
+        }
+    }
 
     /**
      * Forma de validar el correo de un catedrático.
@@ -150,6 +178,12 @@ class DatosPrestacionesType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $datosPrestaciones = $event->getData();
+
+        if (isset($event->getForm()['gastos'])) {
+            if ($event->getForm()['gastos']->getData() === true) {
+                $datosPrestaciones->setGastosDRA();
+            }
+        }
         $datosPrestaciones->calcularPrestaciones();
     }
 }

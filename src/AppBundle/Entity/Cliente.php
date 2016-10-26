@@ -31,7 +31,6 @@ class Cliente
      */
     private $nit;
 
-
     /**
      * @var string
      *
@@ -45,7 +44,6 @@ class Cliente
      * @ORM\Column(name="nombre_comercial", type="string", length=255, nullable = true)
      */
     private $nombreComercial;
-
 
     /**
      * @var string
@@ -204,7 +202,7 @@ class Cliente
     {
         return $this->serviciosPrestados;
     }
-    
+
     /**
      * Set fechaCreacion.
      *
@@ -302,7 +300,7 @@ class Cliente
     }
 
     /**
-     * Set usuarioAsignado
+     * Set usuarioAsignado.
      *
      * @param string $usuarioAsignado
      *
@@ -316,7 +314,7 @@ class Cliente
     }
 
     /**
-     * Get usuarioAsignado
+     * Get usuarioAsignado.
      *
      * @return string
      */
@@ -326,15 +324,16 @@ class Cliente
     }
 
     /**
-     * Método para buscar en select2
-     * @return String
+     * Método para buscar en select2.
+     *
+     * @return string
      */
     public function showSearchParams()
     {
         return $this->nit.' : '.$this->razonSocial;
     }
 
-     public function __toString()
+    public function __toString()
     {
         if ($this->nombreComercial !== null) {
             return $this->nombreComercial;

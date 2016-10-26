@@ -12,7 +12,7 @@ use AppBundle\Form\Type\ConsultaAprobacionHorasType;
 /**
  * CombinarPuesto controller.
  *
- * @Security("is_granted('ROLE_USER')") 
+ * @Security("is_granted('ROLE_USER')")
  */
 class SupervisorUsuariosController extends Controller
 {
@@ -20,7 +20,7 @@ class SupervisorUsuariosController extends Controller
      * Este método tiene como intención mostrarle a un usuario los demás usuarios que están
      * bajo su control. Por ejemplo, si su puesto es tipo gerente puede ver a los usuarios tipo
      * asistente y encargado.
-     * 
+     *
      *
      * @return Usuario Array de usuarios
      *
@@ -55,7 +55,7 @@ class SupervisorUsuariosController extends Controller
         );
     }
     /**
-     *  @Route("/mostrar/usuarios/relacionados", name="mostrar_usuarios_relacionados")  
+     *  @Route("/mostrar/usuarios/relacionados", name="mostrar_usuarios_relacionados")
      *  @Security("is_granted('ROLE_APROBACION_HORAS')")
      */
     public function mostrarUsuariosRelacionadosAction(Request $request)
@@ -73,7 +73,7 @@ class SupervisorUsuariosController extends Controller
     }
 
     /**
-     * @Security("is_granted('ROLE_APROBACION_HORAS')") 
+     * @Security("is_granted('ROLE_APROBACION_HORAS')")
      * @Route("/revisar/horas/{usuario_id}", name="revisar_horas")
      *
      * @param Request $request
@@ -88,7 +88,7 @@ class SupervisorUsuariosController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('UserBundle:UsuarioTrabajador')->findOneById($usuario_id);
-        
+
         $form = $this->createForm(
             ConsultaAprobacionHorasType::class);
         $form->handleRequest($request);
@@ -99,7 +99,7 @@ class SupervisorUsuariosController extends Controller
                     'verificador' => true,
                     'usuario' => $usuario,
                     'form' => $form->createView(),
-                    'datatable' => $datatable
+                    'datatable' => $datatable,
                 ]
 
             );
@@ -109,12 +109,13 @@ class SupervisorUsuariosController extends Controller
         $fechaFinal = $data['fechaFinal'];
         $options = [$usuario_id, $fechaInicio, $fechaFinal];
         $datatable->updateAjax($options);
+
         return $this->render(
                 'AppBundle:AprobacionHoras:revisarHoras.html.twig',
                 [
                     'usuario' => $usuario,
                     'form' => $form->createView(),
-                    'datatable' => $datatable
+                    'datatable' => $datatable,
                 ]
 
             );
@@ -135,24 +136,22 @@ class SupervisorUsuariosController extends Controller
         $query = $this->get('sg_datatables.query')->getQueryFrom($datatable);
         $query->buildQuery();
 
-
         $qb = $query->getQuery();
-        $qb->andWhere("registro_horas.ingresadoPor = :user");
-        $qb->andWhere("registro_horas.aprobado = false");
+        $qb->andWhere('registro_horas.ingresadoPor = :user');
+        $qb->andWhere('registro_horas.aprobado = false');
         $qb->setParameter('user', $usuario);
 
-
         if ($fechaInit !== '' && $fechaFin !== '') {
-          $qb->andWhere('registro_horas.id = 1');
-          $qb->andWhere('registro_horas.fechaHoras >= :fechaInicial');
-          $qb->andWhere('registro_horas.fechaHoras <= :fechaFinal');
-          $qb->setParameter('fechaInicial', $fechaInit['date']);
-          $qb->setParameter('fechaFinal', $fechaFin['date']);
+            $qb->andWhere('registro_horas.id = 1');
+            $qb->andWhere('registro_horas.fechaHoras >= :fechaInicial');
+            $qb->andWhere('registro_horas.fechaHoras <= :fechaFinal');
+            $qb->setParameter('fechaInicial', $fechaInit['date']);
+            $qb->setParameter('fechaFinal', $fechaFin['date']);
         }
 
         $query->setQuery($qb);
 
-        return $query->getResponse(false); 
+        return $query->getResponse(false);
     }
 
     /**
@@ -204,7 +203,7 @@ class SupervisorUsuariosController extends Controller
      * @Route("/mostrar/registros/noAprobados/{array_ids}", name="show_registros_no_aprobados")
      *
      * @param Request   $request
-     * @param Array int $array_ids Array de los ids de los registros no aprobados
+     * @param array int $array_ids Array de los ids de los registros no aprobados
      */
     public function showRegistrosNoAprobadosAction(Request $request, $array_ids)
     {
@@ -225,7 +224,7 @@ class SupervisorUsuariosController extends Controller
      * Función para enviar un correo.
      *
      * @param Usuario $enviado_a Nombre de la persona a la que se le envía el correo
-     * @param Array   $archivos  Array de registros a enviar
+     * @param array   $archivos  Array de registros a enviar
      */
     private function sendEmail($enviado_a, $registros)
     {
@@ -236,11 +235,11 @@ class SupervisorUsuariosController extends Controller
         $mensaje = 'Estimado usuario, las siguientes horas no han sido aprobadas';
 
         //espacio para agregar imágenes
-        $img_src = $message->embed(\Swift_Image::fromPath('images/email_header.png'));//attach image 1
-        $fb_image = $message->embed(\Swift_Image::fromPath('images/fb.gif'));//attach image 2
-        $tw_image = $message->embed(\Swift_Image::fromPath('images/tw.gif'));//attach image 3
-        $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif'));//attach image 4
-        $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif'));//attach image 5
+        $img_src = $message->embed(\Swift_Image::fromPath('images/email_header.png')); //attach image 1
+        $fb_image = $message->embed(\Swift_Image::fromPath('images/fb.gif')); //attach image 2
+        $tw_image = $message->embed(\Swift_Image::fromPath('images/tw.gif')); //attach image 3
+        $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif')); //attach image 4
+        $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif')); //attach image 5
 
         $subject = 'Aprobación de Horas';
 

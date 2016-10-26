@@ -73,7 +73,7 @@ class PuestoType extends AbstractType
     /**
      * Forma de agregar el permiso en caso de control total
      *  se crea un permiso temporal para agregar el segundo ROLE
-     * Esto se hace para poder mostrar usuarios con los queries 
+     * Esto se hace para poder mostrar usuarios con los queries
      * Ya que no se puede utilizar la jerarquía en sql
      * Esto puede ocasionar un BC si hay cambios.
      *

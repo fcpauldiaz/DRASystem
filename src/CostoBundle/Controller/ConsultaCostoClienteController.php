@@ -88,7 +88,7 @@ class ConsultaCostoClienteController extends Controller
 
         //buscar presupesto en estas fechas
         //buscar registro horas en estas fechas
-        //
+
        return $this->render(
             'CostoBundle:ConsultaCliente:consultaCliente.html.twig',
             [

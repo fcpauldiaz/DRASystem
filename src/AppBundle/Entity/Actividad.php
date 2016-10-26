@@ -35,7 +35,7 @@ class Actividad
     /**
      * @var string
      *
-     * @ORM\Column(name="area", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
      */
     private $area;
 
@@ -270,7 +270,7 @@ class Actividad
     }
 
     /**
-     * Set area
+     * Set area.
      *
      * @param string $area
      *
@@ -284,7 +284,7 @@ class Actividad
     }
 
     /**
-     * Get area
+     * Get area.
      *
      * @return string
      */
@@ -300,7 +300,10 @@ class Actividad
             return $this->abreviatura.': '.$this->nombre;
         }
 
+        if ($this->area !== null) {
+            return $this->area->getNombre().' : '.$this->nombre;
+        }
+
         return $this->nombre;
     }
-
 }

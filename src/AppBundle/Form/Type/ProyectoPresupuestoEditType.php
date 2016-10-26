@@ -7,8 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 //se creó un formulario cuando se quiera editar
-//para cargar el array collection existente 
-//y no crear uno nuevo como cuando se crea 
+//para cargar el array collection existente
+//y no crear uno nuevo como cuando se crea
 //un nuevo proyecto.
 class ProyectoPresupuestoEditType extends AbstractType
 {

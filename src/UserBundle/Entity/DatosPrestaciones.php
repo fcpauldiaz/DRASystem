@@ -13,6 +13,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class DatosPrestaciones
 {
+    const GASTO_FIJO = 1920;
+
     /**
      * @var int
      *
@@ -122,13 +124,13 @@ class DatosPrestaciones
     private $cuotaPatronal;
 
     /**
-     *  Gastos fijos de oficina 480
+     *  Gastos fijos de oficina 480.
      *
      * @var float
      *
-     * @ORM\Column(name="gastos_fijos",type="float", nullable=true)
+     * @ORM\Column(name="gastos_indirectos",type="float", nullable=true)
      */
-    private $gastosFijos;
+    private $gastosIndirectos;
 
     /**
      * @var Usuario
@@ -139,7 +141,7 @@ class DatosPrestaciones
 
     /**
      * @ORM\OneToMany(targetEntity="UserBundle\Entity\Descuento", mappedBy="prestaciones")
-     * 
+     *
      * @var [type]
      */
     private $descuentos;
@@ -164,7 +166,7 @@ class DatosPrestaciones
      * @var string
      *
      * @Gedmo\Blameable(on="create")
-      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $creadoPor;
@@ -469,8 +471,8 @@ class DatosPrestaciones
                  $this->getPrestacionesSobreSueldo() +
                  $this->getOtrasPrestaciones() +
                  $this->getViaticos() +
-                 $this->getOtros()+
-                 $this->getGastosFijos();
+                 $this->getOtros() +
+                 $this->getGastosIndirectos();
                 //Esto ya está integrado en el costo
                 //La indemnizacion, aguinaldo, bono14,cuota patronal
                 //ya está integrado en el costo
@@ -517,7 +519,7 @@ class DatosPrestaciones
      * Set otraBonificacion.
      *
      * @param float $otraBonificacion
-     * 
+     *
      * @return DatosPrestaciones
      */
     public function setOtraBonificacion($otraBonificacion)
@@ -550,7 +552,7 @@ class DatosPrestaciones
     {
         $sueldo = $this->sueldo;
         $prestacionesSobreSueldo = $sueldo * 0.4183;
-        $calculoGeneral = $sueldo * 0.0833;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
+        $calculoGeneral = $sueldo * 0.0833; //asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
         $cuotaPatronal = $sueldo * 0.1267;
         $this->prestacionesSobreSueldo = $prestacionesSobreSueldo;
         $this->indemnizacion = $calculoGeneral;
@@ -737,28 +739,32 @@ class DatosPrestaciones
         return $this->actualizadoPor;
     }
 
-        /**
-     * Set gastosFijos
+    /**
+     * Set gastosIndirectos.
      *
-     * @param float $gastosFijos
+     * @param float $gastosIndirectos
      *
      * @return DatosPrestaciones
      */
-    public function setGastosFijos($gastosFijos)
+    public function setGastosIndirectos($gastosIndirectos)
     {
-        $this->gastosFijos = $gastosFijos;
+        $this->gastosIndirectos = $gastosIndirectos;
 
         return $this;
     }
 
+    public function setGastosDRA()
+    {
+        $this->gastosIndirectos = self::GASTO_FIJO;
+    }
     /**
-     * Get gastosFijos
+     * Get gastosIndirectos.
      *
      * @return float
      */
-    public function getGastosFijos()
+    public function getGastosIndirectos()
     {
-        return $this->gastosFijos;
+        return $this->gastosIndirectos;
     }
 
     public function __toString()

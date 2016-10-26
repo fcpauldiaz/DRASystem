@@ -20,7 +20,7 @@ class CostoRepository extends EntityRepository
      * @param DATE    $fechaFinal
      * @param Usuario $usuario
      *
-     * @return Array Costo de un elemento.
+     * @return array Costo de un elemento
      */
     public function findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario)
     {
@@ -47,7 +47,7 @@ class CostoRepository extends EntityRepository
      * @param DATE $fechaInicio
      * @param DaTe $fechaFinal
      *
-     * @return Array Costo              [
+     * @return array Costo              [
      */
     public function getQueryCostoPorFecha($fechaInicio, $fechaFinal)
     {

@@ -27,6 +27,7 @@ class HorasPendientes
         $cantidad = 0;
         $arrayUsuarios = [];
         foreach ($usuariosRelacionados as $usuario) {
+            $usuario = $usuario->getUsr();
             $horasPorUsuario = 0;
             $registro = $this->em->getRepository('AppBundle:RegistroHoras')->findBy(
                 [

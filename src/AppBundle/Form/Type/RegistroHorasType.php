@@ -23,7 +23,7 @@ class RegistroHorasType extends AbstractType
         $builder
              ->add('proyectoPresupuesto', 'entity', [
                 'class' => 'AppBundle:ProyectoPresupuesto',
-                'required' => true,
+                'required' => false,
                 'empty_value' => 'Seleccione el presupuesto asignado',
                 'attr' => [
                     'class' => 'select2',
@@ -55,7 +55,7 @@ class RegistroHorasType extends AbstractType
 
             ])
             ->add('horasActividad', 'bootstrap_collection', [
-                    'type' => new RegistroActividadHorasType(),
+                    'type' => new RegistroActividadHorasType($this->usuario),
                     'label' => 'Registro de Actividad y Horas',
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -82,12 +82,6 @@ class RegistroHorasType extends AbstractType
                     'class' => 'select2',
                 ],
 
-            ])
-             ->add('horasExtraordinarias', null, [
-                'label' => 'Horas Extraordinarias',
-                'attr' => [
-                    'help_text' => 'Marque esta opción si las horas que está ingresando son extraordinarias',
-                ],
             ])
 
         ;

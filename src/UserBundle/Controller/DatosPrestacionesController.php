@@ -90,7 +90,7 @@ class DatosPrestacionesController extends Controller
     {
         $referer = $request->headers->get('referer');
         $redirect = false;
-        if (stripos($referer, "puesto") !== false) {
+        if (stripos($referer, 'puesto') !== false) {
             $redirect = true;
         }
         $usuario = $this->getUser();
@@ -111,10 +111,11 @@ class DatosPrestacionesController extends Controller
             $em->flush();
 
             if ($redirect === true && $usuarioActual === $usuario) {
-              
-            $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+                $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+
                 return $this->redirect($this->generateUrl('fos_user_security_logout'));
             }
+
             return $this->redirect($this->generateUrl('datosprestaciones_show', array('id' => $entity->getId())));
         }
 
@@ -299,7 +300,7 @@ class DatosPrestacionesController extends Controller
      * Creates a form to delete a DatosPrestaciones entity by id.
      *
      * @param mixed $id The entity id
-     * 
+     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)

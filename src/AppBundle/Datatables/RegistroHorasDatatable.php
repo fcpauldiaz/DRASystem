@@ -6,17 +6,14 @@ use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
 use Sg\DatatablesBundle\Datatable\View\Style;
 
 /**
- * Class RegistroHorasDatatable
- *
- * @package AppBundle\Datatables
+ * Class RegistroHorasDatatable.
  */
 class RegistroHorasDatatable extends AbstractDatatableView
 {
-
     public function updateAjax(array $customOptions = array())
     {
         if (empty($customOptions) !== true) {
-            $user_id = $customOptions[0];     
+            $user_id = $customOptions[0];
         }
         if (array_key_exists(1, $customOptions) && array_key_exists(2, $customOptions)) {
             $fechaInicio = $customOptions[1];
@@ -25,7 +22,7 @@ class RegistroHorasDatatable extends AbstractDatatableView
             $fechaInicio = '';
             $fechaFinal = '';
         }
-       
+
        /* if ($this->ajax->options['']])) {
             $fechaInicio = $this->ajax['url']['fechaInicio'];
         }
@@ -35,13 +32,12 @@ class RegistroHorasDatatable extends AbstractDatatableView
         $this->ajax->set(array(
             'url' => $this->router->generate('registrohoras_results', [
                 'user_id' => $user_id,
-                'fechaInicio' => $fechaInicio, 
-                'fechaFinal' => $fechaFinal
+                'fechaInicio' => $fechaInicio,
+                'fechaFinal' => $fechaFinal,
             ]),
             'type' => 'GET',
             'pipeline' => 0,
         ));
-        
     }
 
     /**
@@ -50,7 +46,7 @@ class RegistroHorasDatatable extends AbstractDatatableView
     public function buildDatatable(array $customOptions = array())
     {
         if (empty($customOptions) !== true) {
-            $user_id = $customOptions[0];     
+            $user_id = $customOptions[0];
         }
         if (array_key_exists(1, $customOptions) && array_key_exists(2, $customOptions)) {
             $fechaInicio = $customOptions[1];
@@ -59,7 +55,7 @@ class RegistroHorasDatatable extends AbstractDatatableView
             $fechaInicio = '';
             $fechaFinal = '';
         }
-       
+
         $this->features->set(array(
             'auto_width' => true,
             'defer_render' => false,
@@ -79,9 +75,8 @@ class RegistroHorasDatatable extends AbstractDatatableView
                 'fixedHeader' => true,
             ),
             'highlight' => true,
-            'highlight_color' => 'yellow'
+            'highlight_color' => 'yellow',
         ));
-
 
         $this->options->set(array(
             'display_start' => 0,
@@ -103,15 +98,15 @@ class RegistroHorasDatatable extends AbstractDatatableView
             'individual_filtering_position' => 'head',
             'use_integration_options' => true,
             'force_dom' => false,
-            'row_id' => 'id'
+            'row_id' => 'id',
         ));
 
         $this->columnBuilder
             ->add('fechaHoras', 'datetime', array(
                 'title' => 'Fecha',
                 'editable' => true,
-                'date_format' => 'll'
-            ))            
+                'date_format' => 'll',
+            ))
             ->add('actividad.nombre', 'column', array(
                 'title' => 'Actividad Nombre',
             ))
@@ -120,19 +115,19 @@ class RegistroHorasDatatable extends AbstractDatatableView
             ))
             ->add('horasInvertidas', 'column', array(
                 'title' => 'Horas Invertidas',
-                'editable' => true
+                'editable' => true,
             ))
             ->add('horasExtraordinarias', 'boolean', array(
                 'title' => 'Horas Extraordinarias',
                 'editable' => true,
                 'true_label' => 'Sí',
-                'false_label' => 'No'
+                'false_label' => 'No',
             ))
             ->add('aprobado', 'boolean', array(
                 'title' => 'Aprobado',
                 'editable' => true,
                 'true_label' => 'Sí',
-                'false_label' => 'No'
+                'false_label' => 'No',
             ))
         ;
     }

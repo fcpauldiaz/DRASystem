@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * When the user is not authenticated at all (i.e. when the security context has no token yet), 
- * the firewall's entry point will be called to start() the authentication process. 
+ * When the user is not authenticated at all (i.e. when the security context has no token yet),
+ * the firewall's entry point will be called to start() the authentication process.
  */
 class LoginEntryPoint implements AuthenticationEntryPointInterface
 {
@@ -20,9 +20,9 @@ class LoginEntryPoint implements AuthenticationEntryPointInterface
         $this->router = $router;
     }
      /*
-     * This method receives the current Request object and the exception by which the exception 
-     * listener was triggered. 
-     * 
+     * This method receives the current Request object and the exception by which the exception
+     * listener was triggered.
+     *
      * The method should return a Response object
      */
 
@@ -31,7 +31,7 @@ class LoginEntryPoint implements AuthenticationEntryPointInterface
         $session = $request->getSession();
 
         //I am choosing to set a FlashBag message with my own custom message.
-        //Alternatively, you could use AuthenticaionException's generic message 
+        //Alternatively, you could use AuthenticaionException's generic message
         //by calling $authException->getMessage()
         $session->getFlashBag()->add('warning', 'You must be logged in to access that page');
 

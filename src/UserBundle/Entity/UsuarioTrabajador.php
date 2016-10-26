@@ -11,14 +11,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="usuario_trabajador")
  * @UniqueEntity(fields = "username", targetClass = "UserBundle\Entity\Usuario", message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email", targetClass = "UserBundle\Entity\Usuario", message="fos_user.email.already_used")
- * 
+ *
  * @UniqueEntity(fields = "nit", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El nit debe ser único")
  * @UniqueEntity(fields = "dpi", targetClass = "UserBundle\Entity\UsuarioTrabajador", message="El dpi debe ser único")
  * @Unique("codigo")
  * Esta entidad cubre los tipos de Asistente, Supervisor y Gerente.
  *
  * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
- * 
+ *
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 class UsuarioTrabajador extends Usuario
@@ -37,7 +37,7 @@ class UsuarioTrabajador extends Usuario
     private $direccion;
 
     /**
-     * @var date fecha de egreso de la empresa.
+     * @var date fecha de egreso de la empresa
      * @ORM\Column(name="fecha_egreso", type="date",nullable=true)
      */
     private $fechaEgreso;
@@ -45,7 +45,7 @@ class UsuarioTrabajador extends Usuario
     /**
      * @var string DPI del trabajador
      * @ORM\Column(name="dpi",type="string",length=20, unique=true, nullable=true)
-     *  
+     *
      * @Assert\Length(
      *      min = 13,
      *      max = 13
@@ -93,17 +93,11 @@ class UsuarioTrabajador extends Usuario
     private $puestos;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ProyectoPresupuesto", mappedBy="gerentes")
-     */
-    private $presupuestos;
-
-    /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->presupuestos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->datosPrestaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -313,40 +307,6 @@ class UsuarioTrabajador extends Usuario
         }
 
         return;
-    }
-
-    /**
-     * Add presupuesto.
-     *
-     * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
-     *
-     * @return UsuarioTrabajador
-     */
-    public function addPresupuesto(\AppBundle\Entity\ProyectoPresupuesto $presupuesto)
-    {
-        $this->presupuestos[] = $presupuesto;
-
-        return $this;
-    }
-
-    /**
-     * Remove presupuesto.
-     *
-     * @param \AppBundle\Entity\ProyectoPresupuesto $presupuesto
-     */
-    public function removePresupuesto(\AppBundle\Entity\ProyectoPresupuesto $presupuesto)
-    {
-        $this->presupuestos->removeElement($presupuesto);
-    }
-
-    /**
-     * Get presupuestos.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPresupuestos()
-    {
-        return $this->presupuestos;
     }
 
     /**

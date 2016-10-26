@@ -5,7 +5,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
@@ -42,31 +41,6 @@ class ProyectoPresupuestoType extends AbstractType
                 'grouping' => true,
 
             ])
-              ->add('socios', 'entity', [
-                'required' => false,
-                'label' => 'Socio/s asignados',
-                'class' => 'UserBundle:UsuarioSocio',
-                'multiple' => true,
-                'attr' => [
-                    'class' => 'select2',
-                ],
-
-            ])
-            ->add('gerentes', 'entity', [
-                'required' => false,
-                'label' => 'Gerentes/s asignados',
-                'class' => 'UserBundle:UsuarioTrabajador',
-                'multiple' => true,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->where('u.roles LIKE :roles')
-                        ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
-                },
-                'attr' => [
-                    'class' => 'select2',
-                ],
-
-            ])
             ->add('presupuestoIndividual', 'bootstrap_collection', [
                     'type' => new RegistroHorasPresupuestoType($this->usuario),
                     'label' => 'Registro Horas Presupuesto',
@@ -74,7 +48,7 @@ class ProyectoPresupuestoType extends AbstractType
                     'allow_delete' => true,
                     'add_button_text' => 'Agregar Registro',
                     'delete_button_text' => 'Eliminar Registro',
-                    'sub_widget_col' => 6,
+                    'sub_widget_col' => 10,
                     'button_col' => 12,
                     'by_reference' => false, //esta linea también es importante para que se guarde la ref
                     'cascade_validation' => true,
@@ -107,12 +81,12 @@ class ProyectoPresupuestoType extends AbstractType
     /**
      * Validar que no se repitan las actividades dentro un mismo presupuesto.
      *
-     * @param Array                     $data    contiene los datos del formulario
+     * @param array                     $data    contiene los datos del formulario
      * @param ExecutionContextInterface $context
      */
     public function validarActividades($data, ExecutionContextInterface $context)
     {
-        $registrosPresupuesto = $data->getPresupuestoIndividual();
+        /* $registrosPresupuesto = $data->getPresupuestoIndividual();
         $actividades = [];
         foreach ($registrosPresupuesto as $registro) {
             $actividadActual = $registro->getActividad()->getId();
@@ -124,7 +98,7 @@ class ProyectoPresupuestoType extends AbstractType
                     ->addViolation();
             }
             $actividades[] = [$actividadActual, $usuario];
-        }
+        }*/
     }
 
     public function checkArray($array, $id1, $id2)

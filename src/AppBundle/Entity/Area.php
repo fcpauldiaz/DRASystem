@@ -3,11 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Area
+ * Area.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -15,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Area
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -30,7 +29,7 @@ class Area
      */
     private $nombre;
 
-     /**
+    /**
      * Fecha de creacion.
      *
      * @ORM\Column(name="fecha_creacion", type="datetime")
@@ -64,12 +63,21 @@ class Area
      */
     private $actualizadoPor;
 
+    /**
+     * @var ManyToOne
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Departamento")
+     */
+    private $departamento;
 
+    public function __construct($nombre)
+    {
+        $this->nombre = $nombre;
+    }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -77,7 +85,7 @@ class Area
     }
 
     /**
-     * Set nombre
+     * Set nombre.
      *
      * @param string $nombre
      *
@@ -91,7 +99,7 @@ class Area
     }
 
     /**
-     * Get nombre
+     * Get nombre.
      *
      * @return string
      */
@@ -101,7 +109,7 @@ class Area
     }
 
     /**
-     * Set fechaCreacion
+     * Set fechaCreacion.
      *
      * @param \DateTime $fechaCreacion
      *
@@ -115,7 +123,7 @@ class Area
     }
 
     /**
-     * Get fechaCreacion
+     * Get fechaCreacion.
      *
      * @return \DateTime
      */
@@ -125,7 +133,7 @@ class Area
     }
 
     /**
-     * Set fechaActualizacion
+     * Set fechaActualizacion.
      *
      * @param \DateTime $fechaActualizacion
      *
@@ -139,7 +147,7 @@ class Area
     }
 
     /**
-     * Get fechaActualizacion
+     * Get fechaActualizacion.
      *
      * @return \DateTime
      */
@@ -149,7 +157,7 @@ class Area
     }
 
     /**
-     * Set creadoPor
+     * Set creadoPor.
      *
      * @param \UserBundle\Entity\Codigo $creadoPor
      *
@@ -163,7 +171,7 @@ class Area
     }
 
     /**
-     * Get creadoPor
+     * Get creadoPor.
      *
      * @return \UserBundle\Entity\Codigo
      */
@@ -173,7 +181,7 @@ class Area
     }
 
     /**
-     * Set actualizadoPor
+     * Set actualizadoPor.
      *
      * @param \UserBundle\Entity\Codigo $actualizadoPor
      *
@@ -187,7 +195,7 @@ class Area
     }
 
     /**
-     * Get actualizadoPor
+     * Get actualizadoPor.
      *
      * @return \UserBundle\Entity\Codigo
      */
@@ -197,11 +205,36 @@ class Area
     }
 
     /**
-     * Object String representation
-     * @return string 
+     * Set departamento.
+     *
+     * @param \UserBundle\Entity\Departamento $departamento
+     *
+     * @return Area
+     */
+    public function setDepartamento(\UserBundle\Entity\Departamento $departamento = null)
+    {
+        $this->departamento = $departamento;
+
+        return $this;
+    }
+
+    /**
+     * Get departamento.
+     *
+     * @return \UserBundle\Entity\Departamento
+     */
+    public function getDepartamento()
+    {
+        return $this->departamento;
+    }
+
+    /**
+     * Object String representation.
+     *
+     * @return string
      */
     public function __toString()
     {
-        return $this->nombre;
+        return $this->departamento.' : '.$this->nombre;
     }
 }

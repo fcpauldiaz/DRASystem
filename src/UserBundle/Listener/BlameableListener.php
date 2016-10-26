@@ -61,7 +61,6 @@ class BlameableListener extends TimestampableListener
      */
     public function setUserValue($user)
     {
-       
         $this->user = $user;
     }
 

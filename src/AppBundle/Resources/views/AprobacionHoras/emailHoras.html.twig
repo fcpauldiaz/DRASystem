@@ -2,8 +2,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Demystifying Email Design</title>
+<title>Email Design</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style type="text/css">
+	.btn {
+	    display: inline-block;
+	    padding: 6px 12px;
+	    margin-bottom: 0;
+	    font-size: 14px;
+	    font-weight: 400;
+	    line-height: 1.42857143;
+	    text-align: center;
+	    white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    cursor: pointer;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	    color: white;
+	}
+	.btn-primary {
+	    background-color: #043565;
+	    border-color: #03284c;
+	}
+	.btn-block {
+	    display: block;
+	    width: 100%;
+	}
+</style>
 </head>
 <body style="margin: 0; padding: 0;">
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">	
@@ -31,17 +63,20 @@
 												<p>Hola {{enviado_a.nombre}} {{enviado_a.apellidos}}!</p>
 												<p>{{ mensaje }}</p>
 												<br>
-												<p>Por favor revisar cada registro.</p>
+												<p>Las siguientes horas de los usuarios están pendientes de aprobación/modificación.</p>
 												<ul>
 												{% for registro in registros %}
 													<li>
-														<a href="{{ absolute_url(path('registrohoras_edit', {'id': registro.id}))}}">
-															{{ absolute_url(path('registrohoras_edit', {'id': registro.id}))}}
-														</a> 
+														<span>
+															{{registro}} - {{registro.ingresadoPor}} - {{registro.horasInvertidas}} horas
+														</span>
 													</li>
 	
 												{% endfor %}
 												</ul>
+												<button class="btn btn-block btn-primary" href="{{ absolute_url(path('mostrar_usuarios'))}}">Ver todos los usuarios
+												</button>
+
 												<p>Atentamente, </p>
 												<p>Smart Time.</p>
 												
