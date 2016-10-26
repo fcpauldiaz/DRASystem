@@ -107,6 +107,7 @@ class UploadController extends Controller
               if ($departamento === null) {
                   $departamento = new Departamento($dep);
                   $em->persist($departamento);
+                  $em->flush();
               }
               $area = $em
                 ->getRepository('AppBundle:Area')
