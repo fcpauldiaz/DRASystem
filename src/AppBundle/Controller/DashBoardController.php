@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DashBoardController extends Controller
 {
-
     /**
      * @Route("/forbidden")
      */
@@ -34,16 +33,15 @@ class DashBoardController extends Controller
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             'cantidadUsuarios' => $cantidadUsuarios,
-            'cantidadHoras' => $cantidadHoras !== null  ? $cantidadHoras: 0 ,
-            'cantidadHorasPresupuestadas' => $cantidadHorasPresupuestadas !== null ? $cantidadHorasPresupuestadas:0,
+            'cantidadHoras' => $cantidadHoras !== null ? $cantidadHoras : 0,
+            'cantidadHorasPresupuestadas' => $cantidadHorasPresupuestadas !== null ? $cantidadHorasPresupuestadas : 0,
             'cantidadCostos' => $cantidadCostos,
             'apiKey' => $apiKey,
-            'password' => $password
+            'password' => $password,
         ));
     }
     /**
-     * Every time the user goes to the main page will change api key
-     * @return void
+     * Every time the user goes to the main page will change api key.
      */
     public function changeUserApiKey()
     {
@@ -57,7 +55,7 @@ class DashBoardController extends Controller
     /**
      * Query que devuelve la cantidad de costos guardados del usuairo actual.
      *
-     * @return 
+     * @return
      */
     private function queryCosto()
     {
@@ -75,7 +73,7 @@ class DashBoardController extends Controller
     /**
      * Query que devuelve las horas del presupuesto.
      *
-     * @return float or null.
+     * @return float or null
      */
     private function queryHorasPresupuesto()
     {
@@ -87,6 +85,7 @@ class DashBoardController extends Controller
             ->innerJoin('presupuesto.usuario', 'usuario')
             ->where('usuario.id = :user')
             ->setParameter('user', $usuarioActual->getId());
+
         return $queryPresupuestos->getQuery()->getSingleScalarResult();
     }
 
@@ -112,7 +111,7 @@ class DashBoardController extends Controller
     /**
      * Query que devuelve la cantidad de usuarios actuales en el sistema.
      *
-     * @return Integer or NULL.
+     * @return int or NULL
      */
     private function queryUsuarios()
     {

@@ -39,7 +39,6 @@ class Actividad
      */
     private $area;
 
-
     /**
      * @var string
      *
@@ -87,7 +86,6 @@ class Actividad
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $actualizadoPor;
-
 
     public function __construct()
     {
@@ -272,7 +270,7 @@ class Actividad
     }
 
     /**
-     * Set area
+     * Set area.
      *
      * @param string $area
      *
@@ -286,7 +284,7 @@ class Actividad
     }
 
     /**
-     * Get area
+     * Get area.
      *
      * @return string
      */
@@ -308,5 +306,4 @@ class Actividad
 
         return $this->nombre;
     }
-   
 }

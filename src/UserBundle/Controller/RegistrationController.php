@@ -23,12 +23,10 @@ class RegistrationController extends BaseController
 
         //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
         if ($claseActual == "UserBundle\Entity\UsuarioTrabajador") {
+            $response = $this->forward('UserBundle:Puesto:new');
 
-      
-        $response = $this->forward('UserBundle:Puesto:new');
-
-        return $response;
-      }
+            return $response;
+        }
       //entonces es una clase tipo Socio UserBundle\Entity\UsuarioSocio
       else {
           return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(

@@ -148,7 +148,7 @@ class Consulta
     /**
      * Get Horas Presupuesto.
      *
-     * @return float.
+     * @return float
      */
     public function getHorasPresupuesto()
     {

@@ -33,9 +33,10 @@ class CronJobController extends Controller
             $usuariosRequest = $form->getData()['usuarios'];
 
             if ($firstDayRequest !== null) {
-                $firstDay  = $firstDayRequest;
+                $firstDay = $firstDayRequest;
                 if ($lastDayRequest === null) {
                     $this->addFlash('error', 'No puede dejar solo un campo de fecha en blanco');
+
                     return $this->render('CostoBundle:Costo:cronJob.html.twig',
                         [
                             'verificador' => true, //mandar variable a javascript
@@ -47,6 +48,7 @@ class CronJobController extends Controller
             if ($lastDayRequest !== null) {
                 if ($firstDayRequest === null) {
                     $this->addFlash('error', 'No puede dejar solo un campo de fecha en blanco');
+
                     return $this->render('CostoBundle:Costo:cronJob.html.twig',
                         [
                             'verificador' => true, //mandar variable a javascript
@@ -66,7 +68,7 @@ class CronJobController extends Controller
             $actualizarCosto = $em->getRepository('CostoBundle:Costo')->findOneBy([
                 'fechaInicio' => $firstDay,
                 'fechaFinal' => $lastDay,
-                'usuario' => $usuario
+                'usuario' => $usuario,
             ]);
             if ($actualizarCosto !== null) {
                 $entidadCosto = $actualizarCosto;
@@ -85,6 +87,7 @@ class CronJobController extends Controller
         }
         $em->flush();
         $this->addFlash('success', 'Se han guardado los costos');
+
         return $this->redirect($this->generateUrl('cron_job_view'));
     }
 
@@ -93,7 +96,7 @@ class CronJobController extends Controller
      */
     public function showButtonAction()
     {
-       $form = $this->createFormAction();
+        $form = $this->createFormAction();
 
         return $this->render('CostoBundle:Costo:cronJob.html.twig',
             [
@@ -105,7 +108,7 @@ class CronJobController extends Controller
 
     public function createFormAction()
     {
-         $form = $this->createFormBuilder()
+        $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('cron_job_cost'))
              ->add('usuarios', 'entity', [
                 'class' => 'UserBundle:Usuario',
@@ -115,7 +118,7 @@ class CronJobController extends Controller
                     'class' => 'select2',
                 ],
                 'multiple' => true,
-                'label' => 'Usuarios (opcional)'
+                'label' => 'Usuarios (opcional)',
 
             ])
             ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
@@ -177,13 +180,16 @@ class CronJobController extends Controller
             ])
             ->add('submit', 'submit', array('label' => 'Calcular'))
             ->getForm();
+
         return $form;
     }
 
     /**
-     * Cron Job to send email for users with 
-     * pending hours to be approved
-     * @param  Request $request 
+     * Cron Job to send email for users with
+     * pending hours to be approved.
+     *
+     * @param Request $request
+     *
      * @return Response
      *
      * @Route("cron/email/hours", name="cron_hours")
@@ -197,10 +203,11 @@ class CronJobController extends Controller
             ->where('u.roles LIKE :roles')
             ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
         $usuarios = $qb->getQuery()->getResult();
-        foreach($usuarios as $usuario) {
+        foreach ($usuarios as $usuario) {
             $horas = $this->queryHorasNoAprobadas($usuario);
             $this->sendEmail($horas, $usuario);
         }
+
         return new JsonResponse(['success' => true], 200);
     }
 
@@ -216,7 +223,8 @@ class CronJobController extends Controller
             ->where('r.aprobado = false')
             ->andWhere('ur.usr = :user_id')
             ->setParameter('user_id', $usuario->getId());
-            return $qb->getQuery()->getResult();
+
+        return $qb->getQuery()->getResult();
     }
 
     private function getHorasNoAprobadas($usuario)
@@ -229,15 +237,15 @@ class CronJobController extends Controller
             ->where('r.aprobado = false')
             ->andWhere('ing = :usuario')
             ->setParameter('usuario', $usuario);
-        return $qb->getQuery()->getResult();
 
+        return $qb->getQuery()->getResult();
     }
 
     /**
      * Función para enviar un correo.
      *
      * @param Usuario $enviado_a Nombre de la persona a la que se le envía el correo
-     * @param Array usuarios que no tienen horas aprobadas. 
+     * @param array usuarios que no tienen horas aprobadas
      */
     private function sendEmail($registros, $enviado_a)
     {
@@ -248,11 +256,11 @@ class CronJobController extends Controller
         $mensaje = 'Estimado usuario, las siguientes horas no han sido aprobadas';
 
         //espacio para agregar imágenes
-        $img_src = $message->embed(\Swift_Image::fromPath('images/email_header.png'));//attach image 1
-        $fb_image = $message->embed(\Swift_Image::fromPath('images/fb.gif'));//attach image 2
-        $tw_image = $message->embed(\Swift_Image::fromPath('images/tw.gif'));//attach image 3
-        $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif'));//attach image 4
-        $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif'));//attach image 5
+        $img_src = $message->embed(\Swift_Image::fromPath('images/email_header.png')); //attach image 1
+        $fb_image = $message->embed(\Swift_Image::fromPath('images/fb.gif')); //attach image 2
+        $tw_image = $message->embed(\Swift_Image::fromPath('images/tw.gif')); //attach image 3
+        $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif')); //attach image 4
+        $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif')); //attach image 5
 
         $subject = 'Smart Time: Aprobación de Horas';
 

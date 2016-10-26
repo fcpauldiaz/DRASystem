@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistroActividadHorasType extends AbstractType
 {
-
     private $usuario;
 
     public function __construct($usuario)
@@ -37,7 +36,7 @@ class RegistroActividadHorasType extends AbstractType
                     } else {
                         return $er->createQueryBuilder('a');
                     }
-                    
+
                     return $er->createQueryBuilder('actividad')
                         ->innerJoin('actividad.area', 'a')
                         ->innerJoin('UserBundle:Puesto', 'pd', 'with', 'pd.departamento = a.departamento')
@@ -49,9 +48,9 @@ class RegistroActividadHorasType extends AbstractType
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
-            ->add('horasExtraordinarias', 'checkbox',[
+            ->add('horasExtraordinarias', 'checkbox', [
                 'required' => false,
-                'label' => 'Las horas realizadas fueron extraordinarias'
+                'label' => 'Las horas realizadas fueron extraordinarias',
             ])
         ;
     }

@@ -24,7 +24,7 @@ class ConsultaAprobacionHorasType extends AbstractType
                 'format' => 'dd-MMM-yyyy',
                 'data' => new \DateTime(),
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
                  'required' => true,
 
@@ -38,7 +38,7 @@ class ConsultaAprobacionHorasType extends AbstractType
                 'format' => 'dd-MMM-yyyy',
                 'data' => new \DateTime(),
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
                 'required' => true,
 

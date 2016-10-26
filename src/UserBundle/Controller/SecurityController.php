@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends BaseController
 {
-        /**
+    /**
      * @param Request $request
      *
      * @return Response
@@ -43,6 +43,7 @@ class SecurityController extends BaseController
         $csrfToken = $this->has('security.csrf.token_manager')
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
+
         return $this->renderLogin(array(
             'last_username' => $lastUsername,
             'error' => $error,
@@ -51,7 +52,7 @@ class SecurityController extends BaseController
             //it is used to remove token from user localStorage
             //comparing string 1 with number 1
             //strict type comparison wont work
-            'logout' => $request->get('logout') == 1 ? true: false
+            'logout' => $request->get('logout') == 1 ? true : false,
         ));
     }
 }

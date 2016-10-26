@@ -54,7 +54,7 @@ class ContactoClienteControllerTest extends WebTestCase
         ));
 
         $client->submit($form);
-        //
+
         $crawler = $client->followRedirect();
 
         // Check the element contains an attribute with value equals "Foo"

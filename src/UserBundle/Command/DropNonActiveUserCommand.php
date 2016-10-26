@@ -23,7 +23,7 @@ class DropNonActiveUserCommand extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return String con los nombres de los usuarios que han sido eliminados                 
+     * @return string con los nombres de los usuarios que han sido eliminados
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -45,7 +45,7 @@ class DropNonActiveUserCommand extends ContainerAwareCommand
         foreach ($usuarios as $usuario) {
             //si no ha sido confirmado esta variable es NULL
             if (is_null($usuario->getLastLogin())) {
-                $um->deleteUser($usuario);//eliminar Usuario
+                $um->deleteUser($usuario); //eliminar Usuario
 
                 $UsuariosEliminados = $UsuariosEliminados.' '.$usuario->getUsername().'\n';
             }

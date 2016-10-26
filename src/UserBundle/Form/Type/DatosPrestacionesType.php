@@ -117,7 +117,7 @@ class DatosPrestacionesType extends AbstractType
                 ],
             ])
             ->addEventListener(FormEvents::POST_SET_DATA, [$this, 'onPreData'])
-          
+
         ;
 
         $builder->addEventListener(
@@ -145,8 +145,9 @@ class DatosPrestacionesType extends AbstractType
     }
     /**
      * Pre Set Data from depending the current status
-     * of gastos indirectos
-     * @param  FormEvent $event 
+     * of gastos indirectos.
+     *
+     * @param FormEvent $event
      */
     public function onPreData(FormEvent $event)
     {
@@ -157,15 +158,14 @@ class DatosPrestacionesType extends AbstractType
         // If the data was submitted previously, the additional value that is
         // included in the request variables needs to be removed.
         if (null === $gasto || $gasto <= 0) {
-
             $form->add('gastos', 'checkbox', [
                 'label' => 'Aplica gastos indirectos de Q480 semanales',
                 'required' => false,
-                'mapped' => false
+                'mapped' => false,
             ]);
         } else {
             $form->add('gastosIndirectos', 'number', [
-                'label' => 'Gastos Indirectos'
+                'label' => 'Gastos Indirectos',
             ]);
         }
     }
@@ -178,14 +178,12 @@ class DatosPrestacionesType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $datosPrestaciones = $event->getData();
-      
-        if (isset($event->getForm()['gastos'])) {
 
+        if (isset($event->getForm()['gastos'])) {
             if ($event->getForm()['gastos']->getData() === true) {
                 $datosPrestaciones->setGastosDRA();
             }
         }
         $datosPrestaciones->calcularPrestaciones();
-      
     }
 }

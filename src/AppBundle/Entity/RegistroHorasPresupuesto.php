@@ -97,7 +97,7 @@ class RegistroHorasPresupuesto
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
-        $this->usuario =  new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usuario = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -205,7 +205,6 @@ class RegistroHorasPresupuesto
         return $this->proyecto;
     }
 
-
     /**
      * Set fechaActualizacion.
      *
@@ -284,7 +283,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Set area
+     * Set area.
      *
      * @param \AppBundle\Entity\Area $area
      *
@@ -298,7 +297,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Get area
+     * Get area.
      *
      * @return \AppBundle\Entity\Area
      */
@@ -308,7 +307,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Add usuario
+     * Add usuario.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuario
      *
@@ -322,7 +321,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Remove usuario
+     * Remove usuario.
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuario
      */
@@ -332,7 +331,7 @@ class RegistroHorasPresupuesto
     }
 
     /**
-     * Get usuario
+     * Get usuario.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

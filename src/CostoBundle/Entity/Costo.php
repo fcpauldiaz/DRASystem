@@ -5,13 +5,14 @@ namespace CostoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Costo.
  *
  * @ORM\Table()
  * @UniqueEntity(fields={"fechaInicio", "fechaFinal","usuario"},
  *     message = "No se puede calcular el costo para un mismo período de un mismo usuario"
- * 
+ *
  * )
  * @ORM\Entity(repositoryClass="CostoRepository")
  */
@@ -40,7 +41,7 @@ class Costo
      */
     private $fechaFinal;
 
-        /**
+    /**
      * Fecha de creacion.
      *
      * @ORM\Column(name="fecha_creacion", type="datetime")
@@ -65,7 +66,7 @@ class Costo
 
     /**
      * @var UsuarioTrabajador
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
      */
     private $usuario;
@@ -206,7 +207,7 @@ class Costo
     }
 
     /**
-     * Set fechaActualizacion
+     * Set fechaActualizacion.
      *
      * @param \DateTime $fechaActualizacion
      *
@@ -220,7 +221,7 @@ class Costo
     }
 
     /**
-     * Get fechaActualizacion
+     * Get fechaActualizacion.
      *
      * @return \DateTime
      */

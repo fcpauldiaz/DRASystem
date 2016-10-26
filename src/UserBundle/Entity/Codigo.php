@@ -15,13 +15,12 @@ use Gedmo\Blameable\Traits\BlameableEntity;
  */
 class Codigo
 {
-
-    /**
+    /*
      * Hook blameable behavior
      * updates createdBy, updatedBy fields
      */
     use BlameableEntity;
-    
+
     /**
      * @var int
      *

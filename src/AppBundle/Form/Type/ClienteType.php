@@ -20,7 +20,7 @@ class ClienteType extends AbstractType
         $this->em = $em;
         $entityTrabajadores = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
         $trabajadores = [];
-        foreach($entityTrabajadores as $trabajador) {
+        foreach ($entityTrabajadores as $trabajador) {
             $trabajadores[$trabajador->__toString()] = $trabajador->__toString();
         }
         $this->trabajadores = $trabajadores;
@@ -51,7 +51,7 @@ class ClienteType extends AbstractType
             ->add('nombreComercial', null, [
                 'required' => false,
                 'label' => 'Nombre Comercial (opcional)',
-            ])       
+            ])
             ->add('serviciosPrestados', 'textarea', [
                 'label' => 'Servicios Prestados*',
                 'required' => true,

@@ -5,31 +5,31 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UsuarioRelacionado
+ * UsuarioRelacionado.
  *
  * @ORM\Table()
  * @ORM\Entity
  */
 class UsuarioRelacionado
 {
-
     /**
-     * [$usuario description]
-     * @var integer relationship
+     * [$usuario description].
+     *
+     * @var int relationship
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario", inversedBy="misUsuariosRelacionados")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $usr;
     /**
-     * [$usuarioPertenece description]
-     * @var integer relationship
+     * [$usuarioPertenece description].
+     *
+     * @var int relationship
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario", inversedBy="usuarioRelacionado")
      * @ORM\JoinColumn(name="usuario_pertenece_id", referencedColumnName="id")
      */
     private $usuarioPertenece;
-
 
     public function __construct($usuario, $usuarioPertenece)
     {
@@ -38,9 +38,9 @@ class UsuarioRelacionado
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -48,7 +48,7 @@ class UsuarioRelacionado
     }
 
     /**
-     * Set usr
+     * Set usr.
      *
      * @param \UserBundle\Entity\Usuario $usr
      *
@@ -62,7 +62,7 @@ class UsuarioRelacionado
     }
 
     /**
-     * Get usr
+     * Get usr.
      *
      * @return \UserBundle\Entity\Usuario
      */
@@ -72,7 +72,7 @@ class UsuarioRelacionado
     }
 
     /**
-     * Set usuarioPertenece
+     * Set usuarioPertenece.
      *
      * @param \UserBundle\Entity\Usuario $usuarioPertenece
      *
@@ -86,7 +86,7 @@ class UsuarioRelacionado
     }
 
     /**
-     * Get usuarioPertenece
+     * Get usuarioPertenece.
      *
      * @return \UserBundle\Entity\Usuario
      */

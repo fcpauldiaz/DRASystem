@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Codigo controller.
  *
- * 
+ *
  * @Route("/codigo")
  */
 class CodigoController extends Controller

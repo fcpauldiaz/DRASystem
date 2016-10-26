@@ -138,10 +138,10 @@ class RegistrationTrabajadorFormType extends AbstractType
                  'multiple' => true,
                  'required' => false,
                  'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
+                     return $er->createQueryBuilder('u')
                         ->where('u.roles LIKE :roles')
                         ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
-                },
+                 },
                 ])
             ->add('submit', 'submit', [
                 'label' => 'Guardar y agregar puesto',
@@ -194,7 +194,7 @@ class RegistrationTrabajadorFormType extends AbstractType
     /**
      * Validar que el nombre de usuario no tenga espacios en blanco.
      *
-     * @param Array                     $data    contiene los datos del formulario
+     * @param array                     $data    contiene los datos del formulario
      * @param ExecutionContextInterface $context
      */
     public function validarNombreUsuario($username, ExecutionContextInterface $context)

@@ -16,51 +16,51 @@ use UserBundle\Entity\UsuarioRelacionado;
  */
 class AsignacionUsuariosController extends Controller
 {
-  /**
+    /**
    * @Route("/asignar/usuarios", name="asignar_usuarios")
-   * @param  Request $request 
+   *
+   * @param  Request $request
    */
   public function asginarUsuariosAction(Request $request)
   {
-    $form = $this->createForm(new AsignacionType($this->getUser()));
-
-    $form->handleRequest($request);
-    if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
-      $data = $form->getData();
-      $usuarios = $data['usuarios'];
-      $usuarioAsignar = $data['usuarioAsignar'];
-      foreach($usuarios as $usuario) {
-        $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);
-        $em->persist($relacion);
-      }
-      $em->flush();
-      $this->addFlash('success', 'Se ha guardado la asginación exitosamente');
-
       $form = $this->createForm(new AsignacionType($this->getUser()));
 
-      return $this->redirectToRoute('asignar_usuarios');
-    }
+      $form->handleRequest($request);
+      if ($form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $data = $form->getData();
+          $usuarios = $data['usuarios'];
+          $usuarioAsignar = $data['usuarioAsignar'];
+          foreach ($usuarios as $usuario) {
+              $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);
+              $em->persist($relacion);
+          }
+          $em->flush();
+          $this->addFlash('success', 'Se ha guardado la asginación exitosamente');
 
-    return $this->render('AppBundle:Asignacion:newAsignacion.html.twig', [
+          $form = $this->createForm(new AsignacionType($this->getUser()));
+
+          return $this->redirectToRoute('asignar_usuarios');
+      }
+
+      return $this->render('AppBundle:Asignacion:newAsignacion.html.twig', [
       'form' => $form->createView(),
       'usuariosAsignados' => $this->getUser()->getUsuarioRelacionado(),
     ]);
-
   }
   /**
    * @Route("remover/usuario/{usuarioRemover}/{usuarioPertenece}", name="remover_usuario")
-   * @param  Request $request 
+   *
+   * @param  Request $request
    */
-  public function removerUsuarioAction ($usuarioRemover,  $usuarioPertenece)
+  public function removerUsuarioAction($usuarioRemover,  $usuarioPertenece)
   {
-    $em = $this->getDoctrine()->getManager();
-    $relacion = $em->getRepository('UserBundle:UsuarioRelacionado')
+      $em = $this->getDoctrine()->getManager();
+      $relacion = $em->getRepository('UserBundle:UsuarioRelacionado')
     ->findOneBy(['usr' => $usuarioRemover, 'usuarioPertenece' => $usuarioPertenece]);
-    $em->remove($relacion);
-    $em->flush();
-    return $this->redirectToRoute('asignar_usuarios');
+      $em->remove($relacion);
+      $em->flush();
+
+      return $this->redirectToRoute('asignar_usuarios');
   }
-
-
 }

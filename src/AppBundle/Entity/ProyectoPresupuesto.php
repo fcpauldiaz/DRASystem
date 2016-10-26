@@ -50,7 +50,7 @@ class ProyectoPresupuesto
      *      joinColumns={@ORM\JoinColumn(name="id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="id", referencedColumnName="id")}
      *      )
-    */
+     */
     private $clientes;
     /**
      * Fecha de creacion.
@@ -280,7 +280,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Add cliente
+     * Add cliente.
      *
      * @param \AppBundle\Entity\Cliente $cliente
      *
@@ -294,7 +294,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Remove cliente
+     * Remove cliente.
      *
      * @param \AppBundle\Entity\Cliente $cliente
      */
@@ -304,7 +304,7 @@ class ProyectoPresupuesto
     }
 
     /**
-     * Get clientes
+     * Get clientes.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -312,7 +312,6 @@ class ProyectoPresupuesto
     {
         return $this->clientes;
     }
-
 
     public function __toString()
     {

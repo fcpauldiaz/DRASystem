@@ -25,8 +25,8 @@ class CodigoType extends AbstractType
                 ],
                 'attr' => [
                     'placeholder' => 'Formato: Abreviatura Socio - Abreviatura Departamento  Correlativo ',
-                    'help_text' => 'Ej: ML-AUD145 : Significa que el socio es Marco Livio del departamento de Auditoría con Correlativo 145'
-                ]
+                    'help_text' => 'Ej: ML-AUD145 : Significa que el socio es Marco Livio del departamento de Auditoría con Correlativo 145',
+                ],
 
             ])
             ->add('nombres')

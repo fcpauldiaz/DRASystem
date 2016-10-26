@@ -5,7 +5,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
@@ -82,12 +81,12 @@ class ProyectoPresupuestoType extends AbstractType
     /**
      * Validar que no se repitan las actividades dentro un mismo presupuesto.
      *
-     * @param Array                     $data    contiene los datos del formulario
+     * @param array                     $data    contiene los datos del formulario
      * @param ExecutionContextInterface $context
      */
     public function validarActividades($data, ExecutionContextInterface $context)
     {
-       /* $registrosPresupuesto = $data->getPresupuestoIndividual();
+        /* $registrosPresupuesto = $data->getPresupuestoIndividual();
         $actividades = [];
         foreach ($registrosPresupuesto as $registro) {
             $actividadActual = $registro->getActividad()->getId();

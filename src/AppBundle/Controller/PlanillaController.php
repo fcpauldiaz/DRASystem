@@ -52,7 +52,7 @@ class PlanillaController extends Controller
         $data = $form->getData();
         $planilla = $data['excel'];
         $hoja = $data['hoja'];
-        $hoja = $hoja - 1;//arreglar index.
+        $hoja = $hoja - 1; //arreglar index.
         $archivo = $planilla;
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
         $worksheet = $phpExcelObject->getSheet($hoja);
@@ -76,7 +76,7 @@ class PlanillaController extends Controller
         $this->crearUsuarios($usuarios);
     }
     /**
-     * Método para crear los usuarios que no existen 
+     * Método para crear los usuarios que no existen
      * o ingresar nuevos datos de prestaciones.
      *
      * @param  $usuarios ya pre-validados
@@ -137,7 +137,7 @@ class PlanillaController extends Controller
             ->setOtrasPrestaciones(
                 $usuario->getCorporacion()
             )
-            //falta ver que se hace con 
+            //falta ver que se hace con
             //corporacion y comcel
             ;
         }
@@ -185,11 +185,11 @@ class PlanillaController extends Controller
      * Método para validar etiquetas del excel
      * Y guardar los usuarios no existentes.
      *
-     * @param   $data    valor de la celda.
+     * @param   $data    valor de la celda
      * @param   $usuario
      * @param   $columna
      *
-     * @return $usuario pre-creado     
+     * @return $usuario pre-creado
      */
     private function validarExcel($data, $usuario, $columna, $etiquetas)
     {
@@ -303,7 +303,7 @@ class PlanillaController extends Controller
     /**
      * Query para retornar el usuario relacionado a un código.
      *
-     * @param  $codigo 
+     * @param  $codigo
      *
      * @return $usuario
      */

@@ -45,7 +45,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/", name="registrohoras_create")
      * @Method("POST")
-     * 
+     *
      * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function createAction(Request $request)
@@ -133,7 +133,7 @@ class RegistroHorasController extends Controller
      *
      * @Route("/new", name="registrohoras_new")
      * @Method("GET")
-     * 
+     *
      * @Template("AppBundle:RegistroHoras:newRegistroHoras.html.twig")
      */
     public function newAction()

@@ -39,7 +39,7 @@ class Puesto
     private $departamento;
 
     /**
-     * @var  
+     * @var
      *
      * @ORM\ManyToOne(targetEntity="UsuarioTrabajador",inversedBy="puestos")
      * @ORM\JoinColumn(onDelete="SET NULL")

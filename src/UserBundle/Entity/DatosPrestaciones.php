@@ -13,7 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class DatosPrestaciones
 {
-
     const GASTO_FIJO = 1920;
 
     /**
@@ -125,7 +124,7 @@ class DatosPrestaciones
     private $cuotaPatronal;
 
     /**
-     *  Gastos fijos de oficina 480
+     *  Gastos fijos de oficina 480.
      *
      * @var float
      *
@@ -142,7 +141,7 @@ class DatosPrestaciones
 
     /**
      * @ORM\OneToMany(targetEntity="UserBundle\Entity\Descuento", mappedBy="prestaciones")
-     * 
+     *
      * @var [type]
      */
     private $descuentos;
@@ -167,7 +166,7 @@ class DatosPrestaciones
      * @var string
      *
      * @Gedmo\Blameable(on="create")
-      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $creadoPor;
@@ -472,7 +471,7 @@ class DatosPrestaciones
                  $this->getPrestacionesSobreSueldo() +
                  $this->getOtrasPrestaciones() +
                  $this->getViaticos() +
-                 $this->getOtros()+
+                 $this->getOtros() +
                  $this->getGastosIndirectos();
                 //Esto ya está integrado en el costo
                 //La indemnizacion, aguinaldo, bono14,cuota patronal
@@ -520,7 +519,7 @@ class DatosPrestaciones
      * Set otraBonificacion.
      *
      * @param float $otraBonificacion
-     * 
+     *
      * @return DatosPrestaciones
      */
     public function setOtraBonificacion($otraBonificacion)
@@ -544,7 +543,7 @@ class DatosPrestaciones
     {
         $sueldo = $this->sueldo;
         $prestacionesSobreSueldo = $sueldo * 0.4183;
-        $calculoGeneral = $sueldo * 0.0833;//asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
+        $calculoGeneral = $sueldo * 0.0833; //asi es el cálculo para el aguinaldo, indeminizacion y bono 14.
         $cuotaPatronal = $sueldo * 0.1267;
         $this->prestacionesSobreSueldo = $prestacionesSobreSueldo;
         $this->indemnizacion = $calculoGeneral;
@@ -732,7 +731,7 @@ class DatosPrestaciones
     }
 
     /**
-     * Set gastosIndirectos
+     * Set gastosIndirectos.
      *
      * @param float $gastosIndirectos
      *
@@ -750,7 +749,7 @@ class DatosPrestaciones
         $this->gastosIndirectos = self::GASTO_FIJO;
     }
     /**
-     * Get gastosIndirectos
+     * Get gastosIndirectos.
      *
      * @return float
      */

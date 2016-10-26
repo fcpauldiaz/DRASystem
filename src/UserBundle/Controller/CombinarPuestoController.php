@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * CombinarPuesto controller.
  *
- * @Security("is_granted('ROLE_USER')") 
+ * @Security("is_granted('ROLE_USER')")
  */
 class CombinarPuestoController extends Controller
 {

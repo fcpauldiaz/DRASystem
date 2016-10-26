@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Puesto controller.
  *
- * @Security("is_granted('ROLE_USER')") 
+ * @Security("is_granted('ROLE_USER')")
  * @Route("/puesto")
  */
 class PuestoController extends Controller
@@ -64,9 +64,9 @@ class PuestoController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-       $referer = $request->headers->get('referer');
+        $referer = $request->headers->get('referer');
         $redirect = false;
-        if (stripos($referer, "confirmed") !== false) {
+        if (stripos($referer, 'confirmed') !== false) {
             $redirect = true;
         }
 
@@ -93,9 +93,11 @@ class PuestoController extends Controller
             }
             if ($usuario === $this->getUser()) {
                 $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+
                 return $this->redirectToRoute('fos_user_security_logout');
-                }
-                return $this->redirectToRoute('puesto_show', ['id' => $entity->getId() ]);
+            }
+
+            return $this->redirectToRoute('puesto_show', ['id' => $entity->getId()]);
         }
 
         return array(
@@ -232,7 +234,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_update")
      * @Method("PUT")
-     * @Template("UserBundle:Puesto:editPuesto.html.twig") 
+     * @Template("UserBundle:Puesto:editPuesto.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -273,7 +275,7 @@ class PuestoController extends Controller
      *
      * @Route("/{id}", name="puesto_delete")
      * @Method("DELETE")
-     * @Security("is_granted('ROLE_ELIMINAR_PUESTO_Y_TIPO')") 
+     * @Security("is_granted('ROLE_ELIMINAR_PUESTO_Y_TIPO')")
      */
     public function deleteAction(Request $request, $id)
     {

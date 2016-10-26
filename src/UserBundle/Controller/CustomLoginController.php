@@ -6,13 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
-use Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class CustomLoginController extends Controller
@@ -28,20 +26,20 @@ class CustomLoginController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $user = $em->getRepository('UserBundle:Usuario')->findOneBy(array('apiKey' => $apiKey));
         if ($user === null) {
-            return new JsonResponse(['valid'=> false, 'message' => 'Wrong id']);
+            return new JsonResponse(['valid' => false, 'message' => 'Wrong id']);
         }
 
         if ($user->getPassword() === $apiSecret) {
             // Authenticating user
             $token = new UsernamePasswordToken(
-                $user, 
-                $user->getPassword(), 
-                'main', 
+                $user,
+                $user->getPassword(),
+                'main',
                 $user->getRoles()
             );
-           
-           $userProvider = new EntityUserProvider($this->getDoctrine(), 'UserBundle\Entity\Usuario', $user->getUsername());
-           $options = array(
+
+            $userProvider = new EntityUserProvider($this->getDoctrine(), 'UserBundle\Entity\Usuario', $user->getUsername());
+            $options = array(
                 'path' => '/',
                 'name' => 'REMEMBERME',
                 'domain' => null,
@@ -50,7 +48,7 @@ class CustomLoginController extends Controller
                 'lifetime' => 31557600, // 1 year
                 'always_remember_me' => true,
                 'remember_me_parameter' => '_remember_me',
-                'secret' => $this->container->getParameter('secret')
+                'secret' => $this->container->getParameter('secret'),
             );
             $response = new Response();
             $expires = time() + $options['lifetime'];
@@ -65,23 +63,22 @@ class CustomLoginController extends Controller
                 $options['secure'],
                 $options['httponly']
             );
-            
-            $this->get("security.token_storage")->setToken($token);
+
+            $this->get('security.token_storage')->setToken($token);
             //Real automatic login
             $event = new InteractiveLoginEvent($this->getRequest(), $token);
-            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+            $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
             $response = new JsonResponse();
             $response->headers->setCookie($cookie);
-            $response->setData(['valid'=> true, 'message' => true]);
-            
+            $response->setData(['valid' => true, 'message' => true]);
+
             return $response;
         }
-        return new JsonResponse(['valid'=> false, 'message' => 'Wrong key']);
+
+        return new JsonResponse(['valid' => false, 'message' => 'Wrong key']);
     }
 
-
-
-        /**
+    /**
      * Generates the cookie value.
      *
      * @param string $class
@@ -103,7 +100,7 @@ class CustomLoginController extends Controller
         ));
     }
 
-      /**
+    /**
      * Generates a hash for the cookie to ensure it is not being tempered with.
      *
      * @param string $class
@@ -118,14 +115,14 @@ class CustomLoginController extends Controller
         return hash_hmac('sha256', $class.$username.$expires.$password, $secret);
     }
 
-        /**
+    /**
      * Encodes the cookie parts.
      *
      * @param array $cookieParts
      *
      * @return string
      *
-     * @throws \InvalidArgumentException When $cookieParts contain the cookie delimiter. Extending class should either remove or escape it.
+     * @throws \InvalidArgumentException When $cookieParts contain the cookie delimiter. Extending class should either remove or escape it
      */
     protected function encodeCookie(array $cookieParts)
     {
@@ -144,6 +141,6 @@ class CustomLoginController extends Controller
      */
     public function customLogoutAction(Request $request)
     {
-       return $this->redirectToRoute('fos_user_security_login', ['logout' => true]);
+        return $this->redirectToRoute('fos_user_security_login', ['logout' => true]);
     }
 }

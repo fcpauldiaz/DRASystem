@@ -25,7 +25,6 @@ class UsuarioSocio extends Usuario
      */
     protected $id;
 
-
     public function __construct()
     {
         parent::__construct();

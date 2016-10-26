@@ -24,7 +24,7 @@ class InsertPermissionsCommand extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return String con la cantidad de permisos creados
+     * @return string con la cantidad de permisos creados
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

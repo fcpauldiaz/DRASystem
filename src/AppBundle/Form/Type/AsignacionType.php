@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AsignacionType extends AbstractType
 {
-
     private $usuario;
 
     public function __construct($usuario)
@@ -29,15 +28,15 @@ class AsignacionType extends AbstractType
                 'required' => true,
                 'label' => 'Usuarios a asignar',
                 'attr' => [
-                    'class' => 'select2'
-                ]
+                    'class' => 'select2',
+                ],
             ])
             ->add('usuarioAsignar', 'entity', [
                 'class' => 'UserBundle:Usuario',
                 'required' => true,
                 'label' => 'Asignar usuarios a este usuario',
                 'attr' => [
-                    'class' => 'select2'
+                    'class' => 'select2',
                 ],
                 'data' => $this->usuario,
             ])

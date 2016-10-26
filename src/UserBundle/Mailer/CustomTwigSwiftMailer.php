@@ -68,14 +68,14 @@ class CustomTwigSwiftMailer implements MailerInterface
     {
         //new instance
         $message = \Swift_Message::newInstance();
-        $context = $this->twig->mergeGlobals($context);//merge context
+        $context = $this->twig->mergeGlobals($context); //merge context
         $template = $this->twig->loadTemplate($templateName);
         //espacio para agregar imágenes
-        $context['image_src'] = $message->embed(\Swift_Image::fromPath('images/email_header.png'));//attach image 1
-        $context['fb_image'] = $message->embed(\Swift_Image::fromPath('images/fb.gif'));//attach image 2
-        $context['tw_image'] = $message->embed(\Swift_Image::fromPath('images/tw.gif'));//attach image 3
-        $context['right_image'] = $message->embed(\Swift_Image::fromPath('images/right.gif'));//attach image 4
-        $context['left_image'] = $message->embed(\Swift_Image::fromPath('images/left.gif'));//attach image 5
+        $context['image_src'] = $message->embed(\Swift_Image::fromPath('images/email_header.png')); //attach image 1
+        $context['fb_image'] = $message->embed(\Swift_Image::fromPath('images/fb.gif')); //attach image 2
+        $context['tw_image'] = $message->embed(\Swift_Image::fromPath('images/tw.gif')); //attach image 3
+        $context['right_image'] = $message->embed(\Swift_Image::fromPath('images/right.gif')); //attach image 4
+        $context['left_image'] = $message->embed(\Swift_Image::fromPath('images/left.gif')); //attach image 5
         $subject = $template->renderBlock('subject', $context);
         $textBody = $template->renderBlock('body_text', $context);
         $htmlBody = $template->renderBlock('body_html', $context);

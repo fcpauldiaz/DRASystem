@@ -12,7 +12,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"usuario_trabajador" = "UsuarioTrabajador", "usuario_socio" = "UsuarioSocio"})
- * 
+ *
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
 abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\UserInterface
@@ -54,7 +54,7 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
 
     /**
      * Código ya utilizado en DRA.
-     * 
+     *
      * @ORM\OneToOne(targetEntity="UserBundle\Entity\Codigo")
      *
      * @var Entity
@@ -73,7 +73,7 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
      */
     public function __construct()
     {
-        parent::__construct();// construye los metodos y atributos de Base
+        parent::__construct(); // construye los metodos y atributos de Base
         $this->usuarioRelacionado = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misUsuariosRelacionados = new \Doctrine\Common\Collections\ArrayCollection();
     }

@@ -32,16 +32,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function getCredentials(Request $request)
     {
         if ($auth = $request->headers->get('Authorization')) {
-            
-            $auth = substr($auth, strrpos($auth, 'BASIC')+6, strlen($auth));
+            $auth = substr($auth, strrpos($auth, 'BASIC') + 6, strlen($auth));
 
             $decoded = base64_decode($auth);
-            
-            $token = substr($decoded, 0, strpos($decoded, ':'));
-            $password = substr($decoded, strpos($decoded, ':')+1, strlen($decoded));
 
-            return [ 'token' => $token, 'password' => $password ];
-            
+            $token = substr($decoded, 0, strpos($decoded, ':'));
+            $password = substr($decoded, strpos($decoded, ':') + 1, strlen($decoded));
+
+            return ['token' => $token, 'password' => $password];
         }
 
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
@@ -62,7 +60,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-
         $username = $credentials['token'];
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
@@ -73,9 +70,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $factory = $this->container->get('security.encoder_factory');
-       
+
         $password = $credentials['password'];
-       
+
         $encoder = $factory->getEncoder($user);
         $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
 
@@ -83,6 +80,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         // no credential check is needed in this case
         if ($user->getPassword() === $encodedPassword) {
             $this->user = $user;
+
             return true;
         }
 
@@ -94,7 +92,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
 
         // on success, let the request continue
-        return ;
+        return;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
