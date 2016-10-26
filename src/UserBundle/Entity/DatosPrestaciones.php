@@ -545,7 +545,8 @@ class DatosPrestaciones
      * Bono 14 8.33%
      * Indemnización 8.3%
      * Cuota Patronal 12.67 (10.67 + 1 +1 )
-     * Cuota Laboral 4.83%
+     * Cuota Laboral 4.83%.
+     *
      * @return [type] [description]
      */
     public function calcularPrestaciones()

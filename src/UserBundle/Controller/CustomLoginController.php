@@ -64,15 +64,15 @@ class CustomLoginController extends Controller
                 $options['secure'],
                 $options['httponly']
             );
-            
-            $this->get("security.token_storage")->setToken($token);
+
+            $this->get('security.token_storage')->setToken($token);
             //Real automatic login
             $event = new InteractiveLoginEvent($this->getRequest(), $token);
-            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+            $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
             $response = new JsonResponse();
             $response->headers->setCookie($cookie);
-            $response->setData(['valid'=> true, 'message' => true]);
-            
+            $response->setData(['valid' => true, 'message' => true]);
+
             return $response;
         }
 
