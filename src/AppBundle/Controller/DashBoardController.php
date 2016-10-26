@@ -43,7 +43,7 @@ class DashBoardController extends Controller
     /**
      * Every time the user goes to the main page will change api key.
      */
-    public function changeUserApiKey()
+    private function changeUserApiKey()
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
