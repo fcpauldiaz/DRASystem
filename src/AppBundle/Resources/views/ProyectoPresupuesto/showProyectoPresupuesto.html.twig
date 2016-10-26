@@ -27,18 +27,6 @@
                 <th>Honorarios</th>
                 <td>{{ entity.honorarios }}</td>
             </tr>
-            {% for socio in entity.socios %}
-            <tr>
-                <th>Socio</th>
-                <td>{{ socio }}</td>
-            </tr>
-            {% endfor %}
-            {%for gerente in entity.gerentes %}
-             <tr>
-                <th>Gerente</th>
-                <td>{{ gerente }}</td>
-            </tr>
-            {% endfor %}
             {% set contador = 0 %}
             {% for presupuesto in entity.presupuestoIndividual %}
              <tr>

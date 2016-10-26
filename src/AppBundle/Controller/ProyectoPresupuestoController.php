@@ -181,7 +181,7 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createEditForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoEditType($this->getUser()), $entity, array(
+        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

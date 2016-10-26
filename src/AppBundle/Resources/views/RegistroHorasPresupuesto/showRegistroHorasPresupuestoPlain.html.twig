@@ -18,18 +18,19 @@
                 <td>{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
             </tr>
              <tr>
-                <th>Actividad</th>
-                <td>{{ entity.actividad }}</td>
+                <th>Área</th>
+                <td>{{ entity.area }}</td>
             </tr>
               <tr>
                 <th>Cliente</th>
                 <td>{{ entity.cliente }}</td>
             </tr>
+            {% for usr in entity.usuario %}
              <tr>
-                <th>Usuarios asignado</th>
+                <th>Usuario asignado</th>
                 <td>{{ entity.usuario }}</td>
             </tr>
-           
+            {% endfor %}
             <tr>
                 <th>Proyecto</th>
                 <td>{{ entity.proyecto}}</td>

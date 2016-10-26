@@ -20,7 +20,7 @@ class ProyectoPresupuestoEditType extends AbstractType
         $builder
             ->add('nombrePresupuesto')
             ->add('presupuestoIndividual', 'bootstrap_collection', [
-                    'type' => new RegistroHorasPresupuestoEditType(),
+                    'type' => new RegistroHorasPresupuestoType(),
                     'label' => 'Registro Horas Presupuesto',
                     'allow_add' => true,
                     'allow_delete' => true,

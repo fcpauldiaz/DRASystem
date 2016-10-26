@@ -20,8 +20,8 @@ class RegistroHorasPresupuestoEditType extends AbstractType
                 ],
 
             ])
-             ->add('actividad', 'entity', [
-                'class' => 'AppBundle:Actividad',
+             ->add('area', 'entity', [
+                'class' => 'AppBundle:Area',
                 'required' => true,
                 'attr' => [
                     'class' => 'select2',
@@ -39,7 +39,7 @@ class RegistroHorasPresupuestoEditType extends AbstractType
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'required' => true,
-                    'multiple' => false,
+                    'multiple' => true,
 
             ])
              ->add('horaspresupuestadas', null, [
