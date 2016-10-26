@@ -52,6 +52,7 @@ class CustomLoginController extends Controller
             );
             $response = new Response();
             $expires = time() + $options['lifetime'];
+            //gen
             $value = $this->generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword(), $options['secret']);
 
             $cookie = new Cookie(
