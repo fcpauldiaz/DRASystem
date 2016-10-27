@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block javascripts %}
+{% block secure %}
   <script>
   {% if logout is defined %}
     var out = {{logout|json_encode|raw}}
@@ -11,6 +11,8 @@
       localStorage.removeItem('SessionKey', null);
     }
   {% endif %}
+  </script>
+    <script src="{{asset('js/secure.min.js'}}">
   </script>
 {% endblock %}
 

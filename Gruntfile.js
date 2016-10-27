@@ -210,8 +210,7 @@ module.exports = function (grunt) {
               'web/js/jquery.initialize.min.js',
               'web/js/select2.min.js',
               'web/js/analytics.js',
-              'web/js/notie.min.js',
-              'web/js/secure.min.js'
+              'web/js/notie.min.js'
           ],
           dest: 'web/js/built-init.js',
         },

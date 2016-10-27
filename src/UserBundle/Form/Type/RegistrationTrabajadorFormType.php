@@ -129,20 +129,11 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'property' => 'codigoCompleto',
                 'required' => true,
                 'empty_value' => 'Seleccionar Código',
+                'attr' => [
+                    'class' => 'select2'
+                ]
 
             ])
-            ->add('misUsuariosRelacionados', 'entity', [
-                'class' => 'UserBundle:Usuario',
-                'property' => 'codigoString',
-                'label' => false,
-                 'multiple' => true,
-                 'required' => false,
-                 'query_builder' => function (EntityRepository $er) {
-                     return $er->createQueryBuilder('u')
-                        ->where('u.roles LIKE :roles')
-                        ->setParameter('roles', '%"'.'ROLE_ASIGNACION'.'"%');
-                 },
-                ])
             ->add('submit', 'submit', [
                 'label' => 'Guardar y agregar puesto',
                 'attr' => [

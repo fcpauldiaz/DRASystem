@@ -49,9 +49,11 @@
         {% endblock fos_user_content %}
         <!-- jQuery 2.2.0 -->
         <!-- Bootstrap 3.3.6 -->
+        {% block secure %}
+        {% endblock %}
+        <script src="{{asset('js/built-init.js')}}"></script>
         {% block javascripts %}
         {% endblock javascripts %}
-        <script src="{{asset('js/built-init.js')}}"></script>
         {% block alertify %}
             {{ app.session|alertify|raw }}
         {% endblock %}
