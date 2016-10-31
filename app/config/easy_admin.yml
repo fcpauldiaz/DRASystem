@@ -2,12 +2,14 @@ easy_admin:
     site_name: 'Smart Time'
     entities:
         UsuarioTrabajador:
+            disabled_actions: ['new']
             class: UserBundle\Entity\UsuarioTrabajador
             list:
                 fields: ['nombre','apellidos','username','email', 'datosPrestaciones','puestos','enabled','lastLogin','roles']
             new:
                 fields: ['nombre','apellidos',,'username','email','datosPrestaciones','puestos','enabled','password','roles']
         UsuarioSocio:
+            disabled_actions: ['new']
             class: UserBundle\Entity\UsuarioSocio
             list:
                 fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
