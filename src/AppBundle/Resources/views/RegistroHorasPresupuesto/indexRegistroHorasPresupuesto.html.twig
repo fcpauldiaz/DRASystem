@@ -10,7 +10,6 @@
                 <th>Horas Presupuestadas</th>
                 <th>Actividad</th>
                 <th>Cliente</th>
-                <th>Usuario</th>
                 <th>Fecha Creación</th>
                 <th>Acciones</th>
             </tr>
@@ -20,7 +19,6 @@
             <tr>
                 <td>{{entity.actividad}}</td>
                 <td>{{entity.cliente}}</td>
-                <td>{{entity.usuario}}</td>
                 <td>{{ entity.horasPresupuestadas }}</td>
                 <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
