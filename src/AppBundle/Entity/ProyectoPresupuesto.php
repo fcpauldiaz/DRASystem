@@ -40,7 +40,7 @@ class ProyectoPresupuesto
     private $honorarios;
 
     /**
-     * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"},  orphanRemoval=true)
      */
     private $presupuestoIndividual;
 
