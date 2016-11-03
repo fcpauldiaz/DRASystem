@@ -204,7 +204,6 @@ module.exports = function (grunt) {
         },
         extras: {
           src: [
-              'web/js/jquery-2.2.3.min.js',
               'web/js/bootstrap.min.js',
               'web/js/tab_register.min.js',
               'web/js/jquery.initialize.min.js',
