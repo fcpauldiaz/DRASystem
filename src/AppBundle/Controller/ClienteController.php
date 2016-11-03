@@ -54,7 +54,7 @@ class ClienteController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->addFlash('success', 'El cliente ha sido creado exitosamente');
             if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('cliente_new');
             }

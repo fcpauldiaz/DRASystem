@@ -37,7 +37,7 @@ class ClienteType extends AbstractType
                 'label' => 'NIT *',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Ingresar el NIT sin guión',
+                    'placeholder' => 'Ingresar el NIT con guión',
                 ],
                 'constraints' => [
                     new Callback([$this, 'validarNIT']),
@@ -87,15 +87,15 @@ class ClienteType extends AbstractType
         return 'appbundle_cliente';
     }
 
-     /* Validar que el NIT no tenga guiones
+     /* Validar que el NIT tenga guiones
      *
      * @param Array                     $data    contiene los datos del formulario
      * @param ExecutionContextInterface $context
      */
     public function validarNIT($nit, ExecutionContextInterface $context)
     {
-        if (strpos($nit, '-') !== false) {
-            $context->buildViolation('El NIT no puede tener guión')
+        if (strpos($nit, '-') === false) {
+            $context->buildViolation('El NIT debe tener guión')
                 ->atPath('cliente_new')
                 ->addViolation();
         }
