@@ -174,14 +174,20 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          
-              <li><a href="{{path('datosprestaciones')}}">Ver Sueldos</a></li>
-              <li><a href="{{path('datosprestaciones_new')}}">Actualizar Sueldos</a></li>
-              {% if is_granted('ROLE_ASIGNACION') %}
-              <li><a href="{{path('asignar_usuarios')}}">Asignar Usuarios</a></li>
-              {% endif %}
+            <li><a href="{{path('datosprestaciones')}}">Ver Sueldos</a></li>
+            <li><a href="{{path('datosprestaciones_new')}}">Actualizar Sueldos</a></li>
           </ul>
         </li>
+        <!--Asignar usuarios-->
+      {% if is_granted('ROLE_ASIGNACION') %}
+        <li class="treeview">
+          <a href="{{path('asignar_usuarios')}}"><i class="glyphicon glyphicon-random"></i> <span>Asignar usuarios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+      {% endif %}
         
       </ul>
        <!-- Sidebar Menu -->
