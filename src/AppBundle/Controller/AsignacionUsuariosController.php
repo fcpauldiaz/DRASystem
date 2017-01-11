@@ -31,6 +31,17 @@ class AsignacionUsuariosController extends Controller
           $data = $form->getData();
           $usuarios = $data['usuarios'];
           $usuarioAsignar = $data['usuarioAsignar'];
+          //revisar que no esté ya asignado
+          $revisionUsuarios = $usuarioAsignar->getMisUsuariosRelacionados()->toArray();
+
+          foreach($usuarios->toArray() as $usuario) {
+            foreach($revisionUsuarios as $revision) {
+              if ($revision->getUsuarioPertenece() === $usuario) {
+                $this->addFlash('error', 'El usuario ya estaba asignado');
+                return $this->redirectToRoute('asignar_usuarios');
+              }
+            }
+          }
           foreach ($usuarios as $usuario) {
               $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);
               $em->persist($relacion);
@@ -45,7 +56,7 @@ class AsignacionUsuariosController extends Controller
 
       return $this->render('AppBundle:Asignacion:newAsignacion.html.twig', [
       'form' => $form->createView(),
-      'usuariosAsignados' => $this->getUser()->getUsuarioRelacionado(),
+      'usuariosAsignados' => $this->getUser()->getMisUsuariosRelacionados(),
     ]);
   }
   /**

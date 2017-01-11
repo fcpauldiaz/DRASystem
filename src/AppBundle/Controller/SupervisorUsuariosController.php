@@ -46,7 +46,7 @@ class SupervisorUsuariosController extends Controller
 
         $usuarioActual = $this->getUser();
 
-        $usuarios = $usuarioActual->getUsuarioRelacionado();
+        $usuarios = $usuarioActual->getMisUsuariosRelacionados();
 
         return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [

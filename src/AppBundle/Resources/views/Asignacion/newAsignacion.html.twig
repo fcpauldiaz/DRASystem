@@ -20,7 +20,7 @@
         <tbody>
         {% for usr in usuariosAsignados %}
             <tr>
-                <td>{{ usr.usr }}</td>
+                <td>{{ usr.usuarioPertenece }}</td>
                 <td><a href="{{path('remover_usuario', {
                     'usuarioRemover':usr.usr.id, 'usuarioPertenece':usr.usuarioPertenece.id
                 })}}" class="btn btn-sm btn-danger">Remover</a></td>
