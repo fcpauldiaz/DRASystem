@@ -26,13 +26,32 @@ class ActividadRepository extends EntityRepository
 
     public function findByRegistrosPresupuesto($registros)
     {
+        $idRegistros = $this->filterIds($registros);
+
         $qb = $this->createQueryBuilder('a');
         $qb
             ->select('a')
-            ->innerJoin('AppBundle:RegistroHorasPresupuesto', 'r', 'with', 'r.actividad = a.id')
-            ->where('r IN (:registros)')
-            ->setParameter('registros', $registros);
+            ->innerJoin('AppBundle:Area', 'r', 'with', 'r.id = a.area')
+            ->where('r.id IN (:registros)')
+            ->setParameter('registros', $idRegistros);
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Function to get the area ids of each register.
+     *
+     * @param RegistroPreupuesto $registros array
+     *
+     * @return array array of numbers
+     */
+    private function filterIds($registros)
+    {
+        $idRegistros = [];
+        foreach ($registros as $registro) {
+            $idRegistros[] = $registro->getArea()->getId();
+        }
+
+        return $idRegistros;
     }
 }

@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block stylesheets %}
-   
+
     {{ form_stylesheet(form) }}
 {% endblock %}
 
@@ -52,7 +52,7 @@
     {{ form_end(form)}}
     <br>
     <h1>Consulta Proyecto Presupuesto {{nombrePresupuesto}}</h1>
-   
+
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -66,12 +66,12 @@
             </tr>
         </thead>
         <tbody>
-          
-            
+
+
             {% for entity in consultaUsuario %}
                 <tr>
-               
-                <td>{{entity.usuario.username}}</td>
+
+                <td>{{entity.usuario}}</td>
                 <td>{{entity.horasCalculadas}}</td>
                 <td>{{entity.horasPresupuesto}}</td>
                 <td>{{entity.diferencia}}</td>
@@ -84,33 +84,33 @@
             {% endfor %}
              <tr>
                 <td><b>Totales:<b> </td>
-                <td> 
-                    <b> 
+                <td>
+                    <b>
                         <font color="#27ae60">
                             {{sum_horas(consultaUsuario)}}
                         </font>
-                    </b>    
+                    </b>
                 </td>
-                 <td> 
-                    <b> 
+                 <td>
+                    <b>
                         <font color="#27ae60">
                             {{sum_presupuesto(consultaUsuario)}}
                         </font>
-                    </b>    
+                    </b>
                 </td>
-                <td> 
-                    <b> 
+                <td>
+                    <b>
                         <font color="#27ae60">
                             {{sum_diferencia(consultaUsuario)}}
                         </font>
-                    </b>    
+                    </b>
                 </td>
-                <td> 
-                    <b> 
+                <td>
+                    <b>
                         <font color="#27ae60">
                             {{sum_costo_hora(consultaUsuario) | number_format(2, '.', ', ')}}
                         </font>
-                    </b>    
+                    </b>
                 </td>
                 <td>
                     <b>
@@ -146,16 +146,16 @@
             <td>
                 <b> {% if utilidad < 0 %}
                         <font color="#c0392b">
-                          
+
                           Q {{utilidad | number_format(2, '.', ', ')}}
 
                         </font>
                         {% else %}
                          <font color="#000000">
-                          
+
                           Q {{utilidad | number_format(2, '.', ', ')}}
 
-                        </font>  
+                        </font>
                         {% endif %}
                 </b>
             </td>
@@ -163,8 +163,8 @@
         </tr>
         </tbody>
     </table>
-    
-    	
+
+
 
       <br>
       <br>

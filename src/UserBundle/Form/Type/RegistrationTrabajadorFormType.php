@@ -4,7 +4,6 @@ namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -130,8 +129,8 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'required' => true,
                 'empty_value' => 'Seleccionar Código',
                 'attr' => [
-                    'class' => 'select2'
-                ]
+                    'class' => 'select2',
+                ],
 
             ])
             ->add('submit', 'submit', [

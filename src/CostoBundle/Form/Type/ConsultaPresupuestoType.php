@@ -116,8 +116,8 @@ class ConsultaPresupuestoType extends AbstractType
                     ])
             ->add('horas_extraordinarias', 'choice', [
                 'choices' => [
-                    'Sí' => 0,
                     'No' => 1,
+                    'Sí' => 0,
                 ],
                 'label' => '¿Incluir horas extraordinarias?',
                 'required' => true,

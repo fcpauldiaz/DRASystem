@@ -503,7 +503,7 @@ class ConsultaCostoController extends Controller
 
         foreach ($presupuestosIndividuales as $presupuesto) {
             //sin usuarios repetidos
-            $usuariosAsignadosPorProyecto = $this->get('consulta.query_controller')->addArrayCollectionAction(
+            $usuariosAsignadosPorProyecto = $this->get('consulta.query_controller')->mergeArrayCollectionAction(
                 $usuariosAsignadosPorProyecto,
                 $presupuesto->getUsuario()
             );
@@ -754,10 +754,11 @@ class ConsultaCostoController extends Controller
     {
         $cantidadHorasPorUsuario = 0;
         foreach ($registros as $registro) {
-            $usuario2 = $registro->getUsuario();
-
-            if ($usuario == $usuario2) {
+            $usuarios = $registro->getUsuario();
+            foreach($usuarios as $usuario2) {
+              if ($usuario == $usuario2) {
                 $cantidadHorasPorUsuario += $registro->getHorasPresupuestadas();
+              }
             }
         }
 

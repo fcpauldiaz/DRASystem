@@ -49,4 +49,9 @@ class ConsultaUsuario extends ConsultaMain
     {
         return $this->cliente;
     }
+
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
 }
