@@ -31,11 +31,28 @@ class ProyectoPresupuestoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+        $usuarioActual = $this->getUser();
+        //mostrar todo en caso de ser socio
+        //o ser El código 69, Ciro Salay.
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
+          $usuarioActual->getCodigo()->getCodigo() === 69
+          ) {
+
+
         $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAll();
 
         return array(
             'entities' => $entities,
         );
+      }
+      //obtener solo los registros creados por el usuario
+
+      $entities = $em
+        ->getRepository('AppBundle:ProyectoPresupuesto')
+        ->findBy(['creadoPor' => $usuarioActual->getCodigo()]);
+      return [ 'entities' => $entities ];
     }
     /**
      * Creates a new ProyectoPresupuesto entity.
