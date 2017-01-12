@@ -34,13 +34,14 @@ class AsignacionUsuariosController extends Controller
           //revisar que no esté ya asignado
           $revisionUsuarios = $usuarioAsignar->getMisUsuariosRelacionados()->toArray();
 
-          foreach($usuarios->toArray() as $usuario) {
-            foreach($revisionUsuarios as $revision) {
-              if ($revision->getUsuarioPertenece() === $usuario) {
-                $this->addFlash('error', 'El usuario ya estaba asignado');
-                return $this->redirectToRoute('asignar_usuarios');
+          foreach ($usuarios->toArray() as $usuario) {
+              foreach ($revisionUsuarios as $revision) {
+                  if ($revision->getUsuarioPertenece() === $usuario) {
+                      $this->addFlash('error', 'El usuario ya estaba asignado');
+
+                      return $this->redirectToRoute('asignar_usuarios');
+                  }
               }
-            }
           }
           foreach ($usuarios as $usuario) {
               $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);

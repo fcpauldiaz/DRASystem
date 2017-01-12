@@ -755,10 +755,10 @@ class ConsultaCostoController extends Controller
         $cantidadHorasPorUsuario = 0;
         foreach ($registros as $registro) {
             $usuarios = $registro->getUsuario();
-            foreach($usuarios as $usuario2) {
-              if ($usuario == $usuario2) {
-                $cantidadHorasPorUsuario += $registro->getHorasPresupuestadas();
-              }
+            foreach ($usuarios as $usuario2) {
+                if ($usuario == $usuario2) {
+                    $cantidadHorasPorUsuario += $registro->getHorasPresupuestadas();
+                }
             }
         }
 
