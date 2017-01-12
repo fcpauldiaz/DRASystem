@@ -47,10 +47,10 @@ class RegistroHorasPresupuestoType extends AbstractType
                     'property' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',
-                        'help_text' => 'Seleccione los usuarios que realizarán las horas',
+                        'help_text' => 'Seleccione el usuario que realizará las horas',
                     ],
                     'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
-                    'multiple' => true,
+                    'multiple' => false,
 
             ])
             ->add('horasPresupuestadas')

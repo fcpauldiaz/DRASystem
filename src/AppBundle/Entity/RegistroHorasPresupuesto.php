@@ -44,11 +44,7 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioTrabajador")
-     * @ORM\JoinTable(name="presupuesto_horas_usuario",
-     *      joinColumns={@ORM\JoinColumn(name="presupuesto_horas_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador", cascade={"persist","remove"})
      */
     private $usuario;
 
@@ -306,37 +302,27 @@ class RegistroHorasPresupuesto
         return $this->area;
     }
 
-    /**
-     * Add usuario.
-     *
-     * @param \UserBundle\Entity\UsuarioTrabajador $usuario
-     *
-     * @return RegistroHorasPresupuesto
-     */
-    public function addUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario)
-    {
-        $this->usuario[] = $usuario;
+     /**
+      * Set usuario.
+      *
+      * @param \UserBundle\Entity\Usuario $usuario
+      *
+      * @return RegistroHorasPresupuesto
+      */
+     public function setUsuario(\UserBundle\Entity\Usuario $usuario = null)
+     {
+         $this->usuario = $usuario;
 
-        return $this;
-    }
+         return $this;
+     }
 
-    /**
-     * Remove usuario.
-     *
-     * @param \UserBundle\Entity\UsuarioTrabajador $usuario
-     */
-    public function removeUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario)
-    {
-        $this->usuario->removeElement($usuario);
-    }
-
-    /**
-     * Get usuario.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
+     /**
+      * Get usuario.
+      *
+      * @return \UserBundle\Entity\Usuario
+      */
+     public function getUsuario()
+     {
+         return $this->usuario;
+     }
 }
