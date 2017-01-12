@@ -116,6 +116,7 @@ class UploadController extends Controller
                   $area = new Area($data);
                   $area->setDepartamento($departamento);
                   $em->persist($area);
+                  $em->flush();
               }
 
               $actividad->setArea($area);
