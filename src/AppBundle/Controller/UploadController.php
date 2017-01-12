@@ -111,7 +111,7 @@ class UploadController extends Controller
               }
               $area = $em
                 ->getRepository('AppBundle:Area')
-                ->findOneBy(['nombre' => $data]);
+                ->findOneBy(['nombre' => $data, 'departamento' => $departamento]);
               if ($area === null) {
                   $area = new Area($data);
                   $area->setDepartamento($departamento);
