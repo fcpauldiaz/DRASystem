@@ -6,17 +6,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use UserBundle\Entity\Usuario;
+use Doctrine\ORM\EntityRepository;
 
 class RegistroHorasPresupuestoType extends AbstractType
 {
     private $usuario;
-    private $collectionUsuario;
 
     public function __construct(Usuario $usuario = null)
     {
         $this->usuario = $usuario;
-        $this->collectionUsuario = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->collectionUsuario->add($usuario);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -30,11 +28,19 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('cliente')
+                        ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
+                        ->where('asignacion.usuario = :usuario')
+                        ->OrWhere('asignacion.usuario = 1')
+                        ->setParameter('usuario', $this->usuario);
+                },
 
             ])
              ->add('area', 'entity', [
                 'class' => 'AppBundle:Area',
                 'required' => true,
+                'label' => 'Área',
                 'attr' => [
                     'class' => 'select2',
                 ],
