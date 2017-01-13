@@ -13,6 +13,7 @@ use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Actividad;
 use AppBundle\Entity\Area;
 use UserBundle\Entity\Departamento;
+use AppBundle\Entity\AsignacionCliente;
 
 /**
  * Upload controller.
@@ -173,7 +174,11 @@ class UploadController extends Controller
                             $cliente->setServiciosPrestados($data);
                             break;
             case 3:
-              $cliente->setUsuarioAsignado($data);
+              $usuario = $em->getRepository('UserBundle:Usuario')->findOneById($data);
+
+              $asignacion = new AsignacionCliente($usuario, $cliente);
+              $em->persist($asignacion);
+              $cliente->addUsuarioAsignado($asignacion);
               break;
                     }
                 }
