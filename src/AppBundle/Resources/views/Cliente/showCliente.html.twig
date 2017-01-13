@@ -31,17 +31,19 @@
                 <th>Servicios Prestados</th>
                 <td>{{ entity.serviciosPrestados }}</td>
             </tr>
+            {% for usuario in entity.usuarioAsignados %}
             <tr>
                 <th>Usuario Asignado</th>
-                <td>{{ entity.usuarioAsignado }}</td>
+                <td>{{ usuario }}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 
     <div class="row">
          {% if is_granted('ROLE_EDITAR_CLIENTES') %}
        <div class="col-xs-12 col-sm-12 col-md-4">
-            <a class="btn btn-warning btn-block" href="{{ path('cliente_edit', {'id': entity.id}) }}">  
+            <a class="btn btn-warning btn-block" href="{{ path('cliente_edit', {'id': entity.id}) }}">
                 Editar Cliente
             </a>
         </div>

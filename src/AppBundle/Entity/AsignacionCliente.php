@@ -31,7 +31,7 @@ class AsignacionCliente
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario", inversedBy="usuario",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario", inversedBy="clientes",cascade={"persist", "remove"})
      */
     private $usuario;
 
@@ -96,5 +96,10 @@ class AsignacionCliente
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    public function __toString()
+    {
+        return $this->usuario->__toString();
     }
 }

@@ -30,12 +30,43 @@ class ClienteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Cliente')->findAll();
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+        $usuarioActual = $this->getUser();
+        //mostrar todo en caso de ser socio
+        //o ser El código 69, Ciro Salay.
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
+          $usuarioActual->getCodigo()->getCodigo() === 69
+          ) {
 
+          $entities = $em->getRepository('AppBundle:Cliente')->findAll();
+
+          return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
+              'entities' => $entities,
+          ));
+        }
+        $clientes = $this->filtrarClientes($usuarioActual);
         return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
-            'entities' => $entities,
-        ));
+              'entities' => $clientes,
+          ));
+
     }
+
+    private function filtrarClientes($usuario)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $qb = $em->createQueryBuilder();
+      $qb
+        ->select('cliente')
+        ->from('AppBundle:Cliente', 'cliente')
+        ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
+        ->where('asignacion.usuario = :usuario')
+        ->OrWhere('asignacion.usuario = 1')
+        ->setParameter('usuario', $usuario);
+
+      return $qb->getQuery()->getResult();
+    }
+
     /**
      * Creates a new Cliente entity.
      *
