@@ -56,14 +56,14 @@ class ClienteType extends AbstractType
                 'label' => 'Servicios Prestados*',
                 'required' => true,
             ])
-            ->add('usuarioAsignado', 'choice', [
+            ->add('usuarioAsignados', 'entity', [
+                'class' => 'UserBundle:Usuario',
                 'label' => 'Usuario Asignado al cliente *',
                 'required' => true,
-                'choices_as_values' => false,
-                'choices' => $this->trabajadores,
                 'attr' => [
                     'class' => 'select2',
                 ],
+                'multiple' => true,
 
             ])
         ;
