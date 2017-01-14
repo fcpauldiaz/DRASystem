@@ -62,7 +62,6 @@ class Cliente
 
     /**
      * Fecha de creacion.
-     *
      * @ORM\Column(name="fecha_creacion", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -345,6 +344,11 @@ class Cliente
     public function getUsuarioAsignados()
     {
         return $this->usuarioAsignados;
+    }
+
+    public function clearUsuarios()
+    {
+        $this->usuarioAsignados->clear();
     }
 
     public function __toString()

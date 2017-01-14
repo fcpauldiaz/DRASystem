@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Cliente;
 use AppBundle\Form\Type\ClienteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Entity\AsignacionCliente;
 
 /**
  * Cliente controller.
@@ -83,8 +84,21 @@ class ClienteController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //modificar asignacion
+            $usuarios = $form->getData()->getUsuarioAsignados();
+            $copyUsuarios = clone $usuarios;
+            $form->getData()->clearUsuarios();
+
+            foreach($copyUsuarios as $usuario) {
+              $asignacion = new AsignacionCliente($usuario, $entity);
+
+              $em->persist($asignacion);
+              $form->getData()->addUsuarioAsignado($asignacion);
+            }
+
             $em->persist($entity);
             $em->flush();
+
             $this->addFlash('success', 'El cliente ha sido creado exitosamente');
             if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('cliente_new');
