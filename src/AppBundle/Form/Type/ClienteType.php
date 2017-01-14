@@ -8,24 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
-use Doctrine\ORM\EntityManager;
 
 class ClienteType extends AbstractType
 {
-    private $em;
-    private $trabajadores;
-
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-        $entityTrabajadores = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
-        $trabajadores = [];
-        foreach ($entityTrabajadores as $trabajador) {
-            $trabajadores[$trabajador->__toString()] = $trabajador->__toString();
-        }
-        $this->trabajadores = $trabajadores;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options

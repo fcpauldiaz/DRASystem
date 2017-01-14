@@ -46,7 +46,7 @@ class DatosPrestacionesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $sql =
             'Select d.id
-            from datos_prestaciones d 
+            from datos_prestaciones d
             inner join usuario_relacionado r on r.usuario_pertenece_id = d.usuario_id
             where r.usuario_id = ?
             ';
@@ -187,6 +187,7 @@ class DatosPrestacionesController extends Controller
 
         return array(
             'entity' => $entity,
+            'form' => $deleteForm,
 
         );
     }

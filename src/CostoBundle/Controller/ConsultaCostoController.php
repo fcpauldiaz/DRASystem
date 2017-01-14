@@ -765,20 +765,6 @@ class ConsultaCostoController extends Controller
         return $cantidadHorasPorUsuario;
     }
 
-    private function getQueryUsuariosPorTipoPuesto($arrayTipoPuestos)
-    {
-        $repositoryUsuarios = $this->getDoctrine()->getRepository('UserBundle:UsuarioTrabajador');
-        $qb = $repositoryUsuarios->createQueryBuilder('usuario');
-        $qb
-            ->select('usuario')
-            ->leftjoin('usuario.puestos', 'puesto')
-            ->leftjoin('puesto.tipopuesto', 'tipopuesto')
-            ->where($qb->expr()->in(':tipopuesto'))
-            ->setParameter('tipopuesto', $arrayTipoPuestos);
-
-        return $qb->getQuery()->getResult();
-    }
-
     /**
      * Obtiene los RegistroHoras por Actividad.
      *

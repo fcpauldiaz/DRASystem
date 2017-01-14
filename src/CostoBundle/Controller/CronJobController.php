@@ -227,20 +227,6 @@ class CronJobController extends Controller
         return $qb->getQuery()->getResult();
     }
 
-    private function getHorasNoAprobadas($usuario)
-    {
-        $qb = $this
-            ->getDoctrine()
-            ->getRepository('AppBundle:RegistroHoras')
-            ->createQueryBuilder('r')
-            ->innerJoin('r.ingresadoPor', 'ing')
-            ->where('r.aprobado = false')
-            ->andWhere('ing = :usuario')
-            ->setParameter('usuario', $usuario);
-
-        return $qb->getQuery()->getResult();
-    }
-
     /**
      * Función para enviar un correo.
      *

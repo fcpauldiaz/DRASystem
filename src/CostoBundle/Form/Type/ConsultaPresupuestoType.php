@@ -30,7 +30,7 @@ class ConsultaPresupuestoType extends AbstractType
             ->add('consulta_filtro', ChoiceType::class,
                 [
                     'choices' => [
-                        'Actividad' => 'Actividad',
+                        'Área' => 'Área',
                         'Usuarios' => 'Usuarios',
                         'Cliente' => 'Cliente',
                     ],

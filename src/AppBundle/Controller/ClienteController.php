@@ -39,25 +39,24 @@ class ClienteController extends Controller
         if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
           $usuarioActual->getCodigo()->getCodigo() === 69
           ) {
+            $entities = $em->getRepository('AppBundle:Cliente')->findAll();
 
-          $entities = $em->getRepository('AppBundle:Cliente')->findAll();
-
-          return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
+            return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
               'entities' => $entities,
           ));
         }
         $clientes = $this->filtrarClientes($usuarioActual);
+
         return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
               'entities' => $clientes,
           ));
-
     }
 
     private function filtrarClientes($usuario)
     {
-      $em = $this->getDoctrine()->getManager();
-      $qb = $em->createQueryBuilder();
-      $qb
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
         ->select('cliente')
         ->from('AppBundle:Cliente', 'cliente')
         ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
@@ -65,7 +64,7 @@ class ClienteController extends Controller
         ->OrWhere('asignacion.usuario = 1')
         ->setParameter('usuario', $usuario);
 
-      return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -89,11 +88,11 @@ class ClienteController extends Controller
             $copyUsuarios = clone $usuarios;
             $form->getData()->clearUsuarios();
 
-            foreach($copyUsuarios as $usuario) {
-              $asignacion = new AsignacionCliente($usuario, $entity);
+            foreach ($copyUsuarios as $usuario) {
+                $asignacion = new AsignacionCliente($usuario, $entity);
 
-              $em->persist($asignacion);
-              $form->getData()->addUsuarioAsignado($asignacion);
+                $em->persist($asignacion);
+                $form->getData()->addUsuarioAsignado($asignacion);
             }
 
             $em->persist($entity);
@@ -122,7 +121,7 @@ class ClienteController extends Controller
      */
     private function createCreateForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType($this->getDoctrine()->getManager()), $entity, array(
+        $form = $this->createForm(new ClienteType(), $entity, array(
             'action' => $this->generateUrl('cliente_create'),
             'method' => 'POST',
         ));
@@ -225,7 +224,7 @@ class ClienteController extends Controller
      */
     private function createEditForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType($this->getDoctrine()->getManager()), $entity, array(
+        $form = $this->createForm(new ClienteType(), $entity, array(
             'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

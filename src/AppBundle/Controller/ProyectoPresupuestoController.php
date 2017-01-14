@@ -39,20 +39,19 @@ class ProyectoPresupuestoController extends Controller
         if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
           $usuarioActual->getCodigo()->getCodigo() === 69
           ) {
+            $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAll();
 
-
-        $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAll();
-
-        return array(
+            return array(
             'entities' => $entities,
         );
-      }
+        }
       //obtener solo los registros creados por el usuario
 
       $entities = $em
         ->getRepository('AppBundle:ProyectoPresupuesto')
         ->findBy(['creadoPor' => $usuarioActual->getCodigo()]);
-      return [ 'entities' => $entities ];
+
+        return ['entities' => $entities];
     }
     /**
      * Creates a new ProyectoPresupuesto entity.

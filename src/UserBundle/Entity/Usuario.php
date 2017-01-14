@@ -332,7 +332,7 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
     }
 
     /**
-     * Add cliente
+     * Add cliente.
      *
      * @param \AppBundle\Entity\AsignacionCliente $cliente
      *
@@ -346,7 +346,7 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
     }
 
     /**
-     * Remove cliente
+     * Remove cliente.
      *
      * @param \AppBundle\Entity\AsignacionCliente $cliente
      */
@@ -356,7 +356,7 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
     }
 
     /**
-     * Get clientes
+     * Get clientes.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

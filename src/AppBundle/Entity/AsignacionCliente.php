@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AsignacionCliente
+ * AsignacionCliente.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\AsignacionClienteRepository")
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AsignacionCliente
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,15 +35,16 @@ class AsignacionCliente
      */
     private $usuario;
 
-    public function __construct($usuario, $cliente) {
+    public function __construct($usuario, $cliente)
+    {
         $this->usuario = $usuario;
         $this->cliente = $cliente;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -51,7 +52,7 @@ class AsignacionCliente
     }
 
     /**
-     * Set cliente
+     * Set cliente.
      *
      * @param string $cliente
      *
@@ -65,7 +66,7 @@ class AsignacionCliente
     }
 
     /**
-     * Get cliente
+     * Get cliente.
      *
      * @return string
      */
@@ -75,7 +76,7 @@ class AsignacionCliente
     }
 
     /**
-     * Set usuario
+     * Set usuario.
      *
      * @param string $usuario
      *
@@ -89,7 +90,7 @@ class AsignacionCliente
     }
 
     /**
-     * Get usuario
+     * Get usuario.
      *
      * @return string
      */

@@ -5,17 +5,17 @@ namespace UserBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
 use AppBundle\Entity\AsignacionCliente;
+use Symfony\Component\Console\Input\InputArgument;
 
 class AsignacionClientesCommand extends ContainerAwareCommand
 {
-
     protected function configure()
     {
         $this
             ->setName('app:client:ciro')//sintaxis del comando
             ->setDescription('Assign all clients to user Ciro.')//descripcion
+            ->addArgument('idUser', InputArgument::REQUIRED, 'The id of the user.')
 
         ;
     }
@@ -31,11 +31,9 @@ class AsignacionClientesCommand extends ContainerAwareCommand
     {
         //se utiliza el manager de Symfony
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        //se utiliza el manager de FOS
-        $um = $this->getContainer()->get('fos_user.user_manager');
 
         //buscar a un usuario
-        $usuario = $em->getRepository('UserBundle:Usuario')->findOneById(19);
+        $usuario = $em->getRepository('UserBundle:Usuario')->findOneById($input->getArgument('idUser'));
 
         $clientes = $em->getRepository('AppBundle:Cliente')->findAll();
 

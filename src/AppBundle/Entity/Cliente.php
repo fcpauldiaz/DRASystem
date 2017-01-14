@@ -62,6 +62,7 @@ class Cliente
 
     /**
      * Fecha de creacion.
+     *
      * @ORM\Column(name="fecha_creacion", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -95,7 +96,7 @@ class Cliente
 
     public function __construct()
     {
-      $this->usuarioAsignados = new ArrayCollection();
+        $this->usuarioAsignados = new ArrayCollection();
     }
 
     /**
@@ -300,7 +301,6 @@ class Cliente
         return $this->actualizadoPor;
     }
 
-
     /**
      * Método para buscar en select2.
      *
@@ -311,9 +311,8 @@ class Cliente
         return $this->nit.' : '.$this->razonSocial;
     }
 
-
     /**
-     * Add usuarioAsignado
+     * Add usuarioAsignado.
      *
      * @param \AppBundle\Entity\AsignacionCliente $usuarioAsignado
      *
@@ -327,7 +326,7 @@ class Cliente
     }
 
     /**
-     * Remove usuarioAsignado
+     * Remove usuarioAsignado.
      *
      * @param \AppBundle\Entity\AsignacionCliente $usuarioAsignado
      */
@@ -337,7 +336,7 @@ class Cliente
     }
 
     /**
-     * Get usuarioAsignados
+     * Get usuarioAsignados.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
