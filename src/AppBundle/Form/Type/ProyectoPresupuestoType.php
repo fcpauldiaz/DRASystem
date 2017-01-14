@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
+use Doctrine\ORM\EntityRepository;
 
 class ProyectoPresupuestoType extends AbstractType
 {
@@ -29,6 +30,9 @@ class ProyectoPresupuestoType extends AbstractType
             ->add('nombrePresupuesto', null, [
                 'label' => 'Nombre del presupuesto*',
                 'required' => true,
+                'attr' => [
+                  'placeholder' => 'Nombre cliente - año'
+                ]
 
             ])
             ->add('honorarios', 'money', [
@@ -36,10 +40,28 @@ class ProyectoPresupuestoType extends AbstractType
                 'label' => 'Honorarios (opcional)',
                 'attr' => [
                     'help_text' => 'Si ya se tiene designado los honorarios del presupuesto',
+                    'placeholder' => 'Honorarios profesionales'
                 ],
                 'currency' => 'GTQ',
                 'grouping' => true,
 
+            ])
+            ->add('clientes', 'entity', [
+                'class' => 'AppBundle:Cliente',
+                'attr' => [
+                    'class' => 'select2'
+                ],
+                'multiple' => false,
+                'required' => false,
+                'label' => 'Cliente a consolidar (opcional)',
+                'empty_value' => 'Cliente a consolidar',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('cliente')
+                        ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
+                        ->where('asignacion.usuario = :usuario')
+                        ->OrWhere('asignacion.usuario = 1')
+                        ->setParameter('usuario', $this->usuario);
+                },
             ])
             ->add('presupuestoIndividual', 'bootstrap_collection', [
                     'type' => new RegistroHorasPresupuestoType($this->usuario),

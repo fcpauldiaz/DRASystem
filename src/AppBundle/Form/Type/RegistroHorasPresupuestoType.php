@@ -28,6 +28,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
+                'empty_value' => 'Seleccionar cliente',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('cliente')
                         ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
@@ -41,6 +42,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'class' => 'AppBundle:Area',
                 'required' => true,
                 'label' => 'Área',
+                'empty_value' => 'Seleccionar área a presupuestar',
                 'attr' => [
                     'class' => 'select2',
                 ],
