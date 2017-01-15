@@ -50,7 +50,7 @@ class ProyectoPresupuestoType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
-                'multiple' => false,
+                'multiple' => true,
                 'required' => false,
                 'label' => 'Cliente a consolidar (opcional)',
                 'empty_value' => 'Cliente a consolidar',
