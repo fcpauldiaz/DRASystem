@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * ProyectoPresupuesto.
  *
@@ -88,7 +88,8 @@ class ProyectoPresupuesto
 
     public function __construct()
     {
-        $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presupuestoIndividual = new ArrayCollection();
+        $this->clientes = new ArrayCollection();
     }
     /**
      * Get id.
