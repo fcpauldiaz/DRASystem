@@ -5,8 +5,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints;
 use Doctrine\ORM\EntityRepository;
 
 class ProyectoPresupuestoType extends AbstractType
@@ -86,7 +84,7 @@ class ProyectoPresupuestoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto'
+            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
         ));
     }
 
