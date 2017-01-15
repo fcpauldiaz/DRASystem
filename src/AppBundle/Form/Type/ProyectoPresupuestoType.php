@@ -86,8 +86,7 @@ class ProyectoPresupuestoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
-            'constraints' => new Callback([$this, 'validarActividades']),
+            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto'
         ));
     }
 
