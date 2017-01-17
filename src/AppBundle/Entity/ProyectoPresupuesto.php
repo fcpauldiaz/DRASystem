@@ -48,8 +48,8 @@ class ProyectoPresupuesto
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cliente")
      * @ORM\JoinTable(name="clientes_por_presupuesto",
-     *      joinColumns={@ORM\JoinColumn(name="id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="cliente_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="presupuesto_id", referencedColumnName="id")}
      *      )
      */
     private $clientes;
