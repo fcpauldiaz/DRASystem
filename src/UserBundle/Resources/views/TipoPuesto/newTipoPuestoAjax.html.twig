@@ -13,7 +13,7 @@
         {{ form_start(form, { 'attr': {'class' : 'ajaxFormTipoPuesto'}}) }}
     	{{form_row(form.nombrePuesto) }}
     	{{form_row(form.descripcion) }}
-    	
+
     <h2>Permisos</h2>
     {% set array_length = (form.permisos.vars.choices) | length %}
     {% set middle = (array_length / 2) |round(0, 'ceil') %}
@@ -35,6 +35,5 @@
           </div>
         </div>
       </div>
-    	
+
     {{ form_end(form) }}
-    
