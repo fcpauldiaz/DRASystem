@@ -44,7 +44,7 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador", cascade={"persist"})
      */
     private $usuario;
 
