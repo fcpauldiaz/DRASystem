@@ -21,9 +21,9 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
             new CostoBundle\CostoBundle(),
-            
+
             //Third party libraries
-           
+
             new FOS\UserBundle\FOSUserBundle(),
             new PUGX\MultiUserBundle\PUGXMultiUserBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Extensions;
 
-class HorasPendientesExtension extends \Twig_Extension
+class HorasPendientesExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
     protected $horasPendientes;
 
