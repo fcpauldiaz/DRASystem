@@ -17,9 +17,9 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{entity.actividad}}</td>
-                <td>{{entity.cliente}}</td>
                 <td>{{ entity.horasPresupuestadas }}</td>
+                <td>{{ entity.actividad }}</td>
+                <td>{{ entity.cliente }}</td>
                 <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>

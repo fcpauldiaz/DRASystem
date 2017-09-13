@@ -30,10 +30,10 @@ class RegistroHorasPresupuesto
     private $horasPresupuestadas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $area;
+    private $actividad;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente")
@@ -44,11 +44,9 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\UsuarioTrabajador")
-     * @ORM\JoinTable(name="presupuesto_horas_usuario",
-     *      joinColumns={@ORM\JoinColumn(name="presupuesto_horas_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
+     * @ORM\JoinTable(name="presupuesto_horas_usuario")
+     *     
      */
     private $usuario;
 
@@ -97,7 +95,6 @@ class RegistroHorasPresupuesto
     public function __construct()
     {
         $this->fechaCreacion = new \DateTime();
-        $this->usuario = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -282,58 +279,49 @@ class RegistroHorasPresupuesto
         return 'P'.$this->getId();
     }
 
+
     /**
-     * Set area.
+     * Set actividad
      *
-     * @param \AppBundle\Entity\Area $area
+     * @param \AppBundle\Entity\Actividad $actividad
      *
      * @return RegistroHorasPresupuesto
      */
-    public function setArea(\AppBundle\Entity\Area $area = null)
+    public function setActividad(\AppBundle\Entity\Actividad $actividad = null)
     {
-        $this->area = $area;
+        $this->actividad = $actividad;
 
         return $this;
     }
 
     /**
-     * Get area.
+     * Get actividad
      *
-     * @return \AppBundle\Entity\Area
+     * @return \AppBundle\Entity\Actividad
      */
-    public function getArea()
+    public function getActividad()
     {
-        return $this->area;
+        return $this->actividad;
     }
 
     /**
-     * Add usuario.
+     * Set usuario
      *
      * @param \UserBundle\Entity\UsuarioTrabajador $usuario
      *
      * @return RegistroHorasPresupuesto
      */
-    public function addUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario)
+    public function setUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario = null)
     {
-        $this->usuario[] = $usuario;
+        $this->usuario = $usuario;
 
         return $this;
     }
 
     /**
-     * Remove usuario.
+     * Get usuario
      *
-     * @param \UserBundle\Entity\UsuarioTrabajador $usuario
-     */
-    public function removeUsuario(\UserBundle\Entity\UsuarioTrabajador $usuario)
-    {
-        $this->usuario->removeElement($usuario);
-    }
-
-    /**
-     * Get usuario.
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \UserBundle\Entity\UsuarioTrabajador
      */
     public function getUsuario()
     {
