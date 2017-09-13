@@ -14,12 +14,31 @@ class ArrayExtension extends \Twig_Extension
         new \Twig_SimpleFunction('sum_costo_hora', array($this, 'sumArrayCostoPorHora')),
         new \Twig_SimpleFunction('sum_costo_presupuesto', array($this, 'sumArrayCostoPresupuesto')),
         new \Twig_SimpleFunction('sum_array', array($this, 'sumArray')),
+        new \Twig_SimpleFunction('sum_array_costo_real', array($this, 'sumArrayCostoReal')),
+        new \Twig_SimpleFunction('sum_array_costo_individual', array($this, 'sumArrayCostoIndividual')),
     );
     }
 
     public function sumArray($array = [])
     {
         return array_sum($array);
+    }
+
+    public function sumArrayCostoReal($array = []) 
+    {
+        $total = 0;
+        foreach ($array as $item) {
+            $total += $item['costoReal'];
+        }
+        return $total;
+    }
+    public function sumArrayCostoIndividual($array = []) 
+    {
+        $total = 0;
+        foreach ($array as $item) {
+            $total += $item['costo'];
+        }
+        return $total;
     }
 
     public function sumArrayCostoPresupuesto($consultas = [])

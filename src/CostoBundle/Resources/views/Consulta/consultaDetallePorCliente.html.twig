@@ -18,7 +18,7 @@
                 <th>Fecha de las horas invertidas</th>
                 <th>FechaIngreso</th>
                 <th>Horas invertidas</th>
-                <th>Presupuesto Acumulado</th>
+                <th>Presupuesto Restante</th>
                 <th>CostoReal</th>
                 
             </tr>
@@ -39,7 +39,7 @@
                 <td>{{pActual}}</td>
 
                  {% if costoReal is not empty %}
-                    <td>{{costoReal[cont]  | number_format(2, '.', ', ')}}</td>
+                    <td>{{costoReal[cont]['costoReal']  | number_format(2, '.', ', ')}}</td>
                 {% else %}
                     <td> 0.00 </td>
                 {% endif %}
@@ -60,7 +60,7 @@
                 <td> 
                     <b>
                         <font color="#000000"> 
-                            Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                            Q {{sum_array_costo_real(costoReal) | number_format(2, '.', ', ')}} 
                         </font>
                     </b>
                 </td>
