@@ -12,19 +12,20 @@
                 </tr>
             </thead>
             <tbody>
+            
                 {% for usuario in usuarios %}
-                    
+                
                 <tr>
-                    <td>{{usuario.usr.nombre}} </td>
-                    <td>{{usuario.usr.apellidos}} </td>
+                    <td>{{usuario.usuarioPertenece.nombre}} </td>
+                    <td>{{usuario.usuarioPertenece.apellidos}} </td>
                     <td>
-                    {% if usuario.usr.puestos is defined %}
-                        {{usuario.usr.puestos.last}}
+                    {% if usuario.usuarioPertenece.puestos is defined %}
+                        {{usuario.usuarioPertenece.puestos.last}}
                     {% endif %}
                     </td>
 
                     <td>
-                            <a href="{{path('revisar_horas', { 'usuario_id':usuario.usr.id})}}"
+                            <a href="{{path('revisar_horas', { 'usuario_id':usuario.usuarioPertenece.id})}}"
                             class="btn btn-info btn-sm">Revisar horas</a> 
                     </td>
                 </tr>
