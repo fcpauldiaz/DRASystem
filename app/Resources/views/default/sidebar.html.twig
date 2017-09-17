@@ -181,8 +181,15 @@
         <!--Asignar usuarios-->
       {% if is_granted('ROLE_ASIGNACION') %}
         <li class="treeview">
-          <a href="{{path('asignar_usuarios')}}"><i class="glyphicon glyphicon-random"></i> <span>Asignar usuarios</span>
+          <a href="#"><i class="glyphicon glyphicon-random"></i> <span>Usuarios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{path('asignar_usuarios')}}">Asignar Usuario</a></li>
+            <li><a href="{{path('trabajador_registration')}}">Crear Usuario</a></li>
+          </ul>
         </li>
       {% endif %}
         

@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block javascriptDataTables %}
+    
+    <script src = {{asset('js/dataTablesInit.js')}}>
+    </script>
+{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-md-6">

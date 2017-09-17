@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block javascriptDataTables %}
+    
+    <script src = {{asset('js/dataTablesInit.js')}}>
+    </script>
+{% endblock %}
+
 {% block body -%}
     <br>
     <h1>Listado de Tipos de Puestos</h1>

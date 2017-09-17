@@ -190,9 +190,9 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
 
     public function removeRole($role)
     {
-        if ($role == 'ROLE_ASIGNACION') {
-            return $this;
-        }
+        // if ($role == 'ROLE_ASIGNACION') {
+        //     return $this;
+        // }
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);

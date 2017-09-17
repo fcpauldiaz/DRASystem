@@ -1,5 +1,12 @@
 {% extends '::base.html.twig' %}
 
+{% block javascriptDataTables %}
+    
+    <script src = {{asset('js/dataTablesInit.js')}}>
+    </script>
+{% endblock %}
+
+
 {% block body -%}
     <h1>Departamento</h1>
 

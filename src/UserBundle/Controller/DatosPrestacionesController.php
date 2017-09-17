@@ -111,7 +111,7 @@ class DatosPrestacionesController extends Controller
             $em->flush();
 
             if ($redirect === true && $usuarioActual === $usuario) {
-                $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+                $this->addFlash('success', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
 
                 return $this->redirect($this->generateUrl('fos_user_security_logout'));
             }
