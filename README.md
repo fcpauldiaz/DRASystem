@@ -10,13 +10,13 @@ DRASystem
 
 A Symfony project created on January 3, 2016, 12:26 pm.
 
-##Installation
+## Installation
   - composer install
   - npm install
   - config parameters.yml
   - php app/console doctrine:schema:update --force --dump-sql
   - php app/console server:run
 
-###When making frontend changes
+### When making frontend changes
   - grunt
   
