@@ -19,8 +19,13 @@ class ActividadType extends AbstractType
                 'required' => true,
                 'label' => 'Nombre de la actividad *',
             ])
-            ->add('area', 'textarea', [
+            ->add('area', 'entity', [
                 'label' => 'Área *',
+                'class' => 'AppBundle:Area',
+                'required' => true,
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('abreviatura', null, [
                 'label' => 'Abreviatura (opcional)',

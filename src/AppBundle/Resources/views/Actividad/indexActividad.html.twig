@@ -23,7 +23,8 @@
         <thead>
             <tr>
                 <th>Nombre actividad</th>
-                <th>Área</th>
+                <th>Departamento</th>
+                <th>Cargable</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -31,7 +32,8 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.nombre }}</td>
-                <td>{{ entity.area }}</td>
+                <td>{{ entity.area.departamento }}</td>
+                <td>{{ entity.actividadNoCargable ? 'No':'Sí' }}</td>
                 <td>
                 <ul>
                     <li>
