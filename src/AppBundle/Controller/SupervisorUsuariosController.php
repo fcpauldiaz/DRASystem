@@ -148,7 +148,6 @@ class SupervisorUsuariosController extends Controller
             $qb->setParameter('fechaInicial', $fechaInit['date']);
             $qb->setParameter('fechaFinal', $fechaFin['date']);
         }
-        dump($qb);
         $query->setQuery($qb);
 
         return $query->getResponse(false);
