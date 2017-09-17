@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+    <li class="active">Nueva Área</li>
+{% endblock %}
+
+{% block title %}
+    Nueva Área
+{% endblock %}
+
+{% block body -%}
+    <h1>Crear Área</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.departamento) }}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submitAndSave)}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submit)}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                <a class="btn btn-default btn-block" href="{{ path('area') }}">
+                    Mostrar todas las áreas
+            </a>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

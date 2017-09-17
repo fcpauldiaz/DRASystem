@@ -27,7 +27,7 @@
     <!-- Custom Section -->
     <body class="hold-transition login-page">
          <!-- Logo -->
-  
+
          <div class="login-box-body">
               <a href="{{ path('homepage')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -44,10 +44,14 @@
                 {% endif %}
             </div>
         </div>
-        
+
         <!-- Start Login Section -->
         {% block fos_user_content %}
         {% endblock fos_user_content %}
+        {% block subject %}
+        {% endblock %}
+        {% block body_text %}
+        {% endblock %}
         <!-- jQuery 2.2.0 -->
         <!-- Bootstrap 3.3.6 -->
         {% block secure %}
@@ -58,7 +62,7 @@
         {% block alertify %}
             {{ app.session|alertify|raw }}
         {% endblock %}
-              
-        
+
+
     </body>
 </html>

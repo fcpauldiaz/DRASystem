@@ -4,6 +4,14 @@
      <li><a href="{{path('registrohoras')}}"><i class="fa fa-link"></i>Listado Registro Horas</a></li>
     <li class="active"></i>Mostrar Registro</li>
 {% endblock %}
+
+{% block javascriptDataTables %}
+    
+    <script src = {{asset('js/dataTablesInit.js')}}>
+    </script>
+{% endblock %}
+
+
 {% block body -%}
     <br>
     <h1>Registro Horas</h1>

@@ -1,4 +1,11 @@
 {% extends '::base.html.twig' %}
+
+    {% block javascriptDataTables %}
+    
+    <script src = {{asset('js/dataTablesInit.js')}}>
+    </script>
+    {% endblock %}
+
     {% block body -%}
         <h1>Puestos del Usuario {{app.user.nombre}} {{app.user.apellidos}}</h1>
         <table class="table table-striped table-hover">

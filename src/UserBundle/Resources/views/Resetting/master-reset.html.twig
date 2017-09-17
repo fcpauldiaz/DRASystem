@@ -36,6 +36,16 @@
 												
 											{% endautoescape %}
 										{% endblock %}
+                  {% block body_html %}
+                      {% autoescape 'html' %}
+                        <p>Hola {{user.nombre}} {{user.apellidos}}!</p>
+                        <p>Para restablecer tu contraseña - por favor visita  <a href="{{confirmationUrl}}">Link de Recuperación</a></p>
+                        <p>Atentamente,</p>
+                        <p>el Equipo.</p>
+
+                      {% endautoescape %}
+                    {% endblock %}
+
 
 
 

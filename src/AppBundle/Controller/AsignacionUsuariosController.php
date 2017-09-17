@@ -54,10 +54,9 @@ class AsignacionUsuariosController extends Controller
 
           return $this->redirectToRoute('asignar_usuarios');
       }
-
       return $this->render('AppBundle:Asignacion:newAsignacion.html.twig', [
       'form' => $form->createView(),
-      'usuariosAsignados' => $this->getUser()->getMisUsuariosRelacionados(),
+      'usuariosAsignados' => $this->getUser()->getMisusuariosRelacionados(),
     ]);
   }
   /**
@@ -69,7 +68,7 @@ class AsignacionUsuariosController extends Controller
   {
       $em = $this->getDoctrine()->getManager();
       $relacion = $em->getRepository('UserBundle:UsuarioRelacionado')
-    ->findOneBy(['usr' => $usuarioRemover, 'usuarioPertenece' => $usuarioPertenece]);
+                  ->findOneBy(['usr' => $usuarioRemover, 'usuarioPertenece' => $usuarioPertenece]);
       $em->remove($relacion);
       $em->flush();
 

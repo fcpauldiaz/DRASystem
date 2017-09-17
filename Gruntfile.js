@@ -91,7 +91,7 @@ module.exports = function (grunt) {
           'web/js/showHideElements.min.js': ['web/js/showHideElements.js'],
           'web/js/ajaxContacto.min.js': ['web/js/ajaxContacto.js'],
           'web/js/ajaxPuesto.min.js':['web/js/ajaxPuesto.js'],
-          'web/js/bc-bootstrap-collection.min.js': ['web/js/bc-bootstrap-collection.js','web/js/datatables-default.js'],
+          'web/js/bc-bootstrap-collection.min.js': ['web/js/bc-bootstrap-collection.js'],
           'web/js/jquery.initialize.min.js': ['web/js/jquery.initialize.js'],
           'web/js/register.min.js': ['web/js/register.js'],
           'web/js/secure.min.js': ['web/js/secure.js']

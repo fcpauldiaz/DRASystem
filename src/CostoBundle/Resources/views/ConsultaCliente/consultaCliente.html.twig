@@ -49,8 +49,7 @@
 	<br>
 
 	{% if consultaCliente is not empty %}
-
-		 <table class="table table-striped table-hover">
+		 <table id="table" class="table table-striped table-hover">
 	        <thead>
 	            <tr>
 	                <th>Cliente</th>
@@ -65,7 +64,6 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	            
 	            {% for consulta in consultaCliente %}
 	                <tr>
 		                <td>{{consulta.cliente}}</td>
@@ -74,7 +72,7 @@
 		                <td>{{consulta.horasCalculadas}}</td>
 		                <td>{{consulta.horasPresupuesto}}</td>
 		                <td>{{consulta.diferencia}}</td>
-		                  <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
+		                <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
 		                <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
 	                 
 	                </tr>

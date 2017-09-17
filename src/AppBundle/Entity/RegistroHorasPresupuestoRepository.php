@@ -49,8 +49,7 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
         $qb = $this->createQueryBuilder('r');
         $qb
             ->select('sum(distinct(r.horasPresupuestadas))')
-            ->innerJoin('AppBundle:Area', 'area', 'with', 'r.area = area.id')
-            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.area = area.id ')
+            ->innerJoin('AppBundle:Actividad', 'act')
             ->where('r.proyecto = :proyecto')
             ->andWhere('act = :actividad')
             ->setParameter('proyecto', $proyecto)

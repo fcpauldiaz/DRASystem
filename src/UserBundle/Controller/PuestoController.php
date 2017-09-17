@@ -78,7 +78,7 @@ class PuestoController extends Controller
             foreach ($usuario->getRoles() as $role) {
                 $usuario->removeRole($role);
             }
-
+            
             $tipoPuesto = $data->getTipoPuesto();
             $permisos = $tipoPuesto->getPermisos();
             foreach ($permisos as $permiso) {
@@ -92,7 +92,7 @@ class PuestoController extends Controller
                 return $this->forward('UserBundle:DatosPrestaciones:new');
             }
             if ($usuario === $this->getUser()) {
-                $this->addFlash('info', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+                $this->addFlash('success', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
 
                 return $this->redirectToRoute('fos_user_security_logout');
             }
@@ -245,13 +245,14 @@ class PuestoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Puesto entity.');
         }
-        $usuario = $this->getUser();
+        
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $data = $editForm->getData();
+            $usuario = $data->getUsuario();
             foreach ($usuario->getRoles() as $role) {
                 $usuario->removeRole($role);
             }
@@ -260,7 +261,14 @@ class PuestoController extends Controller
             foreach ($permisos as $permiso) {
                 $usuario->addRole($permiso->getPermiso());
             }
+            $em->persist($entity);
+            $em->persist($usuario);
             $em->flush();
+            if ($usuario === $this->getUser()) {
+                $this->addFlash('success', 'Se ha cerrado la sesión para aplicar los nuevos permisos');
+
+                return $this->redirectToRoute('fos_user_security_logout');
+            }
 
             return $this->redirect($this->generateUrl('puesto_edit', array('id' => $id)));
         }

@@ -1,5 +1,12 @@
 {% extends '::base.html.twig' %}
 
+
+{% block javascriptDataTables %}
+    
+    <script src = {{asset('js/dataTablesInit.js')}}>
+    </script>
+{% endblock %}
+
 {% block body -%}
     <br>
     <h1>Listado Horas Presupuestadas</h1>
@@ -17,9 +24,9 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{{entity.actividad}}</td>
-                <td>{{entity.cliente}}</td>
                 <td>{{ entity.horasPresupuestadas }}</td>
+                <td>{{ entity.actividad }}</td>
+                <td>{{ entity.cliente }}</td>
                 <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>

@@ -2,13 +2,16 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: UserBundle\Entity\Usuario
+    from_email:
+      address:        no-responder@newtonlabs.com.gt
+      sender_name:    Smart Time
     registration:
           confirmation:
             from_email:
                 address:        no-responder@newtonlabs.com.gt
                 sender_name:    Smart Time
             enabled:    false # change to true for required email confirmation
-            template:   UserBundle:Registration:registration.email.twig  
+            template:   UserBundle:Registration:registration.email.twig
     resetting: #password resetting
         token_ttl: 86400
         email:
@@ -23,11 +26,11 @@ fos_user:
 pugx_multi_user:
   users:
     user_one:
-        entity: 
+        entity:
           class: UserBundle\Entity\UsuarioTrabajador
-#          factory: 
+#          factory:
         registration:
-          form: 
+          form:
             type: UserBundle\Form\Type\RegistrationTrabajadorFormType
             name: fos_user_registration_form
             validation_groups:  [Registration, Default, EmailDomainValidation]
@@ -36,15 +39,15 @@ pugx_multi_user:
           form:
             type: UserBundle\Form\Type\ProfileTrabajadorFormType
             name: fos_user_profile_form
-            validation_groups:  [Profile, Default] 
+            validation_groups:  [Profile, Default]
     user_two:
-        entity: 
+        entity:
           class: UserBundle\Entity\UsuarioSocio
         registration:
-          form: 
+          form:
             type: UserBundle\Form\Type\RegistrationSocioFormType
             validation_groups:  [Registration, Default]
           template: UserBundle:Registration:register_socio.html.twig
         profile:
-          form: 
+          form:
             type: UserBundle\Form\Type\ProfileSocioFormType

@@ -37,11 +37,11 @@ class SupervisorUsuariosController extends Controller
           if ($claseActual == "UserBundle\Entity\UsuarioSocio") {
               $usuarios = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
 
-              return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
-                [
-                    'usuarios' => $usuarios,
-                ]
-            );
+            //   return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
+            //     [
+            //         'usuarios' => $usuarios,
+            //     ]
+            // );
           }
 
         $usuarioActual = $this->getUser();
@@ -138,17 +138,16 @@ class SupervisorUsuariosController extends Controller
 
         $qb = $query->getQuery();
         $qb->andWhere('registro_horas.ingresadoPor = :user');
-        $qb->andWhere('registro_horas.aprobado = false');
+        //$qb->andWhere('registro_horas.aprobado = false');
         $qb->setParameter('user', $usuario);
 
         if ($fechaInit !== '' && $fechaFin !== '') {
-            $qb->andWhere('registro_horas.id = 1');
+            //$qb->andWhere('registro_horas.id = 2');
             $qb->andWhere('registro_horas.fechaHoras >= :fechaInicial');
             $qb->andWhere('registro_horas.fechaHoras <= :fechaFinal');
             $qb->setParameter('fechaInicial', $fechaInit['date']);
             $qb->setParameter('fechaFinal', $fechaFin['date']);
         }
-
         $query->setQuery($qb);
 
         return $query->getResponse(false);

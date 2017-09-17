@@ -6,7 +6,7 @@
 
 {% block javascriptDataTables %}
     
-    <script src = {{asset('js/datatables/dataTablesCliente.js')}}>
+    <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
 {% block body -%}
@@ -14,7 +14,7 @@
 	<br>
     <h1>Consulta Detallada por actividad</h1>
     <h2>Presupuesto de esta actividad: {{presupuesto}}</h2>
-    <table class="table table-striped table-hover">
+    <table id="table"  class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Actividad</th>
@@ -23,7 +23,8 @@
                 <th>Fecha de las horas invertidas</th>
                 <th>Fecha de ingreso</th>
                 <th>Horas invertidas</th>
-                <th>Presupuesto Acumulado</th>
+                <th>Presupuesto Restante</th>
+                <th>CostoPorHora </th>      
                 <th>CostoReal</th>
                 
             </tr>
@@ -32,7 +33,7 @@
             {% set pActual = presupuesto %}
             {% set cont = 0 %}
             {% for registro in registros %}
-
+    
             <tr>
                 <td>{{registro.actividad}}</td>
                 <td>{{registro.ingresadoPor}}</td>
@@ -42,9 +43,12 @@
                 <td>{{registro.horasInvertidas}}</td>
                 {% set pActual = pActual - registro.horasInvertidas %}
                 <td>{{pActual}}</td>
+                
                 {% if costoReal is not empty %}
-                    <td>{{costoReal[cont]  | number_format(2, '.', ', ')}}</td>
+                <td>{{ costoReal[cont]['costo'] | number_format(2, '.', ', ') }}</td>
+                    <td>{{costoReal[cont]['costoReal']  | number_format(2, '.', ', ')}}</td>
                 {% else %}
+                    <td> 0.00 </td>
                     <td> 0.00 </td>
                 {% endif %}
                
@@ -60,17 +64,18 @@
                 <td> </td>
                 <td> </td>
                 <td> </td>
-                {% set costo = sum_array(costoReal) %}
+                <td><strong>Q {{ sum_array_costo_individual(costoReal) }}</strong></td>
+                {% set costo = sum_array_costo_real(costoReal) %}
 
                 <td> 
                     <b>
                         {% if costo < 0 %}
                         <font color="#c0392b"> 
-                            Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                            Q {{sum_array_costo_real(costoReal) | number_format(2, '.', ', ')}} 
                         </font>
                         {% else %}
                          <font color="#00000"> 
-                            Q {{sum_array(costoReal) | number_format(2, '.', ', ')}} 
+                            Q {{sum_array_costo_real(costoReal) | number_format(2, '.', ', ')}} 
                         </font>
                         {% endif %}
                     </b>

@@ -20,6 +20,13 @@
     </script>
    <script src="{{asset('js/dateModifier.js')}}"></script>
 {% endblock %}
+
+{% block javascriptDataTables %}
+	<script src = {{asset('js/dataTablesInit.js')}}>
+	</script>
+{% endblock %}
+
+
 {% block body -%}
 	<br>
 	 {{ form_start(form)}}

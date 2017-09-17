@@ -1,5 +1,5 @@
 $(function(){
-   $("table").colResizable();
+   //$("table").colResizable();
    var table = $('table').dataTable( {
         bDestroy : true,
         columnDefs: [
@@ -8,6 +8,7 @@ $(function(){
         bSortable: true,
         sPaginationType: "full_numbers",
         autoFill: true,
+        aaSorting: [],
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todo"]],
         colReorder: true,
         dom: 'Blfrtip',
@@ -40,7 +41,7 @@ $(function(){
         
         ],
         language: {
-            "url": "{{ asset('Json/Spanish.json')}}"
+            "url": "/Json/Spanish.json"
         }
     } );
 });
