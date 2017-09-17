@@ -167,11 +167,11 @@ class RegistrationTrabajadorFormType extends AbstractType
         return 'user_registration';
     }
 
-     /* Validar que el NIT no tenga guiones
-     *
-     * @param Array                     $data    contiene los datos del formulario
-     * @param ExecutionContextInterface $context
-     */
+    /* Validar que el NIT no tenga guiones
+    *
+    * @param Array                     $data    contiene los datos del formulario
+    * @param ExecutionContextInterface $context
+    */
     public function validarNIT($nit, ExecutionContextInterface $context)
     {
         if (strpos($nit, '-') !== false) {

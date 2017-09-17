@@ -99,7 +99,7 @@ class DatosPrestacionesType extends AbstractType
                 'required' => false,
                 'grouping' => true,
             ])
-            ->add('depreciacion', 'money',  [
+            ->add('depreciacion', 'money', [
                 'currency' => 'GTQ',
                 'label' => 'Depreciación',
                 'attr' => [

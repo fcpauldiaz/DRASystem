@@ -37,7 +37,8 @@ class CronJobController extends Controller
                 if ($lastDayRequest === null) {
                     $this->addFlash('error', 'No puede dejar solo un campo de fecha en blanco');
 
-                    return $this->render('CostoBundle:Costo:cronJob.html.twig',
+                    return $this->render(
+                        'CostoBundle:Costo:cronJob.html.twig',
                         [
                             'verificador' => true, //mandar variable a javascript
                             'form' => $form->createView(),
@@ -49,7 +50,8 @@ class CronJobController extends Controller
                 if ($firstDayRequest === null) {
                     $this->addFlash('error', 'No puede dejar solo un campo de fecha en blanco');
 
-                    return $this->render('CostoBundle:Costo:cronJob.html.twig',
+                    return $this->render(
+                        'CostoBundle:Costo:cronJob.html.twig',
                         [
                             'verificador' => true, //mandar variable a javascript
                             'form' => $form->createView(),
@@ -98,7 +100,8 @@ class CronJobController extends Controller
     {
         $form = $this->createFormAction();
 
-        return $this->render('CostoBundle:Costo:cronJob.html.twig',
+        return $this->render(
+            'CostoBundle:Costo:cronJob.html.twig',
             [
                 'verificador' => false,
                 'form' => $form->createView(),

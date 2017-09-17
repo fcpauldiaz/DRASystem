@@ -19,12 +19,12 @@ class LoginEntryPoint implements AuthenticationEntryPointInterface
     {
         $this->router = $router;
     }
-     /*
-     * This method receives the current Request object and the exception by which the exception
-     * listener was triggered.
-     *
-     * The method should return a Response object
-     */
+    /*
+    * This method receives the current Request object and the exception by which the exception
+    * listener was triggered.
+    *
+    * The method should return a Response object
+    */
 
     public function start(Request $request, AuthenticationException $authException = null)
     {

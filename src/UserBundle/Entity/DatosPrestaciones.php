@@ -473,9 +473,9 @@ class DatosPrestaciones
                  $this->getViaticos() +
                  $this->getOtros() +
                  $this->getGastosIndirectos();
-                //Esto ya está integrado en el costo
-                //La indemnizacion, aguinaldo, bono14,cuota patronal
-                //ya está integrado en el costo
+        //Esto ya está integrado en el costo
+        //La indemnizacion, aguinaldo, bono14,cuota patronal
+        //ya está integrado en el costo
 
         return $total;
     }

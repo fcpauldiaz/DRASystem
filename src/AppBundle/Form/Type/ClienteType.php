@@ -72,11 +72,11 @@ class ClienteType extends AbstractType
         return 'appbundle_cliente';
     }
 
-     /* Validar que el NIT tenga guiones
-     *
-     * @param Array                     $data    contiene los datos del formulario
-     * @param ExecutionContextInterface $context
-     */
+    /* Validar que el NIT tenga guiones
+    *
+    * @param Array                     $data    contiene los datos del formulario
+    * @param ExecutionContextInterface $context
+    */
     public function validarNIT($nit, ExecutionContextInterface $context)
     {
         if (strpos($nit, '-') === false) {

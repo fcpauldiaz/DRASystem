@@ -24,7 +24,7 @@ class ArrayExtension extends \Twig_Extension
         return array_sum($array);
     }
 
-    public function sumArrayCostoReal($array = []) 
+    public function sumArrayCostoReal($array = [])
     {
         $total = 0;
         foreach ($array as $item) {
@@ -32,7 +32,7 @@ class ArrayExtension extends \Twig_Extension
         }
         return $total;
     }
-    public function sumArrayCostoIndividual($array = []) 
+    public function sumArrayCostoIndividual($array = [])
     {
         $total = 0;
         foreach ($array as $item) {

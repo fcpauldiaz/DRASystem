@@ -27,13 +27,13 @@ class RegistrationController extends BaseController
 
             return $response;
         }
-      //entonces es una clase tipo Socio UserBundle\Entity\UsuarioSocio
-      else {
-          return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
+        //entonces es una clase tipo Socio UserBundle\Entity\UsuarioSocio
+        else {
+            return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
         ));
-      }
+        }
     }
 
     private function getTargetUrlFromSession()

@@ -31,7 +31,8 @@ class ConsultaSocioController extends Controller
         }
 
         $form = $this->createForm(
-            ConsultaSocioType::class);
+            ConsultaSocioType::class
+        );
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
@@ -135,8 +136,8 @@ class ConsultaSocioController extends Controller
 
         foreach ($usuarios as $usuario) {
             $horas = $this->calcularHorasPorUsuario($usuario, $registros, true);
-        //horas presupuestadas de un usuarios asignadas
-        $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
+            //horas presupuestadas de un usuarios asignadas
+            $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
             $costoPorHora = $this->getDoctrine()
             ->getManager()
             ->getRepository('CostoBundle:Costo')
@@ -213,7 +214,8 @@ class ConsultaSocioController extends Controller
         }
 
         $form = $this->createForm(
-            ConsultaGerenteType::class);
+            ConsultaGerenteType::class
+        );
 
         $form->handleRequest($request);
         if (!$form->isValid()) {

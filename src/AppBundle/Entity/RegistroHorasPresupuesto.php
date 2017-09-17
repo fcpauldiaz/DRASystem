@@ -46,7 +46,7 @@ class RegistroHorasPresupuesto
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
      * @ORM\JoinTable(name="presupuesto_horas_usuario")
-     *     
+     *
      */
     private $usuario;
 

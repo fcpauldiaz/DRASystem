@@ -45,9 +45,9 @@ class ProyectoPresupuestoController extends Controller
             'entities' => $entities,
         );
         }
-      //obtener solo los registros creados por el usuario
+        //obtener solo los registros creados por el usuario
 
-      $entities = $em
+        $entities = $em
         ->getRepository('AppBundle:ProyectoPresupuesto')
         ->findBy(['creadoPor' => $usuarioActual->getCodigo()]);
 

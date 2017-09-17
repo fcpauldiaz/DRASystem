@@ -38,7 +38,8 @@ class PlanillaController extends Controller
         }
 
         $form = $this->createForm(
-            ExcelType::class);
+            ExcelType::class
+        );
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
@@ -201,7 +202,7 @@ class PlanillaController extends Controller
         if (strtolower($data) == 'liquido') {
             $etiquetas = false;
         }
-          //validar etiquetas
+        //validar etiquetas
         if ($etiquetas === true && $data !== null) {
             if ($this->validarEtiquetas($data) === false) {
                 $this->addFlash('error', 'Excel subido con formato inválido');

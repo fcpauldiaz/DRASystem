@@ -27,7 +27,8 @@ class ConsultaCostoUsuarioController extends Controller
     public function consultaUsuarioAction(Request $request)
     {
         $form = $this->createForm(
-            ConsultaCostoUsuarioType::class);
+            ConsultaCostoUsuarioType::class
+        );
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(

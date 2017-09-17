@@ -27,7 +27,9 @@ class ConsultaPresupuestoType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('consulta_filtro', ChoiceType::class,
+            ->add(
+                'consulta_filtro',
+                ChoiceType::class,
                 [
                     'choices' => [
                         'Área' => 'Área',
@@ -42,7 +44,8 @@ class ConsultaPresupuestoType extends AbstractType
                     'class' => 'select2',
                 ],
 
-            ])
+            ]
+            )
             ->add('costo_monetario', 'choice', [
                 'mapped' => false,
                  'choices' => [
@@ -126,14 +129,17 @@ class ConsultaPresupuestoType extends AbstractType
 
             ])
 
-            ->add('submit', SubmitType::class,
+            ->add(
+                'submit',
+                SubmitType::class,
                 [
                     'label' => 'Buscar',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
 
-                ])
+                ]
+            )
 
         ;
     }

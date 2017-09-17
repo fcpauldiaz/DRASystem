@@ -38,57 +38,63 @@ class UploadController extends Controller
         }
 
         $form = $this->createForm(
-        ExcelType::class);
+        ExcelType::class
+        );
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             //save excel
-        $data = $form->getData();
+            $data = $form->getData();
             $planilla = $data['excel'];
             $hoja = $data['hoja'];
             $hoja = $hoja - 1; //arreglar index.
-      $archivo = $planilla;
+            $archivo = $planilla;
             $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
             $worksheet = $phpExcelObject->getSheet($hoja);
             $this->validateClientExcel($worksheet);
         }
 
-        return $this->render('AppBundle:Excel:newClientes.html.twig',
+        return $this->render(
+            'AppBundle:Excel:newClientes.html.twig',
         [
             'form' => $form->createView(),
-        ]);
+        ]
+        );
     }
-  /**
-   * @Route("/excel/actividades", name ="excel_actividades")
-   * Método para subir excel de actividades
-   *
-   * @param Request $request
-   *
-   * @return Response
-   */
-  public function uploadActivitiesAction(Request $request)
-  {
-      $form = $this->createForm(
-        ExcelType::class);
+    /**
+     * @Route("/excel/actividades", name ="excel_actividades")
+     * Método para subir excel de actividades
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function uploadActivitiesAction(Request $request)
+    {
+        $form = $this->createForm(
+        ExcelType::class
+      );
 
-      $form->handleRequest($request);
-      if ($form->isValid()) {
-          //save excel
-      $data = $form->getData();
-          $planilla = $data['excel'];
-          $hoja = $data['hoja'];
-          $hoja = $hoja - 1; //arreglar index.
-      $archivo = $planilla;
-          $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
-          $worksheet = $phpExcelObject->getSheet($hoja);
-          $this->validateActividadExcel($worksheet);
-      }
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            //save excel
+            $data = $form->getData();
+            $planilla = $data['excel'];
+            $hoja = $data['hoja'];
+            $hoja = $hoja - 1; //arreglar index.
+            $archivo = $planilla;
+            $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
+            $worksheet = $phpExcelObject->getSheet($hoja);
+            $this->validateActividadExcel($worksheet);
+        }
 
-      return $this->render('AppBundle:Excel:newActividadExcel.html.twig',
+        return $this->render(
+          'AppBundle:Excel:newActividadExcel.html.twig',
     [
       'form' => $form->createView(),
-    ]);
-  }
+    ]
+      );
+    }
 
     private function validateActividadExcel($worksheet)
     {

@@ -59,8 +59,10 @@ class Consulta
      */
     private $usuario;
 
-    public function __construct($horas,
-        $horasPresupuesto, $costoTotal
+    public function __construct(
+        $horas,
+        $horasPresupuesto,
+        $costoTotal
         ) {
         $this->horasCalculadas = $horas;
         $this->horasPresupuesto = $horasPresupuesto;

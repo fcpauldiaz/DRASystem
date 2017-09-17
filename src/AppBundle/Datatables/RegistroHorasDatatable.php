@@ -23,12 +23,12 @@ class RegistroHorasDatatable extends AbstractDatatableView
             $fechaFinal = '';
         }
 
-       /* if ($this->ajax->options['']])) {
-            $fechaInicio = $this->ajax['url']['fechaInicio'];
-        }
-        if (array_key_exists('fechaFinal', $this->ajax['url'])){
-            $fechaInicio = $this->ajax['url']['fechaFinal'];
-        }*/
+        /* if ($this->ajax->options['']])) {
+             $fechaInicio = $this->ajax['url']['fechaInicio'];
+         }
+         if (array_key_exists('fechaFinal', $this->ajax['url'])){
+             $fechaInicio = $this->ajax['url']['fechaFinal'];
+         }*/
         $this->ajax->set(array(
             'url' => $this->router->generate('registrohoras_results', [
                 'user_id' => $user_id,

@@ -21,57 +21,57 @@ class AsignacionUsuariosController extends Controller
    *
    * @param  Request $request
    */
-  public function asginarUsuariosAction(Request $request)
-  {
-      $form = $this->createForm(new AsignacionType($this->getUser()));
+    public function asginarUsuariosAction(Request $request)
+    {
+        $form = $this->createForm(new AsignacionType($this->getUser()));
 
-      $form->handleRequest($request);
-      if ($form->isValid()) {
-          $em = $this->getDoctrine()->getManager();
-          $data = $form->getData();
-          $usuarios = $data['usuarios'];
-          $usuarioAsignar = $data['usuarioAsignar'];
-          //revisar que no esté ya asignado
-          $revisionUsuarios = $usuarioAsignar->getMisUsuariosRelacionados()->toArray();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $usuarios = $data['usuarios'];
+            $usuarioAsignar = $data['usuarioAsignar'];
+            //revisar que no esté ya asignado
+            $revisionUsuarios = $usuarioAsignar->getMisUsuariosRelacionados()->toArray();
 
-          foreach ($usuarios->toArray() as $usuario) {
-              foreach ($revisionUsuarios as $revision) {
-                  if ($revision->getUsuarioPertenece() === $usuario) {
-                      $this->addFlash('error', 'El usuario ya estaba asignado');
+            foreach ($usuarios->toArray() as $usuario) {
+                foreach ($revisionUsuarios as $revision) {
+                    if ($revision->getUsuarioPertenece() === $usuario) {
+                        $this->addFlash('error', 'El usuario ya estaba asignado');
 
-                      return $this->redirectToRoute('asignar_usuarios');
-                  }
-              }
-          }
-          foreach ($usuarios as $usuario) {
-              $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);
-              $em->persist($relacion);
-          }
-          $em->flush();
-          $this->addFlash('success', 'Se ha guardado la asginación exitosamente');
+                        return $this->redirectToRoute('asignar_usuarios');
+                    }
+                }
+            }
+            foreach ($usuarios as $usuario) {
+                $relacion = new UsuarioRelacionado($usuarioAsignar, $usuario);
+                $em->persist($relacion);
+            }
+            $em->flush();
+            $this->addFlash('success', 'Se ha guardado la asginación exitosamente');
 
-          $form = $this->createForm(new AsignacionType($this->getUser()));
+            $form = $this->createForm(new AsignacionType($this->getUser()));
 
-          return $this->redirectToRoute('asignar_usuarios');
-      }
-      return $this->render('AppBundle:Asignacion:newAsignacion.html.twig', [
+            return $this->redirectToRoute('asignar_usuarios');
+        }
+        return $this->render('AppBundle:Asignacion:newAsignacion.html.twig', [
       'form' => $form->createView(),
       'usuariosAsignados' => $this->getUser()->getMisusuariosRelacionados(),
     ]);
-  }
-  /**
-   * @Route("remover/usuario/{usuarioRemover}/{usuarioPertenece}", name="remover_usuario")
-   *
-   * @param  Request $request
-   */
-  public function removerUsuarioAction($usuarioRemover,  $usuarioPertenece)
-  {
-      $em = $this->getDoctrine()->getManager();
-      $relacion = $em->getRepository('UserBundle:UsuarioRelacionado')
+    }
+    /**
+     * @Route("remover/usuario/{usuarioRemover}/{usuarioPertenece}", name="remover_usuario")
+     *
+     * @param  Request $request
+     */
+    public function removerUsuarioAction($usuarioRemover, $usuarioPertenece)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $relacion = $em->getRepository('UserBundle:UsuarioRelacionado')
                   ->findOneBy(['usr' => $usuarioRemover, 'usuarioPertenece' => $usuarioPertenece]);
-      $em->remove($relacion);
-      $em->flush();
+        $em->remove($relacion);
+        $em->flush();
 
-      return $this->redirectToRoute('asignar_usuarios');
-  }
+        return $this->redirectToRoute('asignar_usuarios');
+    }
 }

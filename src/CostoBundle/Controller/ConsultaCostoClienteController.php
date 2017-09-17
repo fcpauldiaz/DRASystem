@@ -27,7 +27,8 @@ class ConsultaCostoClienteController extends Controller
     public function consultaClienteAction(Request $request)
     {
         $form = $this->createForm(
-            ConsultaCostoClienteType::class);
+            ConsultaCostoClienteType::class
+        );
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(
@@ -89,7 +90,7 @@ class ConsultaCostoClienteController extends Controller
         //buscar presupesto en estas fechas
         //buscar registro horas en estas fechas
 
-       return $this->render(
+        return $this->render(
             'CostoBundle:ConsultaCliente:consultaCliente.html.twig',
             [
                 'verificador' => false,

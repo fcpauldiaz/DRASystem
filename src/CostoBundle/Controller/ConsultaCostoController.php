@@ -33,7 +33,8 @@ class ConsultaCostoController extends Controller
         }
 
         $form = $this->createForm(
-            ConsultaPresupuestoType::class);
+            ConsultaPresupuestoType::class
+        );
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
@@ -759,7 +760,6 @@ class ConsultaCostoController extends Controller
     {
         $cantidadHorasPorUsuario = 0;
         foreach ($registros as $registro) {
-            
             $cantidadHorasPorUsuario += $registro->getHorasPresupuestadas();
         }
 
