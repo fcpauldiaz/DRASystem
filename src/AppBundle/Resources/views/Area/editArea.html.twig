@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block link %}
+    <li><a href="{{path('homepage')}}"><i class="fa fa-link"></i>Dashboard</a></li>
+     <li><a href="{{path('actividad')}}"><i class="fa fa-link"></i>Lista Actividades</a></li>
+    <li class="active">Editar Área</li>
+{% endblock %}
+
+
+{% block title %}
+    Editar Área
+{% endblock %}
+
+{% block body -%}
+	<br>
+    <h1>Editar Área</h1>
+
+    {{ form(edit_form) }}
+
+    <ul class="record_actions">
+        <li>
+            <a class="btn btn-default" href="{{ path('area') }}">
+                Ver todas las áreas
+            </a>
+        </li>
+    </ul>
+{% endblock %}

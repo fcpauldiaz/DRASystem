@@ -69,10 +69,11 @@ class Area
      */
     private $departamento;
 
-    public function __construct($nombre)
+    public function __construct($nombre = '')
     {
         $this->nombre = $nombre;
     }
+
 
     /**
      * Get id.

@@ -84,6 +84,10 @@
             {% if is_granted('ROLE_VER_ACTIVIDADES') and app.user %}
                <li><a href="{{ path('actividad')}}">Ver Actividades</a></li>
             {% endif %}
+             {% if is_granted('ROLE_CREAR_ACTIVIDADES') and app.user %}
+               <li><a href="{{ path('area_new')}}">Crear Nueva Área</a></li>
+               <li><a href="{{ path('area')}}">Ver Áreas</a></li>
+            {% endif %}
           </ul>
         </li>
         {% endif %}

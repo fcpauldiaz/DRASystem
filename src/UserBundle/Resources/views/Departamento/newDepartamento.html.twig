@@ -6,25 +6,26 @@
     {{ form_start(form) }}
     {{ form_row(form.nombreDepartamento) }}
     {{ form_row(form.descripcion) }}
-	 <div class="row">
-        <div class="col-sm-6 col-md-6">
-          <div class="form-group">
-            {{form_row(form.submitAndSave)}}
-          </div>
+	   <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+               {{form_row(form.submitAndSave)}}
+            </div>
         </div>
-       
-        <div class="col-sm-6 col-md-6">
-          <div class="form-group">
-            {{form_row(form.submit)}}
-          </div>
+       <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+                {{form_row(form.submit)}}
+            </div>
         </div>
-      </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="form-group">
+             <a class="btn btn-default btn-block" href="{{ path('departamento') }}">
+	       		Mostrar todos los departamentos
+		      	</a>
+            </div>
+        </div>
+    </div>
 	{{ form_end(form) }}
-        <ul class="record_actions">
-    <li>
-        <a class="btn btn-info" href="{{ path('departamento') }}">
-            Mostrar todos los departamentos
-        </a>
-    </li>
-</ul>
+  <br>
+  <br>
 {% endblock %}
