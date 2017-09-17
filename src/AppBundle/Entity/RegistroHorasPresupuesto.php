@@ -304,31 +304,6 @@ class RegistroHorasPresupuesto
         return $this->actividad;
     }
 
-<<<<<<< HEAD
-     /**
-      * Set usuario.
-      *
-      * @param \UserBundle\Entity\Usuario $usuario
-      *
-      * @return RegistroHorasPresupuesto
-      */
-     public function setUsuario(\UserBundle\Entity\Usuario $usuario = null)
-     {
-         $this->usuario = $usuario;
-
-         return $this;
-     }
-
-     /**
-      * Get usuario.
-      *
-      * @return \UserBundle\Entity\Usuario
-      */
-     public function getUsuario()
-     {
-         return $this->usuario;
-     }
-=======
     /**
      * Set usuario
      *
@@ -352,5 +327,4 @@ class RegistroHorasPresupuesto
     {
         return $this->usuario;
     }
->>>>>>> dev
 }
