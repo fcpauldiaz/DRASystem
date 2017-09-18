@@ -115,7 +115,7 @@ class RegistroHorasDatatable extends AbstractDatatableView
             ))
             ->add('horasInvertidas', 'column', array(
                 'title' => 'Horas Invertidas',
-                'editable' => true,
+                'editable' => false,
             ))
             ->add('horasExtraordinarias', 'boolean', array(
                 'title' => 'Horas Extraordinarias',
