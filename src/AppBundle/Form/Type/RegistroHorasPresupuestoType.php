@@ -41,8 +41,8 @@ class RegistroHorasPresupuestoType extends AbstractType
              ->add('actividad', 'entity', [
                 'class' => 'AppBundle:Actividad',
                 'required' => true,
-                'label' => 'Área',
-                'empty_value' => 'Seleccionar área a presupuestar',
+                'label' => 'Actividad',
+                'empty_value' => 'Seleccionar actividad a presupuestar',
                 'attr' => [
                     'class' => 'select2',
                 ],
