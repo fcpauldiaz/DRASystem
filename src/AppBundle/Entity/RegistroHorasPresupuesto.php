@@ -30,10 +30,10 @@ class RegistroHorasPresupuesto
     private $horasPresupuestadas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Actividad")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $actividad;
+    private $area;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente")
@@ -279,31 +279,6 @@ class RegistroHorasPresupuesto
         return 'P'.$this->getId();
     }
 
-
-    /**
-     * Set actividad
-     *
-     * @param \AppBundle\Entity\Actividad $actividad
-     *
-     * @return RegistroHorasPresupuesto
-     */
-    public function setActividad(\AppBundle\Entity\Actividad $actividad = null)
-    {
-        $this->actividad = $actividad;
-
-        return $this;
-    }
-
-    /**
-     * Get actividad
-     *
-     * @return \AppBundle\Entity\Actividad
-     */
-    public function getActividad()
-    {
-        return $this->actividad;
-    }
-
     /**
      * Set usuario
      *
@@ -326,5 +301,29 @@ class RegistroHorasPresupuesto
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set area
+     *
+     * @param \AppBundle\Entity\Area $area
+     *
+     * @return RegistroHorasPresupuesto
+     */
+    public function setArea(\AppBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \AppBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
     }
 }
