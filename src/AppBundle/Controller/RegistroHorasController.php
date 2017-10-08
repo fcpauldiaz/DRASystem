@@ -64,9 +64,9 @@ class RegistroHorasController extends Controller
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
             $usuario = $data->getIngresadoPor();
-            if ($usuario->hasRole('ROLE_APROBACION_HORAS_AUTOMATICO')) {
-                $entity->setAprobado(true);
-            }
+
+            $entity->setAprobado(true);
+
             $horasActividad = $data->getHorasActividad();
             $entities = [];
             foreach ($horasActividad as $registro) {
