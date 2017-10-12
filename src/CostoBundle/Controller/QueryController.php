@@ -66,7 +66,7 @@ class QueryController extends Controller
     {
         $horasPresupuesto = 0;
         foreach ($registrosPresupuesto as $presupuesto) {
-            if ($presupuesto->getActividad() == $actividad) {
+            if ($presupuesto->getArea() == $area) {
                 $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
             }
         }
@@ -82,10 +82,10 @@ class QueryController extends Controller
      */
     public function buscarUsuariosPorSocioAction($usuario)
     {
-        $sql = ' 
-            SELECT u1.id 
+        $sql = '
+            SELECT u1.id
             FROM usuario u1
-            WHERE u1.id in 
+            WHERE u1.id in
             (
                 SELECT r1.usuario_pertenece_id
                 FROM usuario u
