@@ -18,8 +18,8 @@
                 <td>{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
             </tr>
              <tr>
-                <th>Actividad</th>
-                <td>{{ entity.actividad }}</td>
+                <th>Área</th>
+                <td>{{ entity.area }}</td>
             </tr>
               <tr>
                 <th>Cliente</th>
@@ -48,9 +48,9 @@
        {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
         <div class="cols-xs-12 col-sm-12 col-md-6">
             <button id="inside-confirm" class="btn btn-danger btn-block">Eliminar</button>
-       
+
            <div class="modal">
-                {{form(delete_form, {'name':'time'})}}  
+                {{form(delete_form, {'name':'time'})}}
             </div>
         </div>
         {% endif %}

@@ -91,6 +91,7 @@ class ConsultaSocioType extends AbstractType
                 'label' => 'Escoja tipo de consulta',
                 'attr' => [
                     'help_text' => 'La consulta puede ser por el proyecto de presupuesto o por cada usuario relacionado',
+                    'class' => 'select2'
                 ],
                 'required' => true,
                 // always include this

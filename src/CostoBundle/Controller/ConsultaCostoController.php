@@ -67,6 +67,10 @@ class ConsultaCostoController extends Controller
         if ($consultaFiltro == 'Cliente') {
             return $this->consultaPorClientesAction($proyecto, $form);
         }
+        // filtar por Area
+        if ($consultaFiltro == 'Área') {
+            return $this->consultaPorAreaAction($proyecto, $form);
+        }
 
         //nunca debería llegar aquí
         throw $this->createNotFoundException('Ha seleccionado un parámetro inexistente de búsqueda');
@@ -122,10 +126,10 @@ class ConsultaCostoController extends Controller
     {
         //Obtener todos los registros de presupuesto de un proyecto
         $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
-        
+
         //Array de entidad Consulta Usuario
         $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form);
-        
+
         $honorarios = $proyecto->getHonorarios();
 
         $fechaInicio = 'not defined';
@@ -197,7 +201,7 @@ class ConsultaCostoController extends Controller
      *
      * @return Response
      */
-    public function consultaPorActividadAction($proyecto, $form)
+    public function consultaPorAreaAction($proyecto, $form)
     {
         if (isset($proyecto)) {
             //obtener los registros de presupuesto de un proyecto presupuesto
@@ -230,6 +234,8 @@ class ConsultaCostoController extends Controller
                 ]
             );
     }
+
+
 
     /**
      * Muestra el detalle de una consulta por usuario.
@@ -347,7 +353,7 @@ class ConsultaCostoController extends Controller
             ->getManager()
             ->getRepository('AppBundle:RegistroHorasPresupuesto')
             ->findByProyecto($proyecto);
-        
+
         $actividades = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Actividad')
@@ -359,7 +365,7 @@ class ConsultaCostoController extends Controller
             ->findByRegistrosPresupuesto($registroPresupuesto);
 
         $actividades = $this->completarActividades($actividades, $verificadorActividades);
-        
+
         //sería mas intuitivo hacer el outer cycle
         //por las actividades en un proyecto.
         foreach ($actividades as $actividad) {
@@ -371,16 +377,16 @@ class ConsultaCostoController extends Controller
             //presupuesto y los filtro por actividad
 
             $arrayCostos = $this->calcularHorasPorActividad($registros, $actividad, $form);
-            
+
             $horas = $arrayCostos[0];
             $costo = $arrayCostos[1];
-            
+
             $horasPresupuestadas = $this
                 ->getDoctrine()
                 ->getRepository('AppBundle:RegistroHorasPresupuesto')
                 ->calcularHorasPresupuestoPorActividad($proyecto, $actividad);
-            
-            
+
+
             $costoPresupuesto = $arrayCostos[2];
             $costoPresupuesto = $costoPresupuesto * $horasPresupuestadas;
             $consultaActividad = new ConsultaActividad(
@@ -390,7 +396,7 @@ class ConsultaCostoController extends Controller
                 $costo,
                 $costoPresupuesto
             );
-            
+
             $consultaActividad->setPresupuestoId($proyecto->getId());
             $consultaActividad->calcularDiferencia();
             $returnArray[] = $consultaActividad;
@@ -411,8 +417,8 @@ class ConsultaCostoController extends Controller
     {
         $data = $form->getData();
         $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
-        
-       
+
+
         $registros = $this
             ->getDoctrine()
             ->getManager()
@@ -431,7 +437,7 @@ class ConsultaCostoController extends Controller
                 ->getRepository('CostoBundle:Costo')
                 ->findByFechaAndUsuario($data['fechaInicio'], $data['fechaFinal'], $usuario);
             $costoPorHora = $costoPorHora['costo'];
-           
+
             $costoTotal = $this->calcularCostoMonetarioPorUsuario($horas, $costoPorHora);
 
             $consultaUsuario = new ConsultaUsuario(

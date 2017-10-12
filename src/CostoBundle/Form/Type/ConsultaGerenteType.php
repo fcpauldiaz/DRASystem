@@ -66,6 +66,9 @@ class ConsultaGerenteType extends AbstractType
               ->add('gerente', 'entity', [
                 'required' => false,
                 'label' => 'Gerentes',
+                'attr' => [
+                  'class' => 'select2'
+                ],
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                     return $er->createQueryBuilder('usuario')
@@ -102,6 +105,7 @@ class ConsultaGerenteType extends AbstractType
                 'label' => 'Escoja tipo de consulta',
                 'attr' => [
                     'help_text' => 'La consulta puede ser por el proyecto de presupuesto o por cada usuario relacionado',
+                    'class' => 'select2'
                 ],
                 'required' => true,
                 // always include this
