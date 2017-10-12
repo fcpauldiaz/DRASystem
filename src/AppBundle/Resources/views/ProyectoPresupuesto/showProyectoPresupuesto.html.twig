@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block javascriptDataTables %}
-    
+
     <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
@@ -34,6 +34,10 @@
                 <th>Honorarios</th>
                 <td>{{ entity.honorarios }}</td>
             </tr>
+            <tr>
+                <th>Estado</th>
+                <td>{{ entity.estado }}</td>
+            </tr>
             {% set contador = 0 %}
             {% for presupuesto in entity.presupuestoIndividual %}
              <tr>
@@ -47,23 +51,22 @@
            {% endfor %}
         </tbody>
     </table>
-   
+
     <div class="row">
-         {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
+       {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') and entity.estado != 'FINALIZADO' %}
+        <div class="cols-xs-12 col-sm-12 col-md-6">
+            <a  class="btn btn-primary btn-block" href="{{ path('proyectopresupuesto_state', { 'id': entity.id }) }}">Marcar Finalizado</a>
+        </div>
+        {% endif %}
+         {% if is_granted('ROLE_EDITAR_PRESUPUESTO') and entity.estado != 'FINALIZADO' %}
         <div class="col-xs-12 col-sm-12 col-md-6">
             <a class="btn btn-warning btn-block" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">
                 Editar
             </a>
         </div>
          {% endif %}
-        {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
-        <div class="cols-xs-12 col-sm-12 col-md-6">
-            <button id="simple-confirm" class="btn btn-danger btn-block">Eliminar</button>
-                {{ form(delete_form) }}
-        </div>
-        {% endif %}
     </div>
-   
+
 {% set contador = 0 %}
 {% for presupuesto in entity.presupuestoIndividual %}
     {% include 'AppBundle:ProyectoPresupuesto:modal_showProyectoPresupuesto.html.twig' %}

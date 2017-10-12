@@ -53,6 +53,15 @@ class ProyectoPresupuesto
      *      )
      */
     private $clientes;
+
+    /**
+     * Estado del Presupesto
+     *
+     * @var float
+     * @ORM\Column(name="estado", type="string")
+     */
+    private $estado;
+
     /**
      * Fecha de creacion.
      *
@@ -91,6 +100,7 @@ class ProyectoPresupuesto
     {
         $this->presupuestoIndividual = new ArrayCollection();
         $this->clientes = new ArrayCollection();
+        $this->estado = 'INICIALIZADO';
     }
     /**
      * Get id.
@@ -305,6 +315,14 @@ class ProyectoPresupuesto
         $this->clientes->removeElement($cliente);
     }
 
+    public function finalizeState() {
+        $this->estado = 'FINALIZADO';
+    }
+
+    public function revisionState() {
+        $this->estado = 'REVISION';
+    }
+
     /**
      * Get clientes.
      *
@@ -318,5 +336,29 @@ class ProyectoPresupuesto
     public function __toString()
     {
         return $this->nombrePresupuesto;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }

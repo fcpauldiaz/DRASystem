@@ -6,11 +6,12 @@
 {% endblock %}
 
 {% block title %}
-    Listado Presupuestos    
+    Listado Presupuestos
 {% endblock %}
 
+
 {% block javascriptDataTables %}
-    
+
     <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
@@ -24,7 +25,8 @@
         <thead>
             <tr>
                 <th>Nombre Proyecto Presupuesto</th>
-                <th>Cantidad registros de presupuesto </th>
+                <th>Cantidad registros</th>
+                <th>Estado del Presupuesto</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -33,12 +35,13 @@
             <tr>
                 <td>{{entity.nombrePresupuesto}}</td>
                 <td>{{ entity.presupuestoIndividual | length}}
+                <td>{{ entity.estado }}</td>
                 <td>
                 <ul>
                     <li>
                         <a class="btn btn-info btn-xs" href="{{ path('proyectopresupuesto_show', { 'id': entity.id }) }}">Mostrar</a>
                     </li>
-                    {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
+                    {% if is_granted('ROLE_EDITAR_PRESUPUESTO') and entity.estado != 'FINALIZADO' %}
                         <li>
                             <a class="btn btn-warning btn-xs" href="{{ path('proyectopresupuesto_edit', { 'id': entity.id }) }}">Editar</a>
                         </li>
@@ -53,5 +56,5 @@
     <a class="btn btn-default btn-block" href="{{ path('proyectopresupuesto_new') }}">
         Crear nuevo registro
     </a>
-      
+
     {% endblock %}

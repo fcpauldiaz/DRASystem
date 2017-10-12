@@ -85,6 +85,29 @@ class ProyectoPresupuestoController extends Controller
         );
     }
 
+     /**
+     * Change the state to finalized of a Presupuesto entity;
+     *
+     * @Route("/state/{id}", name="proyectopresupuesto_state")
+     * @Method("GET")
+     **/
+    public function chageStateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:ProyectoPresupuesto')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ProyectoPresupuesto entity.');
+        }
+        $entity->finalizeState();
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('proyectopresupuesto_show', array('id' => $id)));
+
+    }
+
     /**
      * Creates a form to create a ProyectoPresupuesto entity.
      *
@@ -177,11 +200,16 @@ class ProyectoPresupuestoController extends Controller
             throw $this->createNotFoundException('Unable to find ProyectoPresupuesto entity.');
         }
 
+        if ($entity->getEstado() === 'FINALIZADO') {
+            throw $this->createNotFoundException('Trying to edit finalized ProyectoPresupuesto Entity.');
+        }
+
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity' => $entity,
+            'editable' => $entity->getEstado() === 'FINALIZADO' ? false: true,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -200,8 +228,9 @@ class ProyectoPresupuestoController extends Controller
             'action' => $this->generateUrl('proyectopresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        if ($entity->getEstado() !== 'FINALIZADO') {
+            $form->add('submit', 'submit', array('label' => 'Update'));
+        }
 
         return $form;
     }
