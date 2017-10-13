@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block javascriptDataTables %}
-    
+
     <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
@@ -38,7 +38,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-               
+
                 <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ entity.horasInvertidas }}</td>
                 <td>{{ entity.cliente }} </td>
@@ -55,24 +55,19 @@
                         <li>
                             <a class="btn btn-xs btn-info" href="{{ path('registrohoras_show', { 'id': entity.id }) }}">Mostrar</a>
                         </li>
-                        {% if is_granted('ROLE_EDITAR_HORAS') %}
-                        <li>
-                            <a class="btn btn-xs btn-warning" href="{{ path('registrohoras_edit', { 'id': entity.id }) }}">Editar</a>
-                        </li>
-                        {% endif %}
                     </ul>
                 </td>
-           
+
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        
+
     <a class="btn btn-default btn-block" href="{{ path('registrohoras_new') }}">
        Crear nuevo registro
     </a>
     <br>
     <br>
-  
+
     {% endblock %}

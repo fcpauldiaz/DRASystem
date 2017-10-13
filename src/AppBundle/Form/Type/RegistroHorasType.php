@@ -79,7 +79,8 @@ class RegistroHorasType extends AbstractType
                 ],
                 'label' => 'Horas realizadas por',
                  'attr' => [
-                    'class' => 'select2',
+                    'class' => 'select2 disabled',
+                    'disabled' => 'disabled'
                 ],
 
             ])
