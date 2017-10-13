@@ -141,12 +141,12 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Finds and displays a RegistroHorasPresupuesto entity.
      *
-     * @Route("/{id}", name="horaspresupuesto_show_plain")
+     * @Route("/{id}/{state}", name="horaspresupuesto_show_plain")
      * @Method("GET")
      * @Security("is_granted('ROLE_VER_PRESUPUESTOS')")
      * @Template("AppBundle:RegistroHorasPresupuesto:showRegistroHorasPresupuestoPlain.html.twig")
      */
-    public function showPlainAction($id)
+    public function showPlainAction($id, $state)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -160,6 +160,7 @@ class RegistroHorasPresupuestoController extends Controller
 
         return array(
             'entity' => $entity,
+            'state' => $state,
             'delete_form' => $deleteForm->createView(),
         );
     }

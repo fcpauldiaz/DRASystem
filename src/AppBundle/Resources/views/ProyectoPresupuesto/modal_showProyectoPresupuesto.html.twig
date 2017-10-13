@@ -7,7 +7,7 @@
         <h4 class="modal-title" id="labelTipoDocumento">Registro de Horas de Presupuesto</h4>
       </div>
       <div class="modal-body">
-        {{ render(controller('AppBundle:RegistroHorasPresupuesto:showPlain',{ 'id': presupuesto.id })) }}
+        {{ render(controller('AppBundle:RegistroHorasPresupuesto:showPlain',{ 'id': presupuesto.id, 'state': entity.estado })) }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
