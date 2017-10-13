@@ -66,13 +66,29 @@ class QueryController extends Controller
     {
         $horasPresupuesto = 0;
         foreach ($registrosPresupuesto as $presupuesto) {
-            if ($presupuesto->getArea() == $area) {
+            $actividades = $this->getActividadesPorArea($area->getId());
+            foreach($actividades as $innerActividad) {
+                if ($innerActividad== $actividad) {
                 $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+                }
             }
         }
 
         return $horasPresupuesto;
     }
+
+    private function getActividadesPorArea($idArea) {
+        $qb = $this->createQueryBuilder('a');
+        $qb
+            ->select('a')
+            ->from('AppBundle:Actividad', 'a')
+            ->innerJoin('AppBundle:Area', 'r', 'with', 'r.id = a.area_id')
+            ->where('r.id = (:id_area)')
+            ->setParameter('id_area', $idArea);
+
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * Método para buscar los usuarios relacionados.
      *

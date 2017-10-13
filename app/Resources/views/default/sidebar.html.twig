@@ -69,6 +69,21 @@
           </ul>
         </li>
         {% endif %}
+        {% if not is_granted('ROLE_CREAR_PRESUPUESTOS') and  is_granted('ROLE_CREAR_PRESUPUESTOS') %}
+        <!--Registro Presupuestos -->
+          <li class="treeview">
+          <a href="#"><i class="fa fa-money"></i> <span>Horas Presupuestadas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+             {% if not is_granted('ROLE_CREAR_PRESUPUESTOS') and  is_granted('ROLE_CREAR_PRESUPUESTOS') %}
+                <li><a href="{{ path('registrohoraspresupuesto')}}">Ver Mis Horas Presupuestadas</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        {% endif %}
         {%  if is_granted('ROLE_CREAR_ACTIVIDADES') or is_granted('ROLE_VER_ACTIVIDADES') %}
         <!--Acitividades -->
           <li class="treeview">

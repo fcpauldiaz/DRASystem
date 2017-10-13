@@ -33,7 +33,9 @@ class RegistroHorasPresupuestoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findAll();
+        $user = $this->getUser();
+        $entities = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findBy(['usuario' => $user]);
+
 
         return array(
             'entities' => $entities,
