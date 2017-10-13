@@ -33,8 +33,9 @@ class RegistroHorasController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $entities = $em->getRepository('AppBundle:RegistroHoras')->findBy(['ingresadoPor' => $usuario]);
 
-        $entities = $em->getRepository('AppBundle:RegistroHoras')->findAll();
 
         return array(
             'entities' => $entities,
