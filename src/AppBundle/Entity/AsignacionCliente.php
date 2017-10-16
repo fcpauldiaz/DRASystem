@@ -25,6 +25,7 @@ class AsignacionCliente
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="usuarioAsignados" ,cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $cliente;
 
