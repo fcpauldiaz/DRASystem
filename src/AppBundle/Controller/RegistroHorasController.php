@@ -34,8 +34,16 @@ class RegistroHorasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
-        $entities = $em->getRepository('AppBundle:RegistroHoras')->findBy(['ingresadoPor' => $usuario]);
 
+
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio" && $this->isGranted('ROLE_ADMIN')) {
+            $entities = $em->getRepository('AppBundle:RegistroHoras')->findAll();
+        } else {
+            $entities = $em->getRepository('AppBundle:RegistroHoras')->findBy(['ingresadoPor' => $usuario]);
+        }
 
         return array(
             'entities' => $entities,

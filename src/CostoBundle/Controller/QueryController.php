@@ -51,7 +51,7 @@ class QueryController extends Controller
         foreach ($registros as $registro) {
             $proyecto = $registro->getProyectoPresupuesto();
             //condición para no usar los honorarios de un mismo proyecto.
-            if (!$proyectosAcum->contains($proyecto)) {
+            if (!$proyectosAcum->contains($proyecto) && !is_null($proyecto)) {
                 $honorarios += $proyecto->getHonorarios();
             }
             //se agrega el proyecto ya analizado
