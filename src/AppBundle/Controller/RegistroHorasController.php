@@ -72,7 +72,7 @@ class RegistroHorasController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
-            $usuario = $data->getIngresadoPor();
+            $user = $data->getIngresadoPor();
 
             $entity->setAprobado(true);
 
@@ -84,7 +84,7 @@ class RegistroHorasController extends Controller
                 $entity->setHorasInvertidas($registro['horasInvertidas']);
                 $entity->setActividad($registro['actividad']);
                 $entity->setCliente($data->getCliente());
-                $entity->setIngresadoPor($data->getIngresadoPor());
+                $entity->setIngresadoPor($usuario);
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
                 $entity->setHorasExtraordinarias($registro['horasExtraordinarias']);
