@@ -48,7 +48,7 @@ class ClienteType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
-                'multiple' => true,
+                'multiple' => true
 
             ])
         ;

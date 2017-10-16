@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Cliente;
 use AppBundle\Form\Type\ClienteType;
+use AppBundle\Form\Type\ClienteEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\AsignacionCliente;
 
@@ -254,10 +255,24 @@ class ClienteController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            //modificar asignacion
+            $usuarios = $editForm->getData()->getUsuarioAsignados();
+            $copyUsuarios = clone $usuarios;
+            $editForm->getData()->clearUsuarios();
+
+            foreach ($copyUsuarios as $usuario) {
+                $asignacion = new AsignacionCliente($usuario, $entity);
+
+                $em->persist($asignacion);
+                $editForm->getData()->addUsuarioAsignado($asignacion);
+            }
+
+            $em->persist($entity);
             $em->flush();
 
+            $this->addFlash('success', 'El cliente ha sido actualizado exitosamente');
             return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
         }
 
