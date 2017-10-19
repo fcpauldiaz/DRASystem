@@ -60,11 +60,11 @@ class ConsultaCostoClienteController extends Controller
                 ->getRepository('CostoBundle:Costo')
                 ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
             $costoTotal = $horas * $costo['costo'];
-            $area = $registro->getArea();
+            $actividad = $registro->getActividad();
 
             $horasPresupuesto = $this
                 ->get('consulta.query_controller')
-                ->calcularHorasPresupuestoAction($registrosPresupuesto, $area);
+                ->calcularHorasPresupuestoAction($registrosPresupuesto, $actividad);
 
             $costoPresupuesto = $horasPresupuesto * $costo['costo'];
 

@@ -31,7 +31,7 @@
                 <th>Horas Invertidas</th>
                 <th>Cliente </th>
                 <th>Realizadas por </th>
-                <th>Aprobadas </th>
+                <th>Presupuesto </th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -43,13 +43,7 @@
                 <td>{{ entity.horasInvertidas }}</td>
                 <td>{{ entity.cliente }} </td>
                 <td>{{ entity.ingresadoPor }} </td>
-                <td>
-                    {% if entity.aprobado %}
-                        <a class="btn btn-sm btn-primary">Sí</a>
-                    {% else %}
-                        <a class="btn btn-sm btn-danger">No</a>
-                    {% endif %}
-                </td>
+                <td>{{ entity.proyectoPresupuesto }}</td>
                 <td>
                     <ul>
                         <li>
