@@ -49,7 +49,7 @@
 {% endblock %}
 {% block javascriptDataTables %}
     {{ form_javascript(form) }}
-  <script src = {{asset('js/datatables/dataTablesHoras.js')}}>
+  <script src = {{asset('js/datatables/dataTablesHorasPresupuesto.js')}}>
   </script>
 {% endblock %}
 
@@ -67,11 +67,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       {{form_row(form.consulta_filtro)}}
-    </div>
-    <div class="col-md-6">
-      {{form_row(form.horas_extraordinarias)}}
     </div>
   </div>
   <div class="row">
@@ -101,30 +98,21 @@
           <thead>
             <tr>
                 <th>Fecha</th>
-                <th>Horas Invertidas</th>
+                <th>Horas Presupuestadas</th>
                 <th>Cliente </th>
-                <th>Realizadas por </th>
+                <th>Usuario </th>
                 <th>Presupuesto </th>
-                <th>Horas Extraordinarias</th>
             </tr>
         </thead>
           <tbody>
 
               {% for entity in registros %}
               <tr>
-                <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
-                <td>{{ entity.horasInvertidas }}</td>
+                 <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('d-m-Y') }}{% endif %}</td>
+                <td>{{ entity.horasPresupuestadas }}</td>
                 <td>{{ entity.cliente }} </td>
-                <td>{{ entity.ingresadoPor }} </td>
-                <td>{{ entity.proyectoPresupuesto }}</td>
-                <td>
-                    {% if entity.horasExtraordinarias == true %}
-                    Sí
-                    {% else %}
-                    No
-                    {% endif %}
-                </td>
-
+                <td>{{ entity.usuario }} </td>
+                <td>{{ entity.proyecto }}</td>
               </tr>
               {% endfor %}
 

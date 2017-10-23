@@ -78,4 +78,71 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHoras', 'registro')
+            ->Where('registro.fechaCreacion >= :fechaInicio')
+            ->andWhere('registro.fechaCreacion <= :fechaFinal')
+            ->andWhere('registro.usuario = :usuario')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('usuario', $usuario);
+
+        return $qb->getQuery()->getResult();
+    }
+    public function findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
+            ->Where('registro.fechaCreacion >= :fechaInicio')
+            ->andWhere('registro.fechaCreacion <= :fechaFinal')
+            ->andWhere('registro.ingresadoPor = :usuario')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('usuario', $usuario);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
+            ->Where('registro.fechaCreacion >= :fechaInicio')
+            ->andWhere('registro.fechaCreacion <= :fechaFinal')
+            ->andWhere('registro.cliente = :cliente')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('cliente', $cliente);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
+            ->Where('registro.fechaCreacion >= :fechaInicio')
+            ->andWhere('registro.fechaCreacion <= :fechaFinal')
+            ->andWhere('registro.proyecto = :proyectoPresupuesto')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('proyectoPresupuesto', $presupuesto);
+
+        return $qb->getQuery()->getResult();
+    }
 }

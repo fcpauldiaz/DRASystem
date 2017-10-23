@@ -99,7 +99,7 @@ class RegistroHorasRepository extends EntityRepository
             ->andWhere('registro.horasExtraordinarias = :extra')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('proyectoPresupuesto', $presupesto)
+            ->setParameter('proyectoPresupuesto', $presupuesto)
             ->setParameter('extra', $extra);
 
         return $qb->getQuery()->getResult();
