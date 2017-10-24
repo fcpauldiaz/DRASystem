@@ -55,10 +55,16 @@ class ConsultaCostoClienteController extends Controller
             $cliente = $registro->getCliente();
             $horas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
             $usuario = $registro->getIngresadoPor();
-            $costo = $this->getDoctrine()
+
+            $first_date = date('m-01-Y', $registro->getFechaHoras()->getTimestamp());
+
+            $last_date = date('m-t-Y', $registro->getFechaHoras()->getTimestamp());
+
+            $costo = $this
+                ->getDoctrine()
                 ->getManager()
                 ->getRepository('CostoBundle:Costo')
-                ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
+                ->findByFechaAndUsuario($first_date, $last_date, $usuario);
             $costoTotal = $horas * $costo['costo'];
             $actividad = $registro->getActividad();
 

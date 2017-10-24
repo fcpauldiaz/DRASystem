@@ -352,8 +352,8 @@ class Cliente
 
     public function __toString()
     {
-        if ($this->nombreComercial !== null) {
-            return $this->nombreComercial;
+        if ($this->nombreComercial !== null && $this->serviciosPrestados !== null) {
+            return $this->nombreComercial .': '. $this->serviciosPrestados;
         }
 
         return $this->razonSocial;
