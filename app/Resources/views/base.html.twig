@@ -385,7 +385,7 @@
     </script>
     {% if app.user %}
       <script type="text/javascript">
-    window.JacoRecorder.identify('{% app.user.username %}');
+    window.JacoRecorder.identify('{{ app.user.username }}');
     </script>
     {% endif %}
       {% block javascripts %}
