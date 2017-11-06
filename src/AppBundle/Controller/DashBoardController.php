@@ -21,7 +21,7 @@ class DashBoardController extends Controller
     /**
      * @Route("/.well-known/acme-challenge/nZi0CwAnzY1q6flK--ADvFQ8xZ9FGChMG45mcTYRcq8", name="cert")
     */
-    public function indexAction(Request $request)
+    public function certAction(Request $request)
     {
       $file = 'key.txt';
       $response = new BinaryFileResponse($file);
