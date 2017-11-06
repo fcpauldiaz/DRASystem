@@ -19,6 +19,17 @@ class DashBoardController extends Controller
     }
 
     /**
+     * @Route("/.well-known/acme-challenge/nZi0CwAnzY1q6flK--ADvFQ8xZ9FGChMG45mcTYRcq8", name="cert")
+    */
+    public function certAction(Request $request)
+    {
+      $file = 'js/key.txt';
+      $response = new BinaryFileResponse($file);
+      $response->headers->set('Content-Type', 'text/plain');
+      return $response;
+
+    }
+    /**
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
