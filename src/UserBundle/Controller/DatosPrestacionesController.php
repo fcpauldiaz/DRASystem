@@ -52,7 +52,7 @@ class DatosPrestacionesController extends Controller
             ';
 
             $stmt = $em->getConnection()->prepare($sql);
-            $stmt->bindValue(1, 6);
+            $stmt->bindValue(1, $usuario-getId());
             $stmt->execute();
             $res = $stmt->fetchAll();
             $ids = [];
