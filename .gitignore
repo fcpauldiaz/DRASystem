@@ -10,3 +10,8 @@
 /bin/
 /composer.phar
 /node_modules/*
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
