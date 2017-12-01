@@ -101,21 +101,31 @@
                 <th>Horas Presupuestadas</th>
                 <th>Cliente </th>
                 <th>Usuario </th>
+                <th>Área </th>
                 <th>Presupuesto </th>
             </tr>
         </thead>
           <tbody>
-
+          {% set contador = 0 %}
               {% for entity in registros %}
               <tr>
                  <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('d-m-Y') }}{% endif %}</td>
                 <td>{{ entity.horasPresupuestadas }}</td>
+                {% set contador = contador + entity.horasPresupuestadas %}
                 <td>{{ entity.cliente }} </td>
                 <td>{{ entity.usuario }} </td>
+                <td>{{ entity.area }} </td>
                 <td>{{ entity.proyecto }}</td>
               </tr>
               {% endfor %}
-
+          <tr>
+            <td></td>
+            <td>{{ contador }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
           </tbody>
       </table>
   {% endif %}
