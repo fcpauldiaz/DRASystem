@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class RegistroHorasType extends AbstractType
 {
@@ -52,8 +53,12 @@ class RegistroHorasType extends AbstractType
                  'attr' => [
                     'class' => 'select2',
                 ],
+                'query_builder' => function (EntityRepository $er) {
+                  return $er->createQueryBuilder('cliente')
+                      ->orderBy('cliente.razonSocial', 'ASC');
+                },
 
-            ])
+                      ])
             ->add('horasActividad', 'bootstrap_collection', [
                     'type' => new RegistroActividadHorasType($this->usuario),
                     'label' => 'Registro de Actividad y Horas',
