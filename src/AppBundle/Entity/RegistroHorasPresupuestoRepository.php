@@ -104,7 +104,7 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
             ->Where('registro.fechaCreacion >= :fechaInicio')
             ->andWhere('registro.fechaCreacion <= :fechaFinal')
-            ->andWhere('registro.ingresadoPor = :usuario')
+            ->andWhere('registro.usuario = :usuario')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario);
