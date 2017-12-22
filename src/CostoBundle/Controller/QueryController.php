@@ -66,10 +66,13 @@ class QueryController extends Controller
     {
         $horasPresupuesto = 0;
         foreach ($registrosPresupuesto as $presupuesto) {
-            $actividades = $this->getActividadesPorArea($actividad->getArea()->getId());
-            foreach($actividades as $innerActividad) {
-                if ($innerActividad== $actividad) {
-                $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+            if (method_exists($actividad, 'getArea')){
+                $actividades = $this->getActividadesPorArea($actividad->getArea()->getId());
+
+                foreach($actividades as $innerActividad) {
+                    if ($innerActividad == $actividad) {
+                    $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+                    }
                 }
             }
         }
