@@ -47,6 +47,7 @@
                 <li><a href="{{ path('registrohoras_new')}}">Ingresar horas</a></li>
 
             {% if is_granted('ROLE_VER_LISTADO_GENERAL')%}
+                <li><a href="{{ path('horaspresupuesto')}}">Ver horas presupuestadas</a></li>
                 <li><a href="{{ path('registrohoras')}}">Ver registro de horas</a></li>
             {% endif %}
           </ul>
