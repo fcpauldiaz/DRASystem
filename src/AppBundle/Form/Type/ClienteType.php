@@ -3,29 +3,17 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
-use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Usuario;
 
 class ClienteType extends AbstractType
 {
-    private $em;
-    private $trabajadores;
-
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-        $entityTrabajadores = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
-        $trabajadores = [];
-        foreach ($entityTrabajadores as $trabajador) {
-            $trabajadores[$trabajador->__toString()] = $trabajador->__toString();
-        }
-        $this->trabajadores = $trabajadores;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -52,18 +40,18 @@ class ClienteType extends AbstractType
                 'required' => false,
                 'label' => 'Nombre Comercial (opcional)',
             ])
-            ->add('serviciosPrestados', 'textarea', [
+            ->add('serviciosPrestados', TextareaType::class, [
                 'label' => 'Servicios Prestados*',
                 'required' => true,
             ])
-            ->add('usuarioAsignado', 'choice', [
+            ->add('usuarioAsignados', EntityType::class, [
+                'class' => Usuario::class,
                 'label' => 'Usuario Asignado al cliente *',
                 'required' => true,
-                'choices_as_values' => false,
-                'choices' => $this->trabajadores,
                 'attr' => [
                     'class' => 'select2',
                 ],
+                'multiple' => true
 
             ])
         ;
@@ -72,7 +60,7 @@ class ClienteType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Cliente',
@@ -82,16 +70,16 @@ class ClienteType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_cliente';
     }
 
-     /* Validar que el NIT tenga guiones
-     *
-     * @param Array                     $data    contiene los datos del formulario
-     * @param ExecutionContextInterface $context
-     */
+    /* Validar que el NIT tenga guiones
+    *
+    * @param Array                     $data    contiene los datos del formulario
+    * @param ExecutionContextInterface $context
+    */
     public function validarNIT($nit, ExecutionContextInterface $context)
     {
         if (strpos($nit, '-') === false) {

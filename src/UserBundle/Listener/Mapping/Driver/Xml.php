@@ -2,8 +2,8 @@
 
 namespace UserBundle\Listener\Mapping\Driver;
 
-use Gedmo\Mapping\Driver\Xml as BaseXml;
 use Gedmo\Exception\InvalidMappingException;
+use Gedmo\Mapping\Driver\Xml as BaseXml;
 
 /**
  * This is a xml mapping driver for Blameable

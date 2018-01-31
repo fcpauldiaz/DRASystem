@@ -3,24 +3,19 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\UsuarioTrabajador;
 
 class DatosPrestacionesType extends AbstractType
 {
     private $usuario;
-
-    /**
-     * Constructor para cargar valor iniciales con el usuario logueado.
-     *
-     * @param UsuarioTrabajador $usuario
-     */
-    public function __construct($usuario)
-    {
-        $this->usuario = $usuario;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -28,8 +23,9 @@ class DatosPrestacionesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->usuario = $options['user'];
         $builder
-            ->add('sueldo', 'money', [
+            ->add('sueldo', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Sueldo*',
                 'attr' => [
@@ -39,7 +35,7 @@ class DatosPrestacionesType extends AbstractType
                 'grouping' => true,
 
             ])
-            ->add('bonificacionIncentivo', 'money', [
+            ->add('bonificacionIncentivo', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Bonificación Ley*',
                 'attr' => [
@@ -50,7 +46,7 @@ class DatosPrestacionesType extends AbstractType
                 'grouping' => true,
 
             ])
-            ->add('otraBonificacion', 'money', [
+            ->add('otraBonificacion', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Otra bonificación',
                 'attr' => [
@@ -60,7 +56,7 @@ class DatosPrestacionesType extends AbstractType
                 'required' => false,
                 'grouping' => true,
             ])
-            ->add('gasolina', 'money', [
+            ->add('gasolina', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Gasolina',
                 'attr' => [
@@ -71,7 +67,7 @@ class DatosPrestacionesType extends AbstractType
                 'grouping' => true,
             ])
 
-            ->add('otrasPrestaciones', 'money', [
+            ->add('otrasPrestaciones', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Otras prestaciones',
                 'attr' => [
@@ -80,7 +76,7 @@ class DatosPrestacionesType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('viaticos', 'money', [
+            ->add('viaticos', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Viáticos',
                 'attr' => [
@@ -89,7 +85,7 @@ class DatosPrestacionesType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('otros', 'money', [
+            ->add('otros', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Otros',
                 'attr' => [
@@ -99,7 +95,7 @@ class DatosPrestacionesType extends AbstractType
                 'required' => false,
                 'grouping' => true,
             ])
-            ->add('depreciacion', 'money',  [
+            ->add('depreciacion', MoneyType::class, [
                 'currency' => 'GTQ',
                 'label' => 'Depreciación',
                 'attr' => [
@@ -109,8 +105,8 @@ class DatosPrestacionesType extends AbstractType
                 'required' => false,
                 'grouping' => true,
             ])
-           ->add('usuario', 'entity', [
-                'class' => 'UserBundle:UsuarioTrabajador',
+           ->add('usuario', EntityType::class, [
+                'class' => UsuarioTrabajador::class,
                 'data' => $this->usuario,
                 'attr' => [
                     'class' => 'select2',
@@ -129,17 +125,18 @@ class DatosPrestacionesType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'UserBundle\Entity\DatosPrestaciones',
+            'user' => null
         ));
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'userbundle_datosprestaciones';
     }
@@ -158,13 +155,13 @@ class DatosPrestacionesType extends AbstractType
         // If the data was submitted previously, the additional value that is
         // included in the request variables needs to be removed.
         if (null === $gasto || $gasto <= 0) {
-            $form->add('gastos', 'checkbox', [
+            $form->add('gastos', CheckboxType::class, [
                 'label' => 'Aplica gastos indirectos de Q480 semanales',
                 'required' => false,
                 'mapped' => false,
             ]);
         } else {
-            $form->add('gastosIndirectos', 'number', [
+            $form->add('gastosIndirectos', NumberType::class, [
                 'label' => 'Gastos Indirectos',
             ]);
         }

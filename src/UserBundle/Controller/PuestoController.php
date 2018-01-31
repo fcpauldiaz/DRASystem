@@ -2,16 +2,17 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\Puesto;
 use UserBundle\Form\Type\PuestoType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Puesto controller.
@@ -115,12 +116,13 @@ class PuestoController extends Controller
      */
     private function createCreateForm(Puesto $entity)
     {
-        $form = $this->createForm(new PuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(PuestoType::class, $entity, array(
             'action' => $this->generateUrl('puesto_create'),
             'method' => 'POST',
+            'user' => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-block')));
+        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-block')));
 
         return $form;
     }
@@ -220,12 +222,13 @@ class PuestoController extends Controller
      */
     private function createEditForm(Puesto $entity)
     {
-        $form = $this->createForm(new PuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(PuestoType::class, $entity, array(
             'action' => $this->generateUrl('puesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -317,7 +320,7 @@ class PuestoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('puesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

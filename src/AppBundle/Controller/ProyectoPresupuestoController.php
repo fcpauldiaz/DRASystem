@@ -2,14 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ProyectoPresupuesto;
 use AppBundle\Form\Type\ProyectoPresupuestoType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * ProyectoPresupuesto controller.
@@ -31,11 +32,27 @@ class ProyectoPresupuestoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAll();
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+        $usuarioActual = $this->getUser();
+        //mostrar todo en caso de ser socio
+        //o ser El código 69, Ciro Salay.
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
+          $usuarioActual->getCodigo()->getCodigo() === 69
+          ) {
+            $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAll();
 
-        return array(
+            return array(
             'entities' => $entities,
         );
+        }
+        //obtener solo los registros creados por el usuario
+
+        $entities = $em
+        ->getRepository('AppBundle:ProyectoPresupuesto')
+        ->findBy(['creadoPor' => $usuarioActual->getCodigo()]);
+
+        return ['entities' => $entities];
     }
     /**
      * Creates a new ProyectoPresupuesto entity.
@@ -69,6 +86,29 @@ class ProyectoPresupuestoController extends Controller
         );
     }
 
+     /**
+     * Change the state to finalized of a Presupuesto entity;
+     *
+     * @Route("/state/{id}", name="proyectopresupuesto_state")
+     * @Method("GET")
+     **/
+    public function chageStateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:ProyectoPresupuesto')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ProyectoPresupuesto entity.');
+        }
+        $entity->finalizeState();
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('proyectopresupuesto_show', array('id' => $id)));
+
+    }
+
     /**
      * Creates a form to create a ProyectoPresupuesto entity.
      *
@@ -78,17 +118,18 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createCreateForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(ProyectoPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_create'),
             'method' => 'POST',
+            'user' => $this->getUser()
         ));
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -161,11 +202,16 @@ class ProyectoPresupuestoController extends Controller
             throw $this->createNotFoundException('Unable to find ProyectoPresupuesto entity.');
         }
 
+        if ($entity->getEstado() === 'FINALIZADO') {
+            throw $this->createNotFoundException('Trying to edit finalized ProyectoPresupuesto Entity.');
+        }
+
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity' => $entity,
+            'editable' => $entity->getEstado() === 'FINALIZADO' ? false: true,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -180,12 +226,14 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createEditForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(ProyectoPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser()
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        if ($entity->getEstado() !== 'FINALIZADO') {
+            $form->add('submit', SubmitType::class, array('label' => 'Update'));
+        }
 
         return $form;
     }
@@ -262,7 +310,7 @@ class ProyectoPresupuestoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('proyectopresupuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'hide-submit')))
+            ->add('submit', SubmitType::class, array('label' => 'Delete', 'attr' => array('class' => 'hide-submit')))
             ->getForm()
         ;
     }

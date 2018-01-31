@@ -3,8 +3,11 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Usuario;
 
 class AsignacionType extends AbstractType
 {
@@ -22,7 +25,7 @@ class AsignacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('usuarios', 'entity', [
+            ->add('usuarios', EntityType::class, [
                 'class' => 'UserBundle:UsuarioTrabajador',
                 'multiple' => true,
                 'required' => true,
@@ -31,8 +34,8 @@ class AsignacionType extends AbstractType
                     'class' => 'select2',
                 ],
             ])
-            ->add('usuarioAsignar', 'entity', [
-                'class' => 'UserBundle:Usuario',
+            ->add('usuarioAsignar', EntityType::class, [
+                'class' => Usuario::class,
                 'required' => true,
                 'label' => 'Asignar usuarios a este usuario',
                 'attr' => [
@@ -40,7 +43,7 @@ class AsignacionType extends AbstractType
                 ],
                 'data' => $this->usuario,
             ])
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Guardar',
             ])
 
@@ -50,7 +53,7 @@ class AsignacionType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -60,7 +63,7 @@ class AsignacionType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_asignacion_usuarios';
     }

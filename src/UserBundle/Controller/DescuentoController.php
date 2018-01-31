@@ -2,11 +2,11 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Descuento;
 use UserBundle\Form\Type\DescuentoType;
 
@@ -70,12 +70,12 @@ class DescuentoController extends Controller
      */
     private function createCreateForm(Descuento $entity)
     {
-        $form = $this->createForm(new DescuentoType(), $entity, array(
+        $form = $this->createForm(DescuentoType::class, $entity, array(
             'action' => $this->generateUrl('descuento_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -159,12 +159,12 @@ class DescuentoController extends Controller
      */
     private function createEditForm(Descuento $entity)
     {
-        $form = $this->createForm(new DescuentoType(), $entity, array(
+        $form = $this->createForm(DescuentoType::class, $entity, array(
             'action' => $this->generateUrl('descuento_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }

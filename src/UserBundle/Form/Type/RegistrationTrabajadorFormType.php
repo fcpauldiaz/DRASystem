@@ -3,13 +3,20 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Codigo;
 
 class RegistrationTrabajadorFormType extends AbstractType
 {
@@ -45,7 +52,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('email', 'email', [
+            ->add('email', EmailType::class, [
                 'label' => 'Correo',
                 'translation_domain' => 'FOSUserBundle',
                 'required' => true,
@@ -56,9 +63,9 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'required' => true,
             ])
 
-            ->add('plainPassword', 'repeated', [
+            ->add('plainPassword', RepeatedType::class, [
                 'label' => 'Contraseña',
-                'type' => 'password',
+                'type' => PasswordType::class,
                 'options' => ['translation_domain' => 'FOSUserBundle'],
                 'first_options' => [
                     'label' => 'Contraseña',
@@ -84,7 +91,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => true,
             ])
-           ->add('dpi', 'number', [
+           ->add('dpi', NumberType::class, [
                 'label' => 'DPI *',
                 'attr' => [
                     'class' => 'form-control input-lg',
@@ -93,7 +100,18 @@ class RegistrationTrabajadorFormType extends AbstractType
                 'required' => true,
 
             ])
-           ->add('nit', 'number', [
+            ->add('codigo', EntityType::class, [
+                'class' => Codigo::class,
+                'label' => false,
+                'choice_label' => 'codigoCompleto',
+                'required' => true,
+                'placeholder' => 'Seleccionar Código',
+                'attr' => [
+                    'class' => 'select2',
+                ],
+
+            ])
+           ->add('nit', NumberType::class, [
                 'label' => 'NIT *',
                 'attr' => [
                     'class' => 'form-control input-lg',
@@ -105,7 +123,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
 
             ])
-            ->add('telefono', 'number', [
+            ->add('telefono', NumberType::class, [
                 'label' => 'Teléfono',
                 'translation_domain' => 'FOSUserBundle',
                 'attr' => [
@@ -114,7 +132,7 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('numeroIgss', 'number', [
+            ->add('numeroIgss', NumberType::class, [
                 'label' => 'Número de afiliación IGSS',
                 'attr' => [
                     'class' => 'form-control input-lg',
@@ -122,18 +140,8 @@ class RegistrationTrabajadorFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('codigo', 'entity', [
-                'class' => 'UserBundle:Codigo',
-                'label' => false,
-                'property' => 'codigoCompleto',
-                'required' => true,
-                'empty_value' => 'Seleccionar Código',
-                'attr' => [
-                    'class' => 'select2',
-                ],
-
-            ])
-            ->add('submit', 'submit', [
+           
+            ->add('submit', SubmitType::class, [
                 'label' => 'Guardar y agregar puesto',
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',
@@ -159,19 +167,19 @@ class RegistrationTrabajadorFormType extends AbstractType
     }
     public function getParent()
     {
-        return 'fos_user_registration';
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_registration';
     }
 
-     /* Validar que el NIT no tenga guiones
-     *
-     * @param Array                     $data    contiene los datos del formulario
-     * @param ExecutionContextInterface $context
-     */
+    /* Validar que el NIT no tenga guiones
+    *
+    * @param Array                     $data    contiene los datos del formulario
+    * @param ExecutionContextInterface $context
+    */
     public function validarNIT($nit, ExecutionContextInterface $context)
     {
         if (strpos($nit, '-') !== false) {

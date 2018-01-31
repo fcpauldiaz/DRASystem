@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block javascriptDataTables %}
-    
+
     <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
@@ -23,6 +23,7 @@
         <thead>
             <tr>
                 <th>Nombre actividad</th>
+                <th>Área</th>
                 <th>Departamento</th>
                 <th>Cargable</th>
                 <th>Acciones</th>
@@ -32,6 +33,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.nombre }}</td>
+                <td>{{ entity.area }}</td>
                 <td>{{ entity.area.departamento }}</td>
                 <td>{{ entity.actividadNoCargable ? 'No':'Sí' }}</td>
                 <td>
@@ -54,7 +56,7 @@
         <a class="btn btn-primary btn-block" href="{{ path('actividad_new') }}">
             Crear a nueva actividad
         </a>
-    {% endif %} 
+    {% endif %}
    <br>
    <br>
     {% endblock %}

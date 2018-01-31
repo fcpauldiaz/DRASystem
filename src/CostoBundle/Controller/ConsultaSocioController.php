@@ -2,15 +2,15 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CostoBundle\Form\Type\ConsultaSocioType;
-use CostoBundle\Form\Type\ConsultaGerenteType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use CostoBundle\Form\Type\ConsultaGerenteType;
+use CostoBundle\Form\Type\ConsultaSocioType;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * ConsutlaCosto controller.
@@ -31,7 +31,8 @@ class ConsultaSocioController extends Controller
         }
 
         $form = $this->createForm(
-            ConsultaSocioType::class);
+            ConsultaSocioType::class
+        );
 
         $form->handleRequest($request);
         if (!$form->isValid()) {
@@ -135,8 +136,8 @@ class ConsultaSocioController extends Controller
 
         foreach ($usuarios as $usuario) {
             $horas = $this->calcularHorasPorUsuario($usuario, $registros, true);
-        //horas presupuestadas de un usuarios asignadas
-        $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
+            //horas presupuestadas de un usuarios asignadas
+            $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
             $costoPorHora = $this->getDoctrine()
             ->getManager()
             ->getRepository('CostoBundle:Costo')
@@ -213,7 +214,8 @@ class ConsultaSocioController extends Controller
         }
 
         $form = $this->createForm(
-            ConsultaGerenteType::class);
+            ConsultaGerenteType::class
+        );
 
         $form->handleRequest($request);
         if (!$form->isValid()) {

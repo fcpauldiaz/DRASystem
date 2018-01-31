@@ -2,9 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * ProyectoPresupuesto.
@@ -47,11 +48,20 @@ class ProyectoPresupuesto
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cliente")
      * @ORM\JoinTable(name="clientes_por_presupuesto",
-     *      joinColumns={@ORM\JoinColumn(name="id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="cliente_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="presupuesto_id", referencedColumnName="id")}
      *      )
      */
     private $clientes;
+
+    /**
+     * Estado del Presupesto
+     *
+     * @var float
+     * @ORM\Column(name="estado", type="string")
+     */
+    private $estado;
+
     /**
      * Fecha de creacion.
      *
@@ -88,7 +98,9 @@ class ProyectoPresupuesto
 
     public function __construct()
     {
-        $this->presupuestoIndividual = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presupuestoIndividual = new ArrayCollection();
+        $this->clientes = new ArrayCollection();
+        $this->estado = 'INICIALIZADO';
     }
     /**
      * Get id.
@@ -303,6 +315,14 @@ class ProyectoPresupuesto
         $this->clientes->removeElement($cliente);
     }
 
+    public function finalizeState() {
+        $this->estado = 'FINALIZADO';
+    }
+
+    public function revisionState() {
+        $this->estado = 'REVISION';
+    }
+
     /**
      * Get clientes.
      *
@@ -316,5 +336,29 @@ class ProyectoPresupuesto
     public function __toString()
     {
         return $this->nombrePresupuesto;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     *
+     * @return ProyectoPresupuesto
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }

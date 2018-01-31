@@ -4,7 +4,9 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Departamento;
 
 class AreaType extends AbstractType
 {
@@ -16,10 +18,10 @@ class AreaType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('departamento', 'entity', [
+            ->add('departamento', EntityType::class, [
                 'label' => 'Departamento*',
                 'required' => true,
-                'class' => 'UserBundle:Departamento',
+                'class' => Departamento::class,
                 'attr' => [
                     'class' => 'select2'
                 ]
@@ -31,7 +33,7 @@ class AreaType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Area'
@@ -41,7 +43,7 @@ class AreaType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_area';
     }

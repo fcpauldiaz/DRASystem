@@ -2,12 +2,14 @@
 
 namespace CostoBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use AppBundle\Entity\ProyectoPresupuesto;
 
 class ConsultaPresupuestoType extends AbstractType
 {
@@ -20,17 +22,19 @@ class ConsultaPresupuestoType extends AbstractType
         $builder
              ->add('proyecto', EntityType::class, [
                 'placeholder' => 'Seleccionar Proyecto Presupuesto',
-                'class' => 'AppBundle:ProyectoPresupuesto',
+                'class' => ProyectoPresupuesto::class,
                 'label' => 'Buscador Proyectos Presupuesto',
                 'attr' => [
                     'class' => 'select2',
                 ],
                 'required' => true,
             ])
-            ->add('consulta_filtro', ChoiceType::class,
+            ->add(
+                'consulta_filtro',
+                ChoiceType::class,
                 [
                     'choices' => [
-                        'Actividad' => 'Actividad',
+                        'Área' => 'Área',
                         'Usuarios' => 'Usuarios',
                         'Cliente' => 'Cliente',
                     ],
@@ -42,8 +46,9 @@ class ConsultaPresupuestoType extends AbstractType
                     'class' => 'select2',
                 ],
 
-            ])
-            ->add('costo_monetario', 'choice', [
+            ]
+            )
+            ->add('costo_monetario', ChoiceType::class, [
                 'mapped' => false,
                  'choices' => [
                     'No' => 0,
@@ -56,7 +61,7 @@ class ConsultaPresupuestoType extends AbstractType
                 // always include this
                 'choices_as_values' => true,
                 ])
-             ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+             ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -76,14 +81,15 @@ class ConsultaPresupuestoType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'hide-element fecha-inicial',
+                    'read_only' => true,
                 ],
                 'label_attr' => [
                     'class' => 'hide-element',
                 ],
-                'read_only' => true,
+                
                 'required' => false,
             ])
-           ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+           ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                             'format' => 'dd/mm/yyyy',
                             'weekStart' => 0,
                             'autoclose' => true,
@@ -104,17 +110,18 @@ class ConsultaPresupuestoType extends AbstractType
 
                         'attr' => [
                             'class' => 'hide-element fecha-final',
+                            'read_only' => true,
+
                         ],
 
                         'label_attr' => [
                             'class' => 'hide-element',
                         ],
 
-                        'read_only' => true,
                         'required' => false,
 
                     ])
-            ->add('horas_extraordinarias', 'choice', [
+            ->add('horas_extraordinarias', ChoiceType::class, [
                 'choices' => [
                     'No' => 1,
                     'Sí' => 0,
@@ -126,14 +133,17 @@ class ConsultaPresupuestoType extends AbstractType
 
             ])
 
-            ->add('submit', SubmitType::class,
+            ->add(
+                'submit',
+                SubmitType::class,
                 [
                     'label' => 'Buscar',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
 
-                ])
+                ]
+            )
 
         ;
     }

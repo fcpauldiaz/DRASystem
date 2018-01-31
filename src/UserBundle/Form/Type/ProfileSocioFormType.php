@@ -3,6 +3,8 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,7 +36,7 @@ class ProfileSocioFormType extends AbstractType
                         'placeholder' => 'Nombre de Usuario',
                     ],
                 ])
-            ->add('email', 'email', [
+            ->add('email', EmailType::class, [
                     'label' => 'Correo',
                     'translation_domain' => 'FOSUserBundle',
                     'required' => true,
@@ -66,7 +68,7 @@ class ProfileSocioFormType extends AbstractType
 
             ])
 
-              ->add('submit', 'submit', [
+              ->add('submit', SubmitType::class, [
                         'label' => 'Guardar',
                         'attr' => [
                                 'class' => 'btn btn-primary',
@@ -87,10 +89,10 @@ class ProfileSocioFormType extends AbstractType
     }
     public function getParent()
     {
-        return 'fos_user_registration';
+        return 'fos_user_registration_register';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_registration_socio';
     }

@@ -94,4 +94,12 @@ class UsuarioRelacionado
     {
         return $this->usuarioPertenece;
     }
+    /**
+     * toString
+     * @return string [description]
+     */
+    public function __toString()
+    {
+        return $this->usuarioPertenece.' => '.$this->usr;
+    }
 }

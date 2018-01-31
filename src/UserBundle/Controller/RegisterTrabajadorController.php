@@ -3,6 +3,8 @@
 namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use UserBundle\Entity\UsuarioTrabajador;
+use PUGX\MultiUserBundle\Controller\RegistrationManager;
 
 class RegisterTrabajadorController extends Controller
 {
@@ -10,6 +12,6 @@ class RegisterTrabajadorController extends Controller
     {
         return $this->container
                     ->get('pugx_multi_user.registration_manager')
-                    ->register('UserBundle\Entity\UsuarioTrabajador');
+                    ->register(UsuarioTrabajador::class);
     }
 }

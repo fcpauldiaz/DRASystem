@@ -4,7 +4,10 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Area;
+use AppBundle\Entity\Actividad;
 
 class ActividadType extends AbstractType
 {
@@ -19,9 +22,9 @@ class ActividadType extends AbstractType
                 'required' => true,
                 'label' => 'Nombre de la actividad *',
             ])
-            ->add('area', 'entity', [
+            ->add('area', EntityType::class, [
                 'label' => 'Área *',
-                'class' => 'AppBundle:Area',
+                'class' => Area::class,
                 'required' => true,
                 'attr' => [
                     'class' => 'select2'
@@ -46,17 +49,17 @@ class ActividadType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Actividad',
+            'data_class' => Actividad::class,
         ));
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_actividad';
     }

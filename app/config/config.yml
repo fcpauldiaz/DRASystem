@@ -38,11 +38,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources: ['bootstrap_3_layout.html.twig']
     form_themes:
         # other form themes
         - 'VichUploaderBundle:Form:fields.html.twig'
+        - 'bootstrap_3_layout.html.twig'
 
 
 
@@ -72,6 +71,7 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        server_version:       5.6
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -108,8 +108,6 @@ stof_doctrine_extensions:
             loggable: true
             timestampable:  true
             blameable:  true
-hackzilla_ticket:
-    user_class:             UserBundle\Entity\Usuario
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

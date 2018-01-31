@@ -2,12 +2,15 @@
 
 namespace AppBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Cliente;
+use Braincrafted\Bundle\BootstrapBundle\Form\Type\BootstrapCollectionType;
+use AppBundle\Entity\ProyectoPresupuesto;
 
 class ProyectoPresupuestoType extends AbstractType
 {
@@ -15,34 +18,54 @@ class ProyectoPresupuestoType extends AbstractType
 
     //única forma que encontré para guardar el campo ingresado por
     //porque los formularios embedded no pasan por el controller
-    public function __construct($usuario)
-    {
-        $this->usuario = $usuario;
-    }
+
 
     /* @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->usuario = $options['user'];
         $builder
             ->add('nombrePresupuesto', null, [
                 'label' => 'Nombre del presupuesto*',
                 'required' => true,
+                'attr' => [
+                  'placeholder' => 'Nombre cliente - año',
+                ],
 
             ])
-            ->add('honorarios', 'money', [
+            ->add('honorarios', MoneyType::class, [
                 'required' => false,
                 'label' => 'Honorarios (opcional)',
                 'attr' => [
                     'help_text' => 'Si ya se tiene designado los honorarios del presupuesto',
+                    'placeholder' => 'Honorarios profesionales',
                 ],
                 'currency' => 'GTQ',
                 'grouping' => true,
 
             ])
-            ->add('presupuestoIndividual', 'bootstrap_collection', [
-                    'type' => new RegistroHorasPresupuestoType($this->usuario),
+            ->add('clientes', EntityType::class, [
+                'class' => Cliente::class,
+                'attr' => [
+                    'class' => 'select2',
+                ],
+                'multiple' => true,
+                'required' => false,
+                'label' => 'Cliente a consolidar (opcional)',
+                'placeholder' => 'Cliente a consolidar',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('cliente')
+                        ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
+                        ->where('asignacion.usuario = :usuario')
+                        ->OrWhere('asignacion.usuario = 1')
+                        ->setParameter('usuario', $this->usuario);
+                },
+            ])
+            ->add('presupuestoIndividual', BootstrapCollectionType::class, [
+                    'entry_type' =>RegistroHorasPresupuestoType::class,
+                    'entry_options' => ['user' => $this->usuario],
                     'label' => 'Registro Horas Presupuesto',
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -51,7 +74,6 @@ class ProyectoPresupuestoType extends AbstractType
                     'sub_widget_col' => 10,
                     'button_col' => 12,
                     'by_reference' => false, //esta linea también es importante para que se guarde la ref
-                    'cascade_validation' => true,
                     'attr' => [
                             'class' => 'select2',
                         ],
@@ -62,43 +84,21 @@ class ProyectoPresupuestoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
-            'constraints' => new Callback([$this, 'validarActividades']),
+            'data_class' => ProyectoPresupuesto::class,
+            'user' => null
         ));
+        $resolver->setRequired('user'); 
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_proyectopresupuesto';
-    }
-
-    /**
-     * Validar que no se repitan las actividades dentro un mismo presupuesto.
-     *
-     * @param array                     $data    contiene los datos del formulario
-     * @param ExecutionContextInterface $context
-     */
-    public function validarActividades($data, ExecutionContextInterface $context)
-    {
-        /* $registrosPresupuesto = $data->getPresupuestoIndividual();
-        $actividades = [];
-        foreach ($registrosPresupuesto as $registro) {
-            $actividadActual = $registro->getActividad()->getId();
-            $usuario = $registro->getUsuario()->getId();
-
-            if ($this->checkArray($actividades, $actividadActual, $usuario) === true) {
-                $context->buildViolation('Error: no se deben repetir las actividades por usuario en un presupuesto')
-                    ->atPath('proyectopresupuesto_new')
-                    ->addViolation();
-            }
-            $actividades[] = [$actividadActual, $usuario];
-        }*/
     }
 
     public function checkArray($array, $id1, $id2)

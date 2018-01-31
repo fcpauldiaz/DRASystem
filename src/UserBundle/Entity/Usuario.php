@@ -2,8 +2,9 @@
 
 namespace UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 //sirve para extender de friendofsymfony
+use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
@@ -15,7 +16,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  *
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
-abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\UserInterface
+abstract class Usuario extends BaseUser
 {
     /**
      * @var int
@@ -69,13 +70,19 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
     private $initials;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AsignacionCliente", mappedBy="usuario")
+     */
+    private $clientes;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct(); // construye los metodos y atributos de Base
-        $this->usuarioRelacionado = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->misUsuariosRelacionados = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usuarioRelacionado = new ArrayCollection();
+        $this->misUsuariosRelacionados = new ArrayCollection();
+        $this->clientes = new ArrayCollection();
     }
     /**
      * Get id.
@@ -322,5 +329,39 @@ abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundl
     public function __toString()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    /**
+     * Add cliente.
+     *
+     * @param \AppBundle\Entity\AsignacionCliente $cliente
+     *
+     * @return Usuario
+     */
+    public function addCliente(\AppBundle\Entity\AsignacionCliente $cliente)
+    {
+        $this->clientes[] = $cliente;
+
+        return $this;
+    }
+
+    /**
+     * Remove cliente.
+     *
+     * @param \AppBundle\Entity\AsignacionCliente $cliente
+     */
+    public function removeCliente(\AppBundle\Entity\AsignacionCliente $cliente)
+    {
+        $this->clientes->removeElement($cliente);
+    }
+
+    /**
+     * Get clientes.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClientes()
+    {
+        return $this->clientes;
     }
 }

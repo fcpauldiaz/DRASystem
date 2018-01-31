@@ -4,7 +4,10 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Area;
+use UserBundle\Entity\UsuarioTrabajador;
 
 class RegistroHorasPresupuestoEditType extends AbstractType
 {
@@ -12,32 +15,32 @@ class RegistroHorasPresupuestoEditType extends AbstractType
     {
         $builder
 
-            ->add('cliente', 'entity', [
-                'class' => 'AppBundle:Cliente',
+            ->add('cliente', EntityType::class, [
+                'class' => Cliente::class,
                 'required' => true,
                 'attr' => [
                     'class' => 'select2',
                 ],
 
             ])
-             ->add('actividad', 'entity', [
-                'class' => 'AppBundle:Actividad',
+             ->add('area', EntityType::class, [
+                'class' => Area::class,
                 'required' => true,
                 'attr' => [
                     'class' => 'select2',
                 ],
 
             ])
-              ->add('usuario', 'entity', [
-                    'class' => 'UserBundle:UsuarioTrabajador',
+              ->add('usuario', EntityType::class, [
+                    'class' => UsuarioTrabajador::class,
                     'required' => true,
                     'label' => 'Asignar UsuarioTrabajador',
-                    'property' => 'codigoString',
+                    'choice_label' => 'codigoString',
                     'attr' => [
                         'class' => 'select2',
                         'help_text' => 'Seleccione los usuarios que realizarán las horas',
                     ],
-                    'empty_value' => 'Seleccionar Usuario asignado a realizar esta actividad',
+                    'placeholder' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'required' => true,
                     'multiple' => false,
 
@@ -53,7 +56,7 @@ class RegistroHorasPresupuestoEditType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\RegistroHorasPresupuesto',
@@ -63,7 +66,7 @@ class RegistroHorasPresupuestoEditType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_registrohoraspresupuesto';
     }

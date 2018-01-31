@@ -28,10 +28,10 @@ services:
         - [setContainer, ["@service_container"]]
     appstate:
         class: AppBundle\Extensions\HorasPendientes
-        arguments: [@security.token_storage, @doctrine.orm.entity_manager]
+        arguments: ['@security.token_storage', '@doctrine.orm.entity_manager']
     twig.extension.appstate:
         class: AppBundle\Extensions\HorasPendientesExtension
-        arguments: [@appstate]
+        arguments: ['@appstate']
         tags:
             - { name: twig.extension }
     acme.aws_s3.client:
@@ -51,7 +51,7 @@ services:
         - { name: doctrine.event_subscriber, connection: default }
       calls:
         - [ setAnnotationReader, [ "@annotation_reader" ] ]
-        - [ setUserValue, [ @security.token_storage ] ]
+        - [ setUserValue, [ '@security.token_storage' ] ]
     app.datatable.registrohoras:
         class: AppBundle\Datatables\RegistroHorasDatatable
         parent: sg_datatables.datatable.abstract

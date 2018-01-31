@@ -6,19 +6,57 @@
 {% endblock %}
 {% block javascripts %}
       <script>
-        $(document).ready(function() { 
+        $(document).ready(function() {
          var javaQuery = window.matchMedia( "(max-width: 450px)" );
         if (!javaQuery.matches) {
-           $("#appbundle_registrohoras_fechaHoras_day").select2({ width: '8%' }); 
-            $("#appbundle_registrohoras_fechaHoras_month").select2({ width: '8%' }); 
-            $("#appbundle_registrohoras_fechaHoras_year").select2({ width: '10%' }); 
+           $("#appbundle_registrohoras_fechaHoras_day").select2({ width: '8%' });
+            $("#appbundle_registrohoras_fechaHoras_month").select2({ width: '8%' });
+            $("#appbundle_registrohoras_fechaHoras_year").select2({ width: '10%' });
         }
-                     
+
         });
-          
+
     </script>
-    
+
     <script src="{{asset('js/live-counter.js')}}"></script>
+    <script>
+     document.getElementsByName('appbundle_registrohoras')[0].onsubmit = function(e) {
+        document.getElementById('appbundle_registrohoras_submitAndSave').style.visibility = 'hidden';
+        document.getElementById('appbundle_registrohoras_submit').style.visibility = 'hidden';
+      }
+
+
+    </script>
+    <script>
+        //area
+        var $area = $('#appbundle_registrohoras_area');
+        var actividad = $('#appbundle_registrohoras_actividad');
+        // When area gets selected ...
+        $area.change(function() {
+          // ... retrieve the corresponding form.
+          var $form = $(this).closest('form');
+          // Simulate form data, but only include the area sport value.
+          var data = {};
+          data[$area.attr('name')] = $area.val();
+          // Submit data via AJAX to the form's action path.
+          $.ajax({
+            url : 'actividad/area',
+            type: $form.attr('method'),
+            data : data,
+            success: function(data) {
+                //remove previous options
+                actividad.empty().select2();
+                //create new options
+                for (var key in data) {
+                    var opt = new Option(data[key], key,  false, false);
+                    actividad.append(opt);
+                }
+                //update select2
+                actividad.trigger('change');
+            }
+          });
+        });
+        </script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -34,12 +72,15 @@
 
     {{ form_start(form) }}
 
-     
-    {{ form_row(form.proyectoPresupuesto)}}        
+
+    {{ form_row(form.proyectoPresupuesto)}}
     {{ form_row(form.fechaHoras)}}
-    {{ form_row(form.cliente)}}  
-    {{ form_row(form.horasActividad)}}  
-    {{ form_row(form.ingresadoPor)}} 
+    {{ form_row(form.cliente)}}
+    {{ form_row(form.area)}}
+    {{ form_row(form.actividad)}}
+    {{ form_row(form.horasInvertidas)}}
+    {{ form_row(form.horasExtraordinarias)}}
+    {{ form_row(form.ingresadoPor)}}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4">
             <div class="form-group">
@@ -59,7 +100,7 @@
             </div>
         </div>
     </div>
-    
+
     {{form_end(form)}}
     <br>
     <br>

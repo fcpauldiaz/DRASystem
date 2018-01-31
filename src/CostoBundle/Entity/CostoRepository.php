@@ -63,4 +63,54 @@ class CostoRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+    public function findCostoPorArea($fechaInicio, $fechaFinal, $area, $cliente)
+    {
+        //find all users that worked in that area
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('AVG((costo.costo))')
+            ->addSelect('area.nombre')
+            ->from('UserBundle:Usuario', 'users')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
+            ->where('r.cliente = :cliente')
+            ->andWhere($qb->expr()->orX(
+               $qb->expr()->gte('costo.fechaInicio', ':fechaInicio'),
+               $qb->expr()->lte('costo.fechaFinal', ':fechaFinal')
+            ))
+            ->andWhere('area.id = :area_id')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('area_id', $area)
+            ->setParameter('cliente', $cliente);
+        return $qb->getQuery()->getOneOrNullResult();
+
+    }
+
+    public function findCostoPorAreaProyecto($area, $proyecto)
+    {
+        //find all users that worked in that area
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('AVG((costo.costo))')
+            ->from('UserBundle:Usuario', 'users')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
+            ->where('proy.id = :proy')
+            ->andWhere('area.id = :area_id')
+            ->setParameter('area_id', $area)
+            ->setParameter('proy', $proyecto);
+        return $qb->getQuery()->getOneOrNullResult();
+
+    }
+
 }

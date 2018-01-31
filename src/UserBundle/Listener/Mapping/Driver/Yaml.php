@@ -2,9 +2,9 @@
 
 namespace UserBundle\Listener\Mapping\Driver;
 
-use Gedmo\Mapping\Driver\File;
-use Gedmo\Mapping\Driver;
 use Gedmo\Exception\InvalidMappingException;
+use Gedmo\Mapping\Driver;
+use Gedmo\Mapping\Driver\File;
 
 /**
  * This is a yaml mapping driver for Blameable

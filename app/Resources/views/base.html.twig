@@ -234,11 +234,11 @@
     <section class="content-header">
       <h1>
         {% block header %}
-            
+
         {% endblock %}
         <small>
           {% block description %}
-              
+
           {% endblock %}
         </small>
       </h1>
@@ -251,7 +251,7 @@
     <!-- Main content -->
     <section class="content">
       {% block body %}
-          
+
       {% endblock %}
 
       <!-- Your Page Content Here -->
@@ -265,10 +265,10 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-     Díaz Reyes &amp; Asociados, S.A.
+     Moore Stephens Díaz Reyes &amp; Asociados, S.A.
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{ 'now'|date('Y') }} <a href="http://newtonlabs.com.gt">Newton Labs</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; {{ 'now'|date('Y') }} <a href="http://chapilabs.com">Chapi Labs</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -296,54 +296,15 @@
             </a>
             {% endif %}
           </li>
-          <li>
-            <a href="{{path('hackzilla_ticket_new')}}">
-              <i class="menu-icon fa fa-ticket bg-blue"></i>
-                <div class="menu-info">
-                  <h4 class="control-sidebar-subheading">
-                    Nuevo Ticket de Soporte
-                  </h4>
-                  <p>Esta sección sirve para reportar errores o pedir nuevas funcionalidades</p>
-                </div>
-            </a>
-          </li>
         </ul>
         <!-- /.control-sidebar-menu -->
 
-        
+
         <!-- /.control-sidebar-menu -->
 
       </div>
       <!-- /.tab-pane -->
       <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">Ajustes</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              <p>Color Dashboard</p>
-              <input type="checkbox" id="dash-blue" class="pull-right" checked>
-             <p>Azul</p>
-              <input type="checkbox" id="dash-orange" class="pull-right">
-              <p>Anaranjado</p>
-              <input type="checkbox" id="dash-green" class="pull-right">
-              <p>Verde</p>
-              <input type="checkbox" id="dash-purple" class="pull-right">
-              <p>Morado</p>
-              <input type="checkbox" id="dash-red" class="pull-right">
-              <p>Rojo</p>
-              <input type="checkbox" id="dash-black" class="pull-right">
-              <p>Negro</p>
-            </label>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
     </div>
   </aside>
   <!-- /.control-sidebar -->
@@ -363,10 +324,10 @@
 
       <script type="text/javascript" src="https://cdn.datatables.net/t/bs/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,r-2.0.2/datatables.min.js"></script>
       <script src="{{asset('js/built.js')}}"></script>
-            
+
       {% block javascriptDataTables %}
       {% endblock javascriptDataTables %}
-      
+
       <script type="text/javascript">
       var javaQuery = window.matchMedia( "(max-width: 450px)" );
       if (!javaQuery.matches) {
@@ -375,10 +336,19 @@
                    $("select.select2").select2({
                     theme: "bootstrap"
                    });
-              });          
+              });
           })();
       }
       </script>
+      <script type="text/javascript">
+    (function(e,r){function n(e,r){e[r]=function(){e.push([r].concat(Array.prototype.slice.call(arguments,0)))}}function o(){var e=r.location.hostname.match(/[a-z0-9][a-z0-9\-]+\.[a-z\.]{2,6}$/i),n=e?e[0]:null,o="; domain=."+n+"; path=/; expires=" + new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toUTCString();r.cookie=r.referrer&&-1===r.referrer.indexOf(n)?"jaco_referer="+r.referrer+o:"jaco_referer="+t+o}var a="JacoRecorder",t="none";!function(e,r,t,i){if(!t.__VERSION){e[a]=t;for(var c=["init","identify","startRecording","stopRecording","removeUserTracking","setUserInfo","trackEvent"],s=0;s<c.length;s++)n(t,c[s]);o(),t.__VERSION=2.1,t.__INIT_TIME=1*new Date;var f=r.createElement("script");f.async=!0,f.setAttribute("crossorigin","anonymous"),f.src=i;var d=r.getElementsByTagName("head")[0];d.appendChild(f)}}(e,r,e[a]||[],"https://recorder-assets.getjaco.com/recorder_v2.js")}).call(window,window,document);
+    window.JacoRecorder.init("a624e316-4fab-49f9-a7f9-9e75bb002d09");
+    </script>
+    {% if app.user %}
+      <script type="text/javascript">
+    window.JacoRecorder.identify('{{ app.user.username }}');
+    </script>
+    {% endif %}
       {% block javascripts %}
       {% endblock javascripts %}
       {% block alertify %}

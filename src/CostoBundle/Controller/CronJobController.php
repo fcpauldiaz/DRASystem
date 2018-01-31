@@ -2,11 +2,11 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use CostoBundle\Entity\Costo;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * CronJob controller.
@@ -37,7 +37,8 @@ class CronJobController extends Controller
                 if ($lastDayRequest === null) {
                     $this->addFlash('error', 'No puede dejar solo un campo de fecha en blanco');
 
-                    return $this->render('CostoBundle:Costo:cronJob.html.twig',
+                    return $this->render(
+                        'CostoBundle:Costo:cronJob.html.twig',
                         [
                             'verificador' => true, //mandar variable a javascript
                             'form' => $form->createView(),
@@ -49,7 +50,8 @@ class CronJobController extends Controller
                 if ($firstDayRequest === null) {
                     $this->addFlash('error', 'No puede dejar solo un campo de fecha en blanco');
 
-                    return $this->render('CostoBundle:Costo:cronJob.html.twig',
+                    return $this->render(
+                        'CostoBundle:Costo:cronJob.html.twig',
                         [
                             'verificador' => true, //mandar variable a javascript
                             'form' => $form->createView(),
@@ -98,7 +100,8 @@ class CronJobController extends Controller
     {
         $form = $this->createFormAction();
 
-        return $this->render('CostoBundle:Costo:cronJob.html.twig',
+        return $this->render(
+            'CostoBundle:Costo:cronJob.html.twig',
             [
                 'verificador' => false,
                 'form' => $form->createView(),
@@ -223,20 +226,6 @@ class CronJobController extends Controller
             ->where('r.aprobado = false')
             ->andWhere('ur.usr = :user_id')
             ->setParameter('user_id', $usuario->getId());
-
-        return $qb->getQuery()->getResult();
-    }
-
-    private function getHorasNoAprobadas($usuario)
-    {
-        $qb = $this
-            ->getDoctrine()
-            ->getRepository('AppBundle:RegistroHoras')
-            ->createQueryBuilder('r')
-            ->innerJoin('r.ingresadoPor', 'ing')
-            ->where('r.aprobado = false')
-            ->andWhere('ing = :usuario')
-            ->setParameter('usuario', $usuario);
 
         return $qb->getQuery()->getResult();
     }

@@ -86,27 +86,27 @@ class TipoDescuento
     }
 
     /**
-     * Set fechaReacion.
+     * Set fechaCreacion.
      *
-     * @param \DateTime $fechaReacion
+     * @param \DateTime $fechaCreacion
      *
      * @return TipoDescuento
      */
-    public function setFechaReacion($fechaReacion)
+    public function setFechaCreacion($fechaCreacion)
     {
-        $this->fechaReacion = $fechaReacion;
+        $this->fechaCreacion = $fechaCreacion;
 
         return $this;
     }
 
     /**
-     * Get fechaReacion.
+     * Get fechaCreacion.
      *
      * @return \DateTime
      */
-    public function getFechaReacion()
+    public function getFechaCreacion()
     {
-        return $this->fechaReacion;
+        return $this->fechaCreacion;
     }
 
     public function __toString()

@@ -18,8 +18,8 @@
                 <td>{{ entity.fechaCreacion|date('d-m-Y H:i:s') }}</td>
             </tr>
              <tr>
-                <th>Actividad</th>
-                <td>{{ entity.actividad }}</td>
+                <th>Área</th>
+                <td>{{ entity.area }}</td>
             </tr>
               <tr>
                 <th>Cliente</th>
@@ -38,19 +38,19 @@
     </table>
 
      <div class="row">
-        {% if is_granted('ROLE_EDITAR_PRESUPUESTO') %}
+        {% if is_granted('ROLE_EDITAR_PRESUPUESTO') and state != 'FINALIZADO' %}
         <div class="col-xs-12 col-sm-12 col-md-6">
             <a class="btn btn-warning btn-block" href="{{ path('horaspresupuesto_edit', { 'id': entity.id }) }}">
                  Editar
             </a>
         </div>
          {% endif %}
-       {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS') %}
+       {% if is_granted('ROLE_ELIMINAR_PRESUPUESTOS')  and state != 'FINALIZADO' %}
         <div class="cols-xs-12 col-sm-12 col-md-6">
             <button id="inside-confirm" class="btn btn-danger btn-block">Eliminar</button>
-       
+
            <div class="modal">
-                {{form(delete_form, {'name':'time'})}}  
+                {{form(delete_form, {'name':'time'})}}
             </div>
         </div>
         {% endif %}

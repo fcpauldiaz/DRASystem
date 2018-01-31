@@ -3,8 +3,11 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Actividad;
 
 class RegistroActividadHorasType extends AbstractType
 {
@@ -23,32 +26,19 @@ class RegistroActividadHorasType extends AbstractType
     {
         $builder
 
-            ->add('actividad', 'entity', [
-                'class' => 'AppBundle:Actividad',
+            ->add('actividad', EntityType::class, [
+                'class' => Actividad::class,
                 'required' => true,
                 'empty_value' => 'Seleccione la actividad',
                 'attr' => [
                     'class' => 'select2',
                 ],
-                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
-                    if (method_exists($this->usuario, 'getPuestoActual')) {
-                        $departamento = $this->usuario->getPuestoActual()->getDepartamento();
-                    } else {
-                        return $er->createQueryBuilder('a');
-                    }
-
-                    return $er->createQueryBuilder('actividad')
-                        ->innerJoin('actividad.area', 'a')
-                        ->innerJoin('UserBundle:Puesto', 'pd', 'with', 'pd.departamento = a.departamento')
-                        ->where('pd.departamento = :departamento_id')
-                        ->setParameter('departamento_id', $departamento);
-                },
             ])
             ->add('horasInvertidas', null, [
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
-            ->add('horasExtraordinarias', 'checkbox', [
+            ->add('horasExtraordinarias', CheckboxType::class, [
                 'required' => false,
                 'label' => 'Las horas realizadas fueron extraordinarias',
             ])
@@ -58,7 +48,7 @@ class RegistroActividadHorasType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -68,7 +58,7 @@ class RegistroActividadHorasType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_registrohoras_actividad_horas';
     }

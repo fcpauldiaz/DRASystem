@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\RegistroHorasPresupuesto;
 use AppBundle\Form\Type\RegistroHorasPresupuestoType;
-use AppBundle\Form\Type\RegistroHorasPresupuestoEditType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * RegistroHorasPresupuesto controller.
@@ -34,7 +34,9 @@ class RegistroHorasPresupuestoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findAll();
+        $user = $this->getUser();
+        $entities = $em->getRepository('AppBundle:RegistroHorasPresupuesto')->findBy(['usuario' => $user]);
+
 
         return array(
             'entities' => $entities,
@@ -84,12 +86,12 @@ class RegistroHorasPresupuestoController extends Controller
      */
     private function createCreateForm(RegistroHorasPresupuesto $entity)
     {
-        $form = $this->createForm(new RegistroHorasPresupuestoType(), $entity, array(
+        $form = $this->createForm( RegistroHorasPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('horaspresupuesto_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -142,12 +144,12 @@ class RegistroHorasPresupuestoController extends Controller
     /**
      * Finds and displays a RegistroHorasPresupuesto entity.
      *
-     * @Route("/{id}", name="horaspresupuesto_show_plain")
+     * @Route("/{id}/{state}", name="horaspresupuesto_show_plain")
      * @Method("GET")
      * @Security("is_granted('ROLE_VER_PRESUPUESTOS')")
      * @Template("AppBundle:RegistroHorasPresupuesto:showRegistroHorasPresupuestoPlain.html.twig")
      */
-    public function showPlainAction($id)
+    public function showPlainAction($id, $state)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -161,6 +163,7 @@ class RegistroHorasPresupuestoController extends Controller
 
         return array(
             'entity' => $entity,
+            'state' => $state,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -202,12 +205,13 @@ class RegistroHorasPresupuestoController extends Controller
      */
     private function createEditForm(RegistroHorasPresupuesto $entity)
     {
-        $form = $this->createForm(new RegistroHorasPresupuestoEditType(), $entity, array(
+        $form = $this->createForm(RegistroHorasPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('horaspresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -284,7 +288,7 @@ class RegistroHorasPresupuestoController extends Controller
         return $this->createFormBuilder(null, array('attr' => array('id' => 'delete-form')))
             ->setAction($this->generateUrl('horaspresupuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

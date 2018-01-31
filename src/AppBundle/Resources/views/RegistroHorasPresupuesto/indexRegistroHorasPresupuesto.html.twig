@@ -2,7 +2,7 @@
 
 
 {% block javascriptDataTables %}
-    
+
     <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th>Horas Presupuestadas</th>
-                <th>Actividad</th>
+                <th>Área</th>
                 <th>Cliente</th>
                 <th>Fecha Creación</th>
                 <th>Acciones</th>
@@ -25,7 +25,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.horasPresupuestadas }}</td>
-                <td>{{ entity.actividad }}</td>
+                <td>{{ entity.area }}</td>
                 <td>{{ entity.cliente }}</td>
                 <td>{% if entity.fechaCreacion %}{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
@@ -46,5 +46,5 @@
     <a class="btn btn-default btn-block" href="{{ path('horaspresupuesto_new') }}">
         Crear nuevo registro
     </a>
-      
+
     {% endblock %}

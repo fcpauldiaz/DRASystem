@@ -2,10 +2,10 @@
 
 namespace UserBundle\Service;
 
-use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
 /**
  * When the user is not authenticated at all (i.e. when the security context has no token yet),
@@ -19,12 +19,12 @@ class LoginEntryPoint implements AuthenticationEntryPointInterface
     {
         $this->router = $router;
     }
-     /*
-     * This method receives the current Request object and the exception by which the exception
-     * listener was triggered.
-     *
-     * The method should return a Response object
-     */
+    /*
+    * This method receives the current Request object and the exception by which the exception
+    * listener was triggered.
+    *
+    * The method should return a Response object
+    */
 
     public function start(Request $request, AuthenticationException $authException = null)
     {

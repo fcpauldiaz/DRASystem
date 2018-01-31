@@ -48,4 +48,60 @@ class RegistroHorasRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+    public function findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHoras', 'registro')
+            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->andWhere('registro.fechaHoras <= :fechaFinal')
+            ->andWhere('registro.ingresadoPor = :usuario')
+            ->andWhere('registro.horasExtraordinarias = :extra')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('usuario', $usuario)
+            ->setParameter('extra', $extra);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHoras', 'registro')
+            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->andWhere('registro.fechaHoras <= :fechaFinal')
+            ->andWhere('registro.cliente = :cliente')
+            ->andWhere('registro.horasExtraordinarias = :extra')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('cliente', $cliente)
+            ->setParameter('extra', $extra);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHoras', 'registro')
+            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->andWhere('registro.fechaHoras <= :fechaFinal')
+            ->andWhere('registro.proyectoPresupuesto = :proyectoPresupuesto')
+            ->andWhere('registro.horasExtraordinarias = :extra')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('proyectoPresupuesto', $presupuesto)
+            ->setParameter('extra', $extra);
+
+        return $qb->getQuery()->getResult();
+    }
 }

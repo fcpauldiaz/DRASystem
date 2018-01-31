@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Form\Type\ConsultaAprobacionHorasType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\Form\Type\ConsultaAprobacionHorasType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * CombinarPuesto controller.
@@ -33,22 +33,23 @@ class SupervisorUsuariosController extends Controller
         $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
         $claseActual = $discriminator->getClass();
 
-          //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
-          if ($claseActual == "UserBundle\Entity\UsuarioSocio") {
-              $usuarios = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
+        //Se necesita saber cual es el tipo de Usuario Actual para saber a donde dirigirlo.
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio") {
+            $usuarios = $em->getRepository('UserBundle:UsuarioTrabajador')->findAll();
 
             //   return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
             //     [
             //         'usuarios' => $usuarios,
             //     ]
             // );
-          }
+        }
 
         $usuarioActual = $this->getUser();
 
         $usuarios = $usuarioActual->getMisUsuariosRelacionados();
 
-        return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
+        return $this->render(
+            'UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [
                 'usuarios' => $usuarios,
             ]
@@ -65,7 +66,8 @@ class SupervisorUsuariosController extends Controller
             ->get('consulta.query_controller')
             ->buscarUsuariosPorSocioAction($usuario);
 
-        return $this->render('UserBundle:Puesto:showUsuarioPermisos.html.twig',
+        return $this->render(
+            'UserBundle:Puesto:showUsuarioPermisos.html.twig',
             [
                 'usuarios' => $usuarios,
             ]
@@ -90,7 +92,8 @@ class SupervisorUsuariosController extends Controller
         $usuario = $em->getRepository('UserBundle:UsuarioTrabajador')->findOneById($usuario_id);
 
         $form = $this->createForm(
-            ConsultaAprobacionHorasType::class);
+            ConsultaAprobacionHorasType::class
+        );
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(

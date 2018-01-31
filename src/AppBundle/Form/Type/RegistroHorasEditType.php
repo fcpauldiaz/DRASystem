@@ -3,34 +3,37 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\ProyectoPresupuesto;
+use AppBundle\Entity\Cliente;
+use AppBundle\Entity\Actividad;
+use UserBundle\Entity\UsuarioTrabajador;
 
 class RegistroHorasEditType extends AbstractType
 {
     private $usuario;
 
-    public function __construct($usuario = null)
-    {
-        $this->usuario = $usuario;
-    }
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->usuario = $options['usuario'];
         $builder
-             ->add('proyectoPresupuesto', 'entity', [
-                'class' => 'AppBundle:ProyectoPresupuesto',
+             ->add('proyectoPresupuesto', EntityType::class, [
+                'class' => ProyectoPresupuesto::class,
                 'required' => true,
-                'empty_value' => 'Seleccione el presupuesto asignado',
+                'placeholder' => 'Seleccione el presupuesto asignado',
                 'attr' => [
                     'class' => 'select2',
                 ],
 
             ])
-             ->add('fechaHoras', 'date', [
+             ->add('fechaHoras', DateType::class, [
                 'label' => 'Fecha de las horas invertidas',
                 'input' => 'datetime',
                 'widget' => 'choice',
@@ -44,19 +47,19 @@ class RegistroHorasEditType extends AbstractType
                  'required' => true,
 
             ])
-            ->add('cliente', 'entity', [
-                'class' => 'AppBundle:Cliente',
+            ->add('cliente', EntityType::class, [
+                'class' => Cliente::class,
                 'required' => true,
-                'empty_value' => 'Seleccione el cliente',
+                'placeholder' => 'Seleccione el cliente',
                 'attr' => [
                     'class' => 'select2',
                 ],
 
             ])
-             ->add('actividad', 'entity', [
-                'class' => 'AppBundle:Actividad',
+             ->add('actividad', EntityType::class, [
+                'class' => Actividad::class,
                 'required' => true,
-                'empty_value' => 'Seleccione la actividad',
+                'placeholder' => 'Seleccione la actividad',
                 'attr' => [
                     'class' => 'select2',
                 ],
@@ -65,9 +68,9 @@ class RegistroHorasEditType extends AbstractType
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
-            ->add('ingresadoPor', 'entity', [
-                'class' => 'UserBundle:UsuarioTrabajador',
-                'property' => 'codigoString',
+            ->add('ingresadoPor', EntityType::class, [
+                'class' => UsuarioTrabajador::class,
+                'choice_label' => 'codigoString',
                 'data' => $this->usuario,
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
@@ -88,7 +91,7 @@ class RegistroHorasEditType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\RegistroHoras',
@@ -98,7 +101,7 @@ class RegistroHorasEditType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_registrohoras';
     }

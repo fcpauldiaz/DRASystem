@@ -31,7 +31,7 @@ class ActividadRepository extends EntityRepository
         $qb = $this->createQueryBuilder('a');
         $qb
             ->select('a')
-            ->innerJoin('AppBundle:Actividad', 'r', 'with', 'r.id = a.id')
+            ->innerJoin('AppBundle:Area', 'r', 'with', 'r.id = a.area')
             ->where('r.id IN (:registros)')
             ->setParameter('registros', $idRegistros);
 
@@ -49,7 +49,7 @@ class ActividadRepository extends EntityRepository
     {
         $idRegistros = [];
         foreach ($registros as $registro) {
-            $idRegistros[] = $registro->getActividad()->getId();
+            $idRegistros[] = $registro->getArea()->getId();
         }
 
         return $idRegistros;

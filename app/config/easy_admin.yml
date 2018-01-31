@@ -14,16 +14,23 @@ easy_admin:
             list:
                 fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
             new:
-                fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
+                fields: ['nombre','apellidos','username','email','enabled','password','roles']
             edit:
-                fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
+                fields: ['nombre','apellidos','username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
         Actividad:
             class: AppBundle\Entity\Actividad
         Cliente:
             class: AppBundle\Entity\Cliente
         RegistroHoras:
             class: AppBundle\Entity\RegistroHoras
+            list:
+                fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
+            new:
+                fields: ['nombre','apellidos','username','email','enabled','password','roles']
+            edit:
+                fields: ['nombre','apellidos','username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
         RegistroHorasPresupuesto:
+            disabled_actions: ['edit', 'delete']
             class: AppBundle\Entity\RegistroHorasPresupuesto
         ProyectoPresupuesto:
             class: AppBundle\Entity\ProyectoPresupuesto

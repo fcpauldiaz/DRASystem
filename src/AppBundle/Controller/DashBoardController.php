@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
+
 
 class DashBoardController extends Controller
 {
@@ -16,6 +18,17 @@ class DashBoardController extends Controller
         return $this->render('default/error403.html.twig');
     }
 
+    /**
+     * @Route("/.well-known/acme-challenge/nZi0CwAnzY1q6flK--ADvFQ8xZ9FGChMG45mcTYRcq8", name="cert")
+    */
+    public function certAction(Request $request)
+    {
+      $file = 'js/key.txt';
+      $response = new BinaryFileResponse($file);
+      $response->headers->set('Content-Type', 'text/plain');
+      return $response;
+
+    }
     /**
      * @Route("/", name="homepage")
      */

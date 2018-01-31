@@ -2,12 +2,12 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CostoBundle\Form\Type\ConsultaCostoUsuarioType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
+use CostoBundle\Form\Type\ConsultaCostoUsuarioType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * ConsutlaCosto controller.
@@ -27,7 +27,8 @@ class ConsultaCostoUsuarioController extends Controller
     public function consultaUsuarioAction(Request $request)
     {
         $form = $this->createForm(
-            ConsultaCostoUsuarioType::class);
+            ConsultaCostoUsuarioType::class
+        );
         $form->handleRequest($request);
         if (!$form->isValid()) {
             return $this->render(

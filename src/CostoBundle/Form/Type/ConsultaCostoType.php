@@ -4,7 +4,8 @@ namespace CostoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class ConsultaCostoType extends AbstractType
 {
@@ -15,7 +16,7 @@ class ConsultaCostoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -33,10 +34,12 @@ class ConsultaCostoType extends AbstractType
                     'viewSelect' => 'month',
                     'showMeridian' => false,
                 ],
-                'read_only' => true,
+                'attr' => [
+                    'readonly' => true
+                ]
 
             ])
-              ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+              ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -54,7 +57,9 @@ class ConsultaCostoType extends AbstractType
                     'viewSelect' => 'month',
                     'showMeridian' => false,
                 ],
-                'read_only' => true,
+                'attr' => [
+                    'readonly' => true
+                ]
 
             ])
 
@@ -64,14 +69,14 @@ class ConsultaCostoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consulta_costo';
     }

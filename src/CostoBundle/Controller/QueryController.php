@@ -51,7 +51,7 @@ class QueryController extends Controller
         foreach ($registros as $registro) {
             $proyecto = $registro->getProyectoPresupuesto();
             //condición para no usar los honorarios de un mismo proyecto.
-            if (!$proyectosAcum->contains($proyecto)) {
+            if (!$proyectosAcum->contains($proyecto) && !is_null($proyecto)) {
                 $honorarios += $proyecto->getHonorarios();
             }
             //se agrega el proyecto ya analizado
@@ -62,30 +62,74 @@ class QueryController extends Controller
         return $honorarios;
     }
 
+    public function calcularHonrariosPorCliente($cliente) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('SUM(DISTINCT(p.honorarios))')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'r')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = r.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'p', 'with', 'p.id = r.proyecto')
+            ->where('r.cliente = :cliente_id')
+            ->setParameter('cliente_id', $cliente);
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     public function calcularHorasPresupuestoAction($registrosPresupuesto, $actividad)
     {
         $horasPresupuesto = 0;
         foreach ($registrosPresupuesto as $presupuesto) {
-            if ($presupuesto->getActividad() == $actividad) {
-                $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+            if (method_exists($actividad, 'getArea')){
+                $actividades = $this->getActividadesPorArea($actividad->getArea()->getId());
+
+                foreach($actividades as $innerActividad) {
+                    if ($innerActividad == $actividad) {
+                    $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+                    }
+                }
             }
         }
 
         return $horasPresupuesto;
     }
+
+    public function calcularHorasPorAreaAction($presupuestos, $area)
+    {
+        $horasPresupuesto = 0;
+        foreach($presupuestos as $presupuesto) {
+            $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+        }
+        return $horasPresupuesto;
+    }
+
+    private function getActividadesPorArea($idArea) {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder('a');
+        dump($idArea);
+        $qb
+            ->select('a')
+            ->from('AppBundle:Actividad', 'a')
+            ->innerJoin('AppBundle:Area', 'r', 'with', 'r.id = a.area')
+            ->where('r.id = (:id_area)')
+            ->setParameter('id_area', $idArea);
+
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * Método para buscar los usuarios relacionados.
      *
      * @param UserBundle:Usuario $usuario
-     *
+     *#
      * @return array de UserBundle:Usuario
      */
     public function buscarUsuariosPorSocioAction($usuario)
     {
-        $sql = ' 
-            SELECT u1.id 
+        $sql = '
+            SELECT u1.id
             FROM usuario u1
-            WHERE u1.id in 
+            WHERE u1.id in
             (
                 SELECT r1.usuario_pertenece_id
                 FROM usuario u

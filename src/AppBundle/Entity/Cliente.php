@@ -2,9 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Cliente.
@@ -55,9 +56,9 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario_asignado", type="string")
+     * @ORM\OneToMany(targetEntity="AsignacionCliente", mappedBy="cliente")
      */
-    private $usuarioAsignado;
+    private $usuarioAsignados;
 
     /**
      * Fecha de creacion.
@@ -95,6 +96,7 @@ class Cliente
 
     public function __construct()
     {
+        $this->usuarioAsignados = new ArrayCollection();
     }
 
     /**
@@ -300,30 +302,6 @@ class Cliente
     }
 
     /**
-     * Set usuarioAsignado.
-     *
-     * @param string $usuarioAsignado
-     *
-     * @return Cliente
-     */
-    public function setUsuarioAsignado($usuarioAsignado)
-    {
-        $this->usuarioAsignado = $usuarioAsignado;
-
-        return $this;
-    }
-
-    /**
-     * Get usuarioAsignado.
-     *
-     * @return string
-     */
-    public function getUsuarioAsignado()
-    {
-        return $this->usuarioAsignado;
-    }
-
-    /**
      * Método para buscar en select2.
      *
      * @return string
@@ -333,10 +311,49 @@ class Cliente
         return $this->nit.' : '.$this->razonSocial;
     }
 
+    /**
+     * Add usuarioAsignado.
+     *
+     * @param \AppBundle\Entity\AsignacionCliente $usuarioAsignado
+     *
+     * @return Cliente
+     */
+    public function addUsuarioAsignado(\AppBundle\Entity\AsignacionCliente $usuarioAsignado)
+    {
+        $this->usuarioAsignados[] = $usuarioAsignado;
+
+        return $this;
+    }
+
+    /**
+     * Remove usuarioAsignado.
+     *
+     * @param \AppBundle\Entity\AsignacionCliente $usuarioAsignado
+     */
+    public function removeUsuarioAsignado(\AppBundle\Entity\AsignacionCliente $usuarioAsignado)
+    {
+        $this->usuarioAsignados->removeElement($usuarioAsignado);
+    }
+
+    /**
+     * Get usuarioAsignados.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsuarioAsignados()
+    {
+        return $this->usuarioAsignados;
+    }
+
+    public function clearUsuarios()
+    {
+        $this->usuarioAsignados->clear();
+    }
+
     public function __toString()
     {
-        if ($this->nombreComercial !== null) {
-            return $this->nombreComercial;
+        if ($this->nombreComercial !== null && $this->serviciosPrestados !== null) {
+            return $this->nombreComercial .': '. $this->serviciosPrestados;
         }
 
         return $this->razonSocial;

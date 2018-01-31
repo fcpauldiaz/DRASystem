@@ -2,16 +2,15 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class CustomLoginController extends Controller
 {
@@ -38,7 +37,6 @@ class CustomLoginController extends Controller
                 $user->getRoles()
             );
 
-            $userProvider = new EntityUserProvider($this->getDoctrine(), 'UserBundle\Entity\Usuario', $user->getUsername());
             $options = array(
                 'path' => '/',
                 'name' => 'REMEMBERME',

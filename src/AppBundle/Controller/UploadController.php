@@ -2,16 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
-use AppBundle\Form\Type\ExcelType;
-use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Actividad;
 use AppBundle\Entity\Area;
+use AppBundle\Entity\AsignacionCliente;
+use AppBundle\Entity\Cliente;
+use AppBundle\Form\Type\ExcelType;
+use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\Departamento;
 
 /**
@@ -37,57 +38,63 @@ class UploadController extends Controller
         }
 
         $form = $this->createForm(
-        ExcelType::class);
+        ExcelType::class
+        );
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             //save excel
-        $data = $form->getData();
+            $data = $form->getData();
             $planilla = $data['excel'];
             $hoja = $data['hoja'];
             $hoja = $hoja - 1; //arreglar index.
-      $archivo = $planilla;
+            $archivo = $planilla;
             $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
             $worksheet = $phpExcelObject->getSheet($hoja);
             $this->validateClientExcel($worksheet);
         }
 
-        return $this->render('AppBundle:Excel:newClientes.html.twig',
+        return $this->render(
+            'AppBundle:Excel:newClientes.html.twig',
         [
             'form' => $form->createView(),
-        ]);
+        ]
+        );
     }
-  /**
-   * @Route("/excel/actividades", name ="excel_actividades")
-   * Método para subir excel de actividades
-   *
-   * @param Request $request
-   *
-   * @return Response
-   */
-  public function uploadActivitiesAction(Request $request)
-  {
-      $form = $this->createForm(
-        ExcelType::class);
+    /**
+     * @Route("/excel/actividades", name ="excel_actividades")
+     * Método para subir excel de actividades
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function uploadActivitiesAction(Request $request)
+    {
+        $form = $this->createForm(
+        ExcelType::class
+      );
 
-      $form->handleRequest($request);
-      if ($form->isValid()) {
-          //save excel
-      $data = $form->getData();
-          $planilla = $data['excel'];
-          $hoja = $data['hoja'];
-          $hoja = $hoja - 1; //arreglar index.
-      $archivo = $planilla;
-          $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
-          $worksheet = $phpExcelObject->getSheet($hoja);
-          $this->validateActividadExcel($worksheet);
-      }
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            //save excel
+            $data = $form->getData();
+            $planilla = $data['excel'];
+            $hoja = $data['hoja'];
+            $hoja = $hoja - 1; //arreglar index.
+            $archivo = $planilla;
+            $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($archivo);
+            $worksheet = $phpExcelObject->getSheet($hoja);
+            $this->validateActividadExcel($worksheet);
+        }
 
-      return $this->render('AppBundle:Excel:newActividadExcel.html.twig',
+        return $this->render(
+          'AppBundle:Excel:newActividadExcel.html.twig',
     [
       'form' => $form->createView(),
-    ]);
-  }
+    ]
+      );
+    }
 
     private function validateActividadExcel($worksheet)
     {
@@ -111,11 +118,12 @@ class UploadController extends Controller
               }
               $area = $em
                 ->getRepository('AppBundle:Area')
-                ->findOneBy(['nombre' => $data]);
+                ->findOneBy(['nombre' => $data, 'departamento' => $departamento]);
               if ($area === null) {
                   $area = new Area($data);
                   $area->setDepartamento($departamento);
                   $em->persist($area);
+                  $em->flush();
               }
 
               $actividad->setArea($area);
@@ -172,7 +180,11 @@ class UploadController extends Controller
                             $cliente->setServiciosPrestados($data);
                             break;
             case 3:
-              $cliente->setUsuarioAsignado($data);
+              $usuario = $em->getRepository('UserBundle:Usuario')->findOneById($data);
+
+              $asignacion = new AsignacionCliente($usuario, $cliente);
+              $em->persist($asignacion);
+              $cliente->addUsuarioAsignado($asignacion);
               break;
                     }
                 }

@@ -53,25 +53,25 @@
 	        <thead>
 	            <tr>
 	                <th>Cliente</th>
-	                <th>Actividad</th>
-	                <th>Usuario</th>
-	                <th>Costo Horas</th>
-	                <th>Presupuesto Horas</th>
+	                <th>Área</th>
+	                <th>Horas Presupuestadas</th>
+	                <th>Horas Realizadas</th>
 	                <th>Diferencia</th>
-	                <th>CostoPresupuesto</th>
-	                <th>CostoTotal</th>
-	                
+	                <th>Costo Por Hora</th>
+	                <th>Costo Presupuesto</th>
+	                <th>CostoReal</th>
+
 	            </tr>
 	        </thead>
 	        <tbody>
 	            {% for consulta in consultaCliente %}
 	                <tr>
 		                <td>{{consulta.cliente}}</td>
-		                <td>{{consulta.actividad}}</td>
-		                <td>{{consulta.usuario}}</td>
-		                <td>{{consulta.horasCalculadas}}</td>
+		                <td>{{consulta.area}}</td>
 		                <td>{{consulta.horasPresupuesto}}</td>
+		                <td>{{consulta.horasCalculadas}}</td>
 		                <td>{{consulta.diferencia}}</td>
+		                <td>{{ consulta.costoPorHora | number_format(2, '.', ', ')}}</td>
 		                <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
 		                <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
 	                 
@@ -79,7 +79,6 @@
 	            {% endfor %}
 	             <tr>
 	                <td><b>Totales<b> </td>
-	                <td> </td>
 	                <td> </td>
 	                <td> 
 	                    <b> 
@@ -102,6 +101,7 @@
 	                        </font>
 	                    </b>    
 	                </td>
+	                <td></td>
 	                 <td>
 	                   <b>
 	                        <font color="#27ae60">
@@ -122,7 +122,7 @@
 	        </tr>
 	         <tr>
 	                <td><b>Honorarios<b> </td>
-	                <td> </td>
+	                <td> </td>	
 	                <td> </td>
 	                <td>  </td>
 	                <td> </td>

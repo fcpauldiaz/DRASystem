@@ -43,10 +43,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          
+
                 <li><a href="{{ path('registrohoras_new')}}">Ingresar horas</a></li>
-           
+
             {% if is_granted('ROLE_VER_LISTADO_GENERAL')%}
+                <li><a href="{{ path('horaspresupuesto')}}">Ver horas presupuestadas</a></li>
                 <li><a href="{{ path('registrohoras')}}">Ver registro de horas</a></li>
             {% endif %}
           </ul>
@@ -65,6 +66,21 @@
             {% endif %}
             {% if is_granted('ROLE_CREAR_PRESUPUESTOS') and app.user %}
                 <li><a href="{{ path('proyectopresupuesto')}}">Ver proyectos presupuesto</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        {% endif %}
+        {% if not is_granted('ROLE_CREAR_PRESUPUESTOS') and  is_granted('ROLE_CREAR_PRESUPUESTOS') %}
+        <!--Registro Presupuestos -->
+          <li class="treeview">
+          <a href="#"><i class="fa fa-money"></i> <span>Horas Presupuestadas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+             {% if not is_granted('ROLE_CREAR_PRESUPUESTOS') and  is_granted('ROLE_CREAR_PRESUPUESTOS') %}
+                <li><a href="{{ path('horaspresupuesto')}}">Ver Mis Horas Presupuestadas</a></li>
             {% endif %}
           </ul>
         </li>
@@ -104,8 +120,10 @@
             <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
             <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
             <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
-            <li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
-            <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>
+            {#<li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
+            <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>#}
+            <li><a href="{{ path('consulta_horas_usuario') }}">Consulta de Horas Ingresadas</a></li>
+             <li><a href="{{ path('consulta_horas_presupuesto_usuario') }}">Consulta de Horas Presupuestadas</a></li>
           </ul>
         </li>
         {% endif %}
@@ -165,7 +183,7 @@
             {% endif %}
              {% if is_granted('ROLE_VER_PUESTO_Y_TIPO') and app.user %}
                <li><a href="{{path('puesto')}}">Ver Puestos</a></li>
-            
+
             {% endif %}
           </ul>
         </li>
@@ -196,7 +214,7 @@
           </ul>
         </li>
       {% endif %}
-        
+
       </ul>
        <!-- Sidebar Menu -->
        {% if is_granted('ROLE_ADMIN') %}

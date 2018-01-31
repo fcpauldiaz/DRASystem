@@ -2,14 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\AsignacionCliente;
+use AppBundle\Entity\Cliente;
+use AppBundle\Form\Type\ClienteEditType;
+use AppBundle\Form\Type\ClienteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Cliente;
-use AppBundle\Form\Type\ClienteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Cliente controller.
@@ -30,12 +33,42 @@ class ClienteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Cliente')->findAll();
+        $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
+        $claseActual = $discriminator->getClass();
+        $usuarioActual = $this->getUser();
+        //mostrar todo en caso de ser socio
+        //o ser El código 69, Ciro Salay.
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
+          $usuarioActual->getCodigo()->getCodigo() === 69
+          ) {
+            $entities = $em->getRepository('AppBundle:Cliente')->findAll();
+
+            return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
+              'entities' => $entities,
+          ));
+        }
+        $clientes = $this->filtrarClientes($usuarioActual);
 
         return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
-            'entities' => $entities,
-        ));
+              'entities' => $clientes,
+          ));
     }
+
+    private function filtrarClientes($usuario)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+        ->select('cliente')
+        ->from('AppBundle:Cliente', 'cliente')
+        ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
+        ->where('asignacion.usuario = :usuario')
+        ->OrWhere('asignacion.usuario = 1')
+        ->setParameter('usuario', $usuario);
+
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * Creates a new Cliente entity.
      *
@@ -52,8 +85,21 @@ class ClienteController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //modificar asignacion
+            $usuarios = $form->getData()->getUsuarioAsignados();
+            $copyUsuarios = clone $usuarios;
+            $form->getData()->clearUsuarios();
+
+            foreach ($copyUsuarios as $usuario) {
+                $asignacion = new AsignacionCliente($usuario, $entity);
+
+                $em->persist($asignacion);
+                $form->getData()->addUsuarioAsignado($asignacion);
+            }
+
             $em->persist($entity);
             $em->flush();
+
             $this->addFlash('success', 'El cliente ha sido creado exitosamente');
             if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('cliente_new');
@@ -77,18 +123,18 @@ class ClienteController extends Controller
      */
     private function createCreateForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType($this->getDoctrine()->getManager()), $entity, array(
+        $form = $this->createForm(ClienteType::class, $entity, array(
             'action' => $this->generateUrl('cliente_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -180,12 +226,12 @@ class ClienteController extends Controller
      */
     private function createEditForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType($this->getDoctrine()->getManager()), $entity, array(
+        $form = $this->createForm(ClienteType::class, $entity, array(
             'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -210,10 +256,24 @@ class ClienteController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            //modificar asignacion
+            $usuarios = $editForm->getData()->getUsuarioAsignados();
+            $copyUsuarios = clone $usuarios;
+            $editForm->getData()->clearUsuarios();
+
+            foreach ($copyUsuarios as $usuario) {
+                $asignacion = new AsignacionCliente($usuario, $entity);
+
+                $em->persist($asignacion);
+                $editForm->getData()->addUsuarioAsignado($asignacion);
+            }
+
+            $em->persist($entity);
             $em->flush();
 
+            $this->addFlash('success', 'El cliente ha sido actualizado exitosamente');
             return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
         }
 
