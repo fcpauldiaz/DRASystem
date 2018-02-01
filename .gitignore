@@ -1,6 +1,6 @@
 /web/bundles/
+
 /vendor/
-/bin/
 /composer.phar
 /node_modules/*
 
