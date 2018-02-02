@@ -113,4 +113,29 @@ class CostoRepository extends EntityRepository
 
     }
 
+    public function findCostoPorActividadProyecto($actividad, $usuario, $proyecto, $area_id)
+    {
+        //find all users that worked in that area
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('AVG((costo.costo))')
+            ->from('UserBundle:Usuario', 'users')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
+            ->where('proy.id = :proy')
+            ->andWhere('act.id = :actividad_id')
+            ->andWhere('users.id = :usuario_id')
+            ->andWhere('area.id = :area_id')
+            ->setParameter('actividad_id', $actividad)
+            ->setParameter('proy', $proyecto)
+            ->setParameter('area_id', $area_id)
+            ->setParameter('usuario_id', $usuario);
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
 }

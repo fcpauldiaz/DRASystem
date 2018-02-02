@@ -104,4 +104,32 @@ class RegistroHorasRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findByAreaAndProyecto($area, $proyecto)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('act.nombre as actividad')
+            ->addSelect('act.id as actividadId')
+            ->addSelect('SUM(r.horasInvertidas) as horas')
+            ->addSelect('r.fechaHoras')
+            ->addSelect('c.razonSocial as cliente')
+            ->addSelect('u.nombre')
+            ->addSelect('u.apellidos')
+            ->addSelect('u.id as userId')
+            ->from('AppBundle:RegistroHoras', 'r')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'a', 'with', 'a.id = act.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'p', 'with', 'p.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Cliente', 'c', 'with', 'r.cliente = c.id')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = r.ingresadoPor')
+            ->where('a.id = :area_id')
+            ->andWhere('p.id = :proyecto_id')
+            ->groupBy('act.id')
+            ->addGroupBy('u.id')
+            ->setParameter('area_id', $area)
+            ->setParameter('proyecto_id', $proyecto);
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -116,6 +116,49 @@ class ConsultaCostoController extends Controller
             ]
         );
     }
+
+     /**
+     * @Route("presupuesto/area/detalle/", name="presupuesto_area_detalle")
+     * @Method({"PUT", "GET"})
+     * Se mandan los párametro a través del request.
+     */
+    public function consultaAreaDetalleAction(Request $request)
+    {
+        $area_id = $request->get('area_id');
+        $area_nombre = $request->get('area_nombre');
+        $proyecto_id = $request->get('proyecto_id');
+        $horasExtraordinarias = $request->get('horasExtraordinarias');
+        $registros = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:RegistroHoras')
+            ->findByAreaAndProyecto($area_id, $proyecto_id);
+        $arrayRegistros = [];
+        foreach($registros as $registro) {
+            $actividad_id = $registro['actividadId'];
+            $usuario_id = $registro['userId'];
+
+            $costo = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('CostoBundle:Costo')
+                ->findCostoPorActividadProyecto($actividad_id, $usuario_id, $proyecto_id, $area_id);
+
+            $costoHoras = $registro['horas'] * $costo;
+            $registro['costoPorHora'] = $costo;
+            $registro['costoReal'] = $costoHoras;
+            $arrayRegistros[] = $registro;
+
+        }
+        return $this->render(
+            'CostoBundle:Consulta:consultaDetalleArea.html.twig',
+            [
+                'area_nombre' => $area_nombre,
+                'registros' => $arrayRegistros,
+                'costoReal' => 0,
+            ]
+        );
+    }
     /**
      * Detalle de la consulta por usuarios y proyecto.
      *
@@ -211,13 +254,8 @@ class ConsultaCostoController extends Controller
             $consultasPorArea = $this->calcularHorasTotales($proyecto, $form);
         }
         $honorarios = $proyecto->getHonorarios();
-        $fechaInicio = 'not defined';
-        $fechaFinal = 'not defined';
         $data = $form->getData();
-        if (isset($form->getData()['fechaInicio']) && isset($form->getData()['fechaFinal'])) {
-            $fechaInicio = $data['fechaInicio']->format('Y-m-d');
-            $fechaFinal = $data['fechaFinal']->format('Y-m-d');
-        }
+
 
         return $this->render(
                 'CostoBundle:Consulta:consultaPorArea.html.twig',
@@ -226,10 +264,6 @@ class ConsultaCostoController extends Controller
                     'honorarios' => $honorarios,
                     'proyecto' => $proyecto,
                     'consultasPorArea' => $consultasPorArea,
-
-                    'verificador' => false,  //mandar variable a javascript
-                    'fechaInicio' => $fechaInicio,
-                    'fechaFinal' => $fechaFinal,
                     'form' => $form->createView(),
 
                 ]
@@ -344,17 +378,14 @@ class ConsultaCostoController extends Controller
         $returnArray = [];
         //registro horas por proyecto
         $data = $form->getData();
-        $fechaInicio = '';
-        $fechaFinal = '';
-        if (array_key_exists('fechaInicio', $data)) {
-            $fechaInicio = $data['fechaInicio'];
-            $fechaFinal = $data['fechaFinal'];
-        }
+        //1 == no (false),
+        $horasExtraordinarias = $data['horas_extraordinarias'] === 1 ? false: true;
 
-        $arrayRegistros = $this->queryRegistroHorasPorFechaArea($proyecto);
+
+        $arrayRegistros = $this->queryRegistroHorasPorFechaArea($proyecto, $horasExtraordinarias);
 
         foreach ($arrayRegistros as $registroArray) {
-            
+
             $horas = $registroArray[1];
             $area_nombre = $registroArray['nombre'];
             $area_id = $registroArray['id'];
@@ -371,11 +402,11 @@ class ConsultaCostoController extends Controller
                 ->getManager()
                 ->getRepository('CostoBundle:Costo')
                 ->findCostoPorAreaProyecto($area_id, $proyecto);
-            
+
             //calcular las horas presupuestadas
             //busco en el proyecto los registros de
             //presupuesto y los filtro por actividad
-         
+
             // $arrayCostos = $this->calcularHorasPorActividad($registros, $actividad, $form);
 
             // $horas = $arrayCostos[];
@@ -386,6 +417,7 @@ class ConsultaCostoController extends Controller
             $costoPresupuesto = $costoPresupuesto * $horasPresupuestadas;
             $consultaActividad = new ConsultaClienteProyecto(
                 $area_nombre,
+                $area_id,
                 $horas,
                 $horasPresupuestadas,
                 $costoReal,
@@ -401,7 +433,7 @@ class ConsultaCostoController extends Controller
         return $returnArray;
     }
 
-    private function queryRegistroHorasPorFechaArea($proyecto) 
+    private function queryRegistroHorasPorFechaArea($proyecto, $horasExtraordinarias)
     {
          $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
@@ -413,7 +445,9 @@ class ConsultaCostoController extends Controller
             ->innerJoin('AppBundle:Area', 'area', 'with', 'act.area = area.id')
             ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = registro.proyectoPresupuesto')
             ->andWhere('proy.id = :proyecto')
+            ->andWhere('registro.horasExtraordinarias = :extra_horas')
             ->setParameter('proyecto', $proyecto)
+            ->setParameter('extra_horas', $horasExtraordinarias)
             ->groupBy('area.id');
         return $qb->getQuery()->getResult();
     }

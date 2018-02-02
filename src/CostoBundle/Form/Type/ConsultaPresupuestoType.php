@@ -46,81 +46,7 @@ class ConsultaPresupuestoType extends AbstractType
                     'class' => 'select2',
                 ],
 
-            ]
-            )
-            ->add('costo_monetario', ChoiceType::class, [
-                'mapped' => false,
-                 'choices' => [
-                    'No' => 0,
-                    'Si' => 1,
-                ],
-                'attr' => [
-                    'class' => 'hide-element-decision',
-                ],
-                'required' => true,
-                // always include this
-                'choices_as_values' => true,
-                ])
-             ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
-                    'format' => 'dd/mm/yyyy',
-                    'weekStart' => 0,
-                    'autoclose' => true,
-                    'startView' => 'year',
-                    'minView' => 'year',
-                    'maxView' => 'decade',
-                    'todayBtn' => false,
-                    'todayHighlight' => true,
-                    'keyboardNavigation' => true,
-                    'language' => 'es',
-                    'forceParse' => false,
-                    'minuteStep' => 5,
-                    'pickerReferer ' => 'default', //deprecated
-                    'pickerPosition' => 'bottom-right',
-                    'viewSelect' => 'month',
-                    'showMeridian' => false,
-                ],
-                'attr' => [
-                    'class' => 'hide-element fecha-inicial',
-                    'read_only' => true,
-                ],
-                'label_attr' => [
-                    'class' => 'hide-element',
-                ],
-                
-                'required' => false,
             ])
-           ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
-                            'format' => 'dd/mm/yyyy',
-                            'weekStart' => 0,
-                            'autoclose' => true,
-                            'startView' => 'year',
-                            'minView' => 'year',
-                            'maxView' => 'decade',
-                            'todayBtn' => false,
-                            'todayHighlight' => true,
-                            'keyboardNavigation' => true,
-                            'language' => 'es',
-                            'forceParse' => false,
-                            'minuteStep' => 5,
-                            'pickerReferer ' => 'default', //deprecated
-                            'pickerPosition' => 'bottom-right',
-                            'viewSelect' => 'month',
-                            'showMeridian' => false,
-                        ],
-
-                        'attr' => [
-                            'class' => 'hide-element fecha-final',
-                            'read_only' => true,
-
-                        ],
-
-                        'label_attr' => [
-                            'class' => 'hide-element',
-                        ],
-
-                        'required' => false,
-
-                    ])
             ->add('horas_extraordinarias', ChoiceType::class, [
                 'choices' => [
                     'No' => 1,
@@ -130,9 +56,7 @@ class ConsultaPresupuestoType extends AbstractType
                 'required' => true,
                 // always include this
                 'choices_as_values' => true,
-
             ])
-
             ->add(
                 'submit',
                 SubmitType::class,

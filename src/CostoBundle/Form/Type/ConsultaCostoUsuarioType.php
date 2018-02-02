@@ -42,7 +42,7 @@ class ConsultaCostoUsuarioType extends AbstractType
                     'class' => 'fecha-inicial',
                     'read_only' => true,
                 ],
-                
+
 
             ])
             ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
@@ -67,12 +67,12 @@ class ConsultaCostoUsuarioType extends AbstractType
                     'class' => 'fecha-final',
                     'read_only' => true,
                 ],
-                
+
 
             ])
             ->add('usuario', EntityType::class, [
-                'class' => UsuarioTrabajdor::class,
-                'placholder' => 'Escoja el usuario',
+                'class' => UsuarioTrabajador::class,
+                'placeholder' => 'Escoja el usuario',
                 'attr' => [
                     'class' => 'select2',
                 ],

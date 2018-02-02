@@ -12,13 +12,23 @@ use CostoBundle\Entity\Consulta as ConsultaMain;
 class ConsultaClienteProyecto extends ConsultaMain
 {
     /**
-     * Identificador el registro presupuesto.
+     * Identificador  texto del area
      *
      * @var int
      */
     private $area;
 
+    /**
+     * Costo calculado por hora
+     * @var double
+     */
     private $costoPorHora;
+
+    /**
+     * Ideantificador del area
+     * @var int
+     */
+    private $area_id;
 
     /**
      * Constructor inicial.
@@ -27,10 +37,11 @@ class ConsultaClienteProyecto extends ConsultaMain
      * @param int       $horas
      * @param float     $costoTotal
      */
-    public function __construct($area, $horas, $horasPresupuesto, $costoTotal, $costoPresupuesto, $costo)
+    public function __construct($area, $area_id, $horas, $horasPresupuesto, $costoTotal, $costoPresupuesto, $costo)
     {
         parent::__construct($horas, $horasPresupuesto, $costoTotal);
         $this->area = $area;
+        $this->area_id = $area_id;
 
         $this->costoPresupuesto = $costoPresupuesto;
         $this->costoPorHora = $costo;
@@ -81,6 +92,11 @@ class ConsultaClienteProyecto extends ConsultaMain
     public function getCostoPorHora()
     {
         return $this->costoPorHora;
+    }
+
+    public function getAreaId()
+    {
+      return $this->area_id;
     }
 
 

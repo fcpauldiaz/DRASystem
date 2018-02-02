@@ -55,7 +55,7 @@ FROM v1wq1ics1m037sn6.registro_horas_presupuesto r
 JOIN area a on a.id = r.area_id
 JOIN proyecto_presupuesto proy ON proy.id = r.proyecto_id
 WHERE proy.id = 6
-and a.id = 394;
+group by a.id;
 
 #COSTO POR PROYECTO Y AREA
 SELECT area.id, area.nombre, AVG((costo.costo))
@@ -66,5 +66,34 @@ inner join actividad on actividad.id = registro_horas.actividad_id
 inner join area on area.id = actividad.area_id
 inner join costo on costo.usuario_id = usuario.id
 WHERE proy.id = 6 
-and area.id = 394;
+group by area.id;
+
+
+SELECT id, actividad_id, cliente_id, ingresado_por_id, proyecto_presupuesto_id, fecha_horas, horas_invertidas, fecha_creacion, aprobado, horas_extraordinarias, creado_por_id, actualizado_por_id, fecha_actualizacion
+FROM v1wq1ics1m037sn6.registro_horas;
+
+#Registro horas dado un área y un proyecto
+SELECT act.nombre, act.id, SUM(r.horas_invertidas), u.nombre, u.apellidos
+FROM registro_horas r
+INNER JOIN actividad act ON act.id = r.actividad_id
+INNER JOIN area a on a.id = act.area_id
+INNER JOIN proyecto_presupuesto p on p.id = r.proyecto_presupuesto_id
+INNER JOIN usuario u ON u.id = r.ingresado_por_id
+WHERE a.id = 396
+AND proyecto_presupuesto_id = 6
+group by act.id, u.id;
+
+#costo por actividad usuario agrupada
+SELECT actividad.id, actividad.nombre, ((costo.costo)), usuario.nombre, usuario.apellidos
+FROM usuario
+inner join registro_horas on registro_horas.ingresado_por_id = usuario.id
+inner join proyecto_presupuesto proy ON registro_horas.proyecto_presupuesto_id = proy.id
+inner join actividad on actividad.id = registro_horas.actividad_id
+inner join area on area.id = actividad.area_id
+inner join costo on costo.usuario_id = usuario.id
+WHERE proy.id = 6
+AND area.id = 396
+and actividad.id = 1142
+#GROUP By registro_horas.id
+group by usuario.id, actividad.id
 
