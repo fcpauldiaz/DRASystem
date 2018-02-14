@@ -27,7 +27,7 @@ class CostoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-            ->select('costo.costo')
+            ->select('AVG(costo.costo)')
             ->from('CostoBundle:Costo', 'costo')
             ->where('costo.fechaInicio >= :fechaInicio')
             ->andWhere('costo.fechaFinal <= :fechaFinal')
@@ -71,7 +71,7 @@ class CostoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-            ->select('AVG((costo.costo))')
+            ->select('AVG(DISTINCT(costo.costo))')
             ->addSelect('area.nombre')
             ->from('UserBundle:Usuario', 'users')
             ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
@@ -79,7 +79,7 @@ class CostoRepository extends EntityRepository
             ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
             ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
             ->where('r.cliente = :cliente')
-            ->andWhere($qb->expr()->orX(
+            ->andWhere($qb->expr()->andX(
                $qb->expr()->gte('costo.fechaInicio', ':fechaInicio'),
                $qb->expr()->lte('costo.fechaFinal', ':fechaFinal')
             ))
@@ -98,18 +98,25 @@ class CostoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-            ->select('AVG((costo.costo))')
-            ->from('UserBundle:Usuario', 'users')
-            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
-            ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = r.proyectoPresupuesto')
+            ->select('r.id')
+            ->addSelect('costo.costo')
+            ->from('AppBundle:RegistroHoras', 'r')
             ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
-            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
-            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
-            ->where('proy.id = :proy')
-            ->andWhere('area.id = :area_id')
+            ->innerJoin('AppBundle:Area', 'a', 'with', 'a.id = act.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'p', 'with', 'p.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Cliente', 'c', 'with', 'r.cliente = c.id')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = r.ingresadoPor')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = u.id')
+            ->where('a.id = :area_id')
+            ->andWhere('p.id = :proyecto_id')
+            ->andWhere($qb->expr()->andX(
+               $qb->expr()->lte('costo.fechaInicio', 'r.fechaHoras'),
+               $qb->expr()->gte('costo.fechaFinal', 'r.fechaHoras')
+            ))
+            ->groupBy('r.id')
             ->setParameter('area_id', $area)
-            ->setParameter('proy', $proyecto);
-        return $qb->getQuery()->getOneOrNullResult();
+            ->setParameter('proyecto_id', $proyecto);
+        return $qb->getQuery()->getScalarResult();
 
     }
 
@@ -119,7 +126,7 @@ class CostoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-            ->select('AVG((costo.costo))')
+            ->select('AVG(DISTINCT(costo.costo))')
             ->from('UserBundle:Usuario', 'users')
             ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
             ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = r.proyectoPresupuesto')

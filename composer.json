@@ -22,6 +22,7 @@
     "require": {
         "php": ">=5.5.9 <7.2",
         "aws/aws-sdk-php": "^3.52",
+        "beberlei/DoctrineExtensions": "^1.0",
         "braincrafted/bootstrap-bundle": "^2.2",
         "cspoo/swiftmailer-mailgun-bundle": "0.2.1",
         "doctrine/doctrine-bundle": "^1.6",

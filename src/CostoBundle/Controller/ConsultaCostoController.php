@@ -132,20 +132,17 @@ class ConsultaCostoController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:RegistroHoras')
-            ->findByAreaAndProyecto($area_id, $proyecto_id);
+            ->findByAreaAndProyectoCosto($area_id, $proyecto_id);
         $arrayRegistros = [];
         foreach($registros as $registro) {
-            $actividad_id = $registro['actividadId'];
-            $usuario_id = $registro['userId'];
-
-            $costo = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('CostoBundle:Costo')
-                ->findCostoPorActividadProyecto($actividad_id, $usuario_id, $proyecto_id, $area_id);
-
-            $costoHoras = $registro['horas'] * $costo;
-            $registro['costoPorHora'] = $costo;
+            $actividad = $registro['actividad'];
+            $usuario_nombre = $registro['nombre'];
+            $usuario_apellido = $registro['apellidos'];
+            $cliente = $registro['cliente'];
+            $fecha = $registro['fechaHoras'];
+            $horas = $registro['horasInvertidas'];
+            $costo = $registro['costo'];
+            $costoHoras = $horas * $costo;
             $registro['costoReal'] = $costoHoras;
             $arrayRegistros[] = $registro;
 
@@ -383,10 +380,11 @@ class ConsultaCostoController extends Controller
 
 
         $arrayRegistros = $this->queryRegistroHorasPorFechaArea($proyecto, $horasExtraordinarias);
-
         foreach ($arrayRegistros as $registroArray) {
+            dump($registroArray);
 
-            $horas = $registroArray[1];
+            $horasId = $registroArray['registroId'];
+            $horas = $registroArray['horas'];
             $area_nombre = $registroArray['nombre'];
             $area_id = $registroArray['id'];
 
@@ -403,18 +401,25 @@ class ConsultaCostoController extends Controller
                 ->getRepository('CostoBundle:Costo')
                 ->findCostoPorAreaProyecto($area_id, $proyecto);
 
-            //calcular las horas presupuestadas
-            //busco en el proyecto los registros de
-            //presupuesto y los filtro por actividad
+            $costoAcum = 0;
+            $horasAcum = 0;
+            $horas = explode(',', $horas);
+            $horasId = explode(',', $horasId);
 
-            // $arrayCostos = $this->calcularHorasPorActividad($registros, $actividad, $form);
+            foreach($horasId as $id) {
+                foreach($costo as $costoQuery) {
+                if ($costoQuery['id'] === $id) {
+                    $index = array_search($id, $horasId);
+                    $costoAcum += $horas[$index] * $costoQuery['costo'];
 
-            // $horas = $arrayCostos[];
-            $costo = $costo[1];
-
-            $costoReal = $costo*$horas;
-            $costoPresupuesto = $costo;
-            $costoPresupuesto = $costoPresupuesto * $horasPresupuestadas;
+                    $horasAcum += $horas[$index];
+                }
+                }
+            }
+            $costo = $costoAcum/$horasAcum;
+            $horas = $horasAcum;
+            $costoReal = $costoAcum;
+            $costoPresupuesto = $costo * $horasPresupuestadas;
             $consultaActividad = new ConsultaClienteProyecto(
                 $area_nombre,
                 $area_id,
@@ -429,7 +434,6 @@ class ConsultaCostoController extends Controller
             $consultaActividad->calcularDiferencia();
             $returnArray[] = $consultaActividad;
         }
-
         return $returnArray;
     }
 
@@ -438,7 +442,8 @@ class ConsultaCostoController extends Controller
          $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
         $qb
-            ->select('SUM(registro.horasInvertidas)')
+            ->select('GROUP_CONCAT(registro.horasInvertidas) as horas')
+            ->addSelect('GROUP_CONCAT(registro.id) as registroId')
             ->addSelect('area.nombre')
             ->addSelect('area.id')
             ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = registro.actividad ')

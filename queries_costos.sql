@@ -10,14 +10,16 @@ FROM v1wq1ics1m037sn6.registro_horas_presupuesto r
 WHERE r.cliente_id = 1949
 GROUP BY r.area_id;
 
-SELECT area.id, area.nombre, AVG((costo.costo))
+SELECT DISTINCT(costo.id), AVG((costo.costo))
 FROM usuario
 inner join registro_horas on registro_horas.ingresado_por_id = usuario.id
 inner join actividad on actividad.id = registro_horas.actividad_id
 inner join area on area.id = actividad.area_id
 inner join costo on costo.usuario_id = usuario.id
-WHERE registro_horas.cliente_id = 1949 AND (costo.fecha_inicio >= '2017-09-01' OR costo.fecha_final <= '2018-01-31')
-and area.id = 396
+WHERE registro_horas.cliente_id = 1949 AND (costo.fecha_inicio >= '2017-08-01' AND costo.fecha_final <= '2018-01-31')
+and area.id = 397
+group by costo.id
+
 
 
 Select * from costo
@@ -41,12 +43,14 @@ WHERE r.cliente_id = 1949;
 show status where `variable_name` = 'Threads_connected';
 
 #POR PROYECTO Y AREA (INGRESADAS/INVERTIDAS)
-SELECT a.nombre, a.id, SUM((r.horas_invertidas))
+SELECT a.nombre, a.id, GROUP_CONCAT(r.id) , GROUP_CONCAT((r.horas_invertidas))
 FROM v1wq1ics1m037sn6.registro_horas r
 JOIN actividad act on r.actividad_id = act.id
 JOIN area a on a.id = act.area_id
 JOIN proyecto_presupuesto proy ON proy.id = r.proyecto_presupuesto_id
 WHERE proy.id = 6
+AND r.horas_extraordinarias = 0
+#order by a.nombre
 GROUP BY a.id;
 
 #POR PROYECTO Y POR AREA (PRESUPUESTO)
@@ -65,7 +69,8 @@ inner join proyecto_presupuesto proy ON registro_horas.proyecto_presupuesto_id =
 inner join actividad on actividad.id = registro_horas.actividad_id
 inner join area on area.id = actividad.area_id
 inner join costo on costo.usuario_id = usuario.id
-WHERE proy.id = 6 
+where (costo.fecha_inicio < registro_horas.fecha_horas and costo.fecha_final > registro_horas.fecha_horas)
+and proy.id = 6 
 group by area.id;
 
 
@@ -84,16 +89,26 @@ AND proyecto_presupuesto_id = 6
 group by act.id, u.id;
 
 #costo por actividad usuario agrupada
-SELECT actividad.id, actividad.nombre, ((costo.costo)), usuario.nombre, usuario.apellidos
+SELECT actividad.id, actividad.nombre, AVG((costo.costo)), usuario.id, usuario.apellidos, (registro_horas.horas_invertidas)
+SELECT  actividad.nombre, usuario.apellidos, cliente.razon_social, registro_horas.fecha_horas, (registro_horas.horas_invertidas),  registro_horas.ingresado_por_id, costo.costo
 FROM usuario
 inner join registro_horas on registro_horas.ingresado_por_id = usuario.id
 inner join proyecto_presupuesto proy ON registro_horas.proyecto_presupuesto_id = proy.id
 inner join actividad on actividad.id = registro_horas.actividad_id
 inner join area on area.id = actividad.area_id
 inner join costo on costo.usuario_id = usuario.id
+inner join cliente on cliente.id = registro_horas.cliente_id
 WHERE proy.id = 6
-AND area.id = 396
-and actividad.id = 1142
-#GROUP By registro_horas.id
+AND area.id = 397
+AND (costo.fecha_inicio <= registro_horas.fecha_horas and costo.fecha_final >= registro_horas.fecha_horas)
+#and actividad.id = 1142
+GROUP By registro_horas.id
 group by usuario.id, actividad.id
+
+Select * from costo
+where costo.usuario_id = 44
+AND (costo.fecha_inicio >= '2017-08-01' AND costo.fecha_final <= '2018-01-31')
+
+
+
 

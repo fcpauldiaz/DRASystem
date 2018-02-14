@@ -38,10 +38,10 @@
               <td>{{registro.nombre}} {{registro.apellidos}}</td>
               <td>{{registro.cliente}}</td>
               <td>{{registro.fechaHoras|date('d-m-Y')}}</td>
-              <td>{{registro.horas}}</td>
-              <td>{{registro.costoPorHora| number_format(2, '.', ', ')}}</td>
+              <td>{{registro.horasInvertidas}}</td>
+              <td>{{registro.costo| number_format(2, '.', ', ')}}</td>
               <td>{{registro.costoReal| number_format(2, '.', ', ')}}</td>
-              {% set acumHoras = acumHoras + registro.horas %}
+              {% set acumHoras = acumHoras + registro.horasInvertidas %}
               {% set cont = cont + registro.costoReal %}
 
             </tr>
