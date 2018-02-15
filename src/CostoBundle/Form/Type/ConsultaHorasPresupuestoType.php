@@ -48,7 +48,7 @@ class ConsultaHorasPresupuestoType extends AbstractType
                     'class' => 'fecha-inicial',
                     'read_only' => true,
                 ],
-                
+
 
             ])
             ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
@@ -73,7 +73,7 @@ class ConsultaHorasPresupuestoType extends AbstractType
                     'class' => 'fecha-final',
                     'read_only' => true,
                 ],
-                
+
 
             ])
             ->add('consulta_filtro', ChoiceType::class,
@@ -95,7 +95,7 @@ class ConsultaHorasPresupuestoType extends AbstractType
             )
             ->add('usuario', EntityType::class, [
                 'class' => UsuarioTrabajador::class,
-                'choice_lable' => 'codigoString',
+                'choice_label' => 'codigoString',
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],

@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Cliente;
 use AppBundle\Entity\ProyectoPresupuesto;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\UsuarioTrabajador;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class ConsultaHorasType extends AbstractType
@@ -102,13 +102,13 @@ class ConsultaHorasType extends AbstractType
                 // always include this
                 'choices_as_values' => true,
             ])
-            ->add('usuario', 'entity', [
-                'class' => 'UserBundle:UsuarioTrabajador',
-                'property' => 'codigoString',
+            ->add('usuario', EntityType::class, [
+                'class' => UsuarioTrabajador::class,
+                'choice_label' => 'codigoString',
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],
-                'empty_value' => 'Seleccione el usuario',
+                'placeholder' => 'Seleccione el usuario',
                 'required' => false,
                 'label' => 'Horas realizadas por',
                 'attr' => [
@@ -116,10 +116,10 @@ class ConsultaHorasType extends AbstractType
                 ],
                 'multiple' => true
             ])
-            ->add('cliente', Entity::class, [
+            ->add('cliente', EntityType::class, [
                 'class' => Cliente::class,
                 'required' => true,
-                'property' => 'showSearchParams',
+                'choice_label' => 'showSearchParams',
                 'placeholder' => 'Seleccione el cliente',
                 'required' => false,
                  'attr' => [
@@ -127,7 +127,7 @@ class ConsultaHorasType extends AbstractType
                 ],
                 'multiple' => true
             ])
-            ->add('proyectoPresupuesto', Entity::class, [
+            ->add('proyectoPresupuesto', EntityType::class, [
                 'class' => ProyectoPresupuesto::class,
                 'required' => false,
                 'placeholder' => 'Seleccione el presupuesto',
