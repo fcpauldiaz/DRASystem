@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\ProyectoPresupuesto;
 use AppBundle\Entity\Cliente;
 use UserBundle\Entity\UsuarioTrabajador;
@@ -121,7 +120,7 @@ class ConsultaHorasPresupuestoType extends AbstractType
             ->add('proyectoPresupuesto', EntityType::class, [
                 'class' => ProyectoPresupuesto::class,
                 'required' => false,
-                'placholder' => 'Seleccione el presupuesto',
+                'placeholder' => 'Seleccione el presupuesto',
                 'attr' => [
                     'class' => 'select2',
                 ],
