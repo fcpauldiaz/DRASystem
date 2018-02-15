@@ -36,7 +36,48 @@ class CostoRepository extends EntityRepository
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findByFechaUsuarioProyectoStrict($fechaInicio, $fechaFinal, $proyecto, $usuario) {
+        $sql = '
+            Select AVG(costo.costo), costo.fecha_inicio, costo.fecha_final from costo
+            WHERE costo.usuario_id = :usuario_id
+            AND (
+                month(costo.fecha_inicio) >=
+                    (Select MONTH(MIN(registro_horas.fecha_horas))
+                    from registro_horas
+                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
+                    AND registro_horas.ingresado_por_id = :usuario_id)
+                AND
+                    YEAR(costo.fecha_inicio) >= (Select YEAR(MIN(registro_horas.fecha_horas))
+                    from registro_horas
+                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
+                    AND registro_horas.ingresado_por_id = :usuario_id)
+
+                AND
+                month(costo.fecha_final) <=
+                    (Select MONTH(MAX(registro_horas.fecha_horas))
+                    from registro_horas
+                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
+                    AND registro_horas.ingresado_por_id = :usuario_id)
+                AND
+                    YEAR(costo.fecha_final) <= (Select YEAR(MAX(registro_horas.fecha_horas))
+                    from registro_horas
+                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
+                    AND registro_horas.ingresado_por_id = :usuario_id)
+            )
+            AND (costo.fecha_inicio >= :fechaInicio AND costo.fecha_final <= :fechaFinal)
+            GROUP BY costo.id
+        ';
+        $em = $this->getEntityManager();
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->bindValue('usuario_id', $usuario);
+        $stmt->bindValue('proyecto_id', $proyecto);
+        $stmt->bindValue('fechaInicio', $fechaInicio->format('Y-m-d'));
+        $stmt->bindValue('fechaFinal', $fechaFinal->format('Y-m-d'));
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     /**

@@ -165,11 +165,9 @@ class ConsultaCostoController extends Controller
      */
     public function consultaPorUsuariosAction($proyecto, $form)
     {
-        //Obtener todos los registros de presupuesto de un proyecto
-        $presupuestosIndividuales = $proyecto->getPresupuestoIndividual();
 
         //Array de entidad Consulta Usuario
-        $consultaUsuario = $this->calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form);
+        $consultaUsuario = $this->calcularHorasTotalesUsuarios($proyecto, $form);
 
         $honorarios = $proyecto->getHonorarios();
 
@@ -258,6 +256,7 @@ class ConsultaCostoController extends Controller
                 'CostoBundle:Consulta:consultaPorArea.html.twig',
                 [
                     'horasExtraordinarias' => $data['horas_extraordinarias'],
+                    'verificador' => true,
                     'honorarios' => $honorarios,
                     'proyecto' => $proyecto,
                     'consultasPorArea' => $consultasPorArea,
@@ -457,6 +456,17 @@ class ConsultaCostoController extends Controller
         return $qb->getQuery()->getResult();
     }
 
+    private function searchArray($queryArray, $search)
+    {
+        foreach($queryArray as $key => $value)
+        {
+            if (in_array($search, $value)) {
+                return $value['horasP'];
+            }
+        }
+        return 0;
+    }
+
     /**
      * Método costo de horas por usuario.
      *
@@ -465,49 +475,50 @@ class ConsultaCostoController extends Controller
      *
      * @return Symfony Response
      */
-    private function calcularHorasTotalesUsuarios($presupuestosIndividuales, $proyecto, $form)
+    private function calcularHorasTotalesUsuarios($proyecto, $form)
     {
         $data = $form->getData();
-        $usuariosAsignadosPorProyecto = $this->filtrarUsuariosAsignadosPorProyecto($presupuestosIndividuales, $proyecto);
-
-
-        $registros = $this
+        $horasInvertidas =  $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:RegistroHoras')
-            ->findByProyecto($proyecto);
+            ->findByProyectoGroupUsuario($proyecto);
 
-        //este ciclo coloca en un array instancias de ConsultaUsuario
-        //que guarda el costo por usuario.
-        foreach ($usuariosAsignadosPorProyecto as $usuario) {
-            $horas = $this->calcularHorasPorUsuario($usuario, $registros, $data['horas_extraordinarias']);
-            //horas presupuestadas de un usuarios asignadas
-            $horasPresupuesto = $this->calcularHorasPorUsuarioPresupuesto($usuario, $presupuestosIndividuales);
-
-            $costoPorHora = $this->getDoctrine()
+        $queryPresupuesto = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:RegistroHorasPresupuesto')
+            ->findByProyectoGroupUsuario($proyecto);
+        $returnArray = [];
+        foreach($horasInvertidas as $resultHoras) {
+            $usuarioId = $resultHoras['id'];
+            $nombreUsuario = $resultHoras['nombre'];
+            $apellidosUsuario = $resultHoras['apellidos'];
+            $horas = $resultHoras['horas'];
+            $horasPresupuestadas = $this->searchArray($queryPresupuesto, $usuarioId);
+            //ahora calcular costo promedio por usuario y fecha
+            $costo = $this
+                ->getDoctrine()
                 ->getManager()
                 ->getRepository('CostoBundle:Costo')
-                ->findByFechaAndUsuario($data['fechaInicio'], $data['fechaFinal'], $usuario);
-            $costoPorHora = $costoPorHora['costo'];
-
-            $costoTotal = $this->calcularCostoMonetarioPorUsuario($horas, $costoPorHora);
-
-            $consultaUsuario = new ConsultaUsuario(
-                $usuario,
+                ->findByFechaAndUsuario($data['fechaInicio'], $data['fechaFinal'], $usuarioId);
+            $costoPorHora = $costo === null ? 0: $costo;
+            $costoTotal = $costoPorHora * $horas;
+             $consultaUsuario = new ConsultaUsuario(
+                $usuarioId,
+                $nombreUsuario .' '. $apellidosUsuario,
                 $horas,
-                $horasPresupuesto,
+                $horasPresupuestadas,
                 $costoPorHora,
                 $costoTotal
             );
-            $costoPresupuesto = $costoPorHora * $horasPresupuesto;
+            $costoPresupuesto = $costoPorHora * $horasPresupuestadas;
             $consultaUsuario->setCostoPresupuesto($costoPresupuesto);
             $consultaUsuario->calcularDiferencia();
 
             $returnArray[] = $consultaUsuario;
         }
-        //ahora que ya tengo los usuarios del proyecto asignado
-        //tengo los registros del proyecto
-        //acumulo las horas por el usuario que ha ingresado horas
+
 
         return $returnArray;
     }
@@ -774,7 +785,7 @@ class ConsultaCostoController extends Controller
                     ->getManager()
                     ->getRepository('CostoBundle:Costo')
                     ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $registro->getIngresadoPor());
-                $costo = $costo['costo'];
+                $costo = $costo === null ? 0: $costo;
                 if ($registro->getActividad()->getActividadNoCargable() === true) {
                     $costo = 0;
                 }

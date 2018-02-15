@@ -136,4 +136,20 @@ class RegistroHorasRepository extends EntityRepository
             ->setParameter('proyecto_id', $proyecto);
         return $qb->getQuery()->getResult();
     }
+
+    public function findByProyectoGroupUsuario($proyecto)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('u.id, u. nombre, u.apellidos')
+            ->addSelect('SUM(r.horasInvertidas) as horas')
+            ->from('UserBundle:Usuario', 'u')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = u.id')
+            ->where('r.proyectoPresupuesto = :proyecto')
+            ->groupBy('r.ingresadoPor')
+            ->setParameter('proyecto', $proyecto);
+        return $qb->getQuery()->getResult();
+
+    }
 }

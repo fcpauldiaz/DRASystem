@@ -45,10 +45,19 @@
         </div>
     </div>
     <div class="row">
+       <div class="col-md-6">
+            {{form_row(form.fechaInicio)}}
+       </div>
+        <div class="col-md-6">
+            {{form_row(form.fechaFinal)}}
+       </div>
+    </div>
+    <div class="row">
        <div class="col-md-12">
             {{form_row(form.submit)}}
        </div>
     </div>
+
     {{ form_end(form)}}
 
     {% if consultasPorActividades is not empty %}

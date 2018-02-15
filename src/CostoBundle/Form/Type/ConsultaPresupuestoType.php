@@ -43,7 +43,7 @@ class ConsultaPresupuestoType extends AbstractType
                     'label' => 'Escoja el método de filtro',
                     'required' => true,
                     'attr' => [
-                    'class' => 'select2',
+                    'class' => 'select2 hide-element-decision',
                 ],
 
             ])
@@ -56,6 +56,60 @@ class ConsultaPresupuestoType extends AbstractType
                 'required' => true,
                 // always include this
                 'choices_as_values' => true,
+            ])
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
+                    'format' => 'dd/mm/yyyy',
+                    'weekStart' => 0,
+                    'autoclose' => true,
+                    'startView' => 'year',
+                    'minView' => 'year',
+                    'maxView' => 'decade',
+                    'todayBtn' => false,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'es',
+                    'forceParse' => false,
+                    'minuteStep' => 5,
+                    'pickerReferer ' => 'default', //deprecated
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'month',
+                    'showMeridian' => false,
+                ],
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'hide-element fecha-inicial'
+                ],
+                'label_attr' => [
+                    'class' => 'hide-element',
+                ]
+
+            ])
+            ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
+                    'format' => 'dd/mm/yyyy',
+                    'weekStart' => 0,
+                    'autoclose' => true,
+                    'startView' => 'year',
+                    'minView' => 'year',
+                    'maxView' => 'decade',
+                    'todayBtn' => false,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'es',
+                    'forceParse' => false,
+                    'minuteStep' => 5,
+                    'pickerReferer ' => 'default', //deprecated
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'month',
+                    'showMeridian' => false,
+                ],
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'hide-element fecha-final'
+                ],
+                'label_attr' => [
+                    'class' => 'hide-element',
+                ]
+
             ])
             ->add(
                 'submit',

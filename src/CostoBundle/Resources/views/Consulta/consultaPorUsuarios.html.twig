@@ -34,10 +34,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            {{form_row(form.costo_monetario)}}
-        </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             {{form_row(form.horas_extraordinarias)}}
         </div>
     </div>
@@ -64,8 +61,8 @@
                 <th>Usuario</th>
                 <th>Horas Invertidas</th>
                 <th>Horas Presupuesto</th>
-                <th>Diferencia</th>
                 <th>Costo Por Hora</th>
+                <th>Diferencia</th>
                 <th>Costo Total</th>
                 <th>Acción</th>
             </tr>
@@ -75,15 +72,14 @@
 
             {% for entity in consultaUsuario %}
                 <tr>
-
                 <td>{{entity.usuario}}</td>
                 <td>{{entity.horasCalculadas}}</td>
                 <td>{{entity.horasPresupuesto}}</td>
-                <td>{{entity.diferencia}}</td>
                 <td>{{entity.costoPorHora | number_format(2, '.', ', ')}}</td>
+                <td>{{entity.diferencia}}</td>
                 <td>{{entity.costoTotal | number_format(2, '.', ', ')}}</td>
                    <td>
-                    <a  href="{{ path('presupuesto_individual_usuario', { 'nombrePresupuesto': nombrePresupuesto , 'usuario_id' : entity.usuario.id, 'fechaInicio':fechaInicio, 'fechaFinal' : fechaFinal, 'horasExtraordinarias': horasExtraordinarias}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
+                    <a  href="{{ path('presupuesto_individual_usuario', { 'nombrePresupuesto': nombrePresupuesto , 'usuario_id' : entity.getUserId, 'fechaInicio':fechaInicio, 'fechaFinal' : fechaFinal, 'horasExtraordinarias': horasExtraordinarias}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                 </td>
                 </tr>
             {% endfor %}

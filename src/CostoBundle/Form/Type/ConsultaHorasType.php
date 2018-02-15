@@ -11,6 +11,10 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Cliente;
+use AppBundle\Entity\ProyectoPresupuesto;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class ConsultaHorasType extends AbstractType
 {
@@ -21,7 +25,7 @@ class ConsultaHorasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                    'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -43,10 +47,10 @@ class ConsultaHorasType extends AbstractType
                     'class' => 'fecha-inicial',
                     'read_only' => true,
                 ],
-                
+
 
             ])
-            ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -68,7 +72,7 @@ class ConsultaHorasType extends AbstractType
                     'class' => 'fecha-final',
                     'read_only' => true,
                 ],
-                
+
 
             ])
             ->add('consulta_filtro', ChoiceType::class,
@@ -112,21 +116,21 @@ class ConsultaHorasType extends AbstractType
                 ],
                 'multiple' => true
             ])
-            ->add('cliente', 'entity', [
-                'class' => 'AppBundle:Cliente',
+            ->add('cliente', Entity::class, [
+                'class' => Cliente::class,
                 'required' => true,
                 'property' => 'showSearchParams',
-                'empty_value' => 'Seleccione el cliente',
+                'placeholder' => 'Seleccione el cliente',
                 'required' => false,
                  'attr' => [
                     'class' => 'select2',
                 ],
                 'multiple' => true
             ])
-            ->add('proyectoPresupuesto', 'entity', [
-                'class' => 'AppBundle:ProyectoPresupuesto',
+            ->add('proyectoPresupuesto', Entity::class, [
+                'class' => ProyectoPresupuesto::class,
                 'required' => false,
-                'empty_value' => 'Seleccione el presupuesto',
+                'placeholder' => 'Seleccione el presupuesto',
                 'attr' => [
                     'class' => 'select2',
                 ],

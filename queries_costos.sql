@@ -105,10 +105,53 @@ AND (costo.fecha_inicio <= registro_horas.fecha_horas and costo.fecha_final >= r
 GROUP By registro_horas.id
 group by usuario.id, actividad.id
 
-Select * from costo
-where costo.usuario_id = 44
-AND (costo.fecha_inicio >= '2017-08-01' AND costo.fecha_final <= '2018-01-31')
+Select AVG(costo.costo), costo.fecha_inicio, costo.fecha_final from costo
+where costo.usuario_id = 37
+AND (
+	month(costo.fecha_inicio) >= 
+		(Select MONTH(MIN(registro_horas.fecha_horas)) 
+		from registro_horas 
+		where registro_horas.proyecto_presupuesto_id = 6 
+		AND registro_horas.ingresado_por_id = 37) 
+	AND
+		YEAR(costo.fecha_inicio) >= (Select YEAR(MIN(registro_horas.fecha_horas)) 
+		from registro_horas 
+		where registro_horas.proyecto_presupuesto_id = 6 
+		AND registro_horas.ingresado_por_id = 37)
+		
+	AND
+	month(costo.fecha_final) <= 
+		(Select MONTH(MAX(registro_horas.fecha_horas)) 
+		from registro_horas 
+		where registro_horas.proyecto_presupuesto_id = 6 
+		AND registro_horas.ingresado_por_id = 37) 
+	AND
+		YEAR(costo.fecha_final) <= (Select YEAR(MAX(registro_horas.fecha_horas)) 
+		from registro_horas 
+		where registro_horas.proyecto_presupuesto_id = 6 
+		AND registro_horas.ingresado_por_id = 37)
+)
+AND (costo.fecha_inicio <= registro_horas.fecha_horas and costo.fecha_final >= registro_horas.fecha_horas) 
+GROUP BY costo.id
 
+(Select MIN(registro_horas.fecha_horas) from registro_horas where registro_horas.proyecto_presupuesto_id = 6 AND registro_horas.ingresado_por_id = 37)
 
+Select * 
+from registro_horas 
+where registro_horas.ingresado_por_id = 37
+and registro_horas.proyecto_presupuesto_id = 6; 
 
+#horas ingresadas por usuario
+SELECT  usuario.id, usuario.nombre, usuario.apellidos, SUM((r.horas_invertidas))
+FROM usuario
+inner join registro_horas r on r.ingresado_por_id = usuario.id
+WHERE r.proyecto_presupuesto_id = 6
+group by r.ingresado_por_id
 
+#horas presupuetadas por usuario
+Select 
+pr.usuario_id,
+SUM(pr.horas_presupuestadas)
+from registro_horas_presupuesto pr
+where pr.proyecto_id = 6
+group by pr.usuario_id

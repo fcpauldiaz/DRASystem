@@ -11,7 +11,16 @@
 
 {% block javascripts %}
     {{ form_javascript(form) }}
+   <script src="{{asset('js/showHideElements.js')}}"></script>
+    <script>
+        //forma de arreglar bug cuando se recarga javascript
+        //en campo de date.
+        var verifier = {{ verificador|json_encode|raw }};
+
+    </script>
+   <script src="{{asset('js/dateModifier.js')}}"></script>
 {% endblock %}
+
 
 {% block javascriptDataTables %}
   <script src = {{asset('js/dataTablesInit.js')}}>
@@ -37,6 +46,14 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-6">
+            {{form_row(form.fechaInicio)}}
+        </div>
+        <div class="col-md-6">
+            {{form_row(form.fechaFinal)}}
+        </div>
+    </div>
+    <div class="row">
        <div class="col-md-12">
             {{form_row(form.submit)}}
        </div>
@@ -51,8 +68,8 @@
             <thead>
                 <tr>
                     <th>Área</th>
-                    <th>Horas Presupuesto</th>
                     <th>Horas invertidas</th>
+                    <th>Horas Presupuesto</th>
                     <th>Horas Diferencia</th>
                     <th>Costo Por Hora</th>
                     <th>CostoPresupuesto</th>
@@ -68,8 +85,8 @@
 
                 <tr>
                     <td>{{consulta.area}}</td>
-                    <td>{{consulta.horasPresupuesto}}</td>
                     <td>{{consulta.horasCalculadas}}</td>
+                     <td>{{consulta.horasPresupuesto}}</td>
                     {% if consulta.diferencia < 0 %}
                       <td><font color="red"><b>{{consulta.diferencia }}<b></font></td>
                     {% else %}
