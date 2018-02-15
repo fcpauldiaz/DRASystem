@@ -137,8 +137,9 @@ class RegistroHorasRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findByProyectoGroupUsuario($proyecto)
+    public function findByProyectoGroupUsuario($proyecto, $horas_extra)
     {
+        $horas_extra = $horas_extra === 0 ? 1: 0;
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
@@ -147,8 +148,10 @@ class RegistroHorasRepository extends EntityRepository
             ->from('UserBundle:Usuario', 'u')
             ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = u.id')
             ->where('r.proyectoPresupuesto = :proyecto')
+            ->andWhere('r.horasExtraordinarias = :horas_extra')
             ->groupBy('r.ingresadoPor')
-            ->setParameter('proyecto', $proyecto);
+            ->setParameter('proyecto', $proyecto)
+            ->setParameter('horas_extra', $horas_extra);
         return $qb->getQuery()->getResult();
 
     }

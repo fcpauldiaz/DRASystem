@@ -380,7 +380,6 @@ class ConsultaCostoController extends Controller
 
         $arrayRegistros = $this->queryRegistroHorasPorFechaArea($proyecto, $horasExtraordinarias);
         foreach ($arrayRegistros as $registroArray) {
-            dump($registroArray);
 
             $horasId = $registroArray['registroId'];
             $horas = $registroArray['horas'];
@@ -478,11 +477,15 @@ class ConsultaCostoController extends Controller
     private function calcularHorasTotalesUsuarios($proyecto, $form)
     {
         $data = $form->getData();
+        $horas_extra = '';
+        if (array_key_exists('horas_extraordinarias', $data)) {
+            $horas_extra = $data['horas_extraordinarias'];
+        }
         $horasInvertidas =  $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:RegistroHoras')
-            ->findByProyectoGroupUsuario($proyecto);
+            ->findByProyectoGroupUsuario($proyecto, $horas_extra);
 
         $queryPresupuesto = $this
             ->getDoctrine()

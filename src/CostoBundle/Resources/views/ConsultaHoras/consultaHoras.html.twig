@@ -111,7 +111,7 @@
             </tr>
         </thead>
           <tbody>
-
+              {% set acumHoras = 0 %}
               {% for entity in registros %}
               <tr>
                 <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
@@ -128,7 +128,16 @@
                 </td>
 
               </tr>
+              {% set acumHoras = acumHoras + entity.horasInvertidas %}
               {% endfor %}
+              <tr>
+                <td></td>
+                <td>{{acumHoras}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
 
           </tbody>
       </table>
