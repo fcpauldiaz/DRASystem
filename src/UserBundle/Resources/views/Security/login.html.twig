@@ -20,7 +20,7 @@
 {% block fos_user_content %}
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{path('homepage')}}"><b>Smart</b>Time</a>
+    <a href="{{path('homepage')}}"><b>Chapi</b>Time</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -32,7 +32,7 @@
       {% endif %}
        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
       <div class="form-group has-feedback">
-        <input id="username" size="15" type="text" class="form-control" name="_username" value="" placeholder="{{ last_username|default('Usuario o Correo') }}" > 
+        <input id="username" size="15" type="text" class="form-control" name="_username" value="" placeholder="{{ last_username|default('Usuario o Correo') }}" >
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -51,9 +51,9 @@
       </div>
     </form>
 
- 
+
     <!-- /.social-auth-links -->
-   
+
 
   </div>
   <!-- /.login-box-body -->

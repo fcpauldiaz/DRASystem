@@ -2,8 +2,8 @@
 
 {% block javascripts %}
 	  <script>
-        $(document).ready(function() { 
-            $("#appbundle_planilla_excel_hoja").select2({ width: '8%' });       
+        $(document).ready(function() {
+            $("#appbundle_planilla_excel_hoja").select2({ width: '8%' });
         });
     </script>
 {% endblock %}
@@ -14,7 +14,7 @@
     {{ form(form)}}
     <br>
     <br>
-    <p>A las personas que no tengan usuario se les creará uno automáticamente con una contraseña por defecto (smart-time) y sin permisos.</p>
+    <p>A las personas que no tengan usuario se les creará uno automáticamente con una contraseña por defecto (chapi-time) y sin permisos.</p>
     <p>La primera columna del excel debe ser la del código y la última debe de ser el sueldo líquido.</p>
     <p>No deben existir columnas vacías en medio y/o ocultas.</p>
     <p><a href="" class="">Aquí puede encontrar una planilla válida para el sistema.</a></p>

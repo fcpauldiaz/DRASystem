@@ -251,7 +251,7 @@ class CronJobController extends Controller
         $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif')); //attach image 4
         $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif')); //attach image 5
 
-        $subject = 'Smart Time: Aprobación de Horas';
+        $subject = 'Chapi Time: Aprobación de Horas';
 
         $message
             ->setSubject($subject)

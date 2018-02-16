@@ -247,7 +247,7 @@ class SupervisorUsuariosController extends Controller
 
         $message
             ->setSubject($subject)
-            ->setFrom([$fromEmail => 'Smart-Time'])
+            ->setFrom([$fromEmail => 'Chapi-Time'])
             ->setTo($enviado_a->getEmail())
             ->setBody($this->renderView('AppBundle:AprobacionHoras:emailHoras.html.twig', [
                 'image_src' => $img_src,
