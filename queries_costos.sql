@@ -105,6 +105,12 @@ AND (costo.fecha_inicio <= registro_horas.fecha_horas and costo.fecha_final >= r
 GROUP By registro_horas.id
 group by usuario.id, actividad.id
 
+SELECT id, usuario_id, fecha_inicio, fecha_final, fecha_creacion, costo, fecha_actualizacion
+FROM v1wq1ics1m037sn6.costo
+WHERE costo.usuario_id = 40;
+
+
+
 Select AVG(costo.costo), costo.fecha_inicio, costo.fecha_final from costo
 where costo.usuario_id = 37
 AND (
@@ -131,7 +137,7 @@ AND (
 		where registro_horas.proyecto_presupuesto_id = 6 
 		AND registro_horas.ingresado_por_id = 37)
 )
-AND (costo.fecha_inicio <= registro_horas.fecha_horas and costo.fecha_final >= registro_horas.fecha_horas) 
+AND (costo.fecha_inicio >= '2017-08-01' AND costo.fecha_final <= '2018-01-31') 
 GROUP BY costo.id
 
 (Select MIN(registro_horas.fecha_horas) from registro_horas where registro_horas.proyecto_presupuesto_id = 6 AND registro_horas.ingresado_por_id = 37)
@@ -146,7 +152,8 @@ SELECT  usuario.id, usuario.nombre, usuario.apellidos, SUM((r.horas_invertidas))
 FROM usuario
 inner join registro_horas r on r.ingresado_por_id = usuario.id
 WHERE r.proyecto_presupuesto_id = 6
-group by r.ingresado_por_id
+AND r.horas_extraordinarias = 1
+group by r.ingresado_por_id;
 
 #horas presupuetadas por usuario
 Select 
@@ -155,3 +162,19 @@ SUM(pr.horas_presupuestadas)
 from registro_horas_presupuesto pr
 where pr.proyecto_id = 6
 group by pr.usuario_id
+
+
+#query por usuario GENERAL
+SELECT u.id, r.horas_invertidas, costo.costo, (r.horas_invertidas) * costo.costo, r.horas_extraordinarias
+FROM usuario u
+inner join registro_horas r on r.ingresado_por_id = u.id
+inner join costo on costo.usuario_id = u.id
+inner join cliente on cliente.id = r.cliente_id
+where (r.fecha_horas >= '2017-11-01' and r.fecha_horas <= '2017-12-31')
+AND (costo.fecha_inicio <= r.fecha_horas and costo.fecha_final >= r.fecha_horas)
+AND u.id = 40
+AND r.horas_extraordinarias = 0;
+
+Select * from costo
+where costo.usuario_id = 40;
+

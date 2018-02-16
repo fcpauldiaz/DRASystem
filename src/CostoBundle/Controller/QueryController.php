@@ -62,7 +62,7 @@ class QueryController extends Controller
         return $honorarios;
     }
 
-    public function calcularHonrariosPorCliente($cliente) 
+    public function calcularHonrariosPorCliente($cliente)
     {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
@@ -106,7 +106,6 @@ class QueryController extends Controller
     private function getActividadesPorArea($idArea) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('a');
-        dump($idArea);
         $qb
             ->select('a')
             ->from('AppBundle:Actividad', 'a')
