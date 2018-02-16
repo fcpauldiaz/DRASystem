@@ -3,8 +3,13 @@
 namespace CostoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use UserBundle\Entity\UsuarioTrabajador;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ConsultaGerenteType extends AbstractType
 {
@@ -15,7 +20,7 @@ class ConsultaGerenteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DateTime::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -35,11 +40,12 @@ class ConsultaGerenteType extends AbstractType
                 ],
                  'attr' => [
                     'class' => 'fecha-inicial',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+                
 
             ])
-            ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaFinal', DateTime::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -59,17 +65,18 @@ class ConsultaGerenteType extends AbstractType
                 ],
                  'attr' => [
                     'class' => 'fecha-final',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+                
 
             ])
-              ->add('gerente', 'entity', [
+              ->add('gerente', EntityType::class, [
                 'required' => false,
                 'label' => 'Gerentes',
                 'attr' => [
                   'class' => 'select2'
                 ],
-                'class' => 'UserBundle:UsuarioTrabajador',
+                'class' => UsuarioTrabajador::class,
                 'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                     return $er->createQueryBuilder('usuario')
                         ->leftJoin('usuario.puestos', 'puesto')
@@ -79,7 +86,7 @@ class ConsultaGerenteType extends AbstractType
                 },
 
             ])
-       ->add('horas_extraordinarias', 'choice', [
+       ->add('horas_extraordinarias', ChoiceType::class, [
                 'choices' => [
                     'Sí' => 0,
                     'No' => 1,
@@ -90,14 +97,14 @@ class ConsultaGerenteType extends AbstractType
                 'choices_as_values' => true,
 
             ])
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Buscar',
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',
                 ],
 
             ])
-            ->add('proyecto_o_usuarios', 'choice', [
+            ->add('proyecto_o_usuarios', ChoiceType::class, [
                 'choices' => [
                     'Proyecto Presupuesto' => 0,
                     'Usuarios' => 1,
@@ -119,14 +126,14 @@ class ConsultaGerenteType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consulta_socio';
     }

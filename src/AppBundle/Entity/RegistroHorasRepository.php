@@ -104,4 +104,55 @@ class RegistroHorasRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+    public function findByAreaAndProyectoCosto($area, $proyecto)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('act.nombre as actividad')
+            ->addSelect('u.nombre')
+            ->addSelect('u.apellidos')
+            ->addSelect('c.razonSocial as cliente')
+            ->addSelect('r.fechaHoras')
+            ->addSelect('r.horasInvertidas')
+            ->addSelect('costo.costo')
+            ->from('AppBundle:RegistroHoras', 'r')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'a', 'with', 'a.id = act.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'p', 'with', 'p.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Cliente', 'c', 'with', 'r.cliente = c.id')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = r.ingresadoPor')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = u.id')
+            ->where('a.id = :area_id')
+            ->andWhere('p.id = :proyecto_id')
+            ->andWhere($qb->expr()->andX(
+               $qb->expr()->lte('costo.fechaInicio', 'r.fechaHoras'),
+               $qb->expr()->gte('costo.fechaFinal', 'r.fechaHoras')
+            ))
+            ->groupBy('r.id')
+            ->setParameter('area_id', $area)
+            ->setParameter('proyecto_id', $proyecto);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByProyectoGroupUsuario($proyecto, $horas_extra)
+    {
+        $horas_extra = $horas_extra === 0 ? 1: 0;
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('u.id, u. nombre, u.apellidos')
+            ->addSelect('SUM(r.horasInvertidas) as horas')
+            ->from('UserBundle:Usuario', 'u')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = u.id')
+            ->where('r.proyectoPresupuesto = :proyecto')
+            ->andWhere('r.horasExtraordinarias = :horas_extra')
+            ->groupBy('r.ingresadoPor')
+            ->setParameter('proyecto', $proyecto)
+            ->setParameter('horas_extra', $horas_extra);
+        return $qb->getQuery()->getResult();
+
+    }
 }

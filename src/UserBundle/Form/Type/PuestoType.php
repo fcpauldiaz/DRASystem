@@ -4,18 +4,17 @@ namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\TipoPuesto;
+use UserBundle\Entity\Departamento;
+use UserBundle\Entity\UsuarioTrabajador;
 
 class PuestoType extends AbstractType
 {
     private $usuario;
-
-    public function __construct($usuario)
-    {
-        $this->usuario = $usuario;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -23,23 +22,24 @@ class PuestoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->usuario = $options['user'];
         $builder
-            ->add('tipoPuesto', 'entity', [
-                'class' => 'UserBundle:TipoPuesto',
+            ->add('tipoPuesto', EntityType::class, [
+                'class' => TipoPuesto::class,
                 'attr' => [
                     'class' => 'select2 form-control input-lg',
                 ],
 
             ])
-            ->add('departamento', 'entity', [
-                'class' => 'UserBundle:Departamento',
+            ->add('departamento', EntityType::class, [
+                'class' =>  Departamento::class,
                 'label' => 'Departamento',
                 'attr' => [
                     'class' => 'select2 form-control input-lg',
                 ],
             ])
-            ->add('usuario', 'entity', [
-                'class' => 'UserBundle:UsuarioTrabajador',
+            ->add('usuario', EntityType::class, [
+                'class' =>  UsuarioTrabajador::class,
                 'data' => $this->usuario,
                 'attr' => [
                     'class' => 'select2',
@@ -55,7 +55,7 @@ class PuestoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'UserBundle\Entity\Puesto',
@@ -65,7 +65,7 @@ class PuestoType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'userbundle_puesto';
     }

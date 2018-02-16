@@ -2,14 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Actividad;
 use AppBundle\Form\Type\ActividadType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Actividad controller.
@@ -77,18 +78,18 @@ class ActividadController extends Controller
      */
     private function createCreateForm(Actividad $entity)
     {
-        $form = $this->createForm(new ActividadType(), $entity, array(
+        $form = $this->createForm(ActividadType::class, $entity, array(
             'action' => $this->generateUrl('actividad_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -180,7 +181,7 @@ class ActividadController extends Controller
      */
     private function createEditForm(Actividad $entity)
     {
-        $form = $this->createForm(new ActividadType(), $entity, array(
+        $form = $this->createForm(ActividadType::class, $entity, array(
             'action' => $this->generateUrl('actividad_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

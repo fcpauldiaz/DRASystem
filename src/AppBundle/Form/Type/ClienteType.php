@@ -3,11 +3,14 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Usuario;
 
 class ClienteType extends AbstractType
 {
@@ -37,12 +40,12 @@ class ClienteType extends AbstractType
                 'required' => false,
                 'label' => 'Nombre Comercial (opcional)',
             ])
-            ->add('serviciosPrestados', 'textarea', [
+            ->add('serviciosPrestados', TextareaType::class, [
                 'label' => 'Servicios Prestados*',
                 'required' => true,
             ])
-            ->add('usuarioAsignados', 'entity', [
-                'class' => 'UserBundle:Usuario',
+            ->add('usuarioAsignados', EntityType::class, [
+                'class' => Usuario::class,
                 'label' => 'Usuario Asignado al cliente *',
                 'required' => true,
                 'attr' => [
@@ -57,7 +60,7 @@ class ClienteType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Cliente',
@@ -67,7 +70,7 @@ class ClienteType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_cliente';
     }

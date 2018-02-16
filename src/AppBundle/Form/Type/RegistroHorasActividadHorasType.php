@@ -3,8 +3,11 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Actividad;
 
 class RegistroHorasActividadHorasType extends AbstractType
 {
@@ -16,15 +19,15 @@ class RegistroHorasActividadHorasType extends AbstractType
     {
         $builder
 
-            ->add('actividad', 'entity', [
-                'class' => 'AppBundle:Actividad',
+            ->add('actividad', EntityType::class, [
+                'class' => Actividad::class,
                 'required' => true,
                 'empty_value' => 'Seleccione la actividad',
                 'attr' => [
                     'class' => 'select2',
                 ],
             ])
-            ->add('horasInvertidas', 'number', [
+            ->add('horasInvertidas', NumberType::class, [
                 'label' => 'Horas invertidas',
                 'required' => true,
             ])
@@ -34,7 +37,7 @@ class RegistroHorasActividadHorasType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -44,7 +47,7 @@ class RegistroHorasActividadHorasType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_registrohoras_actividad_horas';
     }

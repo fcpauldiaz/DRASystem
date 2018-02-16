@@ -3,8 +3,13 @@
 namespace CostoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\UsuarioTrabajador;
 
 class ConsultaCostoUsuarioType extends AbstractType
 {
@@ -15,7 +20,7 @@ class ConsultaCostoUsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -35,11 +40,12 @@ class ConsultaCostoUsuarioType extends AbstractType
                 ],
                  'attr' => [
                     'class' => 'fecha-inicial',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+
 
             ])
-            ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -59,19 +65,20 @@ class ConsultaCostoUsuarioType extends AbstractType
                 ],
                  'attr' => [
                     'class' => 'fecha-final',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+
 
             ])
-            ->add('usuario', 'entity', [
-                'class' => 'UserBundle:UsuarioTrabajador',
-                'empty_value' => 'Escoja el usuario',
+            ->add('usuario', EntityType::class, [
+                'class' => UsuarioTrabajador::class,
+                'placeholder' => 'Escoja el usuario',
                 'attr' => [
                     'class' => 'select2',
                 ],
 
             ])
-        ->add('horas_extraordinarias', 'choice', [
+        ->add('horas_extraordinarias', ChoiceType::class, [
                 'choices' => [
                     'Sí' => 0,
                     'No' => 1,
@@ -82,7 +89,7 @@ class ConsultaCostoUsuarioType extends AbstractType
                 'choices_as_values' => true,
 
             ])
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Buscar',
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',
@@ -96,14 +103,14 @@ class ConsultaCostoUsuarioType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consulta_usuario';
     }

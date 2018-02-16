@@ -2,12 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Form\Type\AsignacionType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\UsuarioRelacionado;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Asignacion Usuarios controller.
@@ -23,7 +24,7 @@ class AsignacionUsuariosController extends Controller
    */
     public function asginarUsuariosAction(Request $request)
     {
-        $form = $this->createForm(new AsignacionType($this->getUser()));
+        $form = $this->createForm(AsignacionType::class, null, array('user' => $this->getUser()));
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -50,7 +51,7 @@ class AsignacionUsuariosController extends Controller
             $em->flush();
             $this->addFlash('success', 'Se ha guardado la asginación exitosamente');
 
-            $form = $this->createForm(new AsignacionType($this->getUser()));
+            $form = $this->createForm(AsignacionType::class, null, array('user' => $this->getUser()));
 
             return $this->redirectToRoute('asignar_usuarios');
         }

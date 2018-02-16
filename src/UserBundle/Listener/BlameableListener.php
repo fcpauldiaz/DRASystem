@@ -3,9 +3,9 @@
 namespace UserBundle\Listener;
 
 use Doctrine\Common\NotifyPropertyChanged;
+use Gedmo\Blameable\Mapping\Event\BlameableAdapter;
 use Gedmo\Exception\InvalidArgumentException;
 use Gedmo\Timestampable\TimestampableListener;
-use Gedmo\Blameable\Mapping\Event\BlameableAdapter;
 
 /**
  * The Blameable listener handles the update of

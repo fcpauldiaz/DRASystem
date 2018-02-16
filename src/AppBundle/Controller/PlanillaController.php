@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Form\Type\ExcelType;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Form\Type\ExcelType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
-use UserBundle\Entity\UsuarioPlanilla;
-use UserBundle\Entity\UsuarioTrabajador;
 use UserBundle\Entity\Codigo;
 use UserBundle\Entity\DatosPrestaciones;
+use UserBundle\Entity\UsuarioPlanilla;
+use UserBundle\Entity\UsuarioTrabajador;
 
 /**
  * Codigo controller.

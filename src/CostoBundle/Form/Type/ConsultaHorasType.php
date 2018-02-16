@@ -2,14 +2,19 @@
 
 namespace CostoBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Cliente;
+use AppBundle\Entity\ProyectoPresupuesto;
+use UserBundle\Entity\UsuarioTrabajador;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class ConsultaHorasType extends AbstractType
 {
@@ -20,7 +25,7 @@ class ConsultaHorasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                    'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -40,11 +45,12 @@ class ConsultaHorasType extends AbstractType
                 ],
                  'attr' => [
                     'class' => 'fecha-inicial',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+
 
             ])
-            ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -64,8 +70,9 @@ class ConsultaHorasType extends AbstractType
                 ],
                  'attr' => [
                     'class' => 'fecha-final',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+
 
             ])
             ->add('consulta_filtro', ChoiceType::class,
@@ -85,7 +92,7 @@ class ConsultaHorasType extends AbstractType
                 ],
               ]
             )
-        ->add('horas_extraordinarias', 'choice', [
+        ->add('horas_extraordinarias', ChoiceType::class, [
                 'choices' => [
                     'No' => 0,
                     'Sí' => 1,
@@ -95,13 +102,13 @@ class ConsultaHorasType extends AbstractType
                 // always include this
                 'choices_as_values' => true,
             ])
-            ->add('usuario', 'entity', [
-                'class' => 'UserBundle:UsuarioTrabajador',
-                'property' => 'codigoString',
+            ->add('usuario', EntityType::class, [
+                'class' => UsuarioTrabajador::class,
+                'choice_label' => 'codigoString',
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],
-                'empty_value' => 'Seleccione el usuario',
+                'placeholder' => 'Seleccione el usuario',
                 'required' => false,
                 'label' => 'Horas realizadas por',
                 'attr' => [
@@ -109,27 +116,27 @@ class ConsultaHorasType extends AbstractType
                 ],
                 'multiple' => true
             ])
-            ->add('cliente', 'entity', [
-                'class' => 'AppBundle:Cliente',
+            ->add('cliente', EntityType::class, [
+                'class' => Cliente::class,
                 'required' => true,
-                'property' => 'showSearchParams',
-                'empty_value' => 'Seleccione el cliente',
+                'choice_label' => 'showSearchParams',
+                'placeholder' => 'Seleccione el cliente',
                 'required' => false,
                  'attr' => [
                     'class' => 'select2',
                 ],
                 'multiple' => true
             ])
-            ->add('proyectoPresupuesto', 'entity', [
-                'class' => 'AppBundle:ProyectoPresupuesto',
+            ->add('proyectoPresupuesto', EntityType::class, [
+                'class' => ProyectoPresupuesto::class,
                 'required' => false,
-                'empty_value' => 'Seleccione el presupuesto',
+                'placeholder' => 'Seleccione el presupuesto',
                 'attr' => [
                     'class' => 'select2',
                 ],
                 'multiple' => true
             ])
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Buscar',
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',
@@ -144,14 +151,14 @@ class ConsultaHorasType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'consulta_usuario';
     }

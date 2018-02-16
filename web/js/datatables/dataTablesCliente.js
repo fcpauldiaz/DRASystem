@@ -4,9 +4,8 @@ $(document).ready(function() {
             { "width": "15%", "targets": 0 }
         ],
         "columns": [
-            { "type": "string" }, 
-            { "type": "string" }, 
-            { "type": "string" }, 
+            { "type": "string" },
+            { "type": "string" },
             { "type": "numeric"},
             { "type": "numeric"},
             { "type": "numeric"},
@@ -53,12 +52,12 @@ $(document).ready(function() {
     // $('a.toggle-vis').on( 'click', function (e) {
     //     console.log('entra');
     //     e.preventDefault();
- 
+
     //     // Get the column API object
     //     var column = table.column( $(this).attr('data-column') );
- 
+
     //     // Toggle the visibility
     //     column.visible( ! column.visible() );
     // } );
 });
- 
+

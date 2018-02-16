@@ -35,8 +35,9 @@ class CostoType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'fecha-inicial',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+                
 
             ])
               ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
@@ -59,8 +60,9 @@ class CostoType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'fecha-final',
+                    'read_only' => true,
                 ],
-                'read_only' => true,
+                
 
             ])
             ->add('usuario', null, [

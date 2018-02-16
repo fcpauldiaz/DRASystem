@@ -2,17 +2,18 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Departamento;
 use UserBundle\Entity\TipoPuesto;
 use UserBundle\Form\Type\DepartamentoType;
 use UserBundle\Form\Type\TipoPuestoType;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * CombinarPuesto controller.
@@ -91,12 +92,12 @@ class CombinarPuestoController extends Controller
      */
     private function creatTipoPuestoForm(TipoPuesto $entity)
     {
-        $form = $this->createForm(new TipoPuestoType(), $entity, array(
+        $form = $this->createForm(TipoPuestoType::class, $entity, array(
             'action' => $this->generateUrl('tipopuesto_nuevo'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -176,7 +177,7 @@ class CombinarPuestoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }

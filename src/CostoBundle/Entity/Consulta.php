@@ -173,7 +173,7 @@ class Consulta
      * @return float
      */
     public function calcularDiferencia()
-    {
+    {   
         $this->diferencia = $this->horasPresupuesto -
         $this->horasCalculadas;
 

@@ -2,14 +2,15 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\TipoPuesto;
 use UserBundle\Form\Type\TipoPuestoType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * TipoPuesto controller.
@@ -76,17 +77,17 @@ class TipoPuestoController extends Controller
      */
     private function createCreateForm(TipoPuesto $entity)
     {
-        $form = $this->createForm(new TipoPuestoType(), $entity, array(
+        $form = $this->createForm(TipoPuestoType::class, $entity, array(
             'action' => $this->generateUrl('tipopuesto_create'),
             'method' => 'POST',
         ));
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                 'label' => 'Guardar y crear otro',
                 'attr' => [
                     'class' => 'btn btn-block',
                 ],
             ]);
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => ['class' => 'btn btn-block']));
+        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => ['class' => 'btn btn-block']));
 
         return $form;
     }
@@ -181,12 +182,12 @@ class TipoPuestoController extends Controller
      */
     private function createEditForm(TipoPuesto $entity)
     {
-        $form = $this->createForm(new TipoPuestoType(), $entity, array(
+        $form = $this->createForm(TipoPuestoType::class, $entity, array(
             'action' => $this->generateUrl('tipopuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -283,7 +284,7 @@ class TipoPuestoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('tipopuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => ['class' => 'btn btn-danger']))
+            ->add('submit', SubmitType::class, array('label' => 'Delete', 'attr' => ['class' => 'btn btn-danger']))
             ->getForm()
         ;
     }

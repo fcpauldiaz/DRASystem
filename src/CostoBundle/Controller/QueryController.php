@@ -62,6 +62,20 @@ class QueryController extends Controller
         return $honorarios;
     }
 
+    public function calcularHonrariosPorCliente($cliente)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('SUM(DISTINCT(p.honorarios))')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'r')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = r.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'p', 'with', 'p.id = r.proyecto')
+            ->where('r.cliente = :cliente_id')
+            ->setParameter('cliente_id', $cliente);
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     public function calcularHorasPresupuestoAction($registrosPresupuesto, $actividad)
     {
         $horasPresupuesto = 0;
@@ -80,12 +94,22 @@ class QueryController extends Controller
         return $horasPresupuesto;
     }
 
+    public function calcularHorasPorAreaAction($presupuestos, $area)
+    {
+        $horasPresupuesto = 0;
+        foreach($presupuestos as $presupuesto) {
+            $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+        }
+        return $horasPresupuesto;
+    }
+
     private function getActividadesPorArea($idArea) {
-        $qb = $this->createQueryBuilder('a');
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder('a');
         $qb
             ->select('a')
             ->from('AppBundle:Actividad', 'a')
-            ->innerJoin('AppBundle:Area', 'r', 'with', 'r.id = a.area_id')
+            ->innerJoin('AppBundle:Area', 'r', 'with', 'r.id = a.area')
             ->where('r.id = (:id_area)')
             ->setParameter('id_area', $idArea);
 
@@ -96,7 +120,7 @@ class QueryController extends Controller
      * Método para buscar los usuarios relacionados.
      *
      * @param UserBundle:Usuario $usuario
-     *
+     *#
      * @return array de UserBundle:Usuario
      */
     public function buscarUsuariosPorSocioAction($usuario)

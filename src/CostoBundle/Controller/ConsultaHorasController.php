@@ -2,13 +2,13 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CostoBundle\Form\Type\ConsultaHorasType;
-use CostoBundle\Form\Type\ConsultaHorasPresupuestoType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
+use CostoBundle\Form\Type\ConsultaHorasPresupuestoType;
+use CostoBundle\Form\Type\ConsultaHorasType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * ConsutlaHoras controller.

@@ -38,11 +38,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources: ['bootstrap_3_layout.html.twig']
     form_themes:
         # other form themes
         - 'VichUploaderBundle:Form:fields.html.twig'
+        - 'bootstrap_3_layout.html.twig'
 
 
 
@@ -84,6 +83,9 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        dql:
+            string_functions:
+                group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
 
 cspoo_swiftmailer_mailgun:
     key: "%api_email_key%"
@@ -109,8 +111,6 @@ stof_doctrine_extensions:
             loggable: true
             timestampable:  true
             blameable:  true
-hackzilla_ticket:
-    user_class:             UserBundle\Entity\Usuario
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

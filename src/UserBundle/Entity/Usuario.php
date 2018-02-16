@@ -2,10 +2,10 @@
 
 namespace UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-//sirve para extender de friendofsymfony
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\Common\Collections\ArrayCollection;
+//sirve para extender de friendofsymfony
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity
@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @author  Pablo Díaz soporte@newtonlabs.com.gt
  */
-abstract class Usuario extends BaseUser implements \Hackzilla\Bundle\TicketBundle\Model\UserInterface
+abstract class Usuario extends BaseUser
 {
     /**
      * @var int

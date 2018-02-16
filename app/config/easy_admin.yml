@@ -1,5 +1,8 @@
 easy_admin:
-    site_name: 'Smart Time'
+    site_name: 'Chapi Time'
+    formats:
+        date: 'd/m/Y'
+        datetime: 'd/m/Y'
     entities:
         UsuarioTrabajador:
             disabled_actions: ['new']
@@ -8,22 +11,20 @@ easy_admin:
                 fields: ['nombre','apellidos','username','email', 'datosPrestaciones','puestos','enabled','lastLogin','roles']
             new:
                 fields: ['nombre','apellidos',,'username','email','datosPrestaciones','puestos','enabled','password','roles']
-        UsuarioSocio:
-            disabled_actions: ['new']
-            class: UserBundle\Entity\UsuarioSocio
-            list:
-                fields: ['nombre','apellidos','username','email', 'enabled','lastLogin','roles']
-            new:
-                fields: ['nombre','apellidos',,'username','email','enabled','password','roles']
-            edit:
-                fields: ['nombre','apellidos',,'username','email','enabled','lastLogin','password','expiresAt','locked','expired','roles']
         Actividad:
             class: AppBundle\Entity\Actividad
         Cliente:
             class: AppBundle\Entity\Cliente
         RegistroHoras:
             class: AppBundle\Entity\RegistroHoras
+            list:
+                fields: ['id','fechaHoras','horasInvertidas','actividad', 'cliente','ingresadoPor','proyectoPresupuesto']
+            new:
+                fields: ['id','fechaHoras','horasInvertidas','actividad', 'cliente','ingresadoPor','proyectoPresupuesto']
+            edit:
+                fields: ['id','fechaHoras','horasInvertidas','actividad', 'cliente','ingresadoPor','proyectoPresupuesto']
         RegistroHorasPresupuesto:
+            disabled_actions: ['edit', 'delete']
             class: AppBundle\Entity\RegistroHorasPresupuesto
         ProyectoPresupuesto:
             class: AppBundle\Entity\ProyectoPresupuesto
@@ -39,7 +40,3 @@ easy_admin:
             class: UserBundle\Entity\Puesto
         Permiso:
             class: UserBundle\Entity\Permiso
-        Descuento:
-            class: UserBundle\Entity\Descuento
-        TipoDescuento:
-            class: UserBundle\Entity\TipoDescuento

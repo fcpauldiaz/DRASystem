@@ -2,10 +2,15 @@
 
 namespace AppBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Cliente;
+use Braincrafted\Bundle\BootstrapBundle\Form\Type\BootstrapCollectionType;
+use AppBundle\Entity\ProyectoPresupuesto;
 
 class ProyectoPresupuestoType extends AbstractType
 {
@@ -13,16 +18,14 @@ class ProyectoPresupuestoType extends AbstractType
 
     //única forma que encontré para guardar el campo ingresado por
     //porque los formularios embedded no pasan por el controller
-    public function __construct($usuario)
-    {
-        $this->usuario = $usuario;
-    }
+
 
     /* @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->usuario = $options['user'];
         $builder
             ->add('nombrePresupuesto', null, [
                 'label' => 'Nombre del presupuesto*',
@@ -32,7 +35,7 @@ class ProyectoPresupuestoType extends AbstractType
                 ],
 
             ])
-            ->add('honorarios', 'money', [
+            ->add('honorarios', MoneyType::class, [
                 'required' => false,
                 'label' => 'Honorarios (opcional)',
                 'attr' => [
@@ -43,15 +46,15 @@ class ProyectoPresupuestoType extends AbstractType
                 'grouping' => true,
 
             ])
-            ->add('clientes', 'entity', [
-                'class' => 'AppBundle:Cliente',
+            ->add('clientes', EntityType::class, [
+                'class' => Cliente::class,
                 'attr' => [
                     'class' => 'select2',
                 ],
                 'multiple' => true,
                 'required' => false,
                 'label' => 'Cliente a consolidar (opcional)',
-                'empty_value' => 'Cliente a consolidar',
+                'placeholder' => 'Cliente a consolidar',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('cliente')
                         ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
@@ -60,8 +63,9 @@ class ProyectoPresupuestoType extends AbstractType
                         ->setParameter('usuario', $this->usuario);
                 },
             ])
-            ->add('presupuestoIndividual', 'bootstrap_collection', [
-                    'type' => new RegistroHorasPresupuestoType($this->usuario),
+            ->add('presupuestoIndividual', BootstrapCollectionType::class, [
+                    'entry_type' =>RegistroHorasPresupuestoType::class,
+                    'entry_options' => ['user' => $this->usuario],
                     'label' => 'Registro Horas Presupuesto',
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -70,7 +74,6 @@ class ProyectoPresupuestoType extends AbstractType
                     'sub_widget_col' => 10,
                     'button_col' => 12,
                     'by_reference' => false, //esta linea también es importante para que se guarde la ref
-                    'cascade_validation' => true,
                     'attr' => [
                             'class' => 'select2',
                         ],
@@ -81,17 +84,19 @@ class ProyectoPresupuestoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
+            'data_class' => ProyectoPresupuesto::class,
+            'user' => null
         ));
+        $resolver->setRequired('user'); 
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_proyectopresupuesto';
     }

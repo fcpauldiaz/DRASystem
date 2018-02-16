@@ -2,13 +2,14 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use CostoBundle\Entity\Costo;
+use CostoBundle\Form\Type\CostoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use CostoBundle\Entity\Costo;
-use CostoBundle\Form\Type\CostoType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Costo controller.
@@ -75,12 +76,12 @@ class CostoController extends Controller
      */
     private function createCreateForm(Costo $entity)
     {
-        $form = $this->createForm(new CostoType(), $entity, array(
+        $form = $this->createForm(CostoType::class, $entity, array(
             'action' => $this->generateUrl('costo_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -188,7 +189,7 @@ class CostoController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -263,7 +264,7 @@ class CostoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('costo_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

@@ -3,8 +3,11 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ExcelType extends AbstractType
 {
@@ -15,8 +18,8 @@ class ExcelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('excel', 'file')
-            ->add('hoja', 'choice', [
+            ->add('excel', FileType::class)
+            ->add('hoja', ChoiceType::class, [
                 'choices' => [
                     1 => 1,
                     2 => 2,
@@ -33,7 +36,7 @@ class ExcelType extends AbstractType
                 'choices_as_values' => true,
                 'label' => 'Escoja en que hoja de excel se encuentra la planilla',
             ])
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Guardar',
             ])
 
@@ -43,7 +46,7 @@ class ExcelType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => null,
@@ -53,7 +56,7 @@ class ExcelType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_planilla_excel';
     }

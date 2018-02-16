@@ -3,6 +3,9 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Validator\Constraint\UserPassword as OldUserPassword;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -21,14 +24,14 @@ class ProfileFormType extends AbstractType
         // agregar campos personalizados
         $builder->add('nombre', null, ['label' => false])
                 ->add('username', null, ['label' => false])
-                ->add('email', 'email', ['label' => false])
-                ->add('current_password', 'password', [
+                ->add('email', EmailType::class, ['label' => false])
+                ->add('current_password', PasswordType::class, [
                 'label' => false,
                 'translation_domain' => 'FOSUserBundle',
                 'mapped' => false,
                 'constraints' => $constraint,
                 ])
-                ->add('plainPassword', 'repeated', [
+                ->add('plainPassword', RepeatedType::class, [
                 'label' => false,
                 'type' => 'password',
                 'options' => ['translation_domain' => 'FOSUserBundle'],
@@ -44,7 +47,7 @@ class ProfileFormType extends AbstractType
         return 'fos_user_profile';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_profile';
     }

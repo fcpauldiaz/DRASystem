@@ -3,6 +3,8 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +17,7 @@ class ConsultaAprobacionHorasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaInicio', 'date', [
+            ->add('fechaInicio', DateType::class, [
                 'label' => 'Fecha inicial de las horas invertidas',
                 'input' => 'datetime',
                 'widget' => 'choice',
@@ -29,7 +31,7 @@ class ConsultaAprobacionHorasType extends AbstractType
                  'required' => true,
 
             ])
-             ->add('fechaFinal', 'date', [
+             ->add('fechaFinal', DateType::class, [
                 'label' => 'Fecha final de las horas invertidas',
                 'input' => 'datetime',
                 'widget' => 'choice',
@@ -43,7 +45,7 @@ class ConsultaAprobacionHorasType extends AbstractType
                 'required' => true,
 
             ])
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Buscar',
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',

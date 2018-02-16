@@ -3,9 +3,13 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use UserBundle\Entity\Permiso;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TipoPuestoType extends AbstractType
 {
@@ -16,18 +20,18 @@ class TipoPuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombrePuesto', 'text', [
+            ->add('nombrePuesto', TextType::class, [
                 'label' => 'Nombre del Puesto*',
                 'required' => true,
 
             ])
-            ->add('descripcion', 'textarea', [
+            ->add('descripcion', TextareaType::class, [
                 'label' => 'Descripción del tipo (opcional)',
                 'required' => false,
 
             ])
-            ->add('permisos', 'entity', [
-                'class' => 'UserBundle:Permiso',
+            ->add('permisos', EntityType::class, [
+                'class' => Permiso::class,
                 'expanded' => true,
                 'multiple' => true,
                 ])
@@ -38,7 +42,7 @@ class TipoPuestoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'UserBundle\Entity\TipoPuesto',
@@ -48,7 +52,7 @@ class TipoPuestoType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'userbundle_tipopuesto';
     }

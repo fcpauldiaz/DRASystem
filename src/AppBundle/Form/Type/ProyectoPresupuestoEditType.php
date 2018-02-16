@@ -4,7 +4,9 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Braincrafted\Bundle\BootstrapBundle\Form\Type\BootstrapCollectionType;
+
 
 //se creó un formulario cuando se quiera editar
 //para cargar el array collection existente
@@ -19,8 +21,8 @@ class ProyectoPresupuestoEditType extends AbstractType
     {
         $builder
             ->add('nombrePresupuesto')
-            ->add('presupuestoIndividual', 'bootstrap_collection', [
-                    'type' => new RegistroHorasPresupuestoType(),
+            ->add('presupuestoIndividual', BootstrapCollectionType::class, [
+                    'type' => RegistroHorasPresupuestoType::class,
                     'label' => 'Registro Horas Presupuesto',
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -29,7 +31,6 @@ class ProyectoPresupuestoEditType extends AbstractType
                     'sub_widget_col' => 6,
                     'button_col' => 12,
                     'by_reference' => false, //esta linea también es importante para que se guarde la ref
-                    'cascade_validation' => true,
                     'attr' => [
                             'class' => 'select2',
                         ],
@@ -40,7 +41,7 @@ class ProyectoPresupuestoEditType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\ProyectoPresupuesto',
@@ -50,7 +51,7 @@ class ProyectoPresupuestoEditType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_proyectopresupuesto';
     }

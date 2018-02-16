@@ -15,13 +15,8 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                csrf_provider: security.csrf.token_manager
                 login_path: /login
                 check_path: /check
-            remember_me:
-                key: "%secret%"
-                path:     /
-                always_remember_me: true
             logout:
                 path: /logout
                 target: /api/logout

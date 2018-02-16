@@ -2,16 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\AsignacionCliente;
+use AppBundle\Entity\Cliente;
+use AppBundle\Form\Type\ClienteEditType;
+use AppBundle\Form\Type\ClienteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Cliente;
-use AppBundle\Form\Type\ClienteType;
-use AppBundle\Form\Type\ClienteEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Entity\AsignacionCliente;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Cliente controller.
@@ -122,18 +123,18 @@ class ClienteController extends Controller
      */
     private function createCreateForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType(), $entity, array(
+        $form = $this->createForm(ClienteType::class, $entity, array(
             'action' => $this->generateUrl('cliente_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -225,12 +226,12 @@ class ClienteController extends Controller
      */
     private function createEditForm(Cliente $entity)
     {
-        $form = $this->createForm(new ClienteType(), $entity, array(
+        $form = $this->createForm(ClienteType::class, $entity, array(
             'action' => $this->generateUrl('cliente_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }

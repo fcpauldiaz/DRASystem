@@ -2,15 +2,15 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CostoBundle\Form\Type\ConsultaSocioType;
-use CostoBundle\Form\Type\ConsultaGerenteType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use CostoBundle\Form\Type\ConsultaGerenteType;
+use CostoBundle\Form\Type\ConsultaSocioType;
 use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * ConsutlaCosto controller.

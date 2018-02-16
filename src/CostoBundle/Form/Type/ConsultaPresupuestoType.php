@@ -2,12 +2,14 @@
 
 namespace CostoBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use AppBundle\Entity\ProyectoPresupuesto;
 
 class ConsultaPresupuestoType extends AbstractType
 {
@@ -20,7 +22,7 @@ class ConsultaPresupuestoType extends AbstractType
         $builder
              ->add('proyecto', EntityType::class, [
                 'placeholder' => 'Seleccionar Proyecto Presupuesto',
-                'class' => 'AppBundle:ProyectoPresupuesto',
+                'class' => ProyectoPresupuesto::class,
                 'label' => 'Buscador Proyectos Presupuesto',
                 'attr' => [
                     'class' => 'select2',
@@ -41,25 +43,21 @@ class ConsultaPresupuestoType extends AbstractType
                     'label' => 'Escoja el método de filtro',
                     'required' => true,
                     'attr' => [
-                    'class' => 'select2',
+                    'class' => 'select2 hide-element-decision',
                 ],
 
-            ]
-            )
-            ->add('costo_monetario', 'choice', [
-                'mapped' => false,
-                 'choices' => [
-                    'No' => 0,
-                    'Si' => 1,
+            ])
+            ->add('horas_extraordinarias', ChoiceType::class, [
+                'choices' => [
+                    'No' => 1,
+                    'Sí' => 0,
                 ],
-                'attr' => [
-                    'class' => 'hide-element-decision',
-                ],
+                'label' => '¿Incluir horas extraordinarias?',
                 'required' => true,
                 // always include this
                 'choices_as_values' => true,
-                ])
-             ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ])
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -78,57 +76,41 @@ class ConsultaPresupuestoType extends AbstractType
                     'showMeridian' => false,
                 ],
                 'attr' => [
-                    'class' => 'hide-element fecha-inicial',
+                    'readonly' => true,
+                    'class' => 'hide-element fecha-inicial'
                 ],
                 'label_attr' => [
                     'class' => 'hide-element',
-                ],
-                'read_only' => true,
-                'required' => false,
-            ])
-           ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
-                            'format' => 'dd/mm/yyyy',
-                            'weekStart' => 0,
-                            'autoclose' => true,
-                            'startView' => 'year',
-                            'minView' => 'year',
-                            'maxView' => 'decade',
-                            'todayBtn' => false,
-                            'todayHighlight' => true,
-                            'keyboardNavigation' => true,
-                            'language' => 'es',
-                            'forceParse' => false,
-                            'minuteStep' => 5,
-                            'pickerReferer ' => 'default', //deprecated
-                            'pickerPosition' => 'bottom-right',
-                            'viewSelect' => 'month',
-                            'showMeridian' => false,
-                        ],
-
-                        'attr' => [
-                            'class' => 'hide-element fecha-final',
-                        ],
-
-                        'label_attr' => [
-                            'class' => 'hide-element',
-                        ],
-
-                        'read_only' => true,
-                        'required' => false,
-
-                    ])
-            ->add('horas_extraordinarias', 'choice', [
-                'choices' => [
-                    'No' => 1,
-                    'Sí' => 0,
-                ],
-                'label' => '¿Incluir horas extraordinarias?',
-                'required' => true,
-                // always include this
-                'choices_as_values' => true,
+                ]
 
             ])
+            ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
+                    'format' => 'dd/mm/yyyy',
+                    'weekStart' => 0,
+                    'autoclose' => true,
+                    'startView' => 'year',
+                    'minView' => 'year',
+                    'maxView' => 'decade',
+                    'todayBtn' => false,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'es',
+                    'forceParse' => false,
+                    'minuteStep' => 5,
+                    'pickerReferer ' => 'default', //deprecated
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'month',
+                    'showMeridian' => false,
+                ],
+                'attr' => [
+                    'readonly' => true,
+                    'class' => 'hide-element fecha-final'
+                ],
+                'label_attr' => [
+                    'class' => 'hide-element',
+                ]
 
+            ])
             ->add(
                 'submit',
                 SubmitType::class,

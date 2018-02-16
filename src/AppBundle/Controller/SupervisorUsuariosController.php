@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Form\Type\ConsultaAprobacionHorasType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\Form\Type\ConsultaAprobacionHorasType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * CombinarPuesto controller.

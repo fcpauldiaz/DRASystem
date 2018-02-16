@@ -2,8 +2,8 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
 
 class ContactoClienteControllerTest extends WebTestCase
 {

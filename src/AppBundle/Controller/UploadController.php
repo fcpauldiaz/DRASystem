@@ -2,18 +2,18 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
-use AppBundle\Form\Type\ExcelType;
-use AppBundle\Entity\Cliente;
 use AppBundle\Entity\Actividad;
 use AppBundle\Entity\Area;
-use UserBundle\Entity\Departamento;
 use AppBundle\Entity\AsignacionCliente;
+use AppBundle\Entity\Cliente;
+use AppBundle\Form\Type\ExcelType;
+use FOS\UserBundle\Model\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use UserBundle\Entity\Departamento;
 
 /**
  * Upload controller.

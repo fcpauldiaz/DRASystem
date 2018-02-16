@@ -2,17 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\RegistroHoras;
+use AppBundle\Form\Type\RegistroHorasEditType;
+use AppBundle\Form\Type\RegistroHorasType;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\RegistroHoras;
-use AppBundle\Form\Type\RegistroHorasType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use AppBundle\Form\Type\RegistroHorasEditType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * RegistroHoras controller.
@@ -49,6 +51,31 @@ class RegistroHorasController extends Controller
             'entities' => $entities,
         );
     }
+
+     /**
+     * Lists all RegistroHoras entities.
+     *
+     * @Route("/actividad/area", name="registrohoras_por_actividad_area")
+     * @Method("POST")
+     * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
+     */
+    public function ActividadesPorAreaAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+        $area = $request->request->get('appbundle_registrohoras')['area'];
+        $entities = $em->getRepository('AppBundle:Actividad')->findBy(
+            [
+                'area' => $area
+            ]
+        );
+        $data_serialized = [];
+        foreach ($entities as $entity) {
+            $data_serialized[$entity->getId()] = $entity->__toString();
+        }
+       return new JsonResponse($data_serialized);
+    }
+
     /**
      * Creates a new RegistroHoras entity.
      *
@@ -117,17 +144,18 @@ class RegistroHorasController extends Controller
      */
     private function createCreateForm(RegistroHoras $entity)
     {
-        $form = $this->createForm(new RegistroHorasType($this->getUser()), $entity, array(
+        $form = $this->createForm(RegistroHorasType::class, $entity, array(
             'action' => $this->generateUrl('registrohoras_create'),
             'method' => 'POST',
+            'user' => $this->getUser()
         ));
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -225,12 +253,13 @@ class RegistroHorasController extends Controller
      */
     private function createEditForm(RegistroHoras $entity)
     {
-        $form = $this->createForm(new RegistroHorasEditType($this->getUser()), $entity, array(
+        $form = $this->createForm(RegistroHorasEditType::class, $entity, array(
             'action' => $this->generateUrl('registrohoras_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -307,7 +336,7 @@ class RegistroHorasController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('registrohoras_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'hide-submit')))
+            ->add('submit', SubmitType::class, array('label' => 'Delete', 'attr' => array('class' => 'hide-submit')))
             ->getForm()
         ;
     }

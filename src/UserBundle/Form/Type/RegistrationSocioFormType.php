@@ -3,13 +3,19 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Codigo;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationSocioFormType extends AbstractType
 {
@@ -42,7 +48,7 @@ class RegistrationSocioFormType extends AbstractType
                         new Callback([$this, 'validarNombreUsuario']),
                     ],
                 ])
-            ->add('email', 'email', [
+            ->add('email', EmailType::class, [
                     'label' => 'Correo',
                     'translation_domain' => 'FOSUserBundle',
                     'required' => true,
@@ -55,9 +61,9 @@ class RegistrationSocioFormType extends AbstractType
                     ],
                 ])
 
-            ->add('plainPassword', 'repeated', [
+            ->add('plainPassword', RepeatedType::class, [
                 'label' => 'Contraseña',
-                'type' => 'password',
+                'type' => PasswordType::class,
                 'options' => ['translation_domain' => 'FOSUserBundle'],
                 'first_options' => [
                     'label' => 'Contraseña',
@@ -74,20 +80,20 @@ class RegistrationSocioFormType extends AbstractType
                     ],
                 ],
                 'invalid_message' => 'fos_user.password.mismatch',
-
             ])
-            ->add('codigo', 'entity', [
-                'class' => 'UserBundle:Codigo',
-                'label' => 'Código Interno DRA',
-                'property' => 'codigoCompleto',
+           ->add('codigo', EntityType::class, [
+                'class' => Codigo::class,
+                'label' => false,
+                'choice_label' => 'codigoCompleto',
+                'required' => true,
+                'placeholder' => 'Seleccionar Código',
                 'attr' => [
                     'class' => 'select2',
                 ],
-                'required' => true,
-                'empty_value' => 'Seleccionar Código',
+
             ])
 
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Guardar',
                 'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -111,12 +117,13 @@ class RegistrationSocioFormType extends AbstractType
             'validation' => ['registration'],
         ]);
     }
+
     public function getParent()
     {
-        return 'fos_user_registration';
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_registration_socio';
     }

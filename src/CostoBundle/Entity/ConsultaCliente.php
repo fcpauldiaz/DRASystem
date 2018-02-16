@@ -16,11 +16,19 @@ class ConsultaCliente extends ConsultaMain
      */
     private $cliente;
 
-    public function __construct($cliente, $horas, $horasPresupuesto, $costoTotal)
+
+    /**
+     * Agrupar por area
+     * @var Entity
+     */
+    private $costoPorHora;
+
+    public function __construct($cliente, $horas, $costo, $horasPresupuesto, $costoTotal)
     {
         parent::__construct($horas, $horasPresupuesto, $costoTotal);
 
         $this->cliente = $cliente;
+        $this->costoPorHora = $costo;
     }
 
     public function setCliente($cliente)
@@ -33,5 +41,20 @@ class ConsultaCliente extends ConsultaMain
     public function getCliente()
     {
         return $this->cliente;
+    }
+
+    public function setArea($area)
+    {
+        $this->area = $area;
+    }
+
+    public function getCostoPorHora()
+    {
+        return $this->costoPorHora;
+    }
+
+    public function getArea() 
+    {
+        return $this->area;
     }
 }

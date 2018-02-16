@@ -3,8 +3,8 @@
 namespace UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class RegistrationController extends BaseController
 {

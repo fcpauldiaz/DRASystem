@@ -145,4 +145,39 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findHorasPresupuestoByArea($area, $proyecto)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('area.nombre')
+            ->select('area.id')
+            ->select('SUM(registro.horasPresupuestadas)')
+            ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = registro.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = registro.proyecto')
+            ->where('registro.proyecto = :proyecto')
+            ->andWhere('area.id = :area_id')
+            ->setParameter('proyecto', $proyecto)
+            ->setParameter('area_id', $area);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+     public function findByProyectoGroupUsuario($proyecto)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('u.id')
+            ->addSelect('SUM(r.horasPresupuestadas) as horasP')
+            ->from('UserBundle:Usuario', 'u')
+            ->innerJoin('AppBundle:RegistroHorasPresupuesto', 'r', 'with', 'r.usuario = u.id')
+            ->where('r.proyecto = :proyecto')
+            ->groupBy('r.usuario')
+            ->setParameter('proyecto', $proyecto);
+        return $qb->getQuery()->getResult();
+
+    }
 }

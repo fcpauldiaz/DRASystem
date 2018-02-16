@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-   
+
     {{ form_stylesheet(form) }}
 {% endblock %}
 
@@ -40,32 +40,30 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            {{form_row(form.costo_monetario)}}
-        </div>
-         <div class="col-md-6">
+         <div class="col-md-12">
             {{form_row(form.horas_extraordinarias)}}
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+       <div class="col-md-6">
             {{form_row(form.fechaInicio)}}
-        </div>
+       </div>
         <div class="col-md-6">
             {{form_row(form.fechaFinal)}}
-        </div>
+       </div>
     </div>
     <div class="row">
        <div class="col-md-12">
             {{form_row(form.submit)}}
        </div>
     </div>
+
     {{ form_end(form)}}
-   
+
     {% if consultasPorActividades is not empty %}
         <br>
         <h1>Consulta Proyecto Presupuesto {{proyecto.nombrePresupuesto}}</h1>
-       
+
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -80,9 +78,9 @@
             </thead>
             <tbody>
 
-          
+
             {% for consulta in consultasPorActividades %}
-            	
+
 
                 <tr>
                     <td>{{consulta.actividad}}</td>
@@ -97,35 +95,35 @@
                     <td>{{consulta.costoPresupuesto | number_format(2, '.', ', ')}}</td>
                     <td>{{consulta.costoTotal | number_format(2, '.', ', ')}}</td>
                     <td>
-                        
+
                     	<a  href="{{ path('presupuesto_individual', { 'actividad_id': consulta.actividad.id ,'proyecto_id' : proyecto.id, 'fechaInicio' : fechaInicio, 'fechaFinal' : fechaFinal, 'horasExtraordinarias': horasExtraordinarias, 'presupuesto' : consulta.horasPresupuesto}) }}" class="btn btn-xs btn-info">Mostrar detalle</a>
                     </td>
                 </tr>
-               
+
             {% endfor %}
-               
+
             <tr>
                     <td><b>Totales:<b> </td>
-                    <td> 
-                        <b> 
+                    <td>
+                        <b>
                             <font color="#27ae60">
                                 {{sum_horas(consultasPorActividades)}}
                             </font>
-                        </b>    
+                        </b>
                     </td>
-                     <td> 
-                        <b> 
+                     <td>
+                        <b>
                             <font color="#27ae60">
                                 {{sum_presupuesto(consultasPorActividades)}}
                             </font>
-                        </b>    
+                        </b>
                     </td>
-                    <td> 
-                        <b> 
+                    <td>
+                        <b>
                             <font color="#27ae60">
                                 {{sum_diferencia(consultasPorActividades)}}
                             </font>
-                        </b>    
+                        </b>
                     </td>
                     <td>
                         <b>
@@ -145,17 +143,17 @@
             </tr>
             <tr>
                <td><b>Honorarios<b> </td>
-                    <td> 
-                       
+                    <td>
+
                     </td>
-                     <td> 
-                        
-                    </td>
-                    <td> 
-                       
+                     <td>
+
                     </td>
                     <td>
-                       
+
+                    </td>
+                    <td>
+
                     </td>
                     <td>
                        <b>
@@ -169,31 +167,31 @@
             {% set utilidad = honorarios - sum_costo(consultasPorActividades) %}
              <tr>
                <td><b>Utilidad<b> </td>
-                    <td> 
-                       
+                    <td>
+
                     </td>
-                     <td> 
-                        
-                    </td>
-                    <td> 
-                       
+                     <td>
+
                     </td>
                     <td>
-                       
+
+                    </td>
+                    <td>
+
                     </td>
                     <td>
                         <b> {% if utilidad < 0 %}
                             <font color="#c0392b">
-                              
+
                              Q  {{utilidad | number_format(2, '.', ', ')}}
 
                             </font>
                             {% else %}
                              <font color="#000000">
-                              
+
                               Q {{utilidad | number_format(2, '.', ', ')}}
 
-                            </font>  
+                            </font>
                             {% endif %}
                         </b>
                     </td>

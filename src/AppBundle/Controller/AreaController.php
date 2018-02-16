@@ -2,13 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Area;
+use AppBundle\Form\AreaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Area;
-use AppBundle\Form\AreaType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Area controller.
@@ -74,18 +75,18 @@ class AreaController extends Controller
      */
     private function createCreateForm(Area $entity)
     {
-        $form = $this->createForm(new AreaType(), $entity, array(
+        $form = $this->createForm(AreaType::class, $entity, array(
             'action' => $this->generateUrl('area_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
             'label' => 'Guardar e ingresar otro',
             'attr' => [
                 'class' => 'btn btn-primary btn-block',
              ],
         ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                 'label' => 'Guardar y ver detalle',
                 'attr' => [
                     'class' => 'btn btn-primary btn-block',
@@ -174,7 +175,7 @@ class AreaController extends Controller
     */
     private function createEditForm(Area $entity)
     {
-        $form = $this->createForm(new AreaType(), $entity, array(
+        $form = $this->createForm(AreaType::class, $entity, array(
             'action' => $this->generateUrl('area_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

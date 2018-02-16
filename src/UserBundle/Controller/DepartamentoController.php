@@ -2,14 +2,15 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Departamento;
 use UserBundle\Form\Type\DepartamentoType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Departamento controller.
@@ -78,18 +79,18 @@ class DepartamentoController extends Controller
      */
     private function createCreateForm(Departamento $entity)
     {
-        $form = $this->createForm(new DepartamentoType(), $entity, array(
+        $form = $this->createForm(DepartamentoType::class, $entity, array(
             'action' => $this->generateUrl('departamento_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -181,12 +182,12 @@ class DepartamentoController extends Controller
      */
     private function createEditForm(Departamento $entity)
     {
-        $form = $this->createForm(new DepartamentoType(), $entity, array(
+        $form = $this->createForm(DepartamentoType::class, $entity, array(
             'action' => $this->generateUrl('departamento_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }

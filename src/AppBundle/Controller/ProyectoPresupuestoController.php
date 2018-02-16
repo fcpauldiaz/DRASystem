@@ -2,14 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ProyectoPresupuesto;
 use AppBundle\Form\Type\ProyectoPresupuestoType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * ProyectoPresupuesto controller.
@@ -117,17 +118,18 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createCreateForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(ProyectoPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_create'),
             'method' => 'POST',
+            'user' => $this->getUser()
         ));
-        $form->add('submitAndSave', 'submit', [
+        $form->add('submitAndSave', SubmitType::class, [
                     'label' => 'Guardar e ingresar otro',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
                     ],
             ]);
-        $form->add('submit', 'submit', [
+        $form->add('submit', SubmitType::class, [
                     'label' => 'Guardar y ver detalle',
                     'attr' => [
                         'class' => 'btn btn-primary btn-block',
@@ -224,12 +226,13 @@ class ProyectoPresupuestoController extends Controller
      */
     private function createEditForm(ProyectoPresupuesto $entity)
     {
-        $form = $this->createForm(new ProyectoPresupuestoType($this->getUser()), $entity, array(
+        $form = $this->createForm(ProyectoPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('proyectopresupuesto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser()
         ));
         if ($entity->getEstado() !== 'FINALIZADO') {
-            $form->add('submit', 'submit', array('label' => 'Update'));
+            $form->add('submit', SubmitType::class, array('label' => 'Update'));
         }
 
         return $form;
@@ -307,7 +310,7 @@ class ProyectoPresupuestoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('proyectopresupuesto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'hide-submit')))
+            ->add('submit', SubmitType::class, array('label' => 'Delete', 'attr' => array('class' => 'hide-submit')))
             ->getForm()
         ;
     }

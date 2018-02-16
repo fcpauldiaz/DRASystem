@@ -2,12 +2,12 @@
 
 namespace CostoBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use CostoBundle\Form\Type\ConsultaCostoUsuarioType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CostoBundle\Entity\ConsultaUsuario;
+use CostoBundle\Form\Type\ConsultaCostoUsuarioType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * ConsutlaCosto controller.
@@ -45,51 +45,31 @@ class ConsultaCostoUsuarioController extends Controller
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
         $usuario = $data['usuario'];
+        $horas_extra = $data['horas_extraordinarias'];
 
-        $registros = $this->queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario);
-        $registrosPresupuesto = $this->buscarRegistrosPresupuesto($registros, $usuario);
+        $registros = $this->queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario, $horas_extra);
         $returnArray = [];
         foreach ($registros as $registro) {
-            $cliente = $registro->getCliente();
-            $horas = $registro->getHorasAprobadas($data['horas_extraordinarias']);
-            $usuario = $registro->getIngresadoPor();
-            $costo = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('CostoBundle:Costo')
-                ->findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario);
-            $costoTotal = $horas * $costo['costo'];
-            $actividad = $registro->getActividad();
-
-            $horasPresupuesto = $this
-                ->get('consulta.query_controller')
-                ->calcularHorasPresupuestoAction($registrosPresupuesto, $actividad);
-
-            $costoPresupuesto = $horasPresupuesto * $costo['costo'];
-            if ($actividad->getActividadNoCargable() === true) {
-                $costoTotal = 0;
-            }
+            $cliente = $registro['cliente'];
+            $horas = $registro['horasInvertidas'];
+            $costoPorHora = $registro['costo'];
+            $costoTotal = $registro['costoTotal'];
 
             $consultaUsuario = new ConsultaUsuario(
-                $usuario,
-                $horas,
-                $horasPresupuesto,
-                0,
-                $costoTotal
-                );
-            $consultaUsuario->setCostoPresupuesto($costoPresupuesto);
+              '', '',
+              $horas,
+              0,
+              $costoPorHora,
+              $costoTotal
+            );
             $consultaUsuario->setCliente($cliente);
-            $consultaUsuario->setActividad($actividad);
-            $consultaUsuario->calcularDiferencia();
+            $consultaUsuario->setUsuario($usuario);
             $returnArray[] = $consultaUsuario;
         }
-        $honorarios = $this
-            ->get('consulta.query_controller')
-            ->calcularHonorariosTotalesAction($registros);
 
         return $this->render(
             'CostoBundle:ConsultaUsuario:consultaUsuario.html.twig',
             [
-                'honorarios' => $honorarios,
                 'verificador' => false,  //mandar variable a javascript
                 'consultaUsuario' => $returnArray,
                 'form' => $form->createView(),
@@ -116,18 +96,28 @@ class ConsultaCostoUsuarioController extends Controller
         return $returnArray->toArray();
     }
 
-    private function queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario)
+    private function queryRegistroHorasPorUsuario($fechaInicio, $fechaFinal, $usuario, $horas_extra)
     {
         $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
         $qb
-            ->select('registro')
+            ->select('registro.horasInvertidas')
+            ->addSelect('c.costo')
+            ->addSelect('(registro.horasInvertidas * c.costo) as costoTotal' )
+            ->addSelect('cl.razonSocial as cliente')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = registro.ingresadoPor')
+            ->innerJoin('CostoBundle:Costo', 'c', 'with', 'c.usuario = u.id')
+            ->innerJoin('AppBundle:Cliente', 'cl', 'with', 'cl.id = registro.cliente')
             ->where('registro.fechaHoras >= :fechaInicio')
             ->andWhere('registro.fechaHoras <= :fechaFinal')
-            ->andWhere('registro.ingresadoPor = :usuario')
+            ->andWhere('c.fechaInicio <= registro.fechaHoras')
+            ->andWhere('c.fechaFinal >= registro.fechaHoras')
+            ->andWhere('registro.horasExtraordinarias = :horas_extra')
+            ->andWhere('u.id = :usuario')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario)
+            ->setParameter('horas_extra', $horas_extra)
             ;
 
         return $qb->getQuery()->getResult();

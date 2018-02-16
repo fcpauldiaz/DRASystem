@@ -3,11 +3,14 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ProfileTrabajadorFormType extends AbstractType
 {
@@ -37,7 +40,7 @@ class ProfileTrabajadorFormType extends AbstractType
                     'placeholder' => 'Nombre de Usuario',
                 ],
             ])
-            ->add('email', 'email', [
+            ->add('email', EmailType::class, [
                 'label' => 'Correo',
                 'translation_domain' => 'FOSUserBundle',
                 'required' => true,
@@ -105,11 +108,11 @@ class ProfileTrabajadorFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('initials', 'text', [
+            ->add('initials', TextType::class, [
                 'required' => true,
             ])
             ->add('puestos')
-            ->add('submit', 'submit', [
+            ->add('submit', SubmitType::class, [
                 'label' => 'Guardar',
                 'attr' => [
                     'class' => 'btn btn-primary',
@@ -130,10 +133,10 @@ class ProfileTrabajadorFormType extends AbstractType
     }
     public function getParent()
     {
-        return 'fos_user_registration';
+        return 'fos_user_registration_register';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_registration';
     }

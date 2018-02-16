@@ -11,9 +11,9 @@
 
 namespace UserBundle\Mailer;
 
+use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use FOS\UserBundle\Mailer\MailerInterface;
 
 /**
  * Form overriden by  @author Pablo diaz <dia13203@uvg.edu.gt>.

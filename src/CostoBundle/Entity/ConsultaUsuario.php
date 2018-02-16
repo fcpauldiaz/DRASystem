@@ -18,13 +18,16 @@ class ConsultaUsuario extends ConsultaMain
      */
     private $costoPorHora;
 
-    private $cliente;
+    private $usuarioString;
 
-    public function __construct($usuario, $horas, $horasPresupuesto, $costoPorHora, $costoTotal)
+    private $usuarioId;
+
+    public function __construct($usuarioId, $usuario, $horas, $horasPresupuesto, $costoPorHora, $costoTotal)
     {
         parent::__construct($horas, $horasPresupuesto, $costoTotal);
         $this->costoPorHora = $costoPorHora;
-        $this->usuario = $usuario;
+        $this->usuarioString = $usuario;
+        $this->usuarioId = $usuarioId;
     }
 
     public function getCostoPorHora()
@@ -50,8 +53,13 @@ class ConsultaUsuario extends ConsultaMain
         return $this->cliente;
     }
 
-    public function getUsuario()
+    public function getUser()
     {
-        return $this->usuario;
+        return $this->usuarioString;
+    }
+
+    public function getUserId()
+    {
+      return $this->usuarioId;
     }
 }

@@ -2,16 +2,17 @@
 
 namespace UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\DatosPrestaciones;
 use UserBundle\Form\Type\DatosPrestacionesType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * DatosPrestaciones controller.
@@ -133,12 +134,13 @@ class DatosPrestacionesController extends Controller
      */
     private function createCreateForm(DatosPrestaciones $entity)
     {
-        $form = $this->createForm(new DatosPrestacionesType($this->getUser()), $entity, array(
+        $form = $this->createForm(DatosPrestacionesType::class, $entity, array(
             'action' => $this->generateUrl('datosprestaciones_create'),
             'method' => 'POST',
+            'user' => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-block')));
+        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-block')));
 
         return $form;
     }
@@ -228,12 +230,13 @@ class DatosPrestacionesController extends Controller
      */
     private function createEditForm(DatosPrestaciones $entity)
     {
-        $form = $this->createForm(new DatosPrestacionesType($this->getUser()), $entity, array(
+        $form = $this->createForm(DatosPrestacionesType::class, $entity, array(
             'action' => $this->generateUrl('datosprestaciones_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -309,7 +312,7 @@ class DatosPrestacionesController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('datosprestaciones_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

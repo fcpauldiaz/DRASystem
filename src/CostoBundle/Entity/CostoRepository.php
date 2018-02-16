@@ -27,7 +27,7 @@ class CostoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-            ->select('costo.costo')
+            ->select('AVG(costo.costo)')
             ->from('CostoBundle:Costo', 'costo')
             ->where('costo.fechaInicio >= :fechaInicio')
             ->andWhere('costo.fechaFinal <= :fechaFinal')
@@ -36,7 +36,7 @@ class CostoRepository extends EntityRepository
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -45,7 +45,7 @@ class CostoRepository extends EntityRepository
      * Puede retornar más de una entdidad.
      *
      * @param DATE $fechaInicio
-     * @param DaTe $fechaFinal
+     * @pafindCostoPorAreaProyectoram DaTe $fechaFinal
      *
      * @return array Costo              [
      */
@@ -63,4 +63,86 @@ class CostoRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+    public function findCostoPorArea($fechaInicio, $fechaFinal, $area, $cliente)
+    {
+        //find all users that worked in that area
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('r.id')
+            ->addSelect('(c.costo) as costo')
+            ->addSelect('area.nombre')
+            ->from('UserBundle:Usuario', 'users')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
+            ->innerJoin('CostoBundle:Costo', 'c', 'with', 'c.usuario = users.id')
+            ->where('r.cliente = :cliente')
+            ->andWhere($qb->expr()->andX(
+               $qb->expr()->lte('c.fechaInicio', 'r.fechaHoras'),
+               $qb->expr()->gte('c.fechaFinal', 'r.fechaHoras')
+            ))
+            ->andWhere('area.id = :area_id')
+            ->groupBy('r.id')
+            ->setParameter('area_id', $area)
+            ->setParameter('cliente', $cliente);
+        return $qb->getQuery()->getResult();
+
+    }
+
+    public function findCostoPorAreaProyecto($area, $proyecto)
+    {
+        //find all users that worked in that area
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('r.id')
+            ->addSelect('costo.costo')
+            ->from('AppBundle:RegistroHoras', 'r')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'a', 'with', 'a.id = act.area')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'p', 'with', 'p.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Cliente', 'c', 'with', 'r.cliente = c.id')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = r.ingresadoPor')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = u.id')
+            ->where('a.id = :area_id')
+            ->andWhere('p.id = :proyecto_id')
+            ->andWhere($qb->expr()->andX(
+               $qb->expr()->lte('costo.fechaInicio', 'r.fechaHoras'),
+               $qb->expr()->gte('costo.fechaFinal', 'r.fechaHoras')
+            ))
+            ->groupBy('r.id')
+            ->setParameter('area_id', $area)
+            ->setParameter('proyecto_id', $proyecto);
+        return $qb->getQuery()->getScalarResult();
+
+    }
+
+    public function findCostoPorActividadProyecto($actividad, $usuario, $proyecto, $area_id)
+    {
+        //find all users that worked in that area
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('AVG(DISTINCT(costo.costo))')
+            ->from('UserBundle:Usuario', 'users')
+            ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
+            ->innerJoin('AppBundle:ProyectoPresupuesto', 'proy', 'with', 'proy.id = r.proyectoPresupuesto')
+            ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
+            ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
+            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
+            ->where('proy.id = :proy')
+            ->andWhere('act.id = :actividad_id')
+            ->andWhere('users.id = :usuario_id')
+            ->andWhere('area.id = :area_id')
+            ->setParameter('actividad_id', $actividad)
+            ->setParameter('proy', $proyecto)
+            ->setParameter('area_id', $area_id)
+            ->setParameter('usuario_id', $usuario);
+        return $qb->getQuery()->getSingleScalarResult();
+
+    }
+
 }
