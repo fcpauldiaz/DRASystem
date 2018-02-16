@@ -54,7 +54,6 @@ class ConsultaCostoUsuarioController extends Controller
             $horas = $registro['horasInvertidas'];
             $costoPorHora = $registro['costo'];
             $costoTotal = $registro['costoTotal'];
-            dump($costoTotal);
 
             $consultaUsuario = new ConsultaUsuario(
               '', '',

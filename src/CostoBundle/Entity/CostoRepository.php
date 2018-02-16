@@ -39,54 +39,13 @@ class CostoRepository extends EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findByFechaUsuarioProyectoStrict($fechaInicio, $fechaFinal, $proyecto, $usuario) {
-        $sql = '
-            Select AVG(costo.costo), costo.fecha_inicio, costo.fecha_final from costo
-            WHERE costo.usuario_id = :usuario_id
-            AND (
-                month(costo.fecha_inicio) >=
-                    (Select MONTH(MIN(registro_horas.fecha_horas))
-                    from registro_horas
-                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
-                    AND registro_horas.ingresado_por_id = :usuario_id)
-                AND
-                    YEAR(costo.fecha_inicio) >= (Select YEAR(MIN(registro_horas.fecha_horas))
-                    from registro_horas
-                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
-                    AND registro_horas.ingresado_por_id = :usuario_id)
-
-                AND
-                month(costo.fecha_final) <=
-                    (Select MONTH(MAX(registro_horas.fecha_horas))
-                    from registro_horas
-                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
-                    AND registro_horas.ingresado_por_id = :usuario_id)
-                AND
-                    YEAR(costo.fecha_final) <= (Select YEAR(MAX(registro_horas.fecha_horas))
-                    from registro_horas
-                    where registro_horas.proyecto_presupuesto_id = :proyecto_id
-                    AND registro_horas.ingresado_por_id = :usuario_id)
-            )
-            AND (costo.fecha_inicio >= :fechaInicio AND costo.fecha_final <= :fechaFinal)
-            GROUP BY costo.id
-        ';
-        $em = $this->getEntityManager();
-        $stmt = $em->getConnection()->prepare($sql);
-        $stmt->bindValue('usuario_id', $usuario);
-        $stmt->bindValue('proyecto_id', $proyecto);
-        $stmt->bindValue('fechaInicio', $fechaInicio->format('Y-m-d'));
-        $stmt->bindValue('fechaFinal', $fechaFinal->format('Y-m-d'));
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
     /**
      * query para buscar todos las entidades costo que coincidan con la fecha
      * ingresada.
      * Puede retornar más de una entdidad.
      *
      * @param DATE $fechaInicio
-     * @param DaTe $fechaFinal
+     * @pafindCostoPorAreaProyectoram DaTe $fechaFinal
      *
      * @return array Costo              [
      */
@@ -112,24 +71,24 @@ class CostoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-            ->select('AVG(DISTINCT(costo.costo))')
+            ->select('r.id')
+            ->addSelect('(c.costo) as costo')
             ->addSelect('area.nombre')
             ->from('UserBundle:Usuario', 'users')
             ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = users.id')
             ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = r.actividad')
             ->innerJoin('AppBundle:Area', 'area', 'with', 'area.id = act.area')
-            ->innerJoin('CostoBundle:Costo', 'costo', 'with', 'costo.usuario = users.id')
+            ->innerJoin('CostoBundle:Costo', 'c', 'with', 'c.usuario = users.id')
             ->where('r.cliente = :cliente')
             ->andWhere($qb->expr()->andX(
-               $qb->expr()->gte('costo.fechaInicio', ':fechaInicio'),
-               $qb->expr()->lte('costo.fechaFinal', ':fechaFinal')
+               $qb->expr()->lte('c.fechaInicio', 'r.fechaHoras'),
+               $qb->expr()->gte('c.fechaFinal', 'r.fechaHoras')
             ))
             ->andWhere('area.id = :area_id')
-            ->setParameter('fechaInicio', $fechaInicio)
-            ->setParameter('fechaFinal', $fechaFinal)
+            ->groupBy('r.id')
             ->setParameter('area_id', $area)
             ->setParameter('cliente', $cliente);
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getResult();
 
     }
 

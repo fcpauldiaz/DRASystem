@@ -45,32 +45,53 @@ class ConsultaCostoClienteController extends Controller
         $fechaInicio = $data['fechaInicio'];
         $fechaFinal = $data['fechaFinal'];
         $cliente = $data['cliente'];
-        
+        $horas_extra = $data['horas_extraordinarias'];
+
         //obtain all areas that have been submit in daily registry.
-        $preQueryArea = $this->queryRegistroHorasPorFechaArea($fechaInicio, $fechaFinal, $cliente);
-       
+        $preQueryArea = $this->queryRegistroHorasPorFechaArea($fechaInicio, $fechaFinal, $cliente, $horas_extra);
+
 
         $returnArray = [];
-        foreach ($preQueryArea as $area_array) {
-            
-            $horas = $area_array[1];
-            
+        foreach ($preQueryArea as $registroArray) {
+
+            $horasId = $registroArray['registroId'];
+            $horas = $registroArray['horas'];
+            $area = $registroArray['nombre'];
+            $area_id = $registroArray['id'];
+
             $first_date = date('m-01-Y', $fechaInicio->getTimestamp());
 
             $last_date = date('m-t-Y', $fechaFinal->getTimestamp());
-            $area = $area_array['nombre'];
 
             $costo = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('CostoBundle:Costo')
-                ->findCostoPorArea($first_date, $last_date, $area_array['id'], $cliente);
-            $costo = $costo[1];
-            $costoTotal = $horas * ($costo === null ? 0: $costo);
+                ->findCostoPorArea($first_date, $last_date, $area_id, $cliente);
+
 
             // obtain budget to compare
-            $horasPresupuesto =  $this->queryRegistrosPresupuestoPorArea($fechaInicio, $fechaFinal, $area_array['id'], $cliente);            
-            
+            $horasPresupuesto =  $this->queryRegistrosPresupuestoPorArea($fechaInicio, $fechaFinal, $area_id, $cliente);
+
+            $costoAcum = 0;
+            $horasAcum = 0;
+            $horas = explode(',', $horas);
+            $horasId = explode(',', $horasId);
+
+            foreach($horasId as $id) {
+                foreach($costo as $costoQuery) {
+                if ($costoQuery['id'] == $id) {
+                    $index = array_search($id, $horasId);
+                    $costoAcum += $horas[$index] * $costoQuery['costo'];
+
+                    $horasAcum += $horas[$index];
+                }
+                }
+            }
+
+            $costo = $costoAcum/$horasAcum;
+            $horas = $horasAcum;
+            $costoTotal = $costoAcum;
             $costoPresupuesto = $horasPresupuesto === null ? 0: $horasPresupuesto[1]*$costo;
 
             $consultaCliente = new ConsultaCliente(
@@ -83,9 +104,9 @@ class ConsultaCostoClienteController extends Controller
             $consultaCliente->setArea($area);
             $consultaCliente->setCostoPresupuesto($costoPresupuesto);
             $consultaCliente->calcularDiferencia();
-         
+
             $returnArray[] = $consultaCliente;
-            
+
         }
         $honorarios = $this
             ->get('consulta.query_controller')
@@ -140,25 +161,23 @@ class ConsultaCostoClienteController extends Controller
         return $qb->getQuery()->getResult();
     }
 
-    private function queryRegistroHorasPorFechaArea($fechaInicio, $fechaFinal, $cliente) 
+    private function queryRegistroHorasPorFechaArea($fechaInicio, $fechaFinal, $cliente, $horas)
     {
-         $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
+           $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
         $qb
-            ->select('SUM(registro.horasInvertidas)')
+            ->select('GROUP_CONCAT(registro.horasInvertidas) as horas')
+            ->addSelect('GROUP_CONCAT(registro.id) as registroId')
             ->addSelect('area.nombre')
             ->addSelect('area.id')
             ->innerJoin('AppBundle:Actividad', 'act', 'with', 'act.id = registro.actividad ')
             ->innerJoin('AppBundle:Area', 'area', 'with', 'act.area = area.id')
-            ->where('registro.fechaHoras >= :fechaInicio')
-            ->andWhere('registro.fechaHoras <= :fechaFinal')
-            ->andWhere('registro.cliente = :cliente')
-            ->setParameter('fechaInicio', $fechaInicio)
-            ->setParameter('fechaFinal', $fechaFinal)
+            ->innerJoin('AppBundle:Cliente', 'cliente', 'with', 'cliente.id = registro.cliente')
+            ->andWhere('cliente.id = :cliente')
+            ->andWhere('registro.horasExtraordinarias = :extra_horas')
             ->setParameter('cliente', $cliente)
-            ->groupBy('area.id')
-           
-            ;
+            ->setParameter('extra_horas', $horas)
+            ->groupBy('area.id');
         return $qb->getQuery()->getResult();
     }
     private function queryRegistrosPresupuestoPorArea($fechaInicio, $fechaFinal, $area, $cliente) {

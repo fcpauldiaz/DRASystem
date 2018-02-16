@@ -178,3 +178,6 @@ AND r.horas_extraordinarias = 0;
 Select * from costo
 where costo.usuario_id = 40;
 
+select COUNT(r.id)
+from registro_horas r
+where r.cliente_id = 1949

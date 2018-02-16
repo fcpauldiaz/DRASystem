@@ -406,7 +406,7 @@ class ConsultaCostoController extends Controller
 
             foreach($horasId as $id) {
                 foreach($costo as $costoQuery) {
-                if ($costoQuery['id'] === $id) {
+                if ($costoQuery['id'] == $id) {
                     $index = array_search($id, $horasId);
                     $costoAcum += $horas[$index] * $costoQuery['costo'];
 
