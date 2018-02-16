@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ path('homepage')}}"><i class="fa fa-clock-o"></i> Smart Time</a>
+          <a class="navbar-brand" href="{{ path('homepage')}}"><img src="{{ asset('images/min-logo.png')}}" alt="small logo"> Chapi Time</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -24,7 +24,7 @@
                     <li><a href="{{ path('actividad_new')}}">Actividades</a></li>
                 {% endif %}
 
-              
+
                 <li class="divider"></li>
                 <li class="dropdown-header">Sección Horas</li>
                 {% if is_granted('ROLE_CREAR_HORAS')%}
@@ -45,10 +45,10 @@
                 <li class="dropdown-header">Sección Listado general</li>
 
                  {% if is_granted('ROLE_VER_LISTADO_GENERAL') %}
-               
+
                     <li><a href="{{ path('registrohoras')}}">Registro Horas</a></li>
                 {% endif %}
-                
+
                 {% if is_granted('ROLE_VER_ACTIVIDADES') %}
                    <li><a href="{{ path('actividad')}}">Actividades</a></li>
                 {% endif %}
@@ -64,7 +64,7 @@
                 {% if is_granted('ROLE_VER_DEPARTAMENTO')%}
                   <li><a href="{{path('departamento')}}">Departamentos</a></li>
                 {% endif %}
-                
+
                 </ul>
               </li>
               <li class="dropdown">
@@ -98,13 +98,13 @@
               {% endfor %}
             {% endif %}
         {% else %}
-   
-          {# utilizar el controlador default de FOSUserBundle para mostrar el formulario de login 
+
+          {# utilizar el controlador default de FOSUserBundle para mostrar el formulario de login
               Si se desea modificar esto, dirigirse a UserBundle:Resources:Views:login.html.twig
           #}
           {% render controller("FOSUserBundle:Security:login") %}
         {% endif %}
-      
+
         </div><!--/.navbar-collapse -->
       </div>
     </div>
