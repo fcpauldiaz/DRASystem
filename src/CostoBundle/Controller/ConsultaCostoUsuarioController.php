@@ -71,7 +71,7 @@ class ConsultaCostoUsuarioController extends Controller
             }
 
             $consultaUsuario = new ConsultaUsuario(
-                $usuario,
+                '', '',
                 $horas,
                 $horasPresupuesto,
                 0,
@@ -81,6 +81,7 @@ class ConsultaCostoUsuarioController extends Controller
             $consultaUsuario->setCliente($cliente);
             $consultaUsuario->setActividad($actividad);
             $consultaUsuario->calcularDiferencia();
+            $consultaUsuario->setUsuario($usuario);
             $returnArray[] = $consultaUsuario;
         }
         $honorarios = $this
