@@ -2,9 +2,11 @@ $(document).ready(function() {
     var table = $('#table').DataTable({
         columnDefs: [
             { "width": "10%", "targets": 0 },
-            { "width": "5%", "targets": 1 }
+            { "width": "15%", "targets": 1 },
+            { "width": "5%", "targets": 2 },
         ],
         "columns": [
+            { "type": "string" },
             { "type": "string" },
             { "type": "numeric" },
             { "type": "string" },

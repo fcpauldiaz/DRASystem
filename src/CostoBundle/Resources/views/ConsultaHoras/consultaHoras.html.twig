@@ -103,6 +103,7 @@
           <thead>
             <tr>
                 <th>Fecha</th>
+                <th>Actividad</th>
                 <th>Horas Invertidas</th>
                 <th>Cliente </th>
                 <th>Realizadas por </th>
@@ -115,6 +116,7 @@
               {% for entity in registros %}
               <tr>
                 <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
+                <td>{{entity.actividad}}</td>
                 <td>{{ entity.horasInvertidas }}</td>
                 <td>{{ entity.cliente }} </td>
                 <td>{{ entity.ingresadoPor }} </td>
@@ -131,6 +133,7 @@
               {% set acumHoras = acumHoras + entity.horasInvertidas %}
               {% endfor %}
               <tr>
+                <td></td>
                 <td></td>
                 <td>{{acumHoras}}</td>
                 <td></td>
