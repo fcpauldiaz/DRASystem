@@ -1,5 +1,5 @@
 {
-    "name": "sdx/smart_time",
+    "name": "sdx/chapi_time",
     "license": "proprietary",
     "type": "project",
     "autoload": {

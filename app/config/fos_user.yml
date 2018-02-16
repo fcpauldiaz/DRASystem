@@ -6,12 +6,12 @@ fos_user:
       user_manager: pugx_user_manager
     from_email:
       address:        no-responder@newtonlabs.com.gt
-      sender_name:    Smart Time
+      sender_name:    Chapi Time
     registration:
           confirmation:
             from_email:
                 address:        no-responder@newtonlabs.com.gt
-                sender_name:    Smart Time
+                sender_name:    Chapi Time
             enabled:    false # change to true for required email confirmation
             template:   UserBundle:Registration:registration.email.twig
     resetting: #password resetting
@@ -19,7 +19,7 @@ fos_user:
         email:
             from_email:
                 address:        no-responder@newtonlabs.com.gt
-                sender_name:    Smart Time
+                sender_name:    Chapi Time
             template:   UserBundle:Resetting:resetting.email.twig
     service:
         user_manager: pugx_user_manager
