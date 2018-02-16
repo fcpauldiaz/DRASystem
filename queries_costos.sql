@@ -178,6 +178,11 @@ AND r.horas_extraordinarias = 0;
 Select * from costo
 where costo.usuario_id = 40;
 
-select COUNT(r.id)
+#verify otras actividades
+select r.id, r.fecha_horas, r.horas_invertidas, act.nombre ,r.ingresado_por_id, r.proyecto_presupuesto_id
 from registro_horas r
+inner join actividad act on act.id = r.actividad_id
+inner join area a on a.id = act.area_id
 where r.cliente_id = 1949
+and a.id = 396;
+
