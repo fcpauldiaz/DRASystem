@@ -65,7 +65,7 @@ class CustomLoginController extends Controller
 
             $this->get('security.token_storage')->setToken($token);
             //Real automatic login
-            $event = new InteractiveLoginEvent($this->getRequest(), $token);
+            $event = new InteractiveLoginEvent($request, $token);
             $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
             $response = new JsonResponse();
             $response->headers->setCookie($cookie);
