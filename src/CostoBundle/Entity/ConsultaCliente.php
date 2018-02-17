@@ -53,7 +53,7 @@ class ConsultaCliente extends ConsultaMain
         return $this->costoPorHora;
     }
 
-    public function getArea() 
+    public function getArea()
     {
         return $this->area;
     }

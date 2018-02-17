@@ -315,11 +315,13 @@ class ProyectoPresupuesto
         $this->clientes->removeElement($cliente);
     }
 
-    public function finalizeState() {
+    public function finalizeState()
+    {
         $this->estado = 'FINALIZADO';
     }
 
-    public function revisionState() {
+    public function revisionState()
+    {
         $this->estado = 'REVISION';
     }
 

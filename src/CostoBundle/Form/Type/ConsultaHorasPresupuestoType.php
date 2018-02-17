@@ -75,7 +75,9 @@ class ConsultaHorasPresupuestoType extends AbstractType
 
 
             ])
-            ->add('consulta_filtro', ChoiceType::class,
+            ->add(
+                'consulta_filtro',
+                ChoiceType::class,
                 [
                     'choices' => [
                         'Usuario' => 'Usuario',
@@ -135,7 +137,6 @@ class ConsultaHorasPresupuestoType extends AbstractType
             ])
 
         ;
-
     }
 
     /**

@@ -86,7 +86,7 @@ class RegistroHorasPresupuestoController extends Controller
      */
     private function createCreateForm(RegistroHorasPresupuesto $entity)
     {
-        $form = $this->createForm( RegistroHorasPresupuestoType::class, $entity, array(
+        $form = $this->createForm(RegistroHorasPresupuestoType::class, $entity, array(
             'action' => $this->generateUrl('horaspresupuesto_create'),
             'method' => 'POST',
         ));

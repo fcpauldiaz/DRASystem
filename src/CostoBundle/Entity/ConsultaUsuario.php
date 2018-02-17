@@ -60,6 +60,6 @@ class ConsultaUsuario extends ConsultaMain
 
     public function getUserId()
     {
-      return $this->usuarioId;
+        return $this->usuarioId;
     }
 }

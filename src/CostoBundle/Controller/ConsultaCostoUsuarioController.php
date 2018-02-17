@@ -56,7 +56,8 @@ class ConsultaCostoUsuarioController extends Controller
             $costoTotal = $registro['costoTotal'];
 
             $consultaUsuario = new ConsultaUsuario(
-              '', '',
+              '',
+                '',
               $horas,
               0,
               $costoPorHora,
@@ -103,7 +104,7 @@ class ConsultaCostoUsuarioController extends Controller
         $qb
             ->select('registro.horasInvertidas')
             ->addSelect('c.costo')
-            ->addSelect('(registro.horasInvertidas * c.costo) as costoTotal' )
+            ->addSelect('(registro.horasInvertidas * c.costo) as costoTotal')
             ->addSelect('cl.razonSocial as cliente')
             ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = registro.ingresadoPor')
             ->innerJoin('CostoBundle:Costo', 'c', 'with', 'c.usuario = u.id')

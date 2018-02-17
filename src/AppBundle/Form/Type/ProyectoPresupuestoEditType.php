@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Braincrafted\Bundle\BootstrapBundle\Form\Type\BootstrapCollectionType;
 
-
 //se creó un formulario cuando se quiera editar
 //para cargar el array collection existente
 //y no crear uno nuevo como cuando se crea

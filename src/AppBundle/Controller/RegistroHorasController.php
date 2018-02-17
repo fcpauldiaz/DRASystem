@@ -52,13 +52,13 @@ class RegistroHorasController extends Controller
         );
     }
 
-     /**
-     * Lists all RegistroHoras entities.
-     *
-     * @Route("/actividad/area", name="registrohoras_por_actividad_area")
-     * @Method("POST")
-     * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
-     */
+    /**
+    * Lists all RegistroHoras entities.
+    *
+    * @Route("/actividad/area", name="registrohoras_por_actividad_area")
+    * @Method("POST")
+    * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
+    */
     public function ActividadesPorAreaAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -73,7 +73,7 @@ class RegistroHorasController extends Controller
         foreach ($entities as $entity) {
             $data_serialized[$entity->getId()] = $entity->__toString();
         }
-       return new JsonResponse($data_serialized);
+        return new JsonResponse($data_serialized);
     }
 
     /**

@@ -90,7 +90,7 @@ class ProyectoPresupuestoType extends AbstractType
             'data_class' => ProyectoPresupuesto::class,
             'user' => null
         ));
-        $resolver->setRequired('user'); 
+        $resolver->setRequired('user');
     }
 
     /**

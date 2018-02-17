@@ -117,11 +117,11 @@ class ConsultaCostoController extends Controller
         );
     }
 
-     /**
-     * @Route("presupuesto/area/detalle/", name="presupuesto_area_detalle")
-     * @Method({"PUT", "GET"})
-     * Se mandan los párametro a través del request.
-     */
+    /**
+    * @Route("presupuesto/area/detalle/", name="presupuesto_area_detalle")
+    * @Method({"PUT", "GET"})
+    * Se mandan los párametro a través del request.
+    */
     public function consultaAreaDetalleAction(Request $request)
     {
         $area_id = $request->get('area_id');
@@ -134,7 +134,7 @@ class ConsultaCostoController extends Controller
             ->getRepository('AppBundle:RegistroHoras')
             ->findByAreaAndProyectoCosto($area_id, $proyecto_id);
         $arrayRegistros = [];
-        foreach($registros as $registro) {
+        foreach ($registros as $registro) {
             $actividad = $registro['actividad'];
             $usuario_nombre = $registro['nombre'];
             $usuario_apellido = $registro['apellidos'];
@@ -145,7 +145,6 @@ class ConsultaCostoController extends Controller
             $costoHoras = $horas * $costo;
             $registro['costoReal'] = $costoHoras;
             $arrayRegistros[] = $registro;
-
         }
         return $this->render(
             'CostoBundle:Consulta:consultaDetalleArea.html.twig',
@@ -380,20 +379,19 @@ class ConsultaCostoController extends Controller
 
         $arrayRegistros = $this->queryRegistroHorasPorFechaArea($proyecto, $horasExtraordinarias);
         foreach ($arrayRegistros as $registroArray) {
-
             $horasId = $registroArray['registroId'];
             $horas = $registroArray['horas'];
             $area_nombre = $registroArray['nombre'];
             $area_id = $registroArray['id'];
 
-           $horasPresupuestadas = $this
+            $horasPresupuestadas = $this
             ->getDoctrine()
             ->getRepository('AppBundle:RegistroHorasPresupuesto')
             ->findHorasPresupuestoByArea($area_id, $proyecto);
 
             $horasPresupuestadas = $horasPresupuestadas[1] === null ? 0: $horasPresupuestadas[1];
 
-             $costo = $this
+            $costo = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('CostoBundle:Costo')
@@ -404,14 +402,14 @@ class ConsultaCostoController extends Controller
             $horas = explode(',', $horas);
             $horasId = explode(',', $horasId);
 
-            foreach($horasId as $id) {
-                foreach($costo as $costoQuery) {
-                if ($costoQuery['id'] == $id) {
-                    $index = array_search($id, $horasId);
-                    $costoAcum += $horas[$index] * $costoQuery['costo'];
+            foreach ($horasId as $id) {
+                foreach ($costo as $costoQuery) {
+                    if ($costoQuery['id'] == $id) {
+                        $index = array_search($id, $horasId);
+                        $costoAcum += $horas[$index] * $costoQuery['costo'];
 
-                    $horasAcum += $horas[$index];
-                }
+                        $horasAcum += $horas[$index];
+                    }
                 }
             }
             $costo = $costoAcum/$horasAcum;
@@ -437,7 +435,7 @@ class ConsultaCostoController extends Controller
 
     private function queryRegistroHorasPorFechaArea($proyecto, $horasExtraordinarias)
     {
-         $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
+        $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
         $qb
             ->select('GROUP_CONCAT(registro.horasInvertidas) as horas')
@@ -457,8 +455,7 @@ class ConsultaCostoController extends Controller
 
     private function searchArray($queryArray, $search)
     {
-        foreach($queryArray as $key => $value)
-        {
+        foreach ($queryArray as $key => $value) {
             if (in_array($search, $value)) {
                 return $value['horasP'];
             }
@@ -493,7 +490,7 @@ class ConsultaCostoController extends Controller
             ->getRepository('AppBundle:RegistroHorasPresupuesto')
             ->findByProyectoGroupUsuario($proyecto);
         $returnArray = [];
-        foreach($horasInvertidas as $resultHoras) {
+        foreach ($horasInvertidas as $resultHoras) {
             $usuarioId = $resultHoras['id'];
             $nombreUsuario = $resultHoras['nombre'];
             $apellidosUsuario = $resultHoras['apellidos'];
@@ -507,7 +504,7 @@ class ConsultaCostoController extends Controller
                 ->findByFechaAndUsuario($data['fechaInicio'], $data['fechaFinal'], $usuarioId);
             $costoPorHora = $costo === null ? 0: $costo;
             $costoTotal = $costoPorHora * $horas;
-             $consultaUsuario = new ConsultaUsuario(
+            $consultaUsuario = new ConsultaUsuario(
                 $usuarioId,
                 $nombreUsuario .' '. $apellidosUsuario,
                 $horas,

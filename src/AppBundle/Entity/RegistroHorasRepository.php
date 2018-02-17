@@ -153,6 +153,5 @@ class RegistroHorasRepository extends EntityRepository
             ->setParameter('proyecto', $proyecto)
             ->setParameter('horas_extra', $horas_extra);
         return $qb->getQuery()->getResult();
-
     }
 }

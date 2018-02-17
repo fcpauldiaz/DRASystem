@@ -46,7 +46,8 @@ class ConsultaPresupuestoType extends AbstractType
                     'class' => 'select2 hide-element-decision',
                 ],
 
-            ])
+            ]
+            )
             ->add('horas_extraordinarias', ChoiceType::class, [
                 'choices' => [
                     'No' => 1,

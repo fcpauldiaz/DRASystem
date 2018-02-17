@@ -89,7 +89,6 @@ class CostoRepository extends EntityRepository
             ->setParameter('area_id', $area)
             ->setParameter('cliente', $cliente);
         return $qb->getQuery()->getResult();
-
     }
 
     public function findCostoPorAreaProyecto($area, $proyecto)
@@ -117,7 +116,6 @@ class CostoRepository extends EntityRepository
             ->setParameter('area_id', $area)
             ->setParameter('proyecto_id', $proyecto);
         return $qb->getQuery()->getScalarResult();
-
     }
 
     public function findCostoPorActividadProyecto($actividad, $usuario, $proyecto, $area_id)
@@ -142,7 +140,5 @@ class CostoRepository extends EntityRepository
             ->setParameter('area_id', $area_id)
             ->setParameter('usuario_id', $usuario);
         return $qb->getQuery()->getSingleScalarResult();
-
     }
-
 }

@@ -165,7 +165,7 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-     public function findByProyectoGroupUsuario($proyecto)
+    public function findByProyectoGroupUsuario($proyecto)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -178,6 +178,5 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->groupBy('r.usuario')
             ->setParameter('proyecto', $proyecto);
         return $qb->getQuery()->getResult();
-
     }
 }

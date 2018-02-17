@@ -96,8 +96,6 @@ class ConsultaClienteProyecto extends ConsultaMain
 
     public function getAreaId()
     {
-      return $this->area_id;
+        return $this->area_id;
     }
-
-
 }

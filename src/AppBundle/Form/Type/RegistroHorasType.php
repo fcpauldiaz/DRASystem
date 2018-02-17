@@ -32,7 +32,7 @@ class RegistroHorasType extends AbstractType
     {
         $this->user = $options['user'];
         $builder
-             ->add('proyectoPresupuesto',  EntityType::class, [
+             ->add('proyectoPresupuesto', EntityType::class, [
                 'class' => ProyectoPresupuesto::class,
                 'required' => false,
                 'placeholder' => 'Seleccione el presupuesto asignado',
@@ -55,7 +55,7 @@ class RegistroHorasType extends AbstractType
                  'required' => true,
 
             ])
-            ->add('cliente',  EntityType::class, [
+            ->add('cliente', EntityType::class, [
                 'class' => Cliente::class,
                 'required' => true,
                 'choice_label' => 'showSearchParams',
@@ -64,7 +64,7 @@ class RegistroHorasType extends AbstractType
                     'class' => 'select2',
                 ],
                 'query_builder' => function (EntityRepository $er) {
-                  return $er->createQueryBuilder('cliente')
+                    return $er->createQueryBuilder('cliente')
                       ->orderBy('cliente.razonSocial', 'ASC');
                 },
 
@@ -117,7 +117,7 @@ class RegistroHorasType extends AbstractType
                     'class' => 'select2',
                 ],
                 'query_builder' => function (EntityRepository $er) {
-                  return $er->createQueryBuilder('actividad')
+                    return $er->createQueryBuilder('actividad')
                         ->where('actividad.area = :area')
                         ->orderBy('actividad.nombre', 'ASC')
                         ->setParameter('area', $this->area);
@@ -135,14 +135,12 @@ class RegistroHorasType extends AbstractType
 
                 $this->area = $form['area'];
                 
-                // this would be your entity, i.e. 
+                // this would be your entity, i.e.
                 $data = $event->getData();
                 
                 $formModifier($event->getForm(), $data);
             }
         );
-
- 
     }
 
     /**

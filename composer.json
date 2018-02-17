@@ -1,5 +1,6 @@
 {
     "name": "sdx/chapi_time",
+    "description": "time control software",
     "license": "proprietary",
     "type": "project",
     "autoload": {
