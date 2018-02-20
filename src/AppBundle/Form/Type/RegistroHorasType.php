@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class RegistroHorasType extends AbstractType
 {
-    private $usuario;
+    private $user;
     private $area = 1;
 
     /**
@@ -90,7 +90,7 @@ class RegistroHorasType extends AbstractType
             ->add('ingresadoPor', EntityType::class, [
                 'class' => UsuarioTrabajador::class,
                 'choice_label' => 'codigoString',
-                'data' => $this->usuario,
+                'data' => $this->user,
                 'attr' => [
                     'help_text' => 'AS para asistente, EN para encargado, SU para supervisor, GE para gerente, SC para socio',
                 ],
@@ -134,10 +134,10 @@ class RegistroHorasType extends AbstractType
                 $data = $event->getData();
 
                 $this->area = $form['area'];
-                
+
                 // this would be your entity, i.e.
                 $data = $event->getData();
-                
+
                 $formModifier($event->getForm(), $data);
             }
         );
