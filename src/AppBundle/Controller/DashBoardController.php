@@ -93,8 +93,8 @@ class DashBoardController extends Controller
         $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
         $queryPresupuestos = $repositoryPresupuesto->createQueryBuilder('presupuesto')
             ->select('SUM(presupuesto.horasPresupuestadas)')
-            ->innerJoin('presupuesto.usuario', 'usuario')
-            ->where('usuario.id = :user')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = presupuesto.usuario')
+            ->where('u.id = :user')
             ->setParameter('user', $usuarioActual->getId());
 
         return $queryPresupuestos->getQuery()->getSingleScalarResult();

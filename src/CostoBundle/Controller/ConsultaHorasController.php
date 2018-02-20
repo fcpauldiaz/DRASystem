@@ -35,7 +35,7 @@ class ConsultaHorasController extends Controller
             return $this->render(
                 'CostoBundle:ConsultaHoras:consultaHoras.html.twig',
                 [
-                    'verificador' => true, //mandar variable a javascript
+                    'verificador' => '', //mandar variable a javascript
                     'registros' => [],
                     'form' => $form->createView(),
                 ]
@@ -57,7 +57,7 @@ class ConsultaHorasController extends Controller
         return $this->render(
             'CostoBundle:ConsultaHoras:consultaHoras.html.twig',
             [
-                'verificador' => true, //mandar variable a javascript
+                'verificador' => $consulta, //mandar variable a javascript
                 'registros' => $registros,
                 'form' => $form->createView(),
             ]
