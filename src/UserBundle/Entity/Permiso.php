@@ -25,7 +25,7 @@ class Permiso
         'Ver listado de puestos y tipos' => 'ROLE_VER_PUESTO_Y_TIPO',
         'Ver listado de departamentos' => 'ROLE_VER_DEPARTAMENTO',
         'Ver listado de clientes' => 'ROLE_VER_CLIENTES',
-        'Ver consultas de costos' => 'ROLE_VER_CONSULTAS',
+        'Ver consultas sin costos' => 'ROLE_VER_CONSULTAS',
         'Crear clientes' => 'ROLE_CREAR_CLIENTES',
         'Crear actividades' => 'ROLE_CREAR_ACTIVIDADES',
         'Ingresar horas invertidas' => 'ROLE_CREAR_HORAS',
@@ -46,6 +46,7 @@ class Permiso
         'Eliminar clientes' => 'ROLE_ELIMINAR_CLIENTES',
         'Eliminar puestos y tipos' => 'ROLE_ELIMINAR_PUESTO_Y_TIPO',
         'Eliminar departamentos' => 'ROLE_ELIMINAR_DEPARTAMENTO',
+        'Consultas con costos' => 'ROLE_VER_CONSULTAS_COSTOS',
         'Acceso total y panel de control' => 'ROLE_ADMIN',
 
     ];

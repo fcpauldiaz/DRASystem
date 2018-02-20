@@ -116,10 +116,12 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            {% if is_granted('ROLE_VER_CONSULTAS_COSTOS') and app.user %}
             <li><a href="{{ path('cron_job_view')}}">Re calcular costos</a></li>
             <li><a href="{{ path('presupuesto_horas')}}">Costos Por Presupuesto</a></li>
             <li><a href="{{ path('consulta_cliente')}}">Costos Por Cliente</a></li>
             <li><a href="{{ path('consulta_usuario')}}">Costos Por Usuario</a></li>
+            {% endif %}
             {#<li><a href="{{ path('consulta_socio')}}">Costos Por Socio</a></li>
             <li><a href="{{ path('consulta_gerente')}}">Costos Por Gerente</a></li>#}
             <li><a href="{{ path('consulta_horas_usuario') }}">Consulta de Horas Ingresadas</a></li>
