@@ -15,6 +15,39 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class CustomLoginController extends Controller
 {
     const COOKIE_DELIMITER = ':';
+
+     /**
+     * @Route("/api/login/app", name="loginApp")
+     */
+    public function customLoginAction(Request $request)
+    {
+        $username = $request->get('username');
+        $password = $request->get('password');
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository('UserBundle:Usuario')->findOneBy(array('username' => $username));
+        if ($user === null) {
+            return new JsonResponse(['valid' => false, 'message' => 'Wrong id']);
+        }
+
+        if ($user->getPassword() === $password) {
+            // Authenticating user
+            $token = new UsernamePasswordToken(
+                $user,
+                $user->getPassword(),
+                'main',
+                $user->getRoles()
+            );
+
+            $response = new JsonResponse();
+            $response->headers->setCookie($cookie);
+            $response->setData(['valid' => true, 'message' => true]);
+
+            return $response;
+        }
+
+        return new JsonResponse(['valid' => false, 'message' => 'Wrong key']);
+    }
+
     /**
      * @Route("/api/login", name="apiLogin")
      */
