@@ -19,7 +19,7 @@ class CustomLoginController extends Controller
      /**
      * @Route("/api/login/app", name="loginApp")
      */
-    public function customLoginAction(Request $request)
+    public function loginAppAction(Request $request)
     {
         $username = $request->get('username');
         $password = $request->get('password');
