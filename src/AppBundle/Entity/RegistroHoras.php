@@ -205,6 +205,20 @@ class RegistroHoras
         return $this;
     }
 
+     /**
+     * Set actividad id.
+     *
+     * @param \AppBundle\Entity\Actividad $actividad
+     *
+     * @return RegistroHoras
+     */
+    public function setActividadId($actividad = null)
+    {
+        $this->actividad = $actividad;
+
+        return $this;
+    }
+
     /**
      * Get actividad.
      *

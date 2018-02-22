@@ -28,30 +28,34 @@
 
     </script>
     <script>
-        //area
 
         // When area gets selected ...
         $(document).on('change', 'select', function(element) {
+          try {
           var id = (element.target.id);
           // ... retrieve the corresponding form.
           var $form = $(this).closest('form');
           // Simulate form data, but only include the area sport value.
           var data = {};
           var e = element.target;
+
           var value = e.options[e.selectedIndex].value;
-          data['area'] = value;
+
+          data['appbundle_registrohoras[area]'] = value;
           var idActividad = id.substring(0, id.lastIndexOf('_')) + '_actividad';
           var actividad = $('#'+idActividad);
-          console.log(idActividad);
-          console.log(actividad);
-          console.log(data);
+        } catch (e) {
+            return;
+          }
           // Submit data via AJAX to the form's action path.
           $.ajax({
             url : 'actividad/area',
             type: $form.attr('method'),
             data : data,
             success: function(data) {
-              console.log(data);
+                if (data.length === 0) {
+                    return;
+                }
                 //remove previous options
                 actividad.empty().select2();
                 //create new options
@@ -59,7 +63,6 @@
                     var opt = new Option(data[key], key,  false, false);
                     actividad.append(opt);
                 }
-                console.log('finish');
                 //update select2
                 actividad.trigger('change');
             }
