@@ -18,6 +18,7 @@ use UserBundle\Entity\UsuarioTrabajador;
 use AppBundle\Entity\Actividad;
 use AppBundle\Entity\Area;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Braincrafted\Bundle\BootstrapBundle\Form\Type\BootstrapCollectionType;
 
 class RegistroHorasType extends AbstractType
 {
@@ -69,24 +70,22 @@ class RegistroHorasType extends AbstractType
                 },
 
             ])
-             ->add('area', EntityType::class, [
-                'class' => Area::class,
-                'required' => true,
-                'label' => 'Área',
-                'placeholder' => 'Seleccione el área',
-                'mapped' => false,
-                'attr' => [
-                    'class' => 'select2',
-                ],
-            ])
-            ->add('horasInvertidas', null, [
-                'label' => 'Horas invertidas',
-                'required' => true,
-            ])
-            ->add('horasExtraordinarias', CheckboxType::class, [
-                'required' => false,
-                'label' => 'Las horas realizadas fueron extraordinarias',
-            ])
+            ->add('horasActividad', BootstrapCollectionType::class, [
+                    'entry_type' =>RegistroHorasActividadHorasType::class,
+                    'entry_options' => ['user' => $this->user],
+                    'label' => 'Registro de Actividad y Horas',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'add_button_text' => 'Agregar Actividad',
+                    'delete_button_text' => 'Eliminar Actividad',
+                    'sub_widget_col' => 6,
+                    'button_col' => 12,
+                    'by_reference' => false, //esta linea también es importante para que se guarde la ref
+                    'attr' => [
+                         'class' => 'select2',
+                    ],
+
+                ])
             ->add('ingresadoPor', EntityType::class, [
                 'class' => UsuarioTrabajador::class,
                 'choice_label' => 'codigoString',
@@ -103,44 +102,6 @@ class RegistroHorasType extends AbstractType
             ])
         ;
 
-        $formModifier = function (FormInterface $form, $area) {
-            $this->area = $form['area']->getData();
-            if (gettype($this->area) !== 'integer') {
-                $this->area = 1;
-            }
-
-            $form->add('actividad', EntityType::class, [
-                'class' => Actividad::class,
-                'required' => true,
-                'placeholder' => 'Seleccione la actividad',
-                'attr' => [
-                    'class' => 'select2',
-                ],
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('actividad')
-                        ->where('actividad.area = :area')
-                        ->orderBy('actividad.nombre', 'ASC')
-                        ->setParameter('area', $this->area);
-                }
-            ]);
-        };
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($formModifier) {
-                $form = $event->getForm();
-
-                // this would be your entity, i.e. SportMeetup
-                $data = $event->getData();
-
-                $this->area = $form['area'];
-
-                // this would be your entity, i.e.
-                $data = $event->getData();
-
-                $formModifier($event->getForm(), $data);
-            }
-        );
     }
 
     /**

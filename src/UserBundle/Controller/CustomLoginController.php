@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+
 
 class CustomLoginController extends Controller
 {
@@ -21,15 +23,17 @@ class CustomLoginController extends Controller
      */
     public function loginAppAction(Request $request)
     {
-        $username = $request->get('username');
-        $password = $request->get('password');
+        $content = json_decode($request->getContent(), true);
+        $username = $content['username'];
+        $password = $content['password'];
         $em = $this->getDoctrine()->getEntityManager();
         $user = $em->getRepository('UserBundle:Usuario')->findOneBy(array('username' => $username));
         if ($user === null) {
-            return new JsonResponse(['valid' => false, 'message' => 'Wrong id']);
+            return new JsonResponse(['valid' => false, 'message' => 'Wrong user id']);
         }
-
-        if ($user->getPassword() === $password) {
+        $encoderService = $this->container->get('security.password_encoder');
+        $match = $encoderService->isPasswordValid($user, $password);
+        if ($match) {
             // Authenticating user
             $token = new UsernamePasswordToken(
                 $user,
@@ -38,6 +42,36 @@ class CustomLoginController extends Controller
                 $user->getRoles()
             );
 
+            $options = array(
+                'path' => '/',
+                'name' => 'REMEMBERME',
+                'domain' => '/',
+                'secure' => true,
+                'httponly' => true,
+                'lifetime' => 31557600, // 1 year
+                'always_remember_me' => true,
+                'remember_me_parameter' => '_remember_me',
+                'secret' => $this->container->getParameter('secret'),
+            );
+            $response = new Response();
+            $expires = time() + $options['lifetime'];
+            //gen
+            $value = $this->generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword(), $options['secret']);
+
+            $cookie = new Cookie(
+                $options['name'],
+                $value,
+                $expires,
+                $options['path'],
+                $options['domain'],
+                $options['secure'],
+                $options['httponly']
+            );
+
+            $this->get('security.token_storage')->setToken($token);
+            //Real automatic login
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
             $response = new JsonResponse();
             $response->headers->setCookie($cookie);
             $response->setData(['valid' => true, 'message' => true]);
@@ -45,7 +79,7 @@ class CustomLoginController extends Controller
             return $response;
         }
 
-        return new JsonResponse(['valid' => false, 'message' => 'Wrong key']);
+        return new JsonResponse(['valid' => $encodedPassword, 'message' => $user->getPassword()]);
     }
 
     /**

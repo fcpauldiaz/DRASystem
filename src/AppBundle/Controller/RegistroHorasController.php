@@ -73,7 +73,7 @@ class RegistroHorasController extends Controller
         foreach ($entities as $entity) {
             $data_serialized[$entity->getId()] = $entity->__toString();
         }
-        return new JsonResponse($data_serialized);
+        return new JsonResponse($request->request);
     }
 
     /**
