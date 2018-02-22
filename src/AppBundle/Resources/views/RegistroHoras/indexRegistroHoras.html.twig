@@ -13,9 +13,10 @@
     Listado Horas
 {% endblock %}
 
+
 {% block javascriptDataTables %}
 
-    <script src = {{asset('js/dataTablesInit.js')}}>
+    <script src = {{asset('js/datatables/dataTablesShowHoras.js')}}>
     </script>
 {% endblock %}
 
@@ -24,7 +25,7 @@
     <br>
     <br>
 
-    <table class="table table-striped table-hover">
+    <table id="table" class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Fecha</th>
@@ -39,7 +40,7 @@
         {% for entity in entities %}
             <tr>
 
-                <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('d-m-Y') }}{% endif %}</td>
+                <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('Y/m/d') }}{% endif %}</td>
                 <td>{{ entity.horasInvertidas }}</td>
                 <td>{{ entity.cliente }} </td>
                 <td>{{ entity.ingresadoPor }} </td>
