@@ -4,19 +4,19 @@
   <div class="login-logo">
     <a href="{{path('homepage')}}"><b>Smart</b>Time</a>
   </div>
-        
-       
+
+
         <div class="login-box-body">
             <p class="login-box-msg">Cambiar Contraseña</p>
 
             <div class="panel-body" >
 
 
-			<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+			<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" method="POST" class="fos_user_resetting_reset">
 
 				{{form_start(form)}}
 
-            
+
                 <div class="form-group">
                   	{{form_row(form.plainPassword.first,{'attr': {'class': 'form-control','placeholder':'Nueva Contraseña'}})}}
 
@@ -32,9 +32,9 @@
 			    </div>
 
 			    {{form_end(form)}}
-			    
+
 			</form>
-        </div>                     
-    </div>  
+        </div>
+    </div>
 </div>
 {% endblock %}
