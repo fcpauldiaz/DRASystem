@@ -4,6 +4,7 @@ fos_user:
     user_class: UserBundle\Entity\Usuario
     service:
       user_manager: pugx_user_manager
+      mailer: fos_user.mailer.twig_swift
     from_email:
       address:        no-responder@newtonlabs.com.gt
       sender_name:    Chapi Time
