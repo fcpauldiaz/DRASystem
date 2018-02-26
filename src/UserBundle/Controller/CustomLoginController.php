@@ -79,7 +79,7 @@ class CustomLoginController extends Controller
             return $response;
         }
 
-        return new JsonResponse(['valid' => $encodedPassword, 'message' => $user->getPassword()]);
+        return new JsonResponse(['valid' => false, 'message' => 'invalid credentials']);
     }
 
     /**
