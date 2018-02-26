@@ -22,9 +22,6 @@ fos_user:
                 address:        no-responder@newtonlabs.com.gt
                 sender_name:    Chapi Time
             template:   UserBundle:Resetting:resetting.email.twig
-    service:
-        user_manager: pugx_user_manager
-        mailer: fos_mail.custom_mailer
 
 pugx_multi_user:
   users:
