@@ -29,7 +29,7 @@ class CustomLoginController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $user = $em->getRepository('UserBundle:Usuario')->findOneBy(array('username' => $username));
         if ($user === null) {
-            return new JsonResponse(['valid' => false, 'message' => 'Wrong user id']);
+            return new JsonResponse(['valid' => false, 'message' => 'Usuario no encontrado']);
         }
         $encoderService = $this->container->get('security.password_encoder');
         $match = $encoderService->isPasswordValid($user, $password);
@@ -79,7 +79,7 @@ class CustomLoginController extends Controller
             return $response;
         }
 
-        return new JsonResponse(['valid' => false, 'message' => 'invalid credentials']);
+        return new JsonResponse(['valid' => false, 'message' => 'Contraseña incorrecta']);
     }
 
     /**
