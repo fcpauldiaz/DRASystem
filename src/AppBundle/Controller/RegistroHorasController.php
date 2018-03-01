@@ -107,7 +107,6 @@ class RegistroHorasController extends Controller
             $val = $request->request->get('appbundle_registrohoras')['horasActividad'];
             $entities = [];
 
-
             foreach ($val as $registro) {
                 $entity = new RegistroHoras();
                 $entity->setFechaHoras($data->getFechaHoras());
@@ -118,7 +117,7 @@ class RegistroHorasController extends Controller
                 $entity->setIngresadoPor($usuario);
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
-                $entity->setHorasExtraordinarias($data->getHorasExtraordinarias());
+                $entity->setHorasExtraordinarias($registro['horasExtraordinarias']);
                 $em->persist($entity);
 
                 $entities[] = $entity;
