@@ -117,7 +117,8 @@ class RegistroHorasController extends Controller
                 $entity->setIngresadoPor($usuario);
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
-                $entity->setHorasExtraordinarias($registro['horasExtraordinarias']);
+                $extra = $registro['horasExtraordinarias'] === null ? false: $registro['horasExtraordinarias'];
+                $entity->setHorasExtraordinarias($extra);
                 $em->persist($entity);
 
                 $entities[] = $entity;
