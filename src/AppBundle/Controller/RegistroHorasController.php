@@ -106,7 +106,14 @@ class RegistroHorasController extends Controller
 
             $val = $request->request->get('appbundle_registrohoras')['horasActividad'];
             $entities = [];
+            if (empty($val)) {
+                // if no data is submitted
+                return array(
+                  'entity' => $entity,
+                  'form' => $form->createView(),
+                );
 
+            }
             foreach ($val as $registro) {
                 $entity = new RegistroHoras();
                 $entity->setFechaHoras($data->getFechaHoras());
