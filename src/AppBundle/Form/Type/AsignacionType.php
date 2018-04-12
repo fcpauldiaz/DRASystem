@@ -13,9 +13,8 @@ class AsignacionType extends AbstractType
 {
     private $usuario;
 
-    public function __construct($usuario)
+    public function __construct()
     {
-        $this->usuario = $usuario;
     }
 
     /**
@@ -24,6 +23,7 @@ class AsignacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->usuario = $options['user'];
         $builder
             ->add('usuarios', EntityType::class, [
                 'class' => 'UserBundle:UsuarioTrabajador',
@@ -35,7 +35,7 @@ class AsignacionType extends AbstractType
                 ],
             ])
             ->add('usuarioAsignar', EntityType::class, [
-                'class' => Usuario::class,
+                'class' => Usuario::clasAss,
                 'required' => true,
                 'label' => 'Asignar usuarios a este usuario',
                 'attr' => [
@@ -57,6 +57,7 @@ class AsignacionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => null,
+            'user' => null,
         ));
     }
 

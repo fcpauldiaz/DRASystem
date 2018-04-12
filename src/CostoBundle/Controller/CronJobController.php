@@ -7,7 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Usuario;
 /**
  * CronJob controller.
  */
@@ -113,8 +115,8 @@ class CronJobController extends Controller
     {
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('cron_job_cost'))
-             ->add('usuarios', 'entity', [
-                'class' => 'UserBundle:Usuario',
+             ->add('usuarios', EntityType::class, [
+                'class' => Usuario::class,
                 'required' => false,
                 'empty_value' => 'Seleccione el usuario',
                  'attr' => [
@@ -124,7 +126,7 @@ class CronJobController extends Controller
                 'label' => 'Usuarios (opcional)',
 
             ])
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                 'format' => 'dd/mm/yyyy',
                 'weekStart' => 0,
                 'autoclose' => true,
@@ -152,7 +154,7 @@ class CronJobController extends Controller
             'read_only' => true,
             'required' => false,
             ])
-           ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+           ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
