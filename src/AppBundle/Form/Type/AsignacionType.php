@@ -35,7 +35,7 @@ class AsignacionType extends AbstractType
                 ],
             ])
             ->add('usuarioAsignar', EntityType::class, [
-                'class' => Usuario::clasAss,
+                'class' => Usuario::class,
                 'required' => true,
                 'label' => 'Asignar usuarios a este usuario',
                 'attr' => [
