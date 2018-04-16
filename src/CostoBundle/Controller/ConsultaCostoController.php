@@ -552,6 +552,7 @@ class ConsultaCostoController extends Controller
                 $cliente,
                 $horas,
                 $horasPresupuesto,
+                $costo,
                 $costo
             );
             $costoPresupuesto = $costoPresupuesto * $horasPresupuesto;
