@@ -551,8 +551,8 @@ class ConsultaCostoController extends Controller
             $consultaCliente = new ConsultaCliente(
                 $cliente,
                 $horas,
+                $costoPresupuesto,
                 $horasPresupuesto,
-                $costo,
                 $costo
             );
             $costoPresupuesto = $costoPresupuesto * $horasPresupuesto;
@@ -740,11 +740,11 @@ class ConsultaCostoController extends Controller
 
                 $costoTotal = $this->calcularCostoMonetarioPorUsuario(
                     $horasInvertidas,
-                    $costoPorHora['costo']
+                    $costoPorHora
                     );
                 if ($registro->getActividad()->getActividadNoCargable() === false) {
                     $costoAcumulado += $costoTotal;
-                    $costoAcumuladoCliente[] = $costoPorHora['costo'];
+                    $costoAcumuladoCliente[] = $costoPorHora;
                 }
             }
         }
@@ -773,7 +773,7 @@ class ConsultaCostoController extends Controller
                 $cantidadHorasCliente += $registro->getHorasPresupuestadas();
             }
         }
-
+        dump($cantidadHorasCliente);
         return $cantidadHorasCliente;
     }
 

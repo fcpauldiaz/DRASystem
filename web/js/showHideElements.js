@@ -25,6 +25,6 @@ function controlFormularioMontetario(){
       $(".hide-element").hide();
     }
     if ($('.hide-element-decision').val() == 'Cliente') {
-      $(".hide-element").hide();
+      $(".hide-element").show();
     }
 }
