@@ -40,7 +40,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Troopers\AlertifyBundle\TroopersAlertifyBundle(),
             new Sg\DatatablesBundle\SgDatatablesBundle(),
-             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
         ];
 

@@ -59,6 +59,7 @@ class PuestoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'UserBundle\Entity\Puesto',
+            'user' => null,
         ));
     }
 

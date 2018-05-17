@@ -22,7 +22,6 @@
     },
     "require": {
         "php": ">=5.5.9 <7.2",
-        "aws/aws-sdk-php": "^3.52",
         "beberlei/DoctrineExtensions": "^1.0",
         "braincrafted/bootstrap-bundle": "^2.2",
         "cspoo/swiftmailer-mailgun-bundle": "0.2.1",
@@ -56,7 +55,7 @@
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.6.4",
-        "symfony/symfony": "3.4.*",
+        "symfony/symfony": "2.8.*",
         "troopers/alertify-bundle": "^3.0",
         "twbs/bootstrap": "^4.0",
         "twig/twig": "^1.0||^2.0",
