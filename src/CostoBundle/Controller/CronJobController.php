@@ -118,7 +118,7 @@ class CronJobController extends Controller
              ->add('usuarios', EntityType::class, [
                 'class' => Usuario::class,
                 'required' => false,
-                'empty_value' => 'Seleccione el usuario',
+                'placeholder' => 'Seleccione el usuario',
                  'attr' => [
                     'class' => 'select2',
                 ],
