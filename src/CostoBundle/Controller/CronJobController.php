@@ -146,12 +146,12 @@ class CronJobController extends Controller
             ],
             'attr' => [
                 'class' => 'hide-element fecha-inicial',
+                'readonly' => true,
             ],
             'label_attr' => [
                 'class' => 'hide-element',
             ],
             'label' => 'Fecha Inicial (opcional)',
-            'read_only' => true,
             'required' => false,
             ])
            ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
@@ -179,8 +179,8 @@ class CronJobController extends Controller
                  'label' => 'Fecha Final (opcional)',
                 'label_attr' => [
                     'class' => 'hide-element',
+                    'readonly' => true,
                 ],
-                'read_only' => true,
                 'required' => false,
             ])
             ->add('submit', 'submit', array('label' => 'Calcular'))
