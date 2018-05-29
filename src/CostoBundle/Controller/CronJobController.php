@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Entity\Usuario;
+use UserBundle\Entity\Usuario;
 /**
  * CronJob controller.
  */
