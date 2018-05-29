@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use UserBundle\Entity\Usuario;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * CronJob controller.
  */
@@ -183,7 +184,7 @@ class CronJobController extends Controller
                 ],
                 'required' => false,
             ])
-            ->add('submit', 'submit', array('label' => 'Calcular'))
+            ->add('submit', SubmitType::class, array('label' => 'Calcular'))
             ->getForm();
 
         return $form;
