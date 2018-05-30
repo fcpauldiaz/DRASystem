@@ -14,7 +14,7 @@
             success: function(data) {
 
               if (data.valid === true){
-                notie.alert(1, 'Usuario recordado: iniciando sesión automáticamente');
+                notie.alert({ type: 4, text: 'Usuario recordado: iniciando sesión automáticamente'});
                 setTimeout(function(){ }, 3000);
                 window.location = window.location.origin;
               }
