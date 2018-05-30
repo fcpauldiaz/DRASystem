@@ -7,7 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use UserBundle\Entity\Usuario;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * CronJob controller.
  */
@@ -113,10 +116,10 @@ class CronJobController extends Controller
     {
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('cron_job_cost'))
-             ->add('usuarios', 'entity', [
-                'class' => 'UserBundle:Usuario',
+             ->add('usuarios', EntityType::class, [
+                'class' => Usuario::class,
                 'required' => false,
-                'empty_value' => 'Seleccione el usuario',
+                'placeholder' => 'Seleccione el usuario',
                  'attr' => [
                     'class' => 'select2',
                 ],
@@ -124,7 +127,7 @@ class CronJobController extends Controller
                 'label' => 'Usuarios (opcional)',
 
             ])
-            ->add('fechaInicio', 'collot_datetime', ['pickerOptions' => [
+            ->add('fechaInicio', DatetimeType::class, ['pickerOptions' => [
                 'format' => 'dd/mm/yyyy',
                 'weekStart' => 0,
                 'autoclose' => true,
@@ -144,15 +147,15 @@ class CronJobController extends Controller
             ],
             'attr' => [
                 'class' => 'hide-element fecha-inicial',
+                'readonly' => true,
             ],
             'label_attr' => [
                 'class' => 'hide-element',
             ],
             'label' => 'Fecha Inicial (opcional)',
-            'read_only' => true,
             'required' => false,
             ])
-           ->add('fechaFinal', 'collot_datetime', ['pickerOptions' => [
+           ->add('fechaFinal', DatetimeType::class, ['pickerOptions' => [
                     'format' => 'dd/mm/yyyy',
                     'weekStart' => 0,
                     'autoclose' => true,
@@ -177,11 +180,11 @@ class CronJobController extends Controller
                  'label' => 'Fecha Final (opcional)',
                 'label_attr' => [
                     'class' => 'hide-element',
+                    'readonly' => true,
                 ],
-                'read_only' => true,
                 'required' => false,
             ])
-            ->add('submit', 'submit', array('label' => 'Calcular'))
+            ->add('submit', SubmitType::class, array('label' => 'Calcular'))
             ->getForm();
 
         return $form;
@@ -251,7 +254,7 @@ class CronJobController extends Controller
         $right_image = $message->embed(\Swift_Image::fromPath('images/right.gif')); //attach image 4
         $left_image = $message->embed(\Swift_Image::fromPath('images/left.gif')); //attach image 5
 
-        $subject = 'Smart Time: Aprobación de Horas';
+        $subject = 'Chapi Time: Aprobación de Horas';
 
         $message
             ->setSubject($subject)

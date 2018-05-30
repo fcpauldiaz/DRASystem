@@ -53,7 +53,6 @@ class ConsultaCostoClienteController extends Controller
 
         $returnArray = [];
         foreach ($preQueryArea as $registroArray) {
-
             $horasId = $registroArray['registroId'];
             $horas = $registroArray['horas'];
             $area = $registroArray['nombre'];
@@ -78,14 +77,14 @@ class ConsultaCostoClienteController extends Controller
             $horas = explode(',', $horas);
             $horasId = explode(',', $horasId);
 
-            foreach($horasId as $id) {
-                foreach($costo as $costoQuery) {
-                if ($costoQuery['id'] == $id) {
-                    $index = array_search($id, $horasId);
-                    $costoAcum += $horas[$index] * $costoQuery['costo'];
+            foreach ($horasId as $id) {
+                foreach ($costo as $costoQuery) {
+                    if ($costoQuery['id'] == $id) {
+                        $index = array_search($id, $horasId);
+                        $costoAcum += $horas[$index] * $costoQuery['costo'];
 
-                    $horasAcum += $horas[$index];
-                }
+                        $horasAcum += $horas[$index];
+                    }
                 }
             }
 
@@ -106,7 +105,6 @@ class ConsultaCostoClienteController extends Controller
             $consultaCliente->calcularDiferencia();
 
             $returnArray[] = $consultaCliente;
-
         }
         $honorarios = $this
             ->get('consulta.query_controller')
@@ -163,7 +161,7 @@ class ConsultaCostoClienteController extends Controller
 
     private function queryRegistroHorasPorFechaArea($fechaInicio, $fechaFinal, $cliente, $horas)
     {
-           $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
+        $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHoras');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
         $qb
             ->select('GROUP_CONCAT(registro.horasInvertidas) as horas')
@@ -180,8 +178,9 @@ class ConsultaCostoClienteController extends Controller
             ->groupBy('area.id');
         return $qb->getQuery()->getResult();
     }
-    private function queryRegistrosPresupuestoPorArea($fechaInicio, $fechaFinal, $area, $cliente) {
-       $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHorasPresupuesto');
+    private function queryRegistrosPresupuestoPorArea($fechaInicio, $fechaFinal, $area, $cliente)
+    {
+        $repositoryRegistroHoras = $this->getDoctrine()->getRepository('AppBundle:RegistroHorasPresupuesto');
         $qb = $repositoryRegistroHoras->createQueryBuilder('registro');
         $qb
             ->select('SUM(registro.horasPresupuestadas)')
@@ -192,6 +191,5 @@ class ConsultaCostoClienteController extends Controller
             ->setParameter('cliente', $cliente)
             ->groupBy('registro.area');
         return $qb->getQuery()->getOneOrNullResult();
-
     }
 }

@@ -28,22 +28,34 @@
 
     </script>
     <script>
-        //area
-        var $area = $('#appbundle_registrohoras_area');
-        var actividad = $('#appbundle_registrohoras_actividad');
+
         // When area gets selected ...
-        $area.change(function() {
+        $(document).on('change', 'select', function(element) {
+          try {
+          var id = (element.target.id);
           // ... retrieve the corresponding form.
           var $form = $(this).closest('form');
           // Simulate form data, but only include the area sport value.
           var data = {};
-          data[$area.attr('name')] = $area.val();
+          var e = element.target;
+
+          var value = e.options[e.selectedIndex].value;
+
+          data['appbundle_registrohoras[area]'] = value;
+          var idActividad = id.substring(0, id.lastIndexOf('_')) + '_actividad';
+          var actividad = $('#'+idActividad);
+        } catch (e) {
+            return;
+          }
           // Submit data via AJAX to the form's action path.
           $.ajax({
             url : 'actividad/area',
             type: $form.attr('method'),
             data : data,
             success: function(data) {
+                if (data.length === 0) {
+                    return;
+                }
                 //remove previous options
                 actividad.empty().select2();
                 //create new options
@@ -76,10 +88,8 @@
     {{ form_row(form.proyectoPresupuesto)}}
     {{ form_row(form.fechaHoras)}}
     {{ form_row(form.cliente)}}
-    {{ form_row(form.area)}}
-    {{ form_row(form.actividad)}}
-    {{ form_row(form.horasInvertidas)}}
-    {{ form_row(form.horasExtraordinarias)}}
+    {{ form_row(form.horasActividad) }}
+
     {{ form_row(form.ingresadoPor)}}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-4">

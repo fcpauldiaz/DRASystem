@@ -17,7 +17,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            
+
               //Own bundles
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
@@ -28,7 +28,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new PUGX\MultiUserBundle\PUGXMultiUserBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
-            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
@@ -40,7 +40,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Troopers\AlertifyBundle\TroopersAlertifyBundle(),
             new Sg\DatatablesBundle\SgDatatablesBundle(),
-             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
         ];
 

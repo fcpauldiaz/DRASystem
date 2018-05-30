@@ -52,13 +52,13 @@ class RegistroHorasController extends Controller
         );
     }
 
-     /**
-     * Lists all RegistroHoras entities.
-     *
-     * @Route("/actividad/area", name="registrohoras_por_actividad_area")
-     * @Method("POST")
-     * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
-     */
+    /**
+    * Lists all RegistroHoras entities.
+    *
+    * @Route("/actividad/area", name="registrohoras_por_actividad_area")
+    * @Method("POST")
+    * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
+    */
     public function ActividadesPorAreaAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -73,7 +73,7 @@ class RegistroHorasController extends Controller
         foreach ($entities as $entity) {
             $data_serialized[$entity->getId()] = $entity->__toString();
         }
-       return new JsonResponse($data_serialized);
+        return new JsonResponse($data_serialized);
     }
 
     /**
@@ -95,26 +95,37 @@ class RegistroHorasController extends Controller
         $entity->setIngresadoPor($usuario);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
-        if ($form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
             $user = $data->getIngresadoPor();
 
             $entity->setAprobado(true);
-
             $horasActividad = $data->getHorasActividad();
+
+
+            $val = $request->request->get('appbundle_registrohoras')['horasActividad'];
             $entities = [];
-            foreach ($horasActividad as $registro) {
+            if (empty($val)) {
+                // if no data is submitted
+                return array(
+                  'entity' => $entity,
+                  'form' => $form->createView(),
+                );
+
+            }
+            foreach ($val as $registro) {
                 $entity = new RegistroHoras();
                 $entity->setFechaHoras($data->getFechaHoras());
                 $entity->setHorasInvertidas($registro['horasInvertidas']);
-                $entity->setActividad($registro['actividad']);
+                $actividad = $em->getRepository('AppBundle:Actividad')->find($registro['actividad']);
+                $entity->setActividad($actividad);
                 $entity->setCliente($data->getCliente());
                 $entity->setIngresadoPor($usuario);
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
-                $entity->setHorasExtraordinarias($registro['horasExtraordinarias']);
+                $extra = $registro['horasExtraordinarias'] === null ? false: $registro['horasExtraordinarias'];
+                $entity->setHorasExtraordinarias($extra);
                 $em->persist($entity);
 
                 $entities[] = $entity;
@@ -253,7 +264,7 @@ class RegistroHorasController extends Controller
      */
     private function createEditForm(RegistroHoras $entity)
     {
-        $form = $this->createForm(RegistroHorasEditType::class, $entity, array(
+        $form = $this->createForm(RegistroHorasType::class, $entity, array(
             'action' => $this->generateUrl('registrohoras_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'user' => $this->getUser()

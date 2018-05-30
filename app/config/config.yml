@@ -131,4 +131,4 @@ troopers_alertify:
             layout: "bottomLeft"           #Is relative according to the selected engine
             translationDomain: "messages"  #Where do you want to store the translation strings
 sentry:
-    dsn: "https://851a55d69dbe42f2a0e268375e6081a4:0f0ef4f053f149a2aae6a12fbb80379e@sentry.io/215808"
+    dsn: "https://2c66522db4e945b7b902dceec9981f96:262c6d37ae344a30b4fadd5412b34ec7@sentry.io/295415"

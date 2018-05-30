@@ -32,12 +32,13 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/forbidden, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login/app, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }        
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register/trabajador, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
-        - { path: ^/costo/calcular/todos, role: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/costo/calcular/todos, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/costo/calcular/view, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/puesto/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/actividad/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
@@ -45,7 +46,7 @@ security:
         - { path: ^/cliente/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/datosprestaciones/, roles: [IS_AUTHENTICATED_REMEMBERED, IS_AUTHENTICATED_FULLY ] }
         - { path: ^/admin/, roles: [ROLE_ADMIN] }
-        
+
 
 
 
@@ -64,8 +65,10 @@ security:
         ROLE_APROBACION_HORAS: ROLE_USER
         #Permiso para ver clientes
         ROLE_VER_CLIENTES: ROLE_USER
-        #permiso para ver consultas de costos
+        #permiso para ver consultas sin costos
         ROLE_VER_CONSULTAS: ROLE_USER
+        #permiso para ver consultas con costos
+        ROLE_VER_CONSULTAS_COSTOS: ROLE_VER_CONSULTAS
         #permiso para ver los tipos de puestos
         ROLE_VER_PUESTO_Y_TIPO: ROLE_USER
         #permiso para ver los departamentos
@@ -109,13 +112,13 @@ security:
         #permiso para eliminar departamentos
         ROLE_ELIMINAR_DEPARTAMENTO: ROLE_EDITAR_DEPARTAMENTO
         #permiso para tener acceso al panel de control.
-        ROLE_ADMIN:             
+        ROLE_ADMIN:
             - ROLE_ELIMINAR_CLIENTES
             - ROLE_ELIMINAR_USUARIOS
             - ROLE_ELIMINAR_ACTIVIDADES
             - ROLE_ELIMINAR_HORAS
             - ROLE_ELIMINAR_PRESUPUESTOS
-            - ROLE_VER_CONSULTAS
+            - ROLE_VER_CONSULTAS_COSTOS
             - ROLE_APROBACION_HORAS
             - ROLE_ELIMINAR_PUESTO_Y_TIPO
             - ROLE_ELIMINAR_DEPARTAMENTO

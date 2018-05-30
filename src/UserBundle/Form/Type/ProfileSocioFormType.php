@@ -89,7 +89,7 @@ class ProfileSocioFormType extends AbstractType
     }
     public function getParent()
     {
-        return 'fos_user_registration_register';
+        return 'FOS\UserBundle\Form\Type\ProfileFormType';
     }
 
     public function getBlockPrefix()

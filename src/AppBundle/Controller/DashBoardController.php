@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class DashBoardController extends Controller
 {
     /**
@@ -23,11 +22,10 @@ class DashBoardController extends Controller
     */
     public function certAction(Request $request)
     {
-      $file = 'js/key.txt';
-      $response = new BinaryFileResponse($file);
-      $response->headers->set('Content-Type', 'text/plain');
-      return $response;
-
+        $file = 'js/key.txt';
+        $response = new BinaryFileResponse($file);
+        $response->headers->set('Content-Type', 'text/plain');
+        return $response;
     }
     /**
      * @Route("/", name="homepage")
@@ -95,8 +93,8 @@ class DashBoardController extends Controller
         $repositoryPresupuesto = $em->getRepository('AppBundle:RegistroHorasPresupuesto');
         $queryPresupuestos = $repositoryPresupuesto->createQueryBuilder('presupuesto')
             ->select('SUM(presupuesto.horasPresupuestadas)')
-            ->innerJoin('presupuesto.usuario', 'usuario')
-            ->where('usuario.id = :user')
+            ->innerJoin('UserBundle:Usuario', 'u', 'with', 'u.id = presupuesto.usuario')
+            ->where('u.id = :user')
             ->setParameter('user', $usuarioActual->getId());
 
         return $queryPresupuestos->getQuery()->getSingleScalarResult();

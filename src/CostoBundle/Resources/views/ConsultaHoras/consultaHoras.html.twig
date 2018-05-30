@@ -11,10 +11,39 @@
    <script>
         //forma de arreglar bug cuando se recarga javascript
         //en campo de date.
-        var verifier = {{ verificador|json_encode|raw }};
-
+    var query = {{ verificador|json_encode|raw }};
+    if (query === 'Usuario') {
+      $('#queryU').show();
+      $('#queryP').hide();
+      $('#queryC').hide();
+      $("select").initialize( function(){
+         $("select.select2").select2({
+          theme: "bootstrap"
+         });
+      });
+    }
+    if (query === 'Presupuesto') {
+      $('#queryP').show();
+      $('#queryU').hide();
+      $('#queryC').hide();
+       $("select").initialize( function(){
+         $("select.select2").select2({
+          theme: "bootstrap"
+         });
+      });
+    }
+    if (query === 'Cliente') {
+      $('#queryC').show();
+      $('#queryU').hide();
+      $('#queryP').hide();
+      $("select").initialize( function(){
+         $("select.select2").select2({
+          theme: "bootstrap"
+         });
+      });
+    }
   $( "#consulta_usuario_consulta_filtro" ).change(function(event) {
-    var query = $('#consulta_usuario_consulta_filtro').find(":selected").val();
+    query = $('#consulta_usuario_consulta_filtro').find(":selected").val();
     if (query === 'Usuario') {
         $('#queryU').show();
         $('#queryP').hide();
@@ -38,7 +67,7 @@
     if (query === 'Cliente') {
         $('#queryC').show();
         $('#queryU').hide();
-        $(' #queryP').hide();
+        $('#queryP').hide();
         $("select").initialize( function(){
            $("select.select2").select2({
             theme: "bootstrap"

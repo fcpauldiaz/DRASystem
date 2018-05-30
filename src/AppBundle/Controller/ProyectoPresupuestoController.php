@@ -86,12 +86,12 @@ class ProyectoPresupuestoController extends Controller
         );
     }
 
-     /**
-     * Change the state to finalized of a Presupuesto entity;
-     *
-     * @Route("/state/{id}", name="proyectopresupuesto_state")
-     * @Method("GET")
-     **/
+    /**
+    * Change the state to finalized of a Presupuesto entity;
+    *
+    * @Route("/state/{id}", name="proyectopresupuesto_state")
+    * @Method("GET")
+    **/
     public function chageStateAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -106,7 +106,6 @@ class ProyectoPresupuestoController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('proyectopresupuesto_show', array('id' => $id)));
-
     }
 
     /**

@@ -112,7 +112,7 @@ class PlanillaController extends Controller
                 $usuarioTrabajador->setCodigo($codigo);
                 $encoder = $this->container->get('security.password_encoder');
                 //encriptar contraseña.
-                $encoded = $encoder->encodePassword($usuarioTrabajador, 'smart-time');
+                $encoded = $encoder->encodePassword($usuarioTrabajador, 'chapi-time');
                 $usuarioTrabajador->setPassword($encoded);
                 $username = str_replace(' ', '', strtolower($usuario->getApellido()));
                 $usuarioTrabajador->setUsername($username);

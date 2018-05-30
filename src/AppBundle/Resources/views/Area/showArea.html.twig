@@ -22,16 +22,16 @@
             </tr>
             <tr>
                 <th>Fechacreacion</th>
-                <td>{{ entity.fechaCreacion|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.fechaCreacion|date('Y/m/d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Fechaactualizacion</th>
-                <td>{{ entity.fechaActualizacion|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.fechaActualizacion|date('Y/m/d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
 
-     
+
     <ul class="record_actions">
     {% if is_granted('ROLE_CREAR_ACTIVIDAD') %}
     <li>

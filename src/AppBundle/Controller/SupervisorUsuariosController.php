@@ -141,11 +141,9 @@ class SupervisorUsuariosController extends Controller
 
         $qb = $query->getQuery();
         $qb->andWhere('registro_horas.ingresadoPor = :user');
-        //$qb->andWhere('registro_horas.aprobado = false');
         $qb->setParameter('user', $usuario);
 
         if ($fechaInit !== '' && $fechaFin !== '') {
-            //$qb->andWhere('registro_horas.id = 2');
             $qb->andWhere('registro_horas.fechaHoras >= :fechaInicial');
             $qb->andWhere('registro_horas.fechaHoras <= :fechaFinal');
             $qb->setParameter('fechaInicial', $fechaInit['date']);
@@ -247,7 +245,7 @@ class SupervisorUsuariosController extends Controller
 
         $message
             ->setSubject($subject)
-            ->setFrom([$fromEmail => 'Smart-Time'])
+            ->setFrom([$fromEmail => 'Chapi-Time'])
             ->setTo($enviado_a->getEmail())
             ->setBody($this->renderView('AppBundle:AprobacionHoras:emailHoras.html.twig', [
                 'image_src' => $img_src,

@@ -29,7 +29,7 @@ class RegistroActividadHorasType extends AbstractType
             ->add('actividad', EntityType::class, [
                 'class' => Actividad::class,
                 'required' => true,
-                'empty_value' => 'Seleccione la actividad',
+                'placeholder' => 'Seleccione la actividad',
                 'attr' => [
                     'class' => 'select2',
                 ],

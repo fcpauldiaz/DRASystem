@@ -18,6 +18,7 @@ class ProyectoPresupuestoType extends AbstractType
 
     //única forma que encontré para guardar el campo ingresado por
     //porque los formularios embedded no pasan por el controller
+    //
 
 
     /* @param FormBuilderInterface $builder
@@ -90,7 +91,7 @@ class ProyectoPresupuestoType extends AbstractType
             'data_class' => ProyectoPresupuesto::class,
             'user' => null
         ));
-        $resolver->setRequired('user'); 
+        $resolver->setRequired('user');
     }
 
     /**

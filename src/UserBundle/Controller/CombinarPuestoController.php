@@ -172,7 +172,7 @@ class CombinarPuestoController extends Controller
      */
     private function crearDepartamentoForm(Departamento $entity)
     {
-        $form = $this->createForm(new DepartamentoType(), $entity, array(
+        $form = $this->createForm(DepartamentoType::class, $entity, array(
             'action' => $this->generateUrl('departamento_nuevo'),
             'method' => 'POST',
         ));

@@ -80,12 +80,12 @@ class QueryController extends Controller
     {
         $horasPresupuesto = 0;
         foreach ($registrosPresupuesto as $presupuesto) {
-            if (method_exists($actividad, 'getArea')){
+            if (method_exists($actividad, 'getArea')) {
                 $actividades = $this->getActividadesPorArea($actividad->getArea()->getId());
 
-                foreach($actividades as $innerActividad) {
+                foreach ($actividades as $innerActividad) {
                     if ($innerActividad == $actividad) {
-                    $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
+                        $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
                     }
                 }
             }
@@ -97,13 +97,14 @@ class QueryController extends Controller
     public function calcularHorasPorAreaAction($presupuestos, $area)
     {
         $horasPresupuesto = 0;
-        foreach($presupuestos as $presupuesto) {
+        foreach ($presupuestos as $presupuesto) {
             $horasPresupuesto += $presupuesto->getHorasPresupuestadas();
         }
         return $horasPresupuesto;
     }
 
-    private function getActividadesPorArea($idArea) {
+    private function getActividadesPorArea($idArea)
+    {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('a');
         $qb

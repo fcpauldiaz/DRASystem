@@ -35,7 +35,7 @@ class ConsultaHorasController extends Controller
             return $this->render(
                 'CostoBundle:ConsultaHoras:consultaHoras.html.twig',
                 [
-                    'verificador' => true, //mandar variable a javascript
+                    'verificador' => '', //mandar variable a javascript
                     'registros' => [],
                     'form' => $form->createView(),
                 ]
@@ -46,31 +46,31 @@ class ConsultaHorasController extends Controller
         $registros = [];
         $repository = 'AppBundle:RegistroHoras';
         if ($consulta === 'Usuario') {
-          $registros = $this->consultaUsuario($data, $repository);
+            $registros = $this->consultaUsuario($data, $repository);
         }
         if ($consulta === 'Cliente') {
-          $registros = $this->consultaCliente($data, $repository);
+            $registros = $this->consultaCliente($data, $repository);
         }
         if ($consulta === 'Presupuesto') {
-          $registros = $this->consultaPresupuesto($data, $repository);
+            $registros = $this->consultaPresupuesto($data, $repository);
         }
         return $this->render(
             'CostoBundle:ConsultaHoras:consultaHoras.html.twig',
             [
-                'verificador' => true, //mandar variable a javascript
+                'verificador' => $consulta, //mandar variable a javascript
                 'registros' => $registros,
                 'form' => $form->createView(),
             ]
         );
     }
 
-     /**
-     * @ROUTE("/presupuesto", name="consulta_horas_presupuesto_usuario")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
+    /**
+    * @ROUTE("/presupuesto", name="consulta_horas_presupuesto_usuario")
+    *
+    * @param Request $request
+    *
+    * @return Response
+    */
     public function consultaHorasPresupuestoAction(Request $request)
     {
         $form = $this->createForm(
@@ -92,13 +92,13 @@ class ConsultaHorasController extends Controller
         $registros = [];
         $repository = 'AppBundle:RegistroHorasPresupuesto';
         if ($consulta === 'Usuario') {
-          $registros = $this->consultaUsuario($data, $repository);
+            $registros = $this->consultaUsuario($data, $repository);
         }
         if ($consulta === 'Cliente') {
-          $registros = $this->consultaCliente($data, $repository);
+            $registros = $this->consultaCliente($data, $repository);
         }
         if ($consulta === 'Presupuesto') {
-          $registros = $this->consultaPresupuesto($data, $repository);
+            $registros = $this->consultaPresupuesto($data, $repository);
         }
         return $this->render(
             'CostoBundle:ConsultaHoras:consultaHorasPresupuesto.html.twig',
@@ -112,66 +112,64 @@ class ConsultaHorasController extends Controller
 
     private function consultaUsuario($data, $repository)
     {
-      $fechaInicio = $data['fechaInicio'];
-      $fechaFinal = $data['fechaFinal'];
-      $horas = '';
-      if (array_key_exists('horas_extraordinarias',$data)) {
-        $horas = $data['horas_extraordinarias'];
-      }
-      $usuarios = $data['usuario'];
-      $registros = [];
-      foreach($usuarios as $usuario) {
-        $registro = $this
+        $fechaInicio = $data['fechaInicio'];
+        $fechaFinal = $data['fechaFinal'];
+        $horas = '';
+        if (array_key_exists('horas_extraordinarias', $data)) {
+            $horas = $data['horas_extraordinarias'];
+        }
+        $usuarios = $data['usuario'];
+        $registros = [];
+        foreach ($usuarios as $usuario) {
+            $registro = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository($repository)
             ->findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $horas);
-        $registros = array_merge($registros, $registro);
-      }
-      return $registros;
-
+            $registros = array_merge($registros, $registro);
+        }
+        return $registros;
     }
 
     private function consultaCliente($data, $repository)
     {
-      $fechaInicio = $data['fechaInicio'];
-      $fechaFinal = $data['fechaFinal'];
-      $horas = '';
-      if (array_key_exists('horas_extraordinarias',$data)) {
-        $horas = $data['horas_extraordinarias'];
-      }
-      $clientes = $data['cliente'];
-      $registros = [];
-      foreach($clientes as $cliente) {
-        $registro = $this
+        $fechaInicio = $data['fechaInicio'];
+        $fechaFinal = $data['fechaFinal'];
+        $horas = '';
+        if (array_key_exists('horas_extraordinarias', $data)) {
+            $horas = $data['horas_extraordinarias'];
+        }
+        $clientes = $data['cliente'];
+        $registros = [];
+        foreach ($clientes as $cliente) {
+            $registro = $this
           ->getDoctrine()
           ->getManager()
           ->getRepository($repository)
           ->findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $horas);
-        $registros = array_merge($registros, $registro);
-      }
-      return $registros;
+            $registros = array_merge($registros, $registro);
+        }
+        return $registros;
     }
 
     private function consultaPresupuesto($data, $repository)
     {
-      $fechaInicio = $data['fechaInicio'];
-      $fechaFinal = $data['fechaFinal'];
-      $horas = '';
-      if (array_key_exists('horas_extraordinarias',$data)) {
-        $horas = $data['horas_extraordinarias'];
-      }
-      $presupuestos = $data['proyectoPresupuesto'];
-      $registros = [];
-      foreach($presupuestos as $presupuesto) {
-        $registro = $this
+        $fechaInicio = $data['fechaInicio'];
+        $fechaFinal = $data['fechaFinal'];
+        $horas = '';
+        if (array_key_exists('horas_extraordinarias', $data)) {
+            $horas = $data['horas_extraordinarias'];
+        }
+        $presupuestos = $data['proyectoPresupuesto'];
+        $registros = [];
+        foreach ($presupuestos as $presupuesto) {
+            $registro = $this
           ->getDoctrine()
           ->getManager()
           ->getRepository($repository)
           ->findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $horas);
-        $registros = array_merge($registros, $registro);
-      }
-      return $registros;
+            $registros = array_merge($registros, $registro);
+        }
+        return $registros;
     }
-
 }

@@ -15,7 +15,6 @@ use UserBundle\Entity\UsuarioTrabajador;
 
 class RegistroHorasPresupuestoType extends AbstractType
 {
-   
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->usuario = $options['user'];
@@ -75,7 +74,7 @@ class RegistroHorasPresupuestoType extends AbstractType
             'data_class' => RegistroHorasPresupuesto::class,
             'user' => null
         ));
-        $resolver->setRequired('user'); 
+        $resolver->setRequired('user');
     }
 
     /**
