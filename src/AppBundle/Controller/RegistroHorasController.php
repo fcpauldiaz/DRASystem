@@ -107,6 +107,7 @@ class RegistroHorasController extends Controller
             $val = $request->request->get('appbundle_registrohoras')['horasActividad'];
             $entities = [];
             if (empty($val)) {
+                $this->addFlash('error', 'Necesita agregar una actividad mínimo');
                 // if no data is submitted
                 return array(
                   'entity' => $entity,
