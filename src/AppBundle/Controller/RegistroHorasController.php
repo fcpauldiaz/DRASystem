@@ -112,7 +112,13 @@ class RegistroHorasController extends Controller
                   'entity' => $entity,
                   'form' => $form->createView(),
                 );
-
+            }
+            if ($data->getFechaHoras() === null) {
+                $this->addFlash('error', 'Hubo un error en la fecha');
+                 return array(
+                  'entity' => $entity,
+                  'form' => $form->createView(),
+                );
             }
             foreach ($val as $registro) {
                 $entity = new RegistroHoras();
