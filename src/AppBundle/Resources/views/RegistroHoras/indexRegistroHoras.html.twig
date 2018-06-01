@@ -31,6 +31,7 @@
                 <th>Fecha</th>
                 <th>Horas Invertidas</th>
                 <th>Cliente </th>
+                <th> Actividad </th>
                 <th>Realizadas por </th>
                 <th>Presupuesto </th>
                 <th>Acciones</th>
@@ -43,6 +44,7 @@
                 <td>{% if entity.fechaHoras %}{{ entity.fechaHoras|date('Y/m/d') }}{% endif %}</td>
                 <td>{{ entity.horasInvertidas }}</td>
                 <td>{{ entity.cliente }} </td>
+                <td>{{ entity.actividad }} </td>
                 <td>{{ entity.ingresadoPor }} </td>
                 <td>{{ entity.proyectoPresupuesto }}</td>
                 <td>
