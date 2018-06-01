@@ -8,6 +8,7 @@ $(document).ready(function() {
             { "type": "numeric" },
             { "type": "string"},
             { "type": "string"},
+            { "type": "string" },
             { "type": "string"},
             { "type": "string"}
         ],
