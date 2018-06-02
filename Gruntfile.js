@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             "web/js/*.js",
             "web/css/*.css"
         ],
-      tasks: ["less", "uglify", "concat", "concat_css"]
+      tasks: ["less", "uglify", "cssmin", "concat", "concat_css"]
     },
     // "less"-task configuration
     // This task will compile all less files upon saving to create both AdminLTE.css and AdminLTE.min.css

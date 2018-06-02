@@ -104,9 +104,9 @@ class RegistroHorasController extends Controller
             $horasActividad = $data->getHorasActividad();
 
 
-            $val = $request->request->get('appbundle_registrohoras')['horasActividad'];
+            $val_request = $request->request->get('appbundle_registrohoras');
             $entities = [];
-            if (empty($val)) {
+            if (!array_key_exists('horasActividad', $val_request)) {
                 $this->addFlash('error', 'Necesita agregar una actividad mínimo');
                 // if no data is submitted
                 return array(
@@ -114,6 +114,7 @@ class RegistroHorasController extends Controller
                   'form' => $form->createView(),
                 );
             }
+            $values = $val_request['horasActividad'];
             if ($data->getFechaHoras() === null) {
                 $this->addFlash('error', 'Hubo un error en la fecha');
                  return array(
@@ -121,7 +122,7 @@ class RegistroHorasController extends Controller
                   'form' => $form->createView(),
                 );
             }
-            foreach ($val as $registro) {
+            foreach ($values as $registro) {
                 $entity = new RegistroHoras();
                 $entity->setFechaHoras($data->getFechaHoras());
                 $entity->setHorasInvertidas($registro['horasInvertidas']);
@@ -131,7 +132,9 @@ class RegistroHorasController extends Controller
                 $entity->setIngresadoPor($usuario);
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
-                $extra = $registro['horasExtraordinarias'] === null ? false: $registro['horasExtraordinarias'];
+                
+                $extra = array_key_exists('horasExtraordinarias', $registro) ?
+                    $registro['horasExtraordinarias']: false;
                 $entity->setHorasExtraordinarias($extra);
                 $em->persist($entity);
 
