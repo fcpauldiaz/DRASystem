@@ -186,7 +186,7 @@ class ActividadController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
