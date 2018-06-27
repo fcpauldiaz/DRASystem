@@ -773,7 +773,6 @@ class ConsultaCostoController extends Controller
                 $cantidadHorasCliente += $registro->getHorasPresupuestadas();
             }
         }
-        dump($cantidadHorasCliente);
         return $cantidadHorasCliente;
     }
 
