@@ -87,8 +87,10 @@ class ConsultaCostoClienteController extends Controller
                     }
                 }
             }
-
-            $costo = $costoAcum/$horasAcum;
+            $costo = 0;
+            if ($horasAcum !== 0){
+                $costo = $costoAcum/$horasAcum;
+            }
             $horas = $horasAcum;
             $costoTotal = $costoAcum;
             $costoPresupuesto = $horasPresupuesto === null ? 0: $horasPresupuesto[1]*$costo;
