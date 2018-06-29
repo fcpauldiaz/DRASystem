@@ -69,21 +69,17 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $factory = $this->container->get('security.encoder_factory');
+        $encoderService = $this->container->get('security.password_encoder');
 
         $password = $credentials['password'];
-
-        $encoder = $factory->getEncoder($user);
-        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
-
+        
+        $match = $encoderService->isPasswordValid($user, $password);
         // check credentials - e.g. make sure the password is valid
         // no credential check is needed in this case
-        if ($user->getPassword() === $encodedPassword) {
+        if ($match) {
             $this->user = $user;
-
             return true;
         }
-
         // return true to cause authentication success
         throw new CustomUserMessageAuthenticationException('Contraseña incorrecta');
     }
