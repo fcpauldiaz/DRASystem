@@ -79,7 +79,7 @@ class CustomLoginController extends Controller
             return $response;
         }
 
-        return new JsonResponse(['valid' => false, 'message' => 'Contraseña incorrecta']);
+        return new JsonResponse(['valid' => false, 'message' => $password, 'username' => $username]);
     }
 
     /**
