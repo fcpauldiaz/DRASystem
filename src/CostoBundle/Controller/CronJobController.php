@@ -67,28 +67,33 @@ class CronJobController extends Controller
                 $usuarios = $usuariosRequest;
             }
         }
+        $interval = \DateInterval::createFromDateString('1 month');
+        $period   = new \DatePeriod($firstDay, $interval, $lastDay);
+        foreach ($period as $dt) {
+            foreach ($usuarios as $usuario) {
+                $start = (new \DateTime($dt->format('Y-m-d')))->modify('first day of this month');
+                $end = (new \DateTime($dt->format('Y-m-d')))->modify('last day of this month');
+                $entidadCosto = new Costo();
+                $actualizarCosto = $em->getRepository('CostoBundle:Costo')->findOneBy([
+                    'fechaInicio' => $firstDay,
+                    'fechaFinal' => $lastDay,
+                    'usuario' => $usuario,
+                ]);
+                if ($actualizarCosto !== null) {
+                    $entidadCosto = $actualizarCosto;
+                }
+                $entidadCosto->setFechaInicio($start);
+                $entidadCosto->setFechaFinal($end);
+                $costo = $this->calcularCosto(
+                    $start,
+                    $end,
+                    $usuario
+                );
 
-        foreach ($usuarios as $usuario) {
-            $entidadCosto = new Costo();
-            $actualizarCosto = $em->getRepository('CostoBundle:Costo')->findOneBy([
-                'fechaInicio' => $firstDay,
-                'fechaFinal' => $lastDay,
-                'usuario' => $usuario,
-            ]);
-            if ($actualizarCosto !== null) {
-                $entidadCosto = $actualizarCosto;
+                $entidadCosto->setCosto($costo);
+                $entidadCosto->setUsuario($usuario);
+                $em->persist($entidadCosto);
             }
-            $entidadCosto->setFechaInicio($firstDay);
-            $entidadCosto->setFechaFinal($lastDay);
-            $costo = $this->calcularCosto(
-                $firstDay,
-                $lastDay,
-                $usuario
-            );
-
-            $entidadCosto->setCosto($costo);
-            $entidadCosto->setUsuario($usuario);
-            $em->persist($entidadCosto);
         }
         $em->flush();
         $this->addFlash('success', 'Se han guardado los costos');
