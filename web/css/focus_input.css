@@ -1,0 +1,15 @@
+input:focus {
+    border-color: #043565 !important;
+    box-shadow: none !important;
+    border-width: 1.5px !important;
+ }
+.select2-container *:focus {
+    border-color: #043565 !important;
+    box-shadow: none !important;
+    border-width: 1.5px !important;
+}
+.btn-primary.focus, .btn-primary:focus, .btn-danger:focus, .btn-default:focus {
+    border-color: #3c057a !important;
+    box-shadow: none !important;
+    border-width: 4px !important;
+}

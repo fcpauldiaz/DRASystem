@@ -25,7 +25,7 @@ class RegistroHoras
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_horas", type="date")
+     * @ORM\Column(name="fecha_horas", type="datetime")
      */
     private $fechaHoras;
 
