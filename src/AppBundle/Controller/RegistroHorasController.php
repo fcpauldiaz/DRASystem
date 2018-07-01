@@ -156,6 +156,34 @@ class RegistroHorasController extends Controller
         );
     }
 
+     /**
+     * Gets the client for a budget
+     *
+     * @Route("/presupuesto/cliente", name="registrohoras_client_budget")
+     * @Method("POST")
+     */
+    public function getClientForBudget(Request $request)
+    {
+        $usuario = $this->getUser();
+        if (!is_object($usuario) || !$usuario instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $budget_id = $request->request->get('appbundle_registrohoras')['presupuesto'];
+        $budget = $em->getRepository('AppBundle:ProyectoPresupuesto')->findOneById($budget_id);
+        foreach ($budget->getPresupuestoIndividual() as $individualBudget) {
+            if ($individualBudget->getUsuario() === $usuario) {
+                return new JsonResponse($individualBudget->getCliente()->getId());
+            }
+        }
+        $budgetClients = $budget->getClientes();
+        if (count($budgetClients) === 1) {
+            return new JsonResponse($budgetClients[0]->getId());
+        }
+        return new JsonResponse(false);
+    }
+
+
     /**
      * Creates a form to create a RegistroHoras entity.
      *

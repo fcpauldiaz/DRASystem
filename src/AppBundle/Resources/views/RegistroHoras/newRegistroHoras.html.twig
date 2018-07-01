@@ -32,41 +32,57 @@
         // When area gets selected ...
         $(document).on('change', 'select', function(element) {
           try {
-          var id = (element.target.id);
-          // ... retrieve the corresponding form.
-          var $form = $(this).closest('form');
-          // Simulate form data, but only include the area sport value.
-          var data = {};
-          var e = element.target;
-
-          var value = e.options[e.selectedIndex].value;
-
-          data['appbundle_registrohoras[area]'] = value;
-          var idActividad = id.substring(0, id.lastIndexOf('_')) + '_actividad';
-          var actividad = $('#'+idActividad);
+            var id = (element.target.id);
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the area sport value.
+            var data = {};
+            var e = element.target;
+            var value = e.options[e.selectedIndex].value;
+            if (id === 'appbundle_registrohoras_proyectoPresupuesto') {
+                data['appbundle_registrohoras[presupuesto]'] = value;
+            } else {
+                data['appbundle_registrohoras[area]'] = value;
+                var idActividad = id.substring(0, id.lastIndexOf('_')) + '_actividad';
+                var actividad = $('#'+idActividad);
+            }
         } catch (e) {
             return;
           }
+          if (id === 'appbundle_registrohoras_proyectoPresupuesto') {
+            $.ajax({
+                url : 'presupuesto/cliente',
+                type: $form.attr('method'),
+                data : data,
+                success: function(data) {
+                    if (data === false) {
+                        return;
+                    }
+                    $('#appbundle_registrohoras_cliente').val(data).trigger('change');
+                }
+            });
+          } else { 
           // Submit data via AJAX to the form's action path.
-          $.ajax({
-            url : 'actividad/area',
-            type: $form.attr('method'),
-            data : data,
-            success: function(data) {
-                if (data.length === 0) {
-                    return;
+            $.ajax({
+                url : 'actividad/area',
+                type: $form.attr('method'),
+                data : data,
+                success: function(data) {
+                    if (data.length === 0) {
+                        return;
+                    }
+                    //remove previous options
+                    actividad.empty().select2();
+                    //create new options
+                    for (var key in data) {
+                        var opt = new Option(data[key], key,  false, false);
+                        actividad.append(opt);
+                    }
+                    //update select2
+                    actividad.trigger('change');
                 }
-                //remove previous options
-                actividad.empty().select2();
-                //create new options
-                for (var key in data) {
-                    var opt = new Option(data[key], key,  false, false);
-                    actividad.append(opt);
-                }
-                //update select2
-                actividad.trigger('change');
-            }
-          });
+            });
+          }
         });
         </script>
 {% endblock %}
