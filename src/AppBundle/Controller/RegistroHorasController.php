@@ -171,14 +171,16 @@ class RegistroHorasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $budget_id = $request->request->get('appbundle_registrohoras')['presupuesto'];
         $budget = $em->getRepository('AppBundle:ProyectoPresupuesto')->findOneById($budget_id);
-        foreach ($budget->getPresupuestoIndividual() as $individualBudget) {
-            if ($individualBudget->getUsuario() === $usuario) {
-                return new JsonResponse($individualBudget->getCliente()->getId());
+        if ($budget !== null) {
+            foreach ($budget->getPresupuestoIndividual() as $individualBudget) {
+                if ($individualBudget->getUsuario() === $usuario) {
+                    return new JsonResponse($individualBudget->getCliente()->getId());
+                }
             }
-        }
-        $budgetClients = $budget->getClientes();
-        if (count($budgetClients) === 1) {
-            return new JsonResponse($budgetClients[0]->getId());
+            $budgetClients = $budget->getClientes();
+            if (count($budgetClients) === 1) {
+                return new JsonResponse($budgetClients[0]->getId());
+            }
         }
         return new JsonResponse(false);
     }
