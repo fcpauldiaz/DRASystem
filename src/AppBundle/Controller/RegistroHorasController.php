@@ -186,9 +186,13 @@ class RegistroHorasController extends Controller
             if ($form->get('submitAndSave')->isClicked()) {
                 return $this->redirectToRoute('registrohoras_new');
             }
-
+            $form = $this->createForm(ConsultaRegistrosType::class, null, array(
+                'action' => $this->generateUrl('registrohoras'),
+                'method' => 'GET',
+            ));
             return $this->render('AppBundle:RegistroHoras:indexRegistroHoras.html.twig', [
                 'entities' => $entities,
+                'form' => $form->createView()
             ]);
         }
 
