@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Form\Type\ConsultaRegistrosType;
 
 /**
  * RegistroHoras controller.
@@ -32,7 +33,7 @@ class RegistroHorasController extends Controller
      * @Security("is_granted('ROLE_VER_LISTADO_GENERAL')")
      * @Template("AppBundle:RegistroHoras:indexRegistroHoras.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
@@ -41,14 +42,55 @@ class RegistroHorasController extends Controller
         $discriminator = $this->container->get('pugx_user.manager.user_discriminator');
         $claseActual = $discriminator->getClass();
 
+        $form = $this->createForm(ConsultaRegistrosType::class, null, array(
+            'action' => $this->generateUrl('registrohoras'),
+            'method' => 'GET',
+        ));
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+            if ($claseActual == "UserBundle\Entity\UsuarioSocio" && $this->isGranted('ROLE_ADMIN')) {
+                $entities = $em->getRepository('AppBundle:RegistroHoras')->findAll();
+            } else {
+                $fechaInicio = $data['fechaInicio'];
+                $fechaFinal = $data['fechaFinal'];
+                $cliente = $data['cliente'];
+                $horasExtraordinarias = $data['horas_extraordinarias'];
+                if ($cliente === null) {
+                     $entities = $em
+                        ->getRepository('AppBundle:RegistroHoras')
+                        ->findByFechaAndUsuario(
+                            $fechaInicio,
+                            $fechaFinal,
+                            $usuario
+                        );
+                } else {
+                    $entities = $em
+                        ->getRepository('AppBundle:RegistroHoras')
+                        ->findByFechaClienteAndUsuario(
+                            $fechaInicio,
+                            $fechaFinal,
+                            $cliente,
+                            $usuario,
+                            $horasExtraordinarias
+                        );
+                }
+            }
+            return array(
+                'entities' => $entities,
+                'form' => $form->createView()
+            );
+        }
         if ($claseActual == "UserBundle\Entity\UsuarioSocio" && $this->isGranted('ROLE_ADMIN')) {
             $entities = $em->getRepository('AppBundle:RegistroHoras')->findAll();
         } else {
             $entities = $em->getRepository('AppBundle:RegistroHoras')->findBy(['ingresadoPor' => $usuario]);
         }
 
+       
         return array(
             'entities' => $entities,
+            'form' => $form->createView()
         );
     }
 

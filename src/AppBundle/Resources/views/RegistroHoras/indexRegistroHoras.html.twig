@@ -9,21 +9,45 @@
     <li class="active"></i>Listado Registro</li>
 {% endblock %}
 
+{% block stylesheets %}
+
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
 {% block title %}
     Listado Horas
 {% endblock %}
 
-
 {% block javascriptDataTables %}
-
+    {{ form_javascript(form) }}
     <script src = {{asset('js/datatables/dataTablesShowHoras.js')}}>
     </script>
 {% endblock %}
 
 {% block body -%}
 
-    <br>
-    <br>
+  <br>
+  <h1>Consulta de Horas Ingresadas</h1>
+    {{ form_start(form)}}
+  <div class="row">
+    <div class="col-md-6">
+      {{form_row(form.fechaInicio)}}
+    </div>
+    <div class="col-md-6">
+      {{form_row(form.fechaFinal)}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      {{form_row(form.cliente)}}
+    </div>
+    <div class="col-md-6">
+      {{form_row(form.horas_extraordinarias)}}
+    </div>
+  </div>
+  {{form_end(form)}}
+  <br>
+  <br>
 
     <table id="table" class="table table-striped table-hover">
         <thead>

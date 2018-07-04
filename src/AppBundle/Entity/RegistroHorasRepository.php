@@ -86,6 +86,27 @@ class RegistroHorasRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findByFechaClienteAndUsuario($fechaInicio, $fechaFinal, $cliente, $usuario, $extra)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('registro')
+            ->from('AppBundle:RegistroHoras', 'registro')
+            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->andWhere('registro.fechaHoras <= :fechaFinal')
+            ->andWhere('registro.cliente = :cliente')
+            ->andWhere('registro.horasExtraordinarias = :extra')
+            ->andWhere('registro.ingresadoPor = :usuario')
+            ->setParameter('fechaInicio', $fechaInicio)
+            ->setParameter('fechaFinal', $fechaFinal)
+            ->setParameter('cliente', $cliente)
+            ->setParameter('usuario', $usuario)
+            ->setParameter('extra', $extra);
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $extra)
     {
         $em = $this->getEntityManager();
