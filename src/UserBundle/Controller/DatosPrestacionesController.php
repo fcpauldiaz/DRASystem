@@ -45,12 +45,10 @@ class DatosPrestacionesController extends Controller
         } elseif ($claseActual == "UserBundle\Entity\UsuarioTrabajador" && $this->isGranted('ROLE_ADMIN')) {
             //Si es admin muestra sus datos y sus asignados.
             $em = $this->getDoctrine()->getManager();
-            $sql =
-            'Select d.id
-            from datos_prestaciones d
-            inner join usuario_relacionado r on r.usuario_pertenece_id = d.usuario_id
-            where r.usuario_id = ?
-            ';
+            $sql = 'SELECT d.id
+                FROM datos_prestaciones d
+                INNER JOIN usuario_relacionado r ON r.usuario_pertenece_id = d.usuario_id
+                WHERE r.usuario_id = ?';
 
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->bindValue(1, $usuario->getId());
