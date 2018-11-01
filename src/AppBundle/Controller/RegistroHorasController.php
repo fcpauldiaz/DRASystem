@@ -82,9 +82,13 @@ class RegistroHorasController extends Controller
             );
         }
         if ($claseActual == "UserBundle\Entity\UsuarioSocio" && $this->isGranted('ROLE_ADMIN')) {
-            $entities = $em->getRepository('AppBundle:RegistroHoras')->findAll();
+            $entities = $em
+                ->getRepository('AppBundle:RegistroHoras')
+                ->findBy([], ['fechaHoras' => 'DESC']);
         } else {
-            $entities = $em->getRepository('AppBundle:RegistroHoras')->findBy(['ingresadoPor' => $usuario]);
+            $entities = $em
+                ->getRepository('AppBundle:RegistroHoras')
+                ->findBy(['ingresadoPor' => $usuario], ['fechaHoras' => 'DESC']);
         }
 
        

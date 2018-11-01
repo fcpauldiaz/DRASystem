@@ -26,7 +26,8 @@ class RegistroHorasRepository extends EntityRepository
         $qb
             ->select('registro')
             ->from('AppBundle:RegistroHoras', 'registro')
-            ->Where('registro.proyectoPresupuesto = :proyecto')
+            ->where('registro.proyectoPresupuesto = :proyecto')
+            ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('proyecto', $proyecto);
 
         return $qb->getQuery()->getResult();
@@ -39,9 +40,10 @@ class RegistroHorasRepository extends EntityRepository
         $qb
             ->select('registro')
             ->from('AppBundle:RegistroHoras', 'registro')
-            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->where('registro.fechaHoras >= :fechaInicio')
             ->andWhere('registro.fechaHoras <= :fechaFinal')
             ->andWhere('registro.ingresadoPor = :usuario')
+            ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario);
@@ -55,10 +57,11 @@ class RegistroHorasRepository extends EntityRepository
         $qb
             ->select('registro')
             ->from('AppBundle:RegistroHoras', 'registro')
-            ->Where('registro.fechaHoras >= :fechaInicio')
+            ->where('registro.fechaHoras >= :fechaInicio')
             ->andWhere('registro.fechaHoras <= :fechaFinal')
             ->andWhere('registro.ingresadoPor = :usuario')
             ->andWhere('registro.horasExtraordinarias = :extra')
+            ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario)
@@ -78,6 +81,7 @@ class RegistroHorasRepository extends EntityRepository
             ->andWhere('registro.fechaHoras <= :fechaFinal')
             ->andWhere('registro.cliente = :cliente')
             ->andWhere('registro.horasExtraordinarias = :extra')
+            ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('cliente', $cliente)
@@ -98,6 +102,7 @@ class RegistroHorasRepository extends EntityRepository
             ->andWhere('registro.cliente = :cliente')
             ->andWhere('registro.horasExtraordinarias = :extra')
             ->andWhere('registro.ingresadoPor = :usuario')
+            ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('cliente', $cliente)
@@ -118,6 +123,7 @@ class RegistroHorasRepository extends EntityRepository
             ->andWhere('registro.fechaHoras <= :fechaFinal')
             ->andWhere('registro.proyectoPresupuesto = :proyectoPresupuesto')
             ->andWhere('registro.horasExtraordinarias = :extra')
+            ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('proyectoPresupuesto', $presupuesto)
@@ -152,6 +158,7 @@ class RegistroHorasRepository extends EntityRepository
                $qb->expr()->lte('costo.fechaInicio', 'r.fechaHoras'),
                $qb->expr()->gte('costo.fechaFinal', 'r.fechaHoras')
             ))
+            ->orderBy('r.fechaHoras', 'DESC')
             ->groupBy('r.id')
             ->setParameter('area_id', $area)
             ->setParameter('proyecto_id', $proyecto);
@@ -170,6 +177,7 @@ class RegistroHorasRepository extends EntityRepository
             ->innerJoin('AppBundle:RegistroHoras', 'r', 'with', 'r.ingresadoPor = u.id')
             ->where('r.proyectoPresupuesto = :proyecto')
             ->andWhere('r.horasExtraordinarias = :horas_extra')
+            ->orderBy('r.fechaHoras', 'DESC')
             ->groupBy('r.ingresadoPor')
             ->setParameter('proyecto', $proyecto)
             ->setParameter('horas_extra', $horas_extra);
