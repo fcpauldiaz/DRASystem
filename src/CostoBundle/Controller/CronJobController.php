@@ -246,7 +246,7 @@ class CronJobController extends Controller
      */
     private function sendEmail($registros, $enviado_a)
     {
-        $fromEmail = 'no-responder@newtonlabs.com.gt';
+        $fromEmail = 'no-responder@chapilabs.com';
 
         $message = \Swift_Message::newInstance();
 

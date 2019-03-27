@@ -14,7 +14,7 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  *  El usuario Socio no necesita guardar todas los campos de un usuario trabajador
  * Solo necesita los básicos de FOSUserBundle
  *
- * @author  Pablo Díaz soporte@newtonlabs.com.gt
+ * @author  Pablo Díaz support@chapilabs.com
  */
 class UsuarioSocio extends Usuario
 {

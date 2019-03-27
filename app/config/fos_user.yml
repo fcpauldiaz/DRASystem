@@ -6,12 +6,12 @@ fos_user:
       user_manager: pugx_user_manager
       mailer: fos_user.mailer.twig_swift
     from_email:
-      address:        no-responder@newtonlabs.com.gt
+      address:        no-responder@chapilabs.com
       sender_name:    Chapi Time
     registration:
           confirmation:
             from_email:
-                address:        no-responder@newtonlabs.com.gt
+                address:        no-responder@chapilabs.com
                 sender_name:    Chapi Time
             enabled:    false # change to true for required email confirmation
             template:   UserBundle:Registration:registration.email.twig
@@ -19,7 +19,7 @@ fos_user:
         token_ttl: 86400
         email:
             from_email:
-                address:        no-responder@newtonlabs.com.gt
+                address:        no-responder@chapilabs.com
                 sender_name:    Chapi Time
             template:   UserBundle:Resetting:resetting.email.twig
 

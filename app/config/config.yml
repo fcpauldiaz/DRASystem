@@ -72,6 +72,7 @@ doctrine:
         password: "%database_password%"
         charset:  UTF8
         server_version:       5.6
+        logging:              '%kernel.debug%'
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -89,7 +90,7 @@ doctrine:
 
 cspoo_swiftmailer_mailgun:
     key: "%api_email_key%"
-    domain: "mailgun.newtonlabs.com.gt"
+    domain: "mailgun.chapilabs.com"
 
 # Swiftmailer Configuration
 swiftmailer:

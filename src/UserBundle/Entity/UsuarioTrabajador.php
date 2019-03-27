@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="UsuarioTrabajadorRepository")
  *
- * @author  Pablo Díaz soporte@newtonlabs.com.gt
+ * @author  Pablo Díaz support@chapilabs.com
  */
 class UsuarioTrabajador extends Usuario
 {

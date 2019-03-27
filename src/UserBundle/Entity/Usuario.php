@@ -14,7 +14,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"usuario_trabajador" = "UsuarioTrabajador", "usuario_socio" = "UsuarioSocio"})
  *
- * @author  Pablo Díaz soporte@newtonlabs.com.gt
+ * @author  Pablo Díaz support@chapilabs.com
  */
 abstract class Usuario extends BaseUser
 {

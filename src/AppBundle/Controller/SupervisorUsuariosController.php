@@ -228,7 +228,7 @@ class SupervisorUsuariosController extends Controller
      */
     private function sendEmail($enviado_a, $registros)
     {
-        $fromEmail = 'no-responder@newtonlabs.com.gt';
+        $fromEmail = 'no-responder@chapilabs.com';
 
         $message = \Swift_Message::newInstance();
 
