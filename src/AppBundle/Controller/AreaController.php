@@ -255,7 +255,7 @@ class AreaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('area_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit',  SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }
