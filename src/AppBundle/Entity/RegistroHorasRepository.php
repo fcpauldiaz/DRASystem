@@ -33,7 +33,7 @@ class RegistroHorasRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario)
+    public function findByFechaAndUsuario($fechaInicio, $fechaFinal, $usuario, $limit = 500)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -46,11 +46,12 @@ class RegistroHorasRepository extends EntityRepository
             ->orderBy('registro.fechaHoras', 'DESC')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('usuario', $usuario);
+            ->setParameter('usuario', $usuario)
+            ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
-    public function findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $extra)
+    public function findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $extra, $limit = 500)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -65,7 +66,8 @@ class RegistroHorasRepository extends EntityRepository
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('usuario', $usuario)
-            ->setParameter('extra', $extra);
+            ->setParameter('extra', $extra)
+            ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
@@ -90,7 +92,7 @@ class RegistroHorasRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findByFechaClienteAndUsuario($fechaInicio, $fechaFinal, $cliente, $usuario, $extra)
+    public function findByFechaClienteAndUsuario($fechaInicio, $fechaFinal, $cliente, $usuario, $extra, $limit = 500)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -107,12 +109,13 @@ class RegistroHorasRepository extends EntityRepository
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('cliente', $cliente)
             ->setParameter('usuario', $usuario)
-            ->setParameter('extra', $extra);
+            ->setParameter('extra', $extra)
+            ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
 
-    public function findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $extra)
+    public function findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $extra, $limit = 500)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -127,7 +130,8 @@ class RegistroHorasRepository extends EntityRepository
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('proyectoPresupuesto', $presupuesto)
-            ->setParameter('extra', $extra);
+            ->setParameter('extra', $extra)
+            ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }

@@ -125,7 +125,7 @@ class ConsultaHorasController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository($repository)
-            ->findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $horas);
+            ->findByFechaAndUsuarioExtra($fechaInicio, $fechaFinal, $usuario, $horas, 100);
             $registros = array_merge($registros, $registro);
         }
         return $registros;
@@ -146,7 +146,7 @@ class ConsultaHorasController extends Controller
           ->getDoctrine()
           ->getManager()
           ->getRepository($repository)
-          ->findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $horas);
+          ->findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $horas, 100);
             $registros = array_merge($registros, $registro);
         }
         return $registros;
@@ -167,7 +167,7 @@ class ConsultaHorasController extends Controller
           ->getDoctrine()
           ->getManager()
           ->getRepository($repository)
-          ->findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $horas);
+          ->findByFechaAndPresupuestoExtra($fechaInicio, $fechaFinal, $presupuesto, $horas, 100);
             $registros = array_merge($registros, $registro);
         }
         return $registros;

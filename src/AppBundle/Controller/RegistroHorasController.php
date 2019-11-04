@@ -49,9 +49,7 @@ class RegistroHorasController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $data = $form->getData();
-            if ($claseActual == "UserBundle\Entity\UsuarioSocio" && $this->isGranted('ROLE_ADMIN')) {
-                $entities = $em->getRepository('AppBundle:RegistroHoras')->findAll();
-            } else {
+
                 $fechaInicio = $data['fechaInicio'];
                 $fechaFinal = $data['fechaFinal'];
                 $cliente = $data['cliente'];
@@ -62,7 +60,8 @@ class RegistroHorasController extends Controller
                         ->findByFechaAndUsuario(
                             $fechaInicio,
                             $fechaFinal,
-                            $usuario
+                            $usuario,
+                            50
                         );
                 } else {
                     $entities = $em
@@ -72,26 +71,28 @@ class RegistroHorasController extends Controller
                             $fechaFinal,
                             $cliente,
                             $usuario,
-                            $horasExtraordinarias
+                            $horasExtraordinarias,
+                            50
                         );
                 }
-            }
+
             return array(
                 'entities' => $entities,
                 'form' => $form->createView()
             );
         }
-        if ($claseActual == "UserBundle\Entity\UsuarioSocio" && $this->isGranted('ROLE_ADMIN')) {
+        if ($claseActual == "UserBundle\Entity\UsuarioSocio"
+        && $this->isGranted('ROLE_ADMIN')) {
             $entities = $em
                 ->getRepository('AppBundle:RegistroHoras')
-                ->findBy([], ['fechaHoras' => 'DESC']);
+                ->findBy([], ['fechaHoras' => 'DESC'], 50);
         } else {
             $entities = $em
                 ->getRepository('AppBundle:RegistroHoras')
-                ->findBy(['ingresadoPor' => $usuario], ['fechaHoras' => 'DESC']);
+                ->findBy(['ingresadoPor' => $usuario], ['fechaHoras' => 'DESC'], 50);
         }
 
-       
+
         return array(
             'entities' => $entities,
             'form' => $form->createView()
@@ -113,7 +114,7 @@ class RegistroHorasController extends Controller
         $entities = $em->getRepository('AppBundle:Actividad')->findBy(
             [
                 'area' => $area
-            ]
+            ], [], []
         );
         $data_serialized = [];
         foreach ($entities as $entity) {
@@ -178,7 +179,7 @@ class RegistroHorasController extends Controller
                 $entity->setIngresadoPor($usuario);
                 $entity->setProyectoPresupuesto($data->getProyectoPresupuesto());
                 $entity->setAprobado($data->getAprobado());
-                
+
                 $extra = array_key_exists('horasExtraordinarias', $registro) ?
                     $registro['horasExtraordinarias']: false;
                 $entity->setHorasExtraordinarias($extra);

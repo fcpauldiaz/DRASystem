@@ -23,6 +23,7 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('registro.cliente = :cliente')
             ->setParameter('proyecto', $proyecto)
             ->setParameter('cliente', $cliente)
+            ->setMaxResults(200)
             ;
 
         return $qb->getQuery()->getResult();
@@ -39,7 +40,7 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('registro.usuario = :usuario')
             ->setParameter('proyecto', $proyecto)
             ->setParameter('usuario', $usuario)
-            ;
+            ->setMaxResults(200);
 
         return $qb->getQuery()->getResult();
     }
@@ -74,7 +75,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->select('registro')
             ->from('AppBundle:RegistroHorasPresupuesto', 'registro')
             ->Where('registro.proyecto = :proyecto')
-            ->setParameter('proyecto', $proyecto);
+            ->setParameter('proyecto', $proyecto)
+            ->setMaxResults(300);
 
         return $qb->getQuery()->getResult();
     }
@@ -91,7 +93,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('registro.usuario = :usuario')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('usuario', $usuario);
+            ->setParameter('usuario', $usuario)
+            ->setMaxResults(200);
 
         return $qb->getQuery()->getResult();
     }
@@ -107,7 +110,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('registro.usuario = :usuario')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('usuario', $usuario);
+            ->setParameter('usuario', $usuario)
+            ->setMaxResults(200);
 
         return $qb->getQuery()->getResult();
     }
@@ -124,7 +128,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('registro.cliente = :cliente')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('cliente', $cliente);
+            ->setParameter('cliente', $cliente)
+            ->setMaxResults(200);
 
         return $qb->getQuery()->getResult();
     }
@@ -141,7 +146,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->andWhere('registro.proyecto = :proyectoPresupuesto')
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
-            ->setParameter('proyectoPresupuesto', $presupuesto);
+            ->setParameter('proyectoPresupuesto', $presupuesto)
+            ->setMaxResults(500);
 
         return $qb->getQuery()->getResult();
     }
@@ -160,7 +166,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->where('registro.proyecto = :proyecto')
             ->andWhere('area.id = :area_id')
             ->setParameter('proyecto', $proyecto)
-            ->setParameter('area_id', $area);
+            ->setParameter('area_id', $area)
+            ->setMaxResults(500);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -176,7 +183,8 @@ class RegistroHorasPresupuestoRepository extends EntityRepository
             ->innerJoin('AppBundle:RegistroHorasPresupuesto', 'r', 'with', 'r.usuario = u.id')
             ->where('r.proyecto = :proyecto')
             ->groupBy('r.usuario')
-            ->setParameter('proyecto', $proyecto);
+            ->setParameter('proyecto', $proyecto)
+            ->setMaxResults(500);
         return $qb->getQuery()->getResult();
     }
 }

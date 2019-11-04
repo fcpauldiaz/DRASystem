@@ -32,7 +32,9 @@ class ActividadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Actividad')->findAll();
+        $entities = $em
+        ->getRepository('AppBundle:Actividad')
+        ->findBy([], [], 100);
 
         return array(
             'entities' => $entities,

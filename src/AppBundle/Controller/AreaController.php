@@ -30,7 +30,7 @@ class AreaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Area')->findAll();
+        $entities = $em->getRepository('AppBundle:Area')->findAll()->setMaxResults(400);
 
         return array(
             'entities' => $entities,
