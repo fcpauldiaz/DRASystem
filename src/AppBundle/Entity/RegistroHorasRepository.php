@@ -72,7 +72,7 @@ class RegistroHorasRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $extra)
+    public function findByFechaAndClienteExtra($fechaInicio, $fechaFinal, $cliente, $extra, $limit = 500)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -87,7 +87,8 @@ class RegistroHorasRepository extends EntityRepository
             ->setParameter('fechaInicio', $fechaInicio)
             ->setParameter('fechaFinal', $fechaFinal)
             ->setParameter('cliente', $cliente)
-            ->setParameter('extra', $extra);
+            ->setParameter('extra', $extra)
+            ->setMaxResults($limit);
 
         return $qb->getQuery()->getResult();
     }
