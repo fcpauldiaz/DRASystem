@@ -114,7 +114,7 @@ class RegistroHorasController extends Controller
         $entities = $em->getRepository('AppBundle:Actividad')->findBy(
             [
                 'area' => $area
-            ], [], []
+            ]
         );
         $data_serialized = [];
         foreach ($entities as $entity) {
