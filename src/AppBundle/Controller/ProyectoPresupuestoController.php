@@ -40,7 +40,7 @@ class ProyectoPresupuestoController extends Controller
         if ($claseActual == "UserBundle\Entity\UsuarioSocio" ||
           $usuarioActual->getCodigo()->getCodigo() === 69
           ) {
-            $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAll();
+            $entities = $em->getRepository('AppBundle:ProyectoPresupuesto')->findAllFetch();
 
             return array(
             'entities' => $entities,

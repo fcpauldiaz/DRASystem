@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block javascriptDataTables %}
-    
+    {{ form_javascript(form) }}
     <script src = {{asset('js/dataTablesInit.js')}}>
     </script>
 {% endblock %}
@@ -22,7 +22,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                
+
                 <th>Nit</th>
                 <th>Razón Social</th>
                 <th>Servicios Prestados</th>

@@ -30,7 +30,7 @@ class RegistroHorasPresupuesto
     private $horasPresupuestadas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area", fetch="EAGER")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $area;
@@ -44,7 +44,7 @@ class RegistroHorasPresupuesto
     private $cliente;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\UsuarioTrabajador", fetch="EAGER")
      * @ORM\JoinTable(name="presupuesto_horas_usuario")
      *
      */
@@ -54,7 +54,7 @@ class RegistroHorasPresupuesto
      * [$proyecto description].
      *
      * @var [type]
-     * @ORM\ManyToOne(targetEntity="ProyectoPresupuesto", inversedBy="presupuestoIndividual", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ProyectoPresupuesto", inversedBy="presupuestoIndividual", cascade={"persist"}, fetch="EAGER")
      */
     private $proyecto;
 

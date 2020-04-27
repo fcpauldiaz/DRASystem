@@ -36,13 +36,12 @@ services:
             - { name: twig.extension }
     acme.aws_s3.client:
         class: Aws\S3\S3Client
-        factory_class: Aws\S3\S3Client
-        factory_method: 'factory'
+        factory: [Aws\S3\S3Client, 'factory']
         arguments:
             -
-                credentials: 
+                credentials:
                     key:      "%aws_key%"
-                    secret:   "%aws_secret_key%"                
+                    secret:   "%aws_secret_key%"
                 region:   "us-east-1"
                 version:  "latest"
     gedmo.listener.blameable:

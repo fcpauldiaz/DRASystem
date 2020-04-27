@@ -54,7 +54,7 @@ class CodigoController extends Controller
         } else {
 
             //llega aquí cuando no cumple la validación del formulario
-            return new JsonResponse(['error' => $form->getErrorsAsString()], 400);
+            return new JsonResponse(['error' => (string) $form->getErrors(true, false)], 400);
         }
     }
 

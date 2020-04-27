@@ -4,7 +4,7 @@ knp_gaufrette:
     adapters:
         product_adapter:
             local:
-                directory: %kernel.root_dir%/../web/docs
+                directory: "%kernel.root_dir%/../web/docs"
         foo:
             aws_s3:
                 service_id: 'acme.aws_s3.client'

@@ -49,7 +49,7 @@ class Area
      * @var string
      *
      * @Gedmo\Blameable(on="create")
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $creadoPor;
@@ -58,14 +58,14 @@ class Area
      * @var string
      *
      * @Gedmo\Blameable(on="update")
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Codigo", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $actualizadoPor;
 
     /**
      * @var ManyToOne
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Departamento")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Departamento", fetch="EXTRA_LAZY")
      */
     private $departamento;
 

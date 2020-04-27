@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * ProyectoPresupuesto.
  *
  * @ORM\Table()
- * @ORM\Entity
+ *  @ORM\Entity(repositoryClass="ProyectoPresupuestoRepository")
  * @UniqueEntity("nombrePresupuesto")
  */
 class ProyectoPresupuesto
@@ -41,12 +41,12 @@ class ProyectoPresupuesto
     private $honorarios;
 
     /**
-     * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"},  orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="RegistroHorasPresupuesto", mappedBy="proyecto" ,cascade={"persist","remove"},  orphanRemoval=true, fetch="EAGER")
      */
     private $presupuestoIndividual;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cliente")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cliente", fetch="EAGER")
      * @ORM\JoinTable(name="clientes_por_presupuesto",
      *      joinColumns={@ORM\JoinColumn(name="cliente_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="presupuesto_id", referencedColumnName="id")}

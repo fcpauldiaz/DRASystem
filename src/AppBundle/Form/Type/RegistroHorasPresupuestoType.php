@@ -30,6 +30,7 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'placeholder' => 'Seleccionar cliente',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('cliente')
+                        ->select('cliente')
                         ->innerJoin('AppBundle:AsignacionCliente', 'asignacion', 'with', 'cliente.id = asignacion.cliente')
                         ->where('asignacion.usuario = :usuario')
                         ->OrWhere('asignacion.usuario = 1')
@@ -45,6 +46,14 @@ class RegistroHorasPresupuestoType extends AbstractType
                 'attr' => [
                     'class' => 'select2',
                 ],
+                'query_builder' => function (EntityRepository $er) {
+                  return $er->createQueryBuilder('area')
+                      ->select('area', 'creadoPor', 'actualizadoPor', 'departamento')
+                      ->leftJoin('area.creadoPor', 'creadoPor')
+                      ->leftJoin('area.actualizadoPor', 'actualizadoPor')
+                        ->leftJoin('area.departamento', 'departamento');
+
+                },
 
             ])
              ->add('usuario', EntityType::class, [
@@ -58,6 +67,14 @@ class RegistroHorasPresupuestoType extends AbstractType
                     ],
                     'placeholder' => 'Seleccionar Usuario asignado a realizar esta actividad',
                     'multiple' => false,
+                    'query_builder' => function (EntityRepository $er) {
+                      return $er->createQueryBuilder('usuario')
+                          ->select('usuario', 'usuarioRelacionado', 'misUsuariosRelacionados', 'codigo', 'clientes')
+                          ->leftJoin('usuario.usuarioRelacionado', 'usuarioRelacionado')
+                          ->leftJoin('usuario.misUsuariosRelacionados', 'misUsuariosRelacionados')
+                          ->leftJoin('usuario.codigo', 'codigo')
+                          ->leftJoin('usuario.clientes', 'clientes');
+                    },
 
             ])
             ->add('horasPresupuestadas')
