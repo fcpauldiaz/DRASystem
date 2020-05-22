@@ -89,7 +89,7 @@ doctrine:
 
 cspoo_swiftmailer_mailgun:
     key: "%api_email_key%"
-    domain: "mailgun.chapilabs.com"
+    domain: "%api_email_domain%"
 
 # Swiftmailer Configuration
 swiftmailer:
