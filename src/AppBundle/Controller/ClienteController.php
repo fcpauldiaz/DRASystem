@@ -231,6 +231,17 @@ class ClienteController extends Controller
             'method' => 'PUT',
         ));
 
+        $asignaciones = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Cliente')
+            ->findByUsuariosAsignados($entity->getId());
+        $data = [];
+        foreach($asignaciones as $asignacion) {
+          $user = $asignacion->getUsuario();
+          $data[] = $user;
+        }
+        $form->get('usuarioAsignados')->setData($data);
         $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
