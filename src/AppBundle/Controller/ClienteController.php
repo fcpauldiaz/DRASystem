@@ -47,7 +47,7 @@ class ClienteController extends Controller
               'entities' => $entities,
           ));
         }
-        $clientes = $this->filtrarClientes($usuarioActual);
+        $clientes = $em->getRepository('AppBundle:Cliente')->findAll();
 
         return $this->render('AppBundle:Cliente:indexCliente.html.twig', array(
               'entities' => $clientes,
@@ -249,9 +249,8 @@ class ClienteController extends Controller
     /**
      * Edits an existing Cliente entity.
      *
-     * @Route("/{id}", name="cliente_update")
+     * @Route("/{id}/update", name="cliente_update")
      * @Method("PUT")
-     * @Template("AppBundle:Cliente:editCliente.html.twig")
      * @Security("is_granted('ROLE_EDITAR_CLIENTES')")
      */
     public function updateAction(Request $request, $id)
@@ -259,7 +258,7 @@ class ClienteController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Cliente')->find($id);
-
+        $userAssigned = clone $entity->getUsuarioAsignados();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Cliente entity.');
         }
@@ -271,21 +270,29 @@ class ClienteController extends Controller
             $em = $this->getDoctrine()->getManager();
             //modificar asignacion
             $usuarios = $editForm->getData()->getUsuarioAsignados();
-            $copyUsuarios = clone $usuarios;
-            $editForm->getData()->clearUsuarios();
 
-            foreach ($copyUsuarios as $usuario) {
-                $asignacion = new AsignacionCliente($usuario, $entity);
+            foreach ($usuarios as $usuario) {
+              $found = false;
+              foreach($userAssigned as $assigned) {
+                if ($assigned->getUsuario()->getId() == $usuario->getUsuario()->getId()) {
+                  $found = true;
+                }
+              }
 
+              if ($found === false) {
+                $asignacion = new AsignacionCliente($usuario->getUsuario(), $entity);
+                $entity->addUsuarioAsignado($asignacion);
                 $em->persist($asignacion);
-                $editForm->getData()->addUsuarioAsignado($asignacion);
-            }
 
+              }
+            }
             $em->persist($entity);
             $em->flush();
 
             $this->addFlash('success', 'El cliente ha sido actualizado exitosamente');
             return $this->redirect($this->generateUrl('cliente_edit', array('id' => $id)));
+        } else {
+          $this->addFlash('error', 'No ha sido posible actualizar.');
         }
 
         return array(

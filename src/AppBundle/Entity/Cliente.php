@@ -56,7 +56,7 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="AsignacionCliente", mappedBy="cliente")
+     * @ORM\OneToMany(targetEntity="AsignacionCliente", mappedBy="cliente", fetch="EAGER", cascade={"persist", "remove"})
      */
     private $usuarioAsignados;
 
