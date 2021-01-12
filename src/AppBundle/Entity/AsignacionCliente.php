@@ -24,7 +24,7 @@ class AsignacionCliente
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente", inversedBy="usuarioAsignados" ,cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cliente", inversedBy="usuarioAsignados" ,cascade={"persist"})
      * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $cliente;
@@ -32,7 +32,7 @@ class AsignacionCliente
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario", inversedBy="clientes",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Usuario", inversedBy="clientes",cascade={"persist"})
      */
     private $usuario;
 

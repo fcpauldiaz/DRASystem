@@ -56,7 +56,7 @@ class Cliente
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="AsignacionCliente", mappedBy="cliente", fetch="EAGER", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AsignacionCliente", mappedBy="cliente", fetch="EAGER", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $usuarioAsignados;
 
@@ -324,6 +324,7 @@ class Cliente
 
         return $this;
     }
+
 
     /**
      * Remove usuarioAsignado.

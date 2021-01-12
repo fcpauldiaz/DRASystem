@@ -63,8 +63,14 @@ class ClienteType extends AbstractType
           ->get('usuarioAsignados')
           ->addModelTransformer(new CallbackTransformer(
                 function ($users) {
-                    // transform the array to a string
+                  $array = [];
+                  if (is_array($users)) {
                     return $users;
+                  }
+                  foreach ($users->toArray() as $user) {
+                    $array[] = $user;
+                  }
+                  return $array;
                 },
                 function ($users) {
                     $asignaciones = [];
@@ -76,6 +82,10 @@ class ClienteType extends AbstractType
                 }
           ))
       ;
+      $builder->addEventListener(
+        FormEvents::PRE_SUBMIT,
+        [$this, 'onPostData']
+      );
     }
 
     /**
@@ -118,14 +128,13 @@ class ClienteType extends AbstractType
     public function onPostData(FormEvent $event)
     {
         $data = $event->getData();
-        dump($data);
         $usuarios = $data['usuarioAsignados'];
+
         $copyUsuarios = $usuarios;
         $data['usuarioAsignados'] = [];
         foreach ($copyUsuarios as $usuario) {
           $asignacion = new AsignacionCliente($usuario, $data);
           $data['usuarioAsignados'] = $asignacion;
         }
-        dump($data);
     }
 }

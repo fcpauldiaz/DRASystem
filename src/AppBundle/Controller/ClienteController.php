@@ -72,7 +72,7 @@ class ClienteController extends Controller
     /**
      * Creates a new Cliente entity.
      *
-     * @Route("/", name="cliente_create")
+     * @Route("/create", name="cliente_create")
      * @Method("POST")
      * @Security("is_granted('ROLE_CREAR_CLIENTES')")
      * @Template("AppBundle:Cliente:newCliente.html.twig")
@@ -82,7 +82,6 @@ class ClienteController extends Controller
         $entity = new Cliente();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             //modificar asignacion
@@ -91,12 +90,11 @@ class ClienteController extends Controller
             $form->getData()->clearUsuarios();
 
             foreach ($copyUsuarios as $usuario) {
-                $asignacion = new AsignacionCliente($usuario, $entity);
-
+                dump($usuario);
+                $asignacion = new AsignacionCliente($usuario->getUsuario(), $entity);
                 $em->persist($asignacion);
                 $form->getData()->addUsuarioAsignado($asignacion);
             }
-
             $em->persist($entity);
             $em->flush();
 
@@ -270,21 +268,41 @@ class ClienteController extends Controller
             $em = $this->getDoctrine()->getManager();
             //modificar asignacion
             $usuarios = $editForm->getData()->getUsuarioAsignados();
+            dump(count($userAssigned));
+            dump(count($usuarios));
 
-            foreach ($usuarios as $usuario) {
-              $found = false;
+            if (count($userAssigned) > count($usuarios)) {
               foreach($userAssigned as $assigned) {
-                if ($assigned->getUsuario()->getId() == $usuario->getUsuario()->getId()) {
-                  $found = true;
+                $found = false;
+                foreach ($usuarios as $usuario) {
+                  if ($assigned->getUsuario()->getId() == $usuario->getUsuario()->getId()) {
+                      $found = true;
+                  }
+                }
+                if ($found === false) {
+                  dump($assigned);
+                  die();
+                  $entity->removeAsignacion($assigned);
+                  $em->persist($entity);
                 }
               }
+            } else {
+                foreach ($usuarios as $usuario) {
+                  $found = false;
+                  foreach ($userAssigned as $assigned) {
+                    if ($assigned->getUsuario()->getId() == $usuario->getUsuario()->getId()) {
+                      $found = true;
+                    }
+                  }
+                  dump($usuario);
+                  dump($found);
+                  if ($found == false) {
+                    $asignacion = new AsignacionCliente($usuario->getUsuario(), $entity);
+                    $entity->addUsuarioAsignado($asignacion);
+                    $em->persist($asignacion);
+                  }
+                }
 
-              if ($found === false) {
-                $asignacion = new AsignacionCliente($usuario->getUsuario(), $entity);
-                $entity->addUsuarioAsignado($asignacion);
-                $em->persist($asignacion);
-
-              }
             }
             $em->persist($entity);
             $em->flush();

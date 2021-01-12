@@ -10,7 +10,7 @@
     $container->setParameter('locale', 'es');
     $container->setParameter('api_email_key',getenv('API_EMAIL'));
     $container->setParameter('api_email_domain', getenv('API_EMAIL_DOMAIN'));
-    $container->setParameter('mailer_transport', 'gmail');
+    $container->setParameter('mailer_transport', 'smtp');
     $container->setParameter('mailer_host', null);
     $container->setParameter('mailer_user', getenv('EMAIL_USER'));
     $container->setParameter('mailer_password', getenv('EMAIL_PASSWORD'));
