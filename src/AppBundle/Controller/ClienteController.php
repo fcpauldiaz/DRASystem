@@ -90,7 +90,6 @@ class ClienteController extends Controller
             $form->getData()->clearUsuarios();
 
             foreach ($copyUsuarios as $usuario) {
-                dump($usuario);
                 $asignacion = new AsignacionCliente($usuario->getUsuario(), $entity);
                 $em->persist($asignacion);
                 $form->getData()->addUsuarioAsignado($asignacion);
@@ -268,8 +267,6 @@ class ClienteController extends Controller
             $em = $this->getDoctrine()->getManager();
             //modificar asignacion
             $usuarios = $editForm->getData()->getUsuarioAsignados();
-            dump(count($userAssigned));
-            dump(count($usuarios));
 
             if (count($userAssigned) > count($usuarios)) {
               foreach($userAssigned as $assigned) {
@@ -280,8 +277,6 @@ class ClienteController extends Controller
                   }
                 }
                 if ($found === false) {
-                  dump($assigned);
-                  die();
                   $entity->removeAsignacion($assigned);
                   $em->persist($entity);
                 }
@@ -294,8 +289,6 @@ class ClienteController extends Controller
                       $found = true;
                     }
                   }
-                  dump($usuario);
-                  dump($found);
                   if ($found == false) {
                     $asignacion = new AsignacionCliente($usuario->getUsuario(), $entity);
                     $entity->addUsuarioAsignado($asignacion);
