@@ -34,7 +34,7 @@ class ActividadController extends Controller
 
         $entities = $em
         ->getRepository('AppBundle:Actividad')
-        ->findBy([], [], 100);
+        ->findBy([], ['id'=>'DESC'], 100);
 
         return array(
             'entities' => $entities,
