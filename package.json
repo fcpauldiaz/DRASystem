@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "R2": "^1.4.3",
-    "grunt": "^1.0.1",
+    "grunt": "^1.5.2",
     "grunt-bootlint": "^0.9.1",
     "grunt-concat-css": "^0.3.1",
     "grunt-contrib-clean": "^0.6.0",
