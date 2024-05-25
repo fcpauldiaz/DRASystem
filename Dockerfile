@@ -43,15 +43,13 @@ RUN sed -i 's|/var/www/html|/var/www/html/web|' /etc/apache2/sites-available/000
 # Copy application source
 COPY . /var/www/html
 
+# Optimize Composer for production
+RUN composer install --optimize-autoloader --no-interaction
+
 # Create cache and logs directories and set permissions
 RUN mkdir -p /var/www/html/var/cache /var/www/html/var/cache/prod  /var/www/html/var/logs \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/var/cache /var/www/html/var/cache/prod /var/www/html/var/logs
-
-# Optimize Composer for production
-RUN composer install --optimize-autoloader --no-interaction
-
-RUN php bin/console cache:clear --env=prod
 
 # Expose port 80
 EXPOSE 80
