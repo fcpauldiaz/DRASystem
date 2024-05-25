@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/${SYMFONY_ENV}.Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html

@@ -1,7 +1,5 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
-imports:
-    - { resource: amazon.php }
 
 parameters:
 #    parameter_name: value
@@ -40,8 +38,8 @@ services:
         arguments:
             -
                 credentials:
-                    key:      "%aws_key%"
-                    secret:   "%aws_secret_key%"
+                    key:      "SECRET"
+                    secret:   "KEY"
                 region:   "us-east-1"
                 version:  "latest"
     gedmo.listener.blameable:

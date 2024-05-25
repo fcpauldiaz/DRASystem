@@ -3,7 +3,7 @@
 /vendor/
 /composer.phar
 /node_modules/*
-
+.env
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

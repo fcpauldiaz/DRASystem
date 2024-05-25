@@ -3,6 +3,7 @@
   "description": "time control software",
   "license": "proprietary",
   "type": "project",
+  "version": "1.10.22",
   "autoload": {
     "psr-4": {
       "": "src/"
@@ -63,7 +64,7 @@
   },
   "require-dev": {
     "doctrine/data-fixtures": "^1.1",
-    "hautelook/alice-bundle": "^1.2",
+    "bettergist/hautelook-alice-bundlet": "^1.2",
     "symfony/phpunit-bridge": "^5.0"
   },
   "scripts": {
@@ -94,5 +95,11 @@
       "file": "app/config/parameters.yml"
     },
     "branch-alias": null
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/theofidry/AliceBundle"
+    }
+  ]
 }
