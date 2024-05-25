@@ -42,11 +42,9 @@ RUN sed -i 's|/var/www/html|/var/www/html/web|' /etc/apache2/sites-available/000
 
 # Copy application source
 COPY . /var/www/html
-USER root
-# Change ownership to www-data (Apache user) and correct permissions for Symfony
+
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chmod -R 775 /var/www/html/var/cache /var/www/html/var/logs
+    && chmod -R 777 /var/www/html/var/cache /var/www/html/var/logs
 
 # Optimize Composer for production
 RUN composer install --optimize-autoloader --no-interaction
